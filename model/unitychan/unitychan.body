@@ -1,0 +1,692 @@
+format: ChoreonoidBody
+formatVersion: 1.0
+angleUnit: degree
+name: unitychan
+rootLink: HIPS
+
+appearances:
+  - &MAT_LINK
+    material:
+      diffuseColor: [0.8, 0.8, 0.8]
+      transparency: 0.0
+
+links:
+  -
+    name: HIPS
+    jointType: free
+    translation: [0, 0, 0.9]
+    mass: 10.0
+    centerOfMass: [0, 0, 0]
+    inertia: [0.04, 0, 0,  0, 0.04, 0,  0, 0, 0.04]
+    elements:
+      -
+        type: ForceSensor
+        id: 2
+        name: bfsensor
+        translation: [0,0,0]
+        rotation: [0,1,0,0]
+      -
+        type: Shape
+        geometry: { type: Resource, uri: "Hips.stl" }
+        appearance: *MAT_LINK
+  -
+    name: CHEST_Y
+    parent: HIPS
+    jointType: revolute
+    jointId: 6
+    jointAxis: [0,0,1]
+    translation: [0, 0, 0.2]
+    rotation: [0, 0, 1, 0]
+    jointRange: [-30, 30]
+    jointVelocityRange: [-540, 540]
+    gearRatio: 1
+    rotorInertia: 1.0
+    mass: 5.0
+    centerOfMass: [0, 0, 0]
+    inertia: [0.02, 0, 0,  0, 0.02, 0,  0, 0, 0.02]
+    elements:
+      -
+        type: RateGyroSensor
+        name: gyrometer
+        id: 0
+      -
+        type: AccelerationSensor
+        name: gsensor
+        id: 0
+      -
+        type: Shape
+        geometry: { type: Resource, uri: "ChestY.stl" }
+        appearance: *MAT_LINK
+  -
+    name: CHEST_P
+    parent: CHEST_Y
+    jointType: revolute
+    jointId: 7
+    jointAxis: [0,1,0]
+    translation: [0, 0, 0]
+    rotation: [0, 1, 0, 0]
+    jointRange: [-30, 70]
+    jointVelocityRange: [-540, 540]
+    gearRatio: 1
+    rotorInertia: 1.0
+    mass: 5.0
+    centerOfMass: [0, 0, 0]
+    inertia: [0.02, 0, 0,  0, 0.02, 0,  0, 0, 0.02]
+    elements:
+      -
+        type: Shape
+        geometry: { type: Resource, uri: "ChestP.stl" }
+        appearance: *MAT_LINK
+  -
+    name: HEAD_Y
+    parent: CHEST_P
+    jointType: revolute
+    jointId: 14
+    jointAxis: [0,0,1]
+    translation: [0, 0, 0.3]
+    rotation: [0, 0, 1, 0]
+    jointRange: [-90, 90]
+    jointVelocityRange: [-540, 540]
+    gearRatio: 1
+    rotorInertia: 1.0
+    mass: 2.0
+    centerOfMass: [0, 0, 0]
+    inertia: [0.01, 0, 0,  0, 0.01, 0,  0, 0, 0.01]
+    elements:
+      -
+        type: Shape
+        geometry: { type: Resource, uri: "HeadY.stl" }
+        appearance: *MAT_LINK
+  -
+    name: HEAD_P
+    parent: HEAD_Y
+    jointType: revolute
+    jointId: 15
+    jointAxis: [0,1,0]
+    translation: [0, 0, 0]
+    rotation: [1, 0, 0, 0]
+    jointRange: [-30, 60]
+    jointVelocityRange: [-540, 540]
+    gearRatio: 1
+    rotorInertia: 1.0
+    mass: 2.0
+    centerOfMass: [0, 0, 0]
+    inertia: [0.01, 0, 0,  0, 0.01, 0,  0, 0, 0.01]
+    elements:
+      -
+        type: Shape
+        geometry: { type: Resource, uri: "HeadP.stl" }
+        appearance: *MAT_LINK
+  -
+    name: R_UPPERARM_P
+    parent: CHEST_P
+    jointType: revolute
+    jointId: 23
+    jointAxis: [0,1,0]
+    translation: [0.0, -0.1, 0.1]
+    rotation: [1, 0, 0, 0]
+    jointRange: [-180, 180]
+    jointVelocityRange: [-540, 540]
+    gearRatio: 1
+    rotorInertia: 1.0
+    mass: 0.5
+    centerOfMass: [0, 0, 0]
+    inertia: [0.0004, 0, 0,  0, 0.0004, 0,  0, 0, 0.0004]
+    elements:
+      -
+        type: Shape
+        geometry: { type: Resource, uri: "UpperarmP.stl" }
+        appearance: *MAT_LINK
+  -
+    name: R_UPPERARM_R
+    parent: R_UPPERARM_P
+    jointType: revolute
+    jointId: 24
+    jointAxis: [1,0,0]
+    translation: [0, 0, 0]
+    rotation: [0, 1, 0, 0]
+    jointRange: [-100, 10]
+    jointVelocityRange: [-540, 540]
+    gearRatio: 1
+    rotorInertia: 1.0
+    mass: 0.5
+    centerOfMass: [0, 0, 0]
+    inertia: [0.0004, 0, 0,  0, 0.0004, 0,  0, 0, 0.0004]
+    elements:
+      -
+        type: Shape
+        geometry: { type: Resource, uri: "UpperarmR.stl" }
+        appearance: *MAT_LINK
+  -
+    name: R_UPPERARM_Y
+    parent: R_UPPERARM_R
+    jointType: revolute
+    jointId: 25
+    jointAxis: [0,0,1]
+    translation: [0, 0, 0]
+    rotation: [0, 1, 0, 0]
+    jointRange: [-180, 180]
+    jointVelocityRange: [-540, 540]
+    gearRatio: 1
+    rotorInertia: 1.0
+    mass: 1.0
+    centerOfMass: [0, 0, -0.1]
+    inertia: [0.002, 0, 0,  0, 0.002, 0,  0, 0, 0.0004]
+    elements:
+      -
+        type: Shape
+        geometry: { type: Resource, uri: "UpperarmY.stl" }
+        appearance: *MAT_LINK
+
+  -
+    name: R_LOWERARM_P
+    parent: R_UPPERARM_Y
+    jointType: revolute
+    jointId: 26
+    jointAxis: [0,1,0]
+    translation: [0, 0, -0.2]
+    rotation: [0, 0, 1, 0]
+    jointRange: [-130, 0]
+    jointVelocityRange: [-540, 540]
+    gearRatio: 1
+    rotorInertia: 1.0
+    mass: 0.5
+    centerOfMass: [0, 0, 0]
+    inertia: [0.0004, 0, 0,  0, 0.0004, 0,  0, 0, 0.0004]
+    elements:
+      -
+        type: Shape
+        geometry: { type: Resource, uri: "LowerarmP.stl" }
+        appearance: *MAT_LINK
+
+  -
+    name: R_LOWERARM_Y
+    parent: R_LOWERARM_P
+    jointType: revolute
+    jointId: 27
+    jointAxis: [0,0,1]
+    translation: [0,0,0]
+    rotation: [0, 0, 1, 0]
+    jointRange: [-115, 115]
+    jointVelocityRange: [-540, 540]
+    gearRatio: 1
+    rotorInertia: 1.0
+    mass: 1.0
+    centerOfMass: [0, 0, -0.1]
+    inertia: [0.002, 0, 0,  0, 0.002, 0,  0, 0, 0.0004]
+    elements:
+      -
+        type: Shape
+        geometry: { type: Resource, uri: "LowerarmY.stl" }
+        appearance: *MAT_LINK
+  -
+    name: R_HAND_P
+    parent: R_LOWERARM_Y
+    jointType: revolute
+    jointId: 28
+    jointAxis: [0,1,0]
+    translation: [0, 0, -0.2]
+    rotation: [0, 0, 1, 0]
+    jointRange: [-90, 55]
+    jointVelocityRange: [-540, 540]
+    gearRatio: 1
+    rotorInertia: 1.0
+    mass: 0.5
+    centerOfMass: [0, 0, 0]
+    inertia: [0.0003, 0, 0,  0, 0.0003, 0,  0, 0, 0.0003]
+    elements:
+      -
+        type: Shape
+        geometry: { type: Resource, uri: "HandP.stl" }
+        appearance: *MAT_LINK
+  -
+    name: R_HAND_Y
+    parent: R_HAND_P
+    jointType: revolute
+    jointId: 29
+    jointAxis: [0,0,1]
+    translation: [0,0,0]
+    rotation: [0, 0, 1, 0]
+    jointRange: [-180, 180]
+    jointVelocityRange: [-540, 540]
+    gearRatio: 1
+    rotorInertia: 1.0
+    mass: 0.5
+    centerOfMass: [0, 0, 0]
+    inertia: [0.0003, 0, 0,  0, 0.0003, 0,  0, 0, 0.0003]
+    elements:
+      -
+        type: Shape
+        geometry: { type: Resource, uri: "HandY.stl" }
+        appearance: *MAT_LINK
+  -
+    name: L_UPPERARM_P
+    parent: CHEST_P
+    jointType: revolute
+    jointId: 16
+    jointAxis: [0,1,0]
+    translation: [0.0,  0.1, 0.1]
+    rotation: [1, 0, 0, 0]
+    jointRange: [-180, 180]
+    jointVelocityRange: [-540, 540]
+    gearRatio: 1
+    rotorInertia: 1.0
+    mass: 0.5
+    centerOfMass: [0, 0, 0]
+    inertia: [0.0004, 0, 0,  0, 0.0004, 0,  0, 0, 0.0004]
+    elements:
+      -
+        type: Shape
+        geometry: { type: Resource, uri: "UpperarmP.stl" }
+        appearance: *MAT_LINK
+  -
+    name: L_UPPERARM_R
+    parent: L_UPPERARM_P
+    jointType: revolute
+    jointId: 17
+    jointAxis: [1,0,0]
+    translation: [0, 0, 0]
+    rotation: [0, 1, 0, 0]
+    jointRange: [-10, 100]
+    jointVelocityRange: [-540, 540]
+    gearRatio: 1
+    rotorInertia: 1.0
+    mass: 0.5
+    centerOfMass: [0, 0, 0]
+    inertia: [0.0004, 0, 0,  0, 0.0004, 0,  0, 0, 0.0004]
+    elements:
+      -
+        type: Shape
+        geometry: { type: Resource, uri: "UpperarmR.stl" }
+        appearance: *MAT_LINK
+  -
+    name: L_UPPERARM_Y
+    parent: L_UPPERARM_R
+    jointType: revolute
+    jointId: 18
+    jointAxis: [0,0,1]
+    translation: [0, 0, 0]
+    rotation: [0, 1, 0, 0]
+    jointRange: [-180, 180]
+    jointVelocityRange: [-540, 540]
+    gearRatio: 1
+    rotorInertia: 1.0
+    mass: 1.0
+    centerOfMass: [0, 0, -0.1]
+    inertia: [0.002, 0, 0,  0, 0.002, 0,  0, 0, 0.0004]
+    elements:
+      -
+        type: Shape
+        geometry: { type: Resource, uri: "UpperarmY.stl" }
+        appearance: *MAT_LINK
+  -
+    name: L_LOWERARM_P
+    parent: L_UPPERARM_Y
+    jointType: revolute
+    jointId: 19
+    jointAxis: [0,1,0]
+    translation: [0, 0, -0.2]
+    rotation: [0, 0, 1, 0]
+    jointRange: [-130, 0]
+    jointVelocityRange: [-540, 540]
+    gearRatio: 1
+    rotorInertia: 1.0
+    mass: 0.5
+    centerOfMass: [0, 0, 0]
+    inertia: [0.0004, 0, 0,  0, 0.0004, 0,  0, 0, 0.0004]
+    elements:
+      -
+        type: Shape
+        geometry: { type: Resource, uri: "LowerarmP.stl" }
+        appearance: *MAT_LINK
+  -
+    name: L_LOWERARM_Y
+    parent: L_LOWERARM_P
+    jointType: revolute
+    jointId: 20
+    jointAxis: [0,0,1]
+    translation: [0,0,0]
+    rotation: [0, 0, 1, 0]
+    jointRange: [-115, 115]
+    jointVelocityRange: [-540, 540]
+    gearRatio: 1
+    rotorInertia: 1.0
+    mass: 1.0
+    centerOfMass: [0, 0, -0.1]
+    inertia: [0.002, 0, 0,  0, 0.002, 0,  0, 0, 0.0004]
+    elements:
+      -
+        type: Shape
+        geometry: { type: Resource, uri: "LowerarmY.stl" }
+        appearance: *MAT_LINK
+  -
+    name: L_HAND_P
+    parent: L_LOWERARM_Y
+    jointType: revolute
+    jointId: 21
+    jointAxis: [0,1,0]
+    translation: [0, 0, -0.2]
+    rotation: [0, 0, 1, 0]
+    jointRange: [-90, 55]
+    jointVelocityRange: [-540, 540]
+    gearRatio: 1
+    rotorInertia: 1.0
+    mass: 0.5
+    centerOfMass: [0, 0, 0]
+    inertia: [0.0003, 0, 0,  0, 0.0003, 0,  0, 0, 0.0003]
+    elements:
+      -
+        type: Shape
+        geometry: { type: Resource, uri: "HandP.stl" }
+        appearance: *MAT_LINK
+  -
+    name: L_HAND_Y
+    parent: L_HAND_P
+    jointType: revolute
+    jointId: 22
+    jointAxis: [0,0,1]
+    translation: [0,0,0]
+    rotation: [0, 0, 1, 0]
+    jointRange: [-180, 180]
+    jointVelocityRange: [-540, 540]
+    gearRatio: 1
+    rotorInertia: 1.0
+    mass: 0.5
+    centerOfMass: [0, 0, 0]
+    inertia: [0.0003, 0, 0,  0, 0.0003, 0,  0, 0, 0.0003]
+    elements:
+      -
+        type: Shape
+        geometry: { type: Resource, uri: "HandY.stl" }
+        appearance: *MAT_LINK
+  -
+    name: R_UPPERLEG_Y
+    parent: HIPS
+    jointType: revolute
+    jointId: 8
+    jointAxis: [0,0,1]
+    translation: [0, -0.1, -0.1]
+    rotation: [0, 0, 1, 0]
+    jointRange: [-180, 180]
+    jointVelocityRange: [-540, 540]
+    gearRatio: 1
+    rotorInertia: 1.0
+    mass: 0.5
+    centerOfMass: [0, 0, 0]
+    inertia: [0.0003, 0, 0,  0, 0.0003, 0,  0, 0, 0.0003]
+    elements:
+      -
+        type: Shape
+        geometry: { type: Resource, uri: "UpperlegY.stl" }
+        appearance: *MAT_LINK
+  -
+    name: R_UPPERLEG_R
+    parent: R_UPPERLEG_Y
+    jointType: revolute
+    jointId: 9
+    jointAxis: [1,0,0]
+    translation: [0,0,0]
+    rotation: [1, 0, 0, 0]
+    jointRange: [-30, 30]
+    jointVelocityRange: [-540, 540]
+    gearRatio: 1
+    rotorInertia: 1.0
+    mass: 0.5
+    centerOfMass: [0, 0, 0]
+    inertia: [0.0003, 0, 0,  0, 0.0003, 0,  0, 0, 0.0003]
+    elements:
+      -
+        type: Shape
+        geometry: { type: Resource, uri: "UpperlegR.stl" }
+        appearance: *MAT_LINK
+  -
+    name: R_UPPERLEG_P
+    parent: R_UPPERLEG_R
+    jointType: revolute
+    jointId: 10
+    jointAxis: [0,1,0]
+    translation: [0, 0, 0]
+    rotation: [0, 1, 0, 0]
+    jointRange: [-110, 30]
+    jointVelocityRange: [-540, 540]
+    gearRatio: 1
+    rotorInertia: 1.0
+    mass:      1.5
+    centerOfMass: [0, 0, -0.15]
+    inertia: [0.01, 0, 0,  0, 0.01, 0,  0, 0, 0.001]
+    elements:
+      -
+        type: Shape
+        geometry: { type: Resource, uri: "UpperlegP.stl" }
+        appearance: *MAT_LINK
+  -
+    name: R_LOWERLEG_P
+    parent: R_UPPERLEG_P
+    jointType: revolute
+    jointId: 11
+    jointAxis: [0,1,0]
+    translation: [0, 0, -0.3]
+    rotation: [0, 1, 0, 0]
+    jointRange: [0, 140]
+    jointVelocityRange: [-720, 720]
+    gearRatio: 1
+    rotorInertia: 1.0
+    mass:      1.5
+    centerOfMass: [0, 0, -0.2]
+    inertia: [0.02, 0, 0,  0, 0.02, 0,  0, 0, 0.002]
+    elements:
+      -
+        type: Shape
+        geometry: { type: Resource, uri: "LowerlegP.stl" }
+        appearance: *MAT_LINK
+  -
+    name: R_FOOT_R
+    parent: R_LOWERLEG_P
+    jointType: revolute
+    jointId: 12
+    jointAxis: [1,0,0]
+    translation: [0, 0, -0.4]
+    rotation: [0, 1, 0, 0]
+    jointRange: [-30, 30]
+    jointVelocityRange: [-540, 540]
+    gearRatio: 1
+    rotorInertia: 1.0
+    mass: 0.5
+    centerOfMass: [0, 0, 0]
+    inertia: [0.0003, 0, 0,  0, 0.0003, 0,  0, 0, 0.0003]
+    elements:
+      -
+        type: Shape
+        geometry: { type: Resource, uri: "FootR.stl" }
+        appearance: *MAT_LINK
+  -
+    name: R_FOOT_P
+    parent: R_FOOT_R
+    jointType: revolute
+    jointId: 13
+    jointAxis: [0,1,0]
+    translation: [0,0,0]
+    rotation: [1, 0, 0, 0]
+    jointRange: [-100, 40]
+    jointVelocityRange: [-540, 540]
+    gearRatio: 1
+    rotorInertia: 1.0
+    mass: 0.5
+    centerOfMass: [0, 0, 0]
+    inertia: [0.0003, 0, 0,  0, 0.001, 0,  0, 0, 0.001]
+    elements:
+      -
+        type: ForceSensor
+        id: 0
+        name: rfsensor
+        translation: [0,0,-0.05]
+        rotation: [0,1,0,0]
+      -
+        type: Shape
+        geometry: { type: Resource, uri: "FootP_flat.stl" }
+        appearance: *MAT_LINK
+  -
+    name: L_UPPERLEG_Y
+    parent: HIPS
+    jointType: revolute
+    jointId: 0
+    jointAxis: [0,0,1]
+    translation: [0, 0.1, -0.1]
+    rotation: [0, 0, 1, 0]
+    jointRange: [-180, 180]
+    jointVelocityRange: [-540, 540]
+    gearRatio: 1
+    rotorInertia: 1.0
+    mass: 0.5
+    centerOfMass: [0, 0, 0]
+    inertia: [0.0003, 0, 0,  0, 0.0003, 0,  0, 0, 0.0003]
+    elements:
+      -
+        type: Shape
+        geometry: { type: Resource, uri: "UpperlegY.stl" }
+        appearance: *MAT_LINK
+  -
+    name: L_UPPERLEG_R
+    parent: L_UPPERLEG_Y
+    jointType: revolute
+    jointId: 1
+    jointAxis: [1,0,0]
+    translation: [0,0,0]
+    rotation: [1, 0, 0, 0]
+    jointRange: [-30, 30]
+    jointVelocityRange: [-540, 540]
+    gearRatio: 1
+    rotorInertia: 1.0
+    mass: 0.5
+    centerOfMass: [0, 0, 0]
+    inertia: [0.0003, 0, 0,  0, 0.0003, 0,  0, 0, 0.0003]
+    elements:
+      -
+        type: Shape
+        geometry: { type: Resource, uri: "UpperlegR.stl" }
+        appearance: *MAT_LINK
+  -
+    name: L_UPPERLEG_P
+    parent: L_UPPERLEG_R
+    jointType: revolute
+    jointId: 2
+    jointAxis: [0,1,0]
+    translation: [0, 0, 0]
+    rotation: [0, 1, 0, 0]
+    jointRange: [-110, 30]
+    jointVelocityRange: [-540, 540]
+    gearRatio: 1
+    rotorInertia: 1.0
+    mass:      1.5
+    centerOfMass: [0, 0, -0.15]
+    inertia: [0.01, 0, 0,  0, 0.01, 0,  0, 0, 0.001]
+    elements:
+      -
+        type: Shape
+        geometry: { type: Resource, uri: "UpperlegP.stl" }
+        appearance: *MAT_LINK
+  -
+    name: L_LOWERLEG_P
+    parent: L_UPPERLEG_P
+    jointType: revolute
+    jointId: 3
+    jointAxis: [0,1,0]
+    translation: [0, 0, -0.3]
+    rotation: [0, 1, 0, 0]
+    jointRange: [0, 140]
+    jointVelocityRange: [-720, 720]
+    gearRatio: 1
+    rotorInertia: 1.0
+    mass:      1.5
+    centerOfMass: [0, 0, -0.2]
+    inertia: [0.02, 0, 0,  0, 0.02, 0,  0, 0, 0.002]
+    elements:
+      -
+        type: Shape
+        geometry: { type: Resource, uri: "LowerlegP.stl" }
+        appearance: *MAT_LINK
+  -
+    name: L_FOOT_R
+    parent: L_LOWERLEG_P
+    jointType: revolute
+    jointId: 4
+    jointAxis: [1,0,0]
+    translation: [0, 0, -0.4]
+    rotation: [0, 1, 0, 0]
+    jointRange: [-30, 30]
+    jointVelocityRange: [-540, 540]
+    gearRatio: 1
+    rotorInertia: 1.0
+    mass: 0.5
+    centerOfMass: [0, 0, 0]
+    inertia: [0.0003, 0, 0,  0, 0.0003, 0,  0, 0, 0.0003]
+    elements:
+      -
+        type: Shape
+        geometry: { type: Resource, uri: "FootR.stl" }
+        appearance: *MAT_LINK
+  -
+    name: L_FOOT_P
+    parent: L_FOOT_R
+    jointType: revolute
+    jointId: 5
+    jointAxis: [0,1,0]
+    translation: [0,0,0]
+    rotation: [1, 0, 0, 0]
+    jointRange: [-100, 40]
+    jointVelocityRange: [-540, 540]
+    gearRatio: 1
+    rotorInertia: 1.0
+    mass: 0.5
+    centerOfMass: [0, 0, 0]
+    inertia: [0.0003, 0, 0,  0, 0.001, 0,  0, 0, 0.001]
+    elements:
+      -
+        type: ForceSensor
+        id: 1
+        name: lfsensor
+        translation: [0,0,-0.05]
+        rotation: [0,1,0,0]
+      -
+        type: Shape
+        geometry: { type: Resource, uri: "FootP_flat.stl" }
+        appearance: *MAT_LINK
+
+  - { name: FOOTSTEP0,   parent: HIPS, jointType: free, elements: [ { type: Shape, geometry: { type: Box, size: [0.2, 0.1, 0.01] }, appearance: { material: {diffuseColor: [0.0, 0.0, 1.0], transparency: 0.5} } } ] }
+  - { name: FOOTSTEP1,   parent: HIPS, jointType: free, elements: [ { type: Shape, geometry: { type: Box, size: [0.2, 0.1, 0.01] }, appearance: { material: {diffuseColor: [0.0, 0.0, 1.0], transparency: 0.5} } } ] }
+  - { name: FOOTSTEP2,   parent: HIPS, jointType: free, elements: [ { type: Shape, geometry: { type: Box, size: [0.2, 0.1, 0.01] }, appearance: { material: {diffuseColor: [0.0, 0.0, 1.0], transparency: 0.5} } } ] }
+  - { name: FOOTSTEP3,   parent: HIPS, jointType: free, elements: [ { type: Shape, geometry: { type: Box, size: [0.2, 0.1, 0.01] }, appearance: { material: {diffuseColor: [0.0, 0.0, 1.0], transparency: 0.5} } } ] }
+  - { name: FOOTSTEP4,   parent: HIPS, jointType: free, elements: [ { type: Shape, geometry: { type: Box, size: [0.2, 0.1, 0.01] }, appearance: { material: {diffuseColor: [0.0, 0.0, 1.0], transparency: 0.5} } } ] }
+  - { name: FOOTSTEP5,   parent: HIPS, jointType: free, elements: [ { type: Shape, geometry: { type: Box, size: [0.2, 0.1, 0.01] }, appearance: { material: {diffuseColor: [0.0, 0.0, 1.0], transparency: 0.5} } } ] }
+  - { name: FOOTSTEP6,   parent: HIPS, jointType: free, elements: [ { type: Shape, geometry: { type: Box, size: [0.2, 0.1, 0.01] }, appearance: { material: {diffuseColor: [0.0, 0.0, 1.0], transparency: 0.5} } } ] }
+  - { name: FOOTSTEP7,   parent: HIPS, jointType: free, elements: [ { type: Shape, geometry: { type: Box, size: [0.2, 0.1, 0.01] }, appearance: { material: {diffuseColor: [0.0, 0.0, 1.0], transparency: 0.5} } } ] }
+  - { name: FOOTSTEP8,   parent: HIPS, jointType: free, elements: [ { type: Shape, geometry: { type: Box, size: [0.2, 0.1, 0.01] }, appearance: { material: {diffuseColor: [0.0, 0.0, 1.0], transparency: 0.5} } } ] }
+  - { name: FOOTSTEP9,   parent: HIPS, jointType: free, elements: [ { type: Shape, geometry: { type: Box, size: [0.2, 0.1, 0.01] }, appearance: { material: {diffuseColor: [0.0, 0.0, 1.0], transparency: 0.5} } } ] }
+  - { name: FOOTSTEP10,  parent: HIPS, jointType: free, elements: [ { type: Shape, geometry: { type: Box, size: [0.2, 0.1, 0.01] }, appearance: { material: {diffuseColor: [0.0, 0.0, 1.0], transparency: 0.5} } } ] }
+  - { name: FOOTSTEP11,  parent: HIPS, jointType: free, elements: [ { type: Shape, geometry: { type: Box, size: [0.2, 0.1, 0.01] }, appearance: { material: {diffuseColor: [0.0, 0.0, 1.0], transparency: 0.5} } } ] }
+  - { name: FOOTSTEP12,  parent: HIPS, jointType: free, elements: [ { type: Shape, geometry: { type: Box, size: [0.2, 0.1, 0.01] }, appearance: { material: {diffuseColor: [0.0, 0.0, 1.0], transparency: 0.5} } } ] }
+  - { name: FOOTSTEP13,  parent: HIPS, jointType: free, elements: [ { type: Shape, geometry: { type: Box, size: [0.2, 0.1, 0.01] }, appearance: { material: {diffuseColor: [0.0, 0.0, 1.0], transparency: 0.5} } } ] }
+  - { name: FOOTSTEP14,  parent: HIPS, jointType: free, elements: [ { type: Shape, geometry: { type: Box, size: [0.2, 0.1, 0.01] }, appearance: { material: {diffuseColor: [0.0, 0.0, 1.0], transparency: 0.5} } } ] }
+  - { name: STEP0,       parent: HIPS, jointType: free, elements: [ { type: Shape, geometry: { type: Box, size: [0.2, 0.1, 0.01] }, appearance: { material: {diffuseColor: [0.0, 1.0, 0.0], transparency: 0.5} } } ] }
+  - { name: STEP1,       parent: HIPS, jointType: free, elements: [ { type: Shape, geometry: { type: Box, size: [0.2, 0.1, 0.01] }, appearance: { material: {diffuseColor: [0.0, 1.0, 0.0], transparency: 0.5} } } ] }
+  - { name: ZMP  ,       parent: HIPS, jointType: free, elements: [ { type: Shape, geometry: { type: Sphere, radius: 0.025 }, appearance: { material: {diffuseColor: [1.0, 0.0, 0.0], transparency: 0.5} } } ] }
+  - { name: ICP  ,       parent: HIPS, jointType: free, elements: [ { type: Shape, geometry: { type: Sphere, radius: 0.025 }, appearance: { material: {diffuseColor: [0.0, 1.0, 0.0], transparency: 0.5} } } ] }
+  - { name: DURATION0,   parent: HIPS, jointType: free, elements: [ { type: Transform, rotation: [1, 0, 0, 90], elements: [ { type: Shape, geometry: { type: Cylinder, radius: 0.05, height: 0.05, bottom: true, top: true }, appearance: { material: {diffuseColor: [0.0, 1.0, 0.0], transparency: 0.5} } } ] } ] }
+  - { name: DURATION1,   parent: HIPS, jointType: free, elements: [ { type: Transform, rotation: [1, 0, 0, 90], elements: [ { type: Shape, geometry: { type: Cylinder, radius: 0.05, height: 0.05, bottom: true, top: true }, appearance: { material: {diffuseColor: [0.0, 1.0, 0.0], transparency: 0.5} } } ] } ] }
+  - { name: DURATION2,   parent: HIPS, jointType: free, elements: [ { type: Transform, rotation: [1, 0, 0, 90], elements: [ { type: Shape, geometry: { type: Cylinder, radius: 0.05, height: 0.05, bottom: true, top: true }, appearance: { material: {diffuseColor: [0.0, 1.0, 0.0], transparency: 0.5} } } ] } ] }
+  - { name: DURATION3,   parent: HIPS, jointType: free, elements: [ { type: Transform, rotation: [1, 0, 0, 90], elements: [ { type: Shape, geometry: { type: Cylinder, radius: 0.05, height: 0.05, bottom: true, top: true }, appearance: { material: {diffuseColor: [0.0, 1.0, 0.0], transparency: 0.5} } } ] } ] }
+  - { name: DURATION4,   parent: HIPS, jointType: free, elements: [ { type: Transform, rotation: [1, 0, 0, 90], elements: [ { type: Shape, geometry: { type: Cylinder, radius: 0.05, height: 0.05, bottom: true, top: true }, appearance: { material: {diffuseColor: [0.0, 1.0, 0.0], transparency: 0.5} } } ] } ] }
+  - { name: DURATION5,   parent: HIPS, jointType: free, elements: [ { type: Transform, rotation: [1, 0, 0, 90], elements: [ { type: Shape, geometry: { type: Cylinder, radius: 0.05, height: 0.05, bottom: true, top: true }, appearance: { material: {diffuseColor: [0.0, 1.0, 0.0], transparency: 0.5} } } ] } ] }
+  - { name: DURATION6,   parent: HIPS, jointType: free, elements: [ { type: Transform, rotation: [1, 0, 0, 90], elements: [ { type: Shape, geometry: { type: Cylinder, radius: 0.05, height: 0.05, bottom: true, top: true }, appearance: { material: {diffuseColor: [0.0, 1.0, 0.0], transparency: 0.5} } } ] } ] }
+  - { name: DURATION7,   parent: HIPS, jointType: free, elements: [ { type: Transform, rotation: [1, 0, 0, 90], elements: [ { type: Shape, geometry: { type: Cylinder, radius: 0.05, height: 0.05, bottom: true, top: true }, appearance: { material: {diffuseColor: [0.0, 1.0, 0.0], transparency: 0.5} } } ] } ] }
+  - { name: DURATION8,   parent: HIPS, jointType: free, elements: [ { type: Transform, rotation: [1, 0, 0, 90], elements: [ { type: Shape, geometry: { type: Cylinder, radius: 0.05, height: 0.05, bottom: true, top: true }, appearance: { material: {diffuseColor: [0.0, 1.0, 0.0], transparency: 0.5} } } ] } ] }
+  - { name: DURATION9,   parent: HIPS, jointType: free, elements: [ { type: Transform, rotation: [1, 0, 0, 90], elements: [ { type: Shape, geometry: { type: Cylinder, radius: 0.05, height: 0.05, bottom: true, top: true }, appearance: { material: {diffuseColor: [0.0, 1.0, 0.0], transparency: 0.5} } } ] } ] }
+  - { name: DURATION10,  parent: HIPS, jointType: free, elements: [ { type: Transform, rotation: [1, 0, 0, 90], elements: [ { type: Shape, geometry: { type: Cylinder, radius: 0.05, height: 0.05, bottom: true, top: true }, appearance: { material: {diffuseColor: [0.0, 1.0, 0.0], transparency: 0.5} } } ] } ] }
+  - { name: DURATION11,  parent: HIPS, jointType: free, elements: [ { type: Transform, rotation: [1, 0, 0, 90], elements: [ { type: Shape, geometry: { type: Cylinder, radius: 0.05, height: 0.05, bottom: true, top: true }, appearance: { material: {diffuseColor: [0.0, 1.0, 0.0], transparency: 0.5} } } ] } ] }
+  - { name: DURATION12,  parent: HIPS, jointType: free, elements: [ { type: Transform, rotation: [1, 0, 0, 90], elements: [ { type: Shape, geometry: { type: Cylinder, radius: 0.05, height: 0.05, bottom: true, top: true }, appearance: { material: {diffuseColor: [0.0, 1.0, 0.0], transparency: 0.5} } } ] } ] }
+  - { name: DURATION13,  parent: HIPS, jointType: free, elements: [ { type: Transform, rotation: [1, 0, 0, 90], elements: [ { type: Shape, geometry: { type: Cylinder, radius: 0.05, height: 0.05, bottom: true, top: true }, appearance: { material: {diffuseColor: [0.0, 1.0, 0.0], transparency: 0.5} } } ] } ] }
+  - { name: DURATION14,  parent: HIPS, jointType: free, elements: [ { type: Transform, rotation: [1, 0, 0, 90], elements: [ { type: Shape, geometry: { type: Cylinder, radius: 0.05, height: 0.05, bottom: true, top: true }, appearance: { material: {diffuseColor: [0.0, 1.0, 0.0], transparency: 0.5} } } ] } ] }
+  
+collisionDetection:
+  excludeTreeDepth: 30
+  excludeLinks: [ FOOTSTEP0 ]
