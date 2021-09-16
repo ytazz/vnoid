@@ -1,4 +1,4 @@
-![top image](/robot.png "Top Image")
+![top image](fig/robot.png "Top Image")
 
 ## Aim of this challenge
 
