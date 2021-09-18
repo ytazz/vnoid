@@ -23,6 +23,30 @@ perform acrobatic movements.
 
 ## Rules
 
+Choreonoid (<choreonoid.org>) is used the simulation environment of this challenge.
+Each team designs a robot model in the .body format of Choreonoid that complies with the regulation detailed below.
+It also implements the controller of the robot using the SimpleController interface of Choreonoid.
+
+### Creation of robot model
+
+- number of joints must not exceed 50.
+- the type of joints may be revolute or prismatic.
+- the total mass of the robot must be between 50-100 [kg].
+- at the initial posture, the robot must be inside the box of X x Y x Z = 70cm x 70cm x 200cm.
+
+### Implementation of controller
+
+#### Actuation
+- the actuation mode of each joint may be either Velocity or Torque.
+  torque mode is recommended for stable simulation.
+
+
+### Detailed simulator setting
+
+We use AISTsimulator physics engine for simulation.
+Use of other simulators is not allowed in this challenge.
+
+
 
 
 ## Quick Start
