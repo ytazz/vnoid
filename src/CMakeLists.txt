@@ -10,10 +10,10 @@ set(VNOID_SOURCES
 	"robot.cpp"
 	)
 
-add_cnoid_library(vnoid
+add_cnoid_library(vnoid_lib
  ${VNOID_HEADERS}
  ${VNOID_SOURCES}
  )
 
-target_link_libraries(vnoid CnoidBody)
+target_link_libraries(vnoid_lib CnoidBody)
 

@@ -10,14 +10,11 @@
 #include "myrobot.h"
 
 using namespace cnoid;
-using namespace cnoid::BipedCnoid;
+using namespace cnoid::vnoid;
 
-const char* confFilename = "../share/project/BipedAvoid.conf.xml";
-
-class BipedAvoid : public SimpleController{
+class VnoidSampleController : public SimpleController{
 public:
 	MyRobot*  robot;
-    int       robotIndex;  //< 0: robot,  1,2,3...: obstacle
 
 public:
     virtual bool configure(SimpleControllerConfig* config){
@@ -44,4 +41,4 @@ public:
 		return true;
 	}
 };
-CNOID_IMPLEMENT_SIMPLE_CONTROLLER_FACTORY(BipedAvoid)
+CNOID_IMPLEMENT_SIMPLE_CONTROLLER_FACTORY(VnoidSampleController)
