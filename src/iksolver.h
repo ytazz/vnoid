@@ -5,14 +5,18 @@
 namespace cnoid{
 namespace vnoid{
 
-class Robot;
-
+/* 
+ * 
+ * computes inverse kinematics for "standard" kinematic model.
+ * see accompanying document for derivation.
+ * 
+ */
 class IkSolver{
 public:
-	virtual void Init() = 0;
-	virtual void Comp(Robot* robot, double dt) = 0;
+	void CompLegIk(const Vector3& pos, const Quaternion& ori, double l1, double l2, vector<double>& q);
+    void CompArmIk(const Vector3& pos, const Quaternion& ori, double l1, double l2, vector<double>& q);
 
-};
+};&
 
 }
 }

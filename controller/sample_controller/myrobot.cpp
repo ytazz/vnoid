@@ -5,8 +5,7 @@ using namespace std;
 namespace cnoid{
 namespace vnoid{
 
-MyRobot::MyRobot(int idx){
-    index = idx;
+MyRobot::MyRobot(){
 
 }
 

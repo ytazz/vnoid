@@ -18,18 +18,11 @@ public:
 
 public:
     virtual bool configure(SimpleControllerConfig* config){
-        string opt = config->optionString();
-        Converter::FromString(opt, robotIndex);
-
         return true;
     }
 
 	virtual bool initialize(SimpleControllerIO* io){
-		XML xml;
-		xml.Load(confFilename);
-
-		robot = new MyRobot(robotIndex);
-		robot->Read(xml.GetRootNode()->GetNode("robot", robotIndex));
+		robot = new MyRobot();
 		robot->Init(io);
 
 		return true;
@@ -41,4 +34,5 @@ public:
 		return true;
 	}
 };
+
 CNOID_IMPLEMENT_SIMPLE_CONTROLLER_FACTORY(VnoidSampleController)
