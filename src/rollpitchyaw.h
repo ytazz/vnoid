@@ -1,8 +1,9 @@
 #pragma once
 
-#include <sbtypes.h>
+#include <cnoid/EigenTypes>
 
-namespace Scenebuilder{;
+namespace cnoid{
+namespace vnoid{
 
 /** 
    conversion between roll-pitch-yaw and quaternion
@@ -10,21 +11,10 @@ namespace Scenebuilder{;
  **/
 
 // quaternion to roll-pitch-yaw
-vec3_t ToRollPitchYaw  (const quat_t& q     );
+Vector3 ToRollPitchYaw(const Quaternion& q);
 
 // roll-pitch-yaw to quaternion
-quat_t FromRollPitchYaw(const vec3_t& angles);
+Quaternion FromRollPitchYaw(const Vector3& angles);
 
-// angular velocity to time derivative of roll-pitch-yaw
-vec3_t VelocityToRollPitchYaw  (const vec3_t& angvel);
-
-// time derivative of roll-pitch-yaw to angular velocity
-vec3_t VelocityFromRollPitchYaw(const vec3_t& vel   );
-
-// quaternion to axis-angle
-vec3_t ToAxisAngle(const quat_t& q);
-
-// axis-angle to quaternion
-quat_t FromAxisAngle(const vec3_t& v);
-
+}
 }
