@@ -10,11 +10,14 @@ namespace vnoid{
 
 class MyRobot : public Robot{
 public:
-    double        planPeriod;
-	double        minStepDuration;
-    double        spacing;
+    double    standby_period;      ///< period of initial standby mode
+	double    standby_com_height;  ///< com height in standby mode
 
-    double        lastPlanTime;
+    double    planPeriod;
+	double    minStepDuration;
+    double    spacing;
+
+    double    lastPlanTime;
 
 public:
 	virtual void  Init   (SimpleControllerIO* io);

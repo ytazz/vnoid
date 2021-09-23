@@ -1,5 +1,8 @@
 ﻿#include "stepping_controller.h"
 
+#include "robot.h"
+#include "rollpitchyaw.h"
+
 namespace cnoid{
 namespace vnoid{
 
@@ -23,18 +26,14 @@ void SteppingController::Init(const Robot& robot, const Footstep& footstep){
 	zmp_diff    = Vector3(0.0, 0.0, 0.0);
 }
 
-void SteppingController::FromRobot(){
-	// do nothing during standby
-	if(robot->time < standby_period)
-		return;
+void SteppingController::FromRobot(const Robot& robot, Footstep& footstep){
+	double t = std::max(0.0, robot.time - standby_period);
 
-	double t = std::max(0.0, robot->time - standby_period);
-
-	if(t >= tswitch + cur_step[0].duration && steps.size() > 1){
+	if(t >= tswitch + cur_step[0].duration && footstep.size() > 1){
 		step_count++;
-		steps.pop_front();
+		footstep.pop_front();
 		
-		if(steps.size() == 1){
+		if(footstep.size() == 1){
 			printf("end of footstep reached\n");
 			return;
 		}
@@ -42,8 +41,8 @@ void SteppingController::FromRobot(){
 		cur_step[0].side = !cur_step[0].side;
 
 		// determine next landing position
-		Step& st0 = steps[0];
-		Step& st1 = steps[1];
+		Step& st0 = footstep[0];
+		Step& st1 = footstep[1];
 		int sup =  cur_step[0].side;
 		int swg = !cur_step[0].side;
 
@@ -65,84 +64,109 @@ void SteppingController::FromRobot(){
 	}
 }
 
-void SteppingController::ToRobot(){
-	double t = std::max(0.0, robot->time - standby_period);
+void SteppingController::CalcSwing(double t, Vector3& pos, double& ori, Vector3& vel, double& angvel) {
+	/*
+    // no swing movement if foothold does not change
+	if(p_swg == p_land && r_swg == r_land){
+		p = p_swg;
+		r = r_swg;
+		v = vec2_t();
+		w = 0.0;
+		return;
+	}
+	// after landing
+	real_t tau_travel = duration - dsp_duration;
+	if(t > tau_travel){
+		p = p_land;
+		v = vec2_t();
+		r = r_land;
+		w = 0.0;
+		return;
+	}
 
+	if(type == Type::Spline){
+		p = InterpolatePos(t,
+			0.0       , p_swg , v_swg,
+			tau_travel, p_land, vec2_t(),
+			Interpolate::Cubic);
+		v = InterpolateVel(t,
+			0.0       , p_swg , v_swg,
+			tau_travel, p_land, vec2_t(),
+			Interpolate::Cubic);
+
+		r = InterpolatePos(t,
+			0.0       , r_swg , w_swg,
+			tau_travel, r_land, 0.0,
+			Interpolate::Cubic);
+		w = InterpolateVel(t,
+			0.0       , r_swg , w_swg,
+			tau_travel, r_land, 0.0,
+			Interpolate::Cubic);
+
+	}
+    */
+}
+
+void SteppingController::ToRobot(Robot& robot, const Footstep& footstep){
 	int sup =  cur_step[0].side;
 	int swg = !cur_step[0].side;
 
-	if(robot->time > standby_period){
-		if(steps.size() == 1){
+	// update swing foot position
+	CalcSwing(t - tswitch, 
+        cur_step[0].foot_pos   [swg],
+        cur_step[0].foot_ori   [swg],
+        cur_step[0].foot_vel   [swg],
+        cur_step[0].foot_angvel[swg]);
 
-		}
-		else{
-			// update swing foot position
-			Vector2 pf, vf;
-			double  rf, wf;
-			double  vz;
-			swing->GetTraj(t - tswitch, pf, rf, vf, wf);
-			swing->GetVerticalVelocity(pf, vf, cur_step[0].foot_pos[swg][2], vz);
+	// calc zmp 
+	if(cur_step[0].duration - (t - tswitch) > 0.001){
+		double alpha = exp((cur_step[0].duration - (t - tswitch))/robot.T);
+		zmp_ref = (cur_step[1].dcm - alpha*dcm_ref)/(1.0 - alpha);
 
-			cur_step[0].foot_pos   [swg][0]  = pf.x();
-			cur_step[0].foot_pos   [swg][1]  = pf.y();
-			cur_step[0].foot_pos   [swg][2] += vz*robot->dt;
-			cur_step[0].foot_ori   [swg]     = rf;
-			cur_step[0].foot_vel   [swg][0]  = vf.x();
-			cur_step[0].foot_vel   [swg][1]  = vf.y();
-			cur_step[0].foot_vel   [swg][2]  = vz;
-			cur_step[0].foot_angvel[swg]     = wf;
-
-			// calc zmp 
-			if(cur_step[0].duration - (t - tswitch) > 0.001){
-				double alpha = exp((cur_step[0].duration - (t - tswitch))/robot->T);
-				zmp_ref = (cur_step[1].dcm - alpha*dcm_ref)/(1.0 - alpha);
-
-				// K=2 just flips the sign of dcm dynamics (thus make it stable)
-				zmp_diff = 2.0*dcm_diff;
-			}
-
-			// update references
-    		com_pos_ref += com_vel_ref * robot->dt;
-			com_vel_ref += com_acc_ref * robot->dt;
-			com_acc_ref  = Vector3(
-				(1.0/(robot->T*robot->T))*(com_pos_ref[0] - zmp_ref[0]),
-				(1.0/(robot->T*robot->T))*(com_pos_ref[1] - zmp_ref[1]),
-				0.0);
-
-			base_ori    = (cur_step[0].foot_ori[sup] + cur_step[0].foot_ori[swg])/2.0;
-			base_angvel =  cur_step[0].foot_angvel[swg]/2.0;
-
-			dcm_ref  = com_pos_ref + robot->T*com_vel_ref;
-		}
+		// K=2 just flips the sign of dcm dynamics (thus make it stable)
+		zmp_diff = 2.0*dcm_diff;
 	}
+
+	// update references
+    com_pos_ref += com_vel_ref * robot.dt;
+	com_vel_ref += com_acc_ref * robot.dt;
+	com_acc_ref  = Vector3(
+		(1.0/(robot.T*robot.T))*(com_pos_ref[0] - zmp_ref[0]),
+		(1.0/(robot.T*robot.T))*(com_pos_ref[1] - zmp_ref[1]),
+		0.0);
+
+	base_ori    = (cur_step[0].foot_ori[sup] + cur_step[0].foot_ori[swg])/2.0;
+	base_angvel =  cur_step[0].foot_angvel[swg]/2.0;
+
+	dcm_ref  = com_pos_ref + robot.T*com_vel_ref;
 
 	const double eps = 1.0e-5;
 
 	Vector3 angle;
 	angle = Vector3(0.0, 0.0, cur_step[0].foot_ori[sup]);
-	robot->foot[sup].pos_ref     = cur_step[0].foot_pos[sup];
-	robot->foot[sup].angle_ref   = angle;
-	robot->foot[sup].ori_ref     = FromRollPitchYaw(angle);
-	robot->foot[sup].vel_ref     = Vector3(0.0, 0.0, 0.0);
-	robot->foot[sup].angvel_ref  = Vector3(0.0, 0.0, 0.0);
-	robot->foot[sup].contact_ref = true;
+	robot.foot[sup].pos_ref     = cur_step[0].foot_pos[sup];
+	robot.foot[sup].angle_ref   = angle;
+	robot.foot[sup].ori_ref     = FromRollPitchYaw(angle);
+	robot.foot[sup].vel_ref     = Vector3(0.0, 0.0, 0.0);
+	robot.foot[sup].angvel_ref  = Vector3(0.0, 0.0, 0.0);
+	robot.foot[sup].contact_ref = true;
 
 	angle = Vector3(0.0, 0.0, cur_step[0].foot_ori[swg]);
-	robot->foot[swg].pos_ref     = cur_step[0].foot_pos[swg];
-	robot->foot[swg].angle_ref   = angle;
-	robot->foot[swg].ori_ref     = FromRollPitchYaw(angle);
-	robot->foot[swg].vel_ref     = cur_step[0].foot_vel[swg];
-	robot->foot[swg].angvel_ref  = Vector3(0.0, 0.0, cur_step[0].foot_angvel[swg]);
-	robot->foot[swg].contact_ref = cur_step[0].foot_pos[swg][2] < eps; //(t - tswitch > swing->duration - swing->dsp_duration);
+	robot.foot[swg].pos_ref     = cur_step[0].foot_pos[swg];
+	robot.foot[swg].angle_ref   = angle;
+	robot.foot[swg].ori_ref     = FromRollPitchYaw(angle);
+	robot.foot[swg].vel_ref     = cur_step[0].foot_vel[swg];
+	robot.foot[swg].angvel_ref  = Vector3(0.0, 0.0, cur_step[0].foot_angvel[swg]);
+	robot.foot[swg].contact_ref = cur_step[0].foot_pos[swg][2] < eps; //(t - tswitch > swing->duration - swing->dsp_duration);
 	
 	angle = Vector3(0.0, 0.0, base_ori);
-	robot->base.angle_ref  = angle;
-	robot->base.ori_ref    = FromRollPitchYaw(angle);
-	robot->base.angvel_ref = Vector3(0.0, 0.0, base_angvel);
+	robot.base.angle_ref  = angle;
+	robot.base.ori_ref    = FromRollPitchYaw(angle);
+	robot.base.angvel_ref = Vector3(0.0, 0.0, base_angvel);
 	
-	robot->centroid.com_pos_ref  = com_pos_ref;
-	robot->centroid.com_vel_ref  = com_vel_ref;
-	robot->centroid.zmp_ref      = zmp_ref /*+ zmpDiff*/;
+	robot.centroid.com_pos_ref  = com_pos_ref;
+	robot.centroid.com_vel_ref  = com_vel_ref;
+	robot.centroid.zmp_ref      = zmp_ref /*+ zmpDiff*/;
 }
 
 }

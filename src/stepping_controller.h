@@ -2,6 +2,8 @@
 
 #include <cnoid/EigenTypes>
 
+#include "footstep.h"
+
 namespace cnoid{
 namespace vnoid{
 
@@ -10,12 +12,9 @@ class Footstep;
 
 class SteppingController{
 public:
-    double       standby_period;      ///< period of initial standby mode
-	double       standby_com_height;  ///< com height in standby mode
-
-	int          step_count;
-	Step         cur_step[2];
-	double       tswitch;
+	int       step_index;
+	Step      cur_step[2];
+	double    tswitch;
 
 	double    base_ori;
 	double    base_angvel;
@@ -29,8 +28,9 @@ public:
 
 public:
 	void Init     (const Robot& robot, const Footstep& footstep);
-	void FromRobot();
-	void ToRobot  ();
+	void FromRobot(const Robot& robot, Footstep& footstep);
+	void ToRobot  (Robot& robot, const Footstep& footstep);
+    void CalcSwing(double t, Vector3& pos, double& ori, Vector3& vel, double& angvel);
     
 	SteppingController();
 };

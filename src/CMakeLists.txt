@@ -5,6 +5,7 @@ set(VNOID_HEADERS
     "footstep_planner.h"
 	"robot.h"
 	"rollpitchyaw.h"
+	"stabilizer.h"
     "stepping_controller.h"
 	)
 set(VNOID_SOURCES
@@ -13,6 +14,7 @@ set(VNOID_SOURCES
     "footstep_planner.cpp"
 	"robot.cpp"
 	"rollpitchyaw.cpp"
+	"stabilizer.cpp"
     "stepping_controller.cpp"
 	)
 
