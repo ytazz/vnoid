@@ -75,7 +75,7 @@ items:
           class: BodyItem
           data: 
             modelFile: "${SHARE}/model/sample_robot/sample_robot.body"
-            currentBaseLink: "Hips"
+            currentBaseLink: "HIPS"
             rootPosition: [ 0, 0, 0.9 ]
             rootAttitude: [ 
               1, 0, 0, 

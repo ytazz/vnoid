@@ -22,7 +22,7 @@ Robot::Joint::Joint(){
 }
 
 void Robot::Joint::CalcTorque(double dt){
-	u = 0.0*u_ref + 1.0*(pgain*(q_ref - q) + dgain*(dq_ref - dq));
+	u = pgain*(q_ref - q) + dgain*(dq_ref - dq);
 	u = std::min(std::max(-ulimit, u), ulimit);
 }
 
@@ -133,9 +133,9 @@ void Robot::Init(SimpleControllerIO* io){
 		centroid.force_ref   = Vector3(0.0, 0.0, 0.0);
 		centroid.moment_ref  = Vector3(0.0, 0.0, 0.0);
 		centroid.moment_mod  = Vector3(0.0, 0.0, 0.0);
-		centroid.cop         = Vector3(0.0, 0.0, 0.0);
-		centroid.cop_ref     = Vector3(0.0, 0.0, 0.0);
-		centroid.cop_mod     = Vector3(0.0, 0.0, 0.0);
+		centroid.zmp         = Vector3(0.0, 0.0, 0.0);
+		centroid.zmp_ref     = Vector3(0.0, 0.0, 0.0);
+		centroid.zmp_mod     = Vector3(0.0, 0.0, 0.0);
 		centroid.com_pos_ref = Vector3(0.0, 0.0, 0.0);
 		centroid.com_pos_cor = Vector3(0.0, 0.0, 0.0);
 		centroid.com_pos_mod = Vector3(0.0, 0.0, 0.0);
@@ -180,8 +180,8 @@ void Robot::Init(SimpleControllerIO* io){
 		foot[i].moment           = Vector3(0.0, 0.0, 0.0);
 		foot[i].moment_ref       = Vector3(0.0, 0.0, 0.0);
 		foot[i].moment_error     = Vector3(0.0, 0.0, 0.0);
-		foot[i].cop              = Vector3(0.0, 0.0, 0.0);
-		foot[i].cop_ref          = Vector3(0.0, 0.0, 0.0);
+		foot[i].zmp              = Vector3(0.0, 0.0, 0.0);
+		foot[i].zmp_ref          = Vector3(0.0, 0.0, 0.0);
 		foot[i].dpos             = Vector3(0.0, 0.0, 0.0);
 		foot[i].drot             = Vector3(0.0, 0.0, 0.0);
 		foot[i].tliftoff         = 0.0;
@@ -203,7 +203,7 @@ void Robot::Init(SimpleControllerIO* io){
 		    "com_pos_mod_x com_pos_mod_y com_pos_mod_z "
 		    "com_vel_ref_x com_vel_ref_y com_vel_ref_z "
 		    "com_vel_mod_x com_vel_mod_y com_vel_mod_z "
-		    "cop_pos_ref_x cop_pos_ref_y cop_pos_ref_z "
+		    "zmp_pos_ref_x zmp_pos_ref_y zmp_pos_ref_z "
 		    "mom_x mom_y mom_z "
 		    "foot0_px foot0_py foot0_pz foot0_ax foot0_ay foot0_az "
 		    "foot0_vx foot0_vy foot0_vz foot0_wx foot0_wy foot0_wz "
@@ -216,7 +216,7 @@ void Robot::Init(SimpleControllerIO* io){
     }
 }
 
-void Robot::CompFCop(){
+void Robot::CompFZmp(){
     // get actual force from the sensor
 	for(Foot& ft : foot){
 		// get force/moment from force sensor
@@ -231,11 +231,11 @@ void Robot::CompFCop(){
 		// measure continuous contact duration
 		if(ft.contact){
 			ft.contact_duration += dt;
-			ft.cop = Vector3(-ft.moment[1]/ft.force[2], ft.moment[0]/ft.force[2], 0.0);
+			ft.zmp = Vector3(-ft.moment[1]/ft.force[2], ft.moment[0]/ft.force[2], 0.0);
 		}
 		else{
 			ft.contact_duration = 0.0;
-			ft.cop = Vector3(0.0, 0.0, 0.0);
+			ft.zmp = Vector3(0.0, 0.0, 0.0);
 		}
 	}
 
@@ -243,38 +243,38 @@ void Robot::CompFCop(){
 	if(!foot[0].contact && !foot[1].contact){
 		foot[0].balance = 0.5;
 		foot[1].balance = 0.5;
-		centroid.cop = Vector3(0.0, 0.0, 0.0);
+		centroid.zmp = Vector3(0.0, 0.0, 0.0);
 	}
 	else{
 		double f0 = std::max(0.0, foot[0].force[2]);
 		double f1 = std::max(0.0, foot[1].force[2]);
 		foot[0].balance = f0/(f0 + f1);
 		foot[1].balance = f1/(f0 + f1);
-		centroid.cop =
-			     (foot[0].balance) * (foot[0].pos_ref + foot[0].ori_ref * foot[0].cop)
-	           + (foot[1].balance) * (foot[1].pos_ref + foot[1].ori_ref * foot[1].cop);
+		centroid.zmp =
+			     (foot[0].balance) * (foot[0].pos_ref + foot[0].ori_ref * foot[0].zmp)
+	           + (foot[1].balance) * (foot[1].pos_ref + foot[1].ori_ref * foot[1].zmp);
 	}
 }
 
-void Robot::CompICop(){
+void Robot::CompIZmp(){
 	// switch based on contact state
 	if(!foot[0].contact_ref && !foot[1].contact_ref){
 		foot[0].balance_ref = 0.5;
 		foot[1].balance_ref = 0.5;
-		foot[0].cop_ref = Vector3(0.0, 0.0, 0.0);
-		foot[1].cop_ref = Vector3(0.0, 0.0, 0.0);
+		foot[0].zmp_ref = Vector3(0.0, 0.0, 0.0);
+		foot[1].zmp_ref = Vector3(0.0, 0.0, 0.0);
 	}
 	if( foot[0].contact_ref && !foot[1].contact_ref){
 		foot[0].balance_ref = 1.0;
 		foot[1].balance_ref = 0.0;
-		foot[0].cop_ref = foot[0].ori_ref.conjugate() * ((centroid.cop_ref + centroid.cop_mod) - foot[0].pos_ref);
-		foot[1].cop_ref = Vector3(0.0, 0.0, 0.0);
+		foot[0].zmp_ref = foot[0].ori_ref.conjugate() * ((centroid.zmp_ref + centroid.zmp_mod) - foot[0].pos_ref);
+		foot[1].zmp_ref = Vector3(0.0, 0.0, 0.0);
 	}
 	if(!foot[0].contact_ref &&  foot[1].contact_ref){
 		foot[0].balance_ref = 0.0;
 		foot[1].balance_ref = 1.0;
-		foot[0].cop_ref = Vector3(0.0, 0.0, 0.0);
-		foot[1].cop_ref = foot[1].ori_ref.conjugate() * ((centroid.cop_ref + centroid.cop_mod) - foot[1].pos_ref);
+		foot[0].zmp_ref = Vector3(0.0, 0.0, 0.0);
+		foot[1].zmp_ref = foot[1].ori_ref.conjugate() * ((centroid.zmp_ref + centroid.zmp_mod) - foot[1].pos_ref);
 	}
 	if( foot[0].contact_ref &&  foot[1].contact_ref){
 		//
@@ -286,7 +286,7 @@ void Robot::CompICop(){
 			b[0] = b[1] = 0.5;
 		}
 		else{
-			b[0] = (pdiff.dot(foot[1].pos_ref - (centroid.cop_ref + centroid.cop_mod)))/pdiff2;
+			b[0] = (pdiff.dot(foot[1].pos_ref - (centroid.zmp_ref + centroid.zmp_mod)))/pdiff2;
 			b[0] = std::min(std::max(0.0, b[0]), 1.0);
 			b[1] = 1.0 - b[0];
 		}
@@ -294,21 +294,21 @@ void Robot::CompICop(){
 		foot[0].balance_ref = b[0];
 		foot[1].balance_ref = b[1];
 
-		Vector3 cop_proj = b[0]*foot[0].pos_ref + b[1]*foot[1].pos_ref;
+		Vector3 zmp_proj = b[0]*foot[0].pos_ref + b[1]*foot[1].pos_ref;
 
 		double b2 = b.squaredNorm();
-		foot[0].cop_ref = (b[0]/b2) * (foot[0].ori_ref.conjugate() * ((centroid.cop_ref + centroid.cop_mod) - cop_proj));
-		foot[1].cop_ref = (b[1]/b2) * (foot[1].ori_ref.conjugate() * ((centroid.cop_ref + centroid.cop_mod) - cop_proj));
+		foot[0].zmp_ref = (b[0]/b2) * (foot[0].ori_ref.conjugate() * ((centroid.zmp_ref + centroid.zmp_mod) - zmp_proj));
+		foot[1].zmp_ref = (b[1]/b2) * (foot[1].ori_ref.conjugate() * ((centroid.zmp_ref + centroid.zmp_mod) - zmp_proj));
 	}
 
 	for(int i = 0; i < 2; i++){
-		// force and moment to realize desired CoP
+		// force and moment to realize desired Zmp
 		foot[i].force_ref     =  foot[i].ori_ref.conjugate() * (foot[i].balance_ref * centroid.force_ref);
-		foot[i].moment_ref[0] =  foot[i].force_ref[2] * foot[i].cop_ref[1];
-		foot[i].moment_ref[1] = -foot[i].force_ref[2] * foot[i].cop_ref[0];
+		foot[i].moment_ref[0] =  foot[i].force_ref[2] * foot[i].zmp_ref[1];
+		foot[i].moment_ref[1] = -foot[i].force_ref[2] * foot[i].zmp_ref[0];
 		foot[i].moment_ref[2] =  foot[i].balance_ref * centroid.moment_ref[2];
 
-		//DSTR << foot[i].force_ref[2] << " " << foot[i].cop_ref[0] << " " << foot[i].cop_ref[1] << endl;
+		//DSTR << foot[i].force_ref[2] << " " << foot[i].zmp_ref[0] << " " << foot[i].zmp_ref[1] << endl;
 	}
 
 }
@@ -355,8 +355,8 @@ void Robot::Sense(){
 	base.angle [0] += base.angvel[0]*dt;
 	base.angle [1] += base.angvel[1]*dt;
 
-	// calculate cop from measured forces
-	CompFCop();
+	// calculate zmp from measured forces
+	CompFZmp();
 }
 
 void Robot::Control(){
@@ -366,18 +366,18 @@ void Robot::Control(){
 	centroid.force_ref[2] = total_mass*(centroid.com_acc_ref[2] + gravity);
 	centroid.moment_ref   = Vector3(0.0, 0.0, 0.0);
 
-	// feedback base orientation to cop
+	// feedback base orientation to zmp
 	{
 		Vector3 m(0.0, 0.0, 0.0);
 		m[0] = orientation_ctrl_gain_p * (base.angle_ref[0] - base.angle[0]) + orientation_ctrl_gain_d * (base.angvel_ref[0] - base.angvel[0]);
 		m[1] = orientation_ctrl_gain_p * (base.angle_ref[1] - base.angle[1]) + orientation_ctrl_gain_d * (base.angvel_ref[1] - base.angvel[1]);
 
 		centroid.moment_mod = base.ori_ref * m;
-		centroid.cop_mod    = base.ori_ref * ((1.0/centroid.force_ref[2])*Vector3(-m[1], m[0], 0.0));
+		centroid.zmp_mod    = base.ori_ref * ((1.0/centroid.force_ref[2])*Vector3(-m[1], m[0], 0.0));
 	}
 
-	// calculate desired forces from desired cop
-	CompICop();
+	// calculate desired forces from desired zmp
+	CompIZmp();
 
 	for(int i = 0; i < 2; i++){
 		foot[i].pos_mod    = Vector3(0.0, 0.0, 0.0);
@@ -419,8 +419,7 @@ void Robot::Control(){
 
 			
 	// comp IK
-    if(iksolver)
-    	iksolver->Comp(this, dt);
+    //	iksolver->Comp(this, dt);
 
     if(baseActuation){
         Link* lnk = ioBody->link(0);
@@ -474,9 +473,9 @@ void Robot::Save(){
 		    centroid.com_vel_mod(1),
 		    centroid.com_vel_mod(2));
 	    fprintf(logFile, " %f %f %f",
-		    centroid.cop_ref(0),
-		    centroid.cop_ref(1),
-		    centroid.cop_ref(2));
+		    centroid.zmp_ref(0),
+		    centroid.zmp_ref(1),
+		    centroid.zmp_ref(2));
 	    fprintf(logFile, " %f %f %f",
 		    centroid.moment_ref(0),
 		    centroid.moment_ref(1),

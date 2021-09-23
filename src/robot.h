@@ -11,8 +11,8 @@ using namespace std;
 namespace cnoid{
 namespace vnoid{
 
-class Footstep;
 class IkSolver;
+class FootstepPlanner;
 
 class Robot{
 public:
@@ -24,10 +24,8 @@ public:
 		double  q;
 		double  dq;
 	    double  q_ref;
-		double  q_des;
-	    double  dq_ref;
-		double  u_ref;
-	    double  u;
+		double  dq_ref;
+		double  u;
 
 		void CalcTorque(double dt);
 
@@ -98,9 +96,9 @@ public:
 		Vector3  force_ref;
 		Vector3  moment_ref;
 		Vector3  moment_mod;
-		Vector3  cop;
-		Vector3  cop_ref;
-		Vector3  cop_mod;
+		Vector3  zmp;
+		Vector3  zmp_ref;
+		Vector3  zmp_mod;
 
 		Vector3 com_pos_ref;
 		Vector3 com_pos_cor;
@@ -120,8 +118,8 @@ public:
 	int      joystickCycle;
 	Joystick joystick;
 
-    Footstep*  footstep;
-	IkSolver*  iksolver;
+    FootstepPlanner*  planner;
+	IkSolver*         iksolver;
 
 	double  dt;
 	int     count;
@@ -148,7 +146,7 @@ public:
 	double  total_mass;
 	double  com_height;
 	double  gravity;
-	//double  mom_gain;
+    double  T;
 	double  com_pos_gain;
 	double  com_vel_gain;
 
@@ -166,8 +164,8 @@ public:
 	FILE*   logFile;
 	
 public:
-	void CompFCop();
-	void CompICop();
+	void CompFZmp();
+	void CompIZmp();
 	void Countup ();
 
 	virtual void  Init   (SimpleControllerIO* io);

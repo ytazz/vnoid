@@ -1,7 +1,7 @@
 format: ChoreonoidBody
 formatVersion: 1.0
 angleUnit: degree
-name: unitychan
+name: sample_robot
 rootLink: HIPS
 
 appearances:
@@ -651,42 +651,6 @@ links:
         type: Shape
         geometry: { type: Resource, uri: "FootP_flat.stl" }
         appearance: *MAT_LINK
-
-  - { name: FOOTSTEP0,   parent: HIPS, jointType: free, elements: [ { type: Shape, geometry: { type: Box, size: [0.2, 0.1, 0.01] }, appearance: { material: {diffuseColor: [0.0, 0.0, 1.0], transparency: 0.5} } } ] }
-  - { name: FOOTSTEP1,   parent: HIPS, jointType: free, elements: [ { type: Shape, geometry: { type: Box, size: [0.2, 0.1, 0.01] }, appearance: { material: {diffuseColor: [0.0, 0.0, 1.0], transparency: 0.5} } } ] }
-  - { name: FOOTSTEP2,   parent: HIPS, jointType: free, elements: [ { type: Shape, geometry: { type: Box, size: [0.2, 0.1, 0.01] }, appearance: { material: {diffuseColor: [0.0, 0.0, 1.0], transparency: 0.5} } } ] }
-  - { name: FOOTSTEP3,   parent: HIPS, jointType: free, elements: [ { type: Shape, geometry: { type: Box, size: [0.2, 0.1, 0.01] }, appearance: { material: {diffuseColor: [0.0, 0.0, 1.0], transparency: 0.5} } } ] }
-  - { name: FOOTSTEP4,   parent: HIPS, jointType: free, elements: [ { type: Shape, geometry: { type: Box, size: [0.2, 0.1, 0.01] }, appearance: { material: {diffuseColor: [0.0, 0.0, 1.0], transparency: 0.5} } } ] }
-  - { name: FOOTSTEP5,   parent: HIPS, jointType: free, elements: [ { type: Shape, geometry: { type: Box, size: [0.2, 0.1, 0.01] }, appearance: { material: {diffuseColor: [0.0, 0.0, 1.0], transparency: 0.5} } } ] }
-  - { name: FOOTSTEP6,   parent: HIPS, jointType: free, elements: [ { type: Shape, geometry: { type: Box, size: [0.2, 0.1, 0.01] }, appearance: { material: {diffuseColor: [0.0, 0.0, 1.0], transparency: 0.5} } } ] }
-  - { name: FOOTSTEP7,   parent: HIPS, jointType: free, elements: [ { type: Shape, geometry: { type: Box, size: [0.2, 0.1, 0.01] }, appearance: { material: {diffuseColor: [0.0, 0.0, 1.0], transparency: 0.5} } } ] }
-  - { name: FOOTSTEP8,   parent: HIPS, jointType: free, elements: [ { type: Shape, geometry: { type: Box, size: [0.2, 0.1, 0.01] }, appearance: { material: {diffuseColor: [0.0, 0.0, 1.0], transparency: 0.5} } } ] }
-  - { name: FOOTSTEP9,   parent: HIPS, jointType: free, elements: [ { type: Shape, geometry: { type: Box, size: [0.2, 0.1, 0.01] }, appearance: { material: {diffuseColor: [0.0, 0.0, 1.0], transparency: 0.5} } } ] }
-  - { name: FOOTSTEP10,  parent: HIPS, jointType: free, elements: [ { type: Shape, geometry: { type: Box, size: [0.2, 0.1, 0.01] }, appearance: { material: {diffuseColor: [0.0, 0.0, 1.0], transparency: 0.5} } } ] }
-  - { name: FOOTSTEP11,  parent: HIPS, jointType: free, elements: [ { type: Shape, geometry: { type: Box, size: [0.2, 0.1, 0.01] }, appearance: { material: {diffuseColor: [0.0, 0.0, 1.0], transparency: 0.5} } } ] }
-  - { name: FOOTSTEP12,  parent: HIPS, jointType: free, elements: [ { type: Shape, geometry: { type: Box, size: [0.2, 0.1, 0.01] }, appearance: { material: {diffuseColor: [0.0, 0.0, 1.0], transparency: 0.5} } } ] }
-  - { name: FOOTSTEP13,  parent: HIPS, jointType: free, elements: [ { type: Shape, geometry: { type: Box, size: [0.2, 0.1, 0.01] }, appearance: { material: {diffuseColor: [0.0, 0.0, 1.0], transparency: 0.5} } } ] }
-  - { name: FOOTSTEP14,  parent: HIPS, jointType: free, elements: [ { type: Shape, geometry: { type: Box, size: [0.2, 0.1, 0.01] }, appearance: { material: {diffuseColor: [0.0, 0.0, 1.0], transparency: 0.5} } } ] }
-  - { name: STEP0,       parent: HIPS, jointType: free, elements: [ { type: Shape, geometry: { type: Box, size: [0.2, 0.1, 0.01] }, appearance: { material: {diffuseColor: [0.0, 1.0, 0.0], transparency: 0.5} } } ] }
-  - { name: STEP1,       parent: HIPS, jointType: free, elements: [ { type: Shape, geometry: { type: Box, size: [0.2, 0.1, 0.01] }, appearance: { material: {diffuseColor: [0.0, 1.0, 0.0], transparency: 0.5} } } ] }
-  - { name: ZMP  ,       parent: HIPS, jointType: free, elements: [ { type: Shape, geometry: { type: Sphere, radius: 0.025 }, appearance: { material: {diffuseColor: [1.0, 0.0, 0.0], transparency: 0.5} } } ] }
-  - { name: ICP  ,       parent: HIPS, jointType: free, elements: [ { type: Shape, geometry: { type: Sphere, radius: 0.025 }, appearance: { material: {diffuseColor: [0.0, 1.0, 0.0], transparency: 0.5} } } ] }
-  - { name: DURATION0,   parent: HIPS, jointType: free, elements: [ { type: Transform, rotation: [1, 0, 0, 90], elements: [ { type: Shape, geometry: { type: Cylinder, radius: 0.05, height: 0.05, bottom: true, top: true }, appearance: { material: {diffuseColor: [0.0, 1.0, 0.0], transparency: 0.5} } } ] } ] }
-  - { name: DURATION1,   parent: HIPS, jointType: free, elements: [ { type: Transform, rotation: [1, 0, 0, 90], elements: [ { type: Shape, geometry: { type: Cylinder, radius: 0.05, height: 0.05, bottom: true, top: true }, appearance: { material: {diffuseColor: [0.0, 1.0, 0.0], transparency: 0.5} } } ] } ] }
-  - { name: DURATION2,   parent: HIPS, jointType: free, elements: [ { type: Transform, rotation: [1, 0, 0, 90], elements: [ { type: Shape, geometry: { type: Cylinder, radius: 0.05, height: 0.05, bottom: true, top: true }, appearance: { material: {diffuseColor: [0.0, 1.0, 0.0], transparency: 0.5} } } ] } ] }
-  - { name: DURATION3,   parent: HIPS, jointType: free, elements: [ { type: Transform, rotation: [1, 0, 0, 90], elements: [ { type: Shape, geometry: { type: Cylinder, radius: 0.05, height: 0.05, bottom: true, top: true }, appearance: { material: {diffuseColor: [0.0, 1.0, 0.0], transparency: 0.5} } } ] } ] }
-  - { name: DURATION4,   parent: HIPS, jointType: free, elements: [ { type: Transform, rotation: [1, 0, 0, 90], elements: [ { type: Shape, geometry: { type: Cylinder, radius: 0.05, height: 0.05, bottom: true, top: true }, appearance: { material: {diffuseColor: [0.0, 1.0, 0.0], transparency: 0.5} } } ] } ] }
-  - { name: DURATION5,   parent: HIPS, jointType: free, elements: [ { type: Transform, rotation: [1, 0, 0, 90], elements: [ { type: Shape, geometry: { type: Cylinder, radius: 0.05, height: 0.05, bottom: true, top: true }, appearance: { material: {diffuseColor: [0.0, 1.0, 0.0], transparency: 0.5} } } ] } ] }
-  - { name: DURATION6,   parent: HIPS, jointType: free, elements: [ { type: Transform, rotation: [1, 0, 0, 90], elements: [ { type: Shape, geometry: { type: Cylinder, radius: 0.05, height: 0.05, bottom: true, top: true }, appearance: { material: {diffuseColor: [0.0, 1.0, 0.0], transparency: 0.5} } } ] } ] }
-  - { name: DURATION7,   parent: HIPS, jointType: free, elements: [ { type: Transform, rotation: [1, 0, 0, 90], elements: [ { type: Shape, geometry: { type: Cylinder, radius: 0.05, height: 0.05, bottom: true, top: true }, appearance: { material: {diffuseColor: [0.0, 1.0, 0.0], transparency: 0.5} } } ] } ] }
-  - { name: DURATION8,   parent: HIPS, jointType: free, elements: [ { type: Transform, rotation: [1, 0, 0, 90], elements: [ { type: Shape, geometry: { type: Cylinder, radius: 0.05, height: 0.05, bottom: true, top: true }, appearance: { material: {diffuseColor: [0.0, 1.0, 0.0], transparency: 0.5} } } ] } ] }
-  - { name: DURATION9,   parent: HIPS, jointType: free, elements: [ { type: Transform, rotation: [1, 0, 0, 90], elements: [ { type: Shape, geometry: { type: Cylinder, radius: 0.05, height: 0.05, bottom: true, top: true }, appearance: { material: {diffuseColor: [0.0, 1.0, 0.0], transparency: 0.5} } } ] } ] }
-  - { name: DURATION10,  parent: HIPS, jointType: free, elements: [ { type: Transform, rotation: [1, 0, 0, 90], elements: [ { type: Shape, geometry: { type: Cylinder, radius: 0.05, height: 0.05, bottom: true, top: true }, appearance: { material: {diffuseColor: [0.0, 1.0, 0.0], transparency: 0.5} } } ] } ] }
-  - { name: DURATION11,  parent: HIPS, jointType: free, elements: [ { type: Transform, rotation: [1, 0, 0, 90], elements: [ { type: Shape, geometry: { type: Cylinder, radius: 0.05, height: 0.05, bottom: true, top: true }, appearance: { material: {diffuseColor: [0.0, 1.0, 0.0], transparency: 0.5} } } ] } ] }
-  - { name: DURATION12,  parent: HIPS, jointType: free, elements: [ { type: Transform, rotation: [1, 0, 0, 90], elements: [ { type: Shape, geometry: { type: Cylinder, radius: 0.05, height: 0.05, bottom: true, top: true }, appearance: { material: {diffuseColor: [0.0, 1.0, 0.0], transparency: 0.5} } } ] } ] }
-  - { name: DURATION13,  parent: HIPS, jointType: free, elements: [ { type: Transform, rotation: [1, 0, 0, 90], elements: [ { type: Shape, geometry: { type: Cylinder, radius: 0.05, height: 0.05, bottom: true, top: true }, appearance: { material: {diffuseColor: [0.0, 1.0, 0.0], transparency: 0.5} } } ] } ] }
-  - { name: DURATION14,  parent: HIPS, jointType: free, elements: [ { type: Transform, rotation: [1, 0, 0, 90], elements: [ { type: Shape, geometry: { type: Cylinder, radius: 0.05, height: 0.05, bottom: true, top: true }, appearance: { material: {diffuseColor: [0.0, 1.0, 0.0], transparency: 0.5} } } ] } ] }
   
 collisionDetection:
   excludeTreeDepth: 30
-  excludeLinks: [ FOOTSTEP0 ]

@@ -2,6 +2,9 @@
 
 #include <cnoid/EigenTypes>
 
+#include <vector>
+using namespace std;
+
 namespace cnoid{
 namespace vnoid{
 
@@ -13,10 +16,10 @@ namespace vnoid{
  */
 class IkSolver{
 public:
-	void CompLegIk(const Vector3& pos, const Quaternion& ori, double l1, double l2, vector<double>& q);
-    void CompArmIk(const Vector3& pos, const Quaternion& ori, double l1, double l2, vector<double>& q);
+	static void CompLegIk(const Vector3& pos, const Quaternion& ori, double l1, double l2, vector<double>& q);
+    static void CompArmIk(const Vector3& pos, const Quaternion& ori, double l1, double l2, vector<double>& q);
 
-};&
+};
 
 }
 }

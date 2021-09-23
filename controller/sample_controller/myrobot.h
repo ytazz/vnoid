@@ -1,6 +1,9 @@
 ﻿#pragma once
 
 #include "robot.h"
+#include "iksolver.h"
+#include "footstep.h"
+#include "footstep_planner.h"
 
 namespace cnoid{
 namespace vnoid{
