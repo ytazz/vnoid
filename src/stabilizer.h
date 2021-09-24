@@ -5,6 +5,11 @@
 namespace cnoid{
 namespace vnoid{
 
+class Param;
+class Centroid;
+class Base;
+class Foot;
+
 class Stabilizer{
 public:
     double  min_contact_force;
@@ -19,7 +24,9 @@ public:
 	double  swing_height_adjust_rate;
 
 public:
-    void Step(Robot& robot, Centroid& centroid, Base& base, Foot& foot[2]);
+    void CalcZmp              (const Param* param, Centroid* centroid, Foot* foot);
+    void CalcForceDistribution(const Param* param, Centroid* centroid, Foot* foot);
+    void Step                 (const Param* param, Centroid* centroid, Base* base, Foot* foot);
     
 	Stabilizer();
 };

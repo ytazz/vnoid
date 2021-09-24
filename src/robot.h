@@ -11,7 +11,8 @@ using namespace std;
 namespace cnoid{
 namespace vnoid{
 
-struct Joint{
+class Joint{
+public:
 	double  pgain;
 	double  dgain;
 	double  ulimit;
@@ -27,7 +28,8 @@ struct Joint{
 	Joint();
 };
 
-struct Base{
+class Base{
+public:
 	Vector3     pos_ref;
 	Vector3     angle;
 	Vector3     angle_ref;
@@ -41,7 +43,8 @@ struct Base{
 	Base();
 };
 
-struct Hand{	
+class Hand{	
+public:
 	Vector3    pos_ref;
 	Vector3    vel_ref;
 	Vector3    acc_ref;
@@ -49,9 +52,12 @@ struct Hand{
 	Vector3    angle_ref;
 	Vector3    angvel_ref;
 	Vector3    angacc_ref;
+
+    Hand();
 };
 
-struct Foot{
+class Foot{
+public:
 	bool        contact;
 	bool        contact_ref;
 	double      contact_duration;
@@ -84,7 +90,9 @@ struct Foot{
 	
 	Foot();
 };
-struct Centroid{
+
+class Centroid{
+public:
 	Vector3  force_ref;
 	Vector3  moment_ref;
 	Vector3  moment_mod;
@@ -107,12 +115,22 @@ struct Centroid{
 /*
   physical parameters
  */
-struct Param{
-    Vector3  nominal_inertia;
+class Param{
+public:
 	double   total_mass;
 	double   com_height;
 	double   gravity;
     double   T;
+    Vector3  nominal_inertia;
+
+    Param();
+};
+
+class Timer{
+public:
+    double   dt;
+	int      count;
+	double   time;
 };
 
 class Robot{
@@ -128,17 +146,7 @@ public:
 	RateGyroSensor*     gyroSensor;
 	ForceSensor*        footForceSensor[2];
 
-	double  dt;
-	int     count;
-	double  time;
-
-	//Centroid             centroid;
-	//Base                 base;
-	//Hand                 hand[2];
-	//Foot                 foot[2];
-	//std::vector<Joint>   joint;
-
-    string   baseForceSensorName;
+	string   baseForceSensorName;
     string   baseAccSensorName;
 	string   baseGyroSensorName;
     Vector3  gyroAxisX;
@@ -148,9 +156,9 @@ public:
     string   leftForceSensorName;
     	
 public:
-	void  Init   (SimpleControllerIO* io);
-	void  Sense  ();
-	void  Actuate();
+	void  Init   (SimpleControllerIO* io, vector<Joint>& joint);
+	void  Sense  (Base* base, Foot* foot);
+	void  Actuate(Base* base, vector<Joint>& joint);
     void  Countup();
 
 	Robot();
