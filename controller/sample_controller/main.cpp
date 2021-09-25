@@ -29,7 +29,6 @@ public:
 	}
 
 	virtual bool control()	{
-		robot->Sense  ();
 		robot->Control();
 		return true;
 	}

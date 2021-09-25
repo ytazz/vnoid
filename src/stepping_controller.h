@@ -4,11 +4,18 @@
 
 #include "footstep.h"
 
+#include <vector>
+using namespace std;
+
 namespace cnoid{
 namespace vnoid{
 
-class Robot;
+class Param;
+class Timer;
 class Footstep;
+class Centroid;
+class Base;
+class Foot;
 
 class SteppingController{
 public:
@@ -27,10 +34,9 @@ public:
 	Vector3   dcm_diff;
 
 public:
-	void Init     (const Robot& robot, const Footstep& footstep);
-	void FromRobot(const Robot& robot, Footstep& footstep);
-	void ToRobot  (Robot& robot, const Footstep& footstep);
-    void CalcSwing(double t, Vector3& pos, double& ori, Vector3& vel, double& angvel);
+	void Init     (const Param& param, const Footstep& footstep);
+	void CalcSwing(double t, Vector3& pos, double& ori, Vector3& vel, double& angvel);
+    void Update   (const Timer& timer, const Param& param, const Footstep& footstep, Centroid& centroid, Base& base, vector<Foot>& foot);
     
 	SteppingController();
 };

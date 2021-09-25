@@ -13,18 +13,18 @@ const double eps = 1.0e-10;
 FootstepPlanner::FootstepPlanner(){
 }
 
-void FootstepPlanner::Plan(const Robot& robot, Footstep& footstep){
-    Step& st0 = footstep[0];
+void FootstepPlanner::Plan(const Param& param, Footstep& footstep){
+    Step& st0 = footstep.steps[0];
 	st0.side = 0;
 	st0.foot_pos[0] = Vector3(0.0, -st0.spacing/2.0, 0.0);
 	st0.foot_pos[1] = Vector3(0.0,  st0.spacing/2.0, 0.0);
 	st0.foot_ori[0] = 0.0;
 	st0.foot_ori[1] = 0.0;
 
-    int nstep = footstep.size();
+    int nstep = footstep.steps.size();
 	for(int i = 0; i < nstep-1; i++){
-	    Step& st0 = footstep[i+0];
-	    Step& st1 = footstep[i+1];
+	    Step& st0 = footstep.steps[i+0];
+	    Step& st1 = footstep.steps[i+1];
 
 	    int sup =  st0.side;
 	    int swg = !st0.side;
@@ -55,29 +55,29 @@ void FootstepPlanner::Plan(const Robot& robot, Footstep& footstep){
 	}
 
     // generate reference dcm and zmp 
-	double T = sqrt(robot.com_height/robot.gravity);
+	double T = sqrt(param.com_height/param.gravity);
 		
 	// set final step's state
 	int i = nstep-1;
-	footstep[i].zmp = (footstep[i].foot_pos[0] + footstep[i].foot_pos[1])/2.0;
-	footstep[i].dcm = (footstep[i].foot_pos[0] + footstep[i].foot_pos[1])/2.0;
+	footstep.steps[i].zmp = (footstep.steps[i].foot_pos[0] + footstep.steps[i].foot_pos[1])/2.0;
+	footstep.steps[i].dcm = (footstep.steps[i].foot_pos[0] + footstep.steps[i].foot_pos[1])/2.0;
 	i--;
 
 	// calc N-1 to 0 step's state
 	for( ; i >= 0; i--) {
-		int sup =  footstep[i].side;
-		int swg = !footstep[i].side;
+		int sup =  footstep.steps[i].side;
+		int swg = !footstep.steps[i].side;
 		
-		double a = exp(-footstep[i].duration/T);
+		double a = exp(-footstep.steps[i].duration/T);
 		// for initial step, set dcm to middle of feet, and determine zmp
 		if(i == 0){
 			//stepAuxs[i].dcm = (footstep[i].footPos[sup] + footstep[i].footPos[swg])/2.0;
-			footstep[i].zmp = (footstep[i].dcm - a*footstep[i+1].dcm)/(1.0 - a);
+			footstep.steps[i].zmp = (footstep.steps[i].dcm - a*footstep.steps[i+1].dcm)/(1.0 - a);
 		}
 		// for other steps, set zmp to support foot, and determine dcm
 		else{
-			footstep[i].zmp = footstep[i].foot_pos[sup];
-			footstep[i].dcm = footstep[i].zmp + a*(footstep[i+1].dcm - footstep[i].zmp);
+			footstep.steps[i].zmp = footstep.steps[i].foot_pos[sup];
+			footstep.steps[i].dcm = footstep.steps[i].zmp + a*(footstep.steps[i+1].dcm - footstep.steps[i].zmp);
 		}
 	}
 }

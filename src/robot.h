@@ -131,35 +131,38 @@ public:
     double   dt;
 	int      count;
 	double   time;
+
+    void  Countup();
+
+    Timer();
 };
 
 class Robot{
 public:
-	Body*     ioBody;
+	Body*     io_body;
 
-    bool      baseActuation;
-	int       joystickCycle;
-	Joystick  joystick;
+    bool      base_actuation;
+	
+    ForceSensor*        force_sensor;
+	AccelerationSensor* accel_sensor;
+	RateGyroSensor*     gyro_sensor;
+	ForceSensor*        foot_force_sensor[2];
 
-    ForceSensor*        forceSensor;
-	AccelerationSensor* accelSensor;
-	RateGyroSensor*     gyroSensor;
-	ForceSensor*        footForceSensor[2];
+	string   base_force_sensor_name;
+    string   base_acc_sensor_name;
+	string   base_gyro_sensor_name;
 
-	string   baseForceSensorName;
-    string   baseAccSensorName;
-	string   baseGyroSensorName;
-    Vector3  gyroAxisX;
-    Vector3  gyroAxisY;
-    Vector3  gyroAxisZ;
-    string   rightForceSensorName;
-    string   leftForceSensorName;
+    Vector3  gyro_axis_x;
+    Vector3  gyro_axis_y;
+    Vector3  gyro_axis_z;
+
+    string   right_force_sensor_name;
+    string   left_force_sensor_name;
     	
 public:
-	void  Init   (SimpleControllerIO* io, vector<Joint>& joint);
-	void  Sense  (Base* base, Foot* foot);
-	void  Actuate(Base* base, vector<Joint>& joint);
-    void  Countup();
+	void  Init   (SimpleControllerIO* io, Timer& timer, vector<Joint>& joint);
+	void  Sense  (Timer& timer, Base& base, vector<Foot>& foot);
+	void  Actuate(Timer& timer, Base& base, vector<Joint>& joint);
 
 	Robot();
 };

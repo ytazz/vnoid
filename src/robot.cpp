@@ -117,45 +117,40 @@ Timer::Timer(){
     dt    = 0.001;
 }
 
+void Timer::Countup(){
+	count++;
+	time += dt;
+}
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
 Robot::Robot(){
-    baseForceSensorName  = "bfsensor" ;
-    baseAccSensorName    = "gsensor"  ;
-	baseGyroSensorName   = "gyrometer";
-	rightForceSensorName = "rfsensor" ;
-	leftForceSensorName  = "lfsensor" ;
-    gyroAxisX = Vector3(1.0, 0.0, 0.0);
-    gyroAxisY = Vector3(0.0, 1.0, 0.0);
-    gyroAxisZ = Vector3(0.0, 0.0, 1.0);
-    
-	joystickCycle = 10;
+    base_force_sensor_name  = "bfsensor" ;
+    base_acc_sensor_name    = "gsensor"  ;
+	base_gyro_sensor_name   = "gyrometer";
+	right_force_sensor_name = "rfsensor" ;
+	left_force_sensor_name  = "lfsensor" ;
 
-    baseActuation = false;
+    gyro_axis_x = Vector3(1.0, 0.0, 0.0);
+    gyro_axis_y = Vector3(0.0, 1.0, 0.0);
+    gyro_axis_z = Vector3(0.0, 0.0, 1.0);
+    
+	base_actuation = false;
 }
 
-void Robot::Init(SimpleControllerIO* io, Timer* timer, vector<Joint>& joint){
-	ioBody = io->body();
+void Robot::Init(SimpleControllerIO* io, Timer& timer, vector<Joint>& joint){
+	io_body = io->body();
 	
-	// set actuation mode of root link as link position
-	//  this is needed to retrieve root link pose as input
-	//ioBody->link(0)->setActuationMode(cnoid::Link::LINK_POSITION);
-	//io->enableIO(ioBody->link(0));
-
-    if(baseActuation){
-        ioBody->link(0)->setActuationMode(cnoid::Link::LinkPosition);
-        io->enableIO(ioBody->link(0));
+	if(base_actuation){
+        io_body->link(0)->setActuationMode(cnoid::Link::LinkPosition);
+        io->enableIO(io_body->link(0));
     }
-	io->enableInput(ioBody->link(0), cnoid::Link::LinkPosition);
+	io->enableInput(io_body->link(0), cnoid::Link::LinkPosition);
 
 	for (int i = 0; i < joint.size(); ++i) {
-		cnoid::Link* jnt = ioBody->joint(i);
-		//jnt->setActuationMode(cnoid::Link::JOINT_VELOCITY);
-
-		// set torque actuation mode
-		//  this sets joint angle as input by default
-		//  joint velocity needs to be set as input explicitly
-		jnt->setActuationMode(cnoid::Link::JointTorque);
+		cnoid::Link* jnt = io_body->joint(i);
+		
+        jnt->setActuationMode(cnoid::Link::JointTorque);
 		io->enableIO(jnt);
 		io->enableInput(jnt, cnoid::Link::JointVelocity);
 		
@@ -165,93 +160,60 @@ void Robot::Init(SimpleControllerIO* io, Timer* timer, vector<Joint>& joint){
 	}
 		
 	{
-        forceSensor = ioBody->findDevice<ForceSensor       >(baseForceSensorName);
-		accelSensor = ioBody->findDevice<AccelerationSensor>(baseAccSensorName  );
-		gyroSensor  = ioBody->findDevice<RateGyroSensor    >(baseGyroSensorName );
-        if(forceSensor) io->enableInput(forceSensor);
-        if(accelSensor) io->enableInput(accelSensor);
-        if(gyroSensor ) io->enableInput(gyroSensor );
+        force_sensor = io_body->findDevice<ForceSensor       >(base_force_sensor_name);
+		accel_sensor = io_body->findDevice<AccelerationSensor>(base_acc_sensor_name  );
+		gyro_sensor  = io_body->findDevice<RateGyroSensor    >(base_gyro_sensor_name );
+
+        if(force_sensor) io->enableInput(force_sensor);
+        if(accel_sensor) io->enableInput(accel_sensor);
+        if(gyro_sensor ) io->enableInput(gyro_sensor );
 	}
 
 	for(int i = 0; i < 2; i++){
-		footForceSensor[i] = ioBody->findDevice<ForceSensor>(i == 0 ? rightForceSensorName : leftForceSensorName);
-        if(footForceSensor[i])
-            io->enableInput(footForceSensor[i]);
+		foot_force_sensor[i] = io_body->findDevice<ForceSensor>(i == 0 ? right_force_sensor_name : left_force_sensor_name);
+        if(foot_force_sensor[i])
+            io->enableInput(foot_force_sensor[i]);
 	}
 	
-	timer->dt = io->timeStep();
+	timer.dt = io->timeStep();
 
 }
 
-void Robot::Sense(Base* base, Foot* foot){
-	if(count % joystickCycle == 0){
-		// read joystick
-		joystick.readCurrentState();
-
-		/* Xbox controller mapping:
-			L_STICK_H_AXIS -> L stick right
-			L_STICK_V_AXIS -> L stick down
-			R_STICK_H_AXIS -> L trigger - R trigger
-			R_STICK_V_AXIS -> R stick down
-			A_BUTTON -> A
-			B_BUTTON -> B
-			X_BUTTON -> X
-			Y_BUTTON -> Y
-			L_BUTTON -> L
-			R_BUTTON -> R
-		 */
-		/*
-		DSTR << joystick.getPosition(Joystick::L_STICK_H_AXIS) << " " 
-			 << joystick.getPosition(Joystick::L_STICK_V_AXIS) << " " 
-			 << joystick.getPosition(Joystick::R_STICK_H_AXIS) << " " 
-			 << joystick.getPosition(Joystick::R_STICK_V_AXIS) << " " 
-			 << joystick.getButtonState(Joystick::A_BUTTON) << " "
-			 << joystick.getButtonState(Joystick::B_BUTTON) << " "
-			 << joystick.getButtonState(Joystick::X_BUTTON) << " "
-			 << joystick.getButtonState(Joystick::Y_BUTTON) << " "
-			 << joystick.getButtonState(Joystick::L_BUTTON) << " "
-			 << joystick.getButtonState(Joystick::R_BUTTON) << endl;
-		*/
-	}
+void Robot::Sense(Timer& timer, Base& base, vector<Foot>& foot){
 	// angular momentum feedback
 	// gyro of RHP model is rotated
-    if(gyroSensor){
-        base->angvel[0] = gyroAxisX.dot(gyroSensor->w());
-        base->angvel[1] = gyroAxisY.dot(gyroSensor->w());
-        base->angvel[2] = gyroAxisZ.dot(gyroSensor->w());
+    if(gyro_sensor){
+        base.angvel[0] = gyro_axis_x.dot(gyro_sensor->w());
+        base.angvel[1] = gyro_axis_y.dot(gyro_sensor->w());
+        base.angvel[2] = gyro_axis_z.dot(gyro_sensor->w());
     }
-	base->angle [0] += base->angvel[0]*dt;
-	base->angle [1] += base->angvel[1]*dt;
+	base.angle [0] += base.angvel[0]*timer.dt;
+	base.angle [1] += base.angvel[1]*timer.dt;
 
 	for(int i = 0; i < 2; i++){
 		// get force/moment from force sensor
-        if(footForceSensor[i]){
-		    foot[i].force  = footForceSensor[i]->F().segment<3>(0);
-		    foot[i].moment = footForceSensor[i]->F().segment<3>(3);
+        if(foot_force_sensor[i]){
+		    foot[i].force  = foot_force_sensor[i]->F().segment<3>(0);
+		    foot[i].moment = foot_force_sensor[i]->F().segment<3>(3);
         }
     }
 
 }
 
-void Robot::Actuate(Base* base, vector<Joint>& joint){
-    if(baseActuation){
-        Link* lnk = ioBody->link(0);
-        lnk->p() = base->pos_ref;
-        lnk->R() = base->ori_ref.matrix();
+void Robot::Actuate(Timer& timer, Base& base, vector<Joint>& joint){
+    if(base_actuation){
+        Link* lnk = io_body->link(0);
+        lnk->p() = base.pos_ref;
+        lnk->R() = base.ori_ref.matrix();
     }
     for (int i = 0; i < joint.size(); ++i) {
-		cnoid::Link* jnt = ioBody->joint(i);
+		cnoid::Link* jnt = io_body->joint(i);
 		
 		joint[i].q  = jnt->q ();
 		joint[i].dq = jnt->dq();
-		joint[i].CalcTorque(dt);
+		joint[i].CalcTorque(timer.dt);
 		jnt->u() = joint[i].u;
 	}
-}
-
-void Robot::Countup(){
-	count++;
-	time += dt;
 }
 
 }

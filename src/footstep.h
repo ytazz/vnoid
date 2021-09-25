@@ -28,7 +28,9 @@ struct Step{
     Step();
 };
 
-class Footstep : public deque<Step>{
+class Footstep{
+public:
+    deque<Step>  steps;
 
 };
 

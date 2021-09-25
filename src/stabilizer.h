@@ -2,9 +2,13 @@
 
 #include <cnoid/EigenTypes>
 
+#include <vector>
+using namespace std;
+
 namespace cnoid{
 namespace vnoid{
 
+class Timer;
 class Param;
 class Centroid;
 class Base;
@@ -24,9 +28,9 @@ public:
 	double  swing_height_adjust_rate;
 
 public:
-    void CalcZmp              (const Param* param, Centroid* centroid, Foot* foot);
-    void CalcForceDistribution(const Param* param, Centroid* centroid, Foot* foot);
-    void Step                 (const Param* param, Centroid* centroid, Base* base, Foot* foot);
+    void CalcZmp              (const Timer& timer, const Param& param, Centroid& centroid, vector<Foot>& foot);
+    void CalcForceDistribution(const Timer& timer, const Param& param, Centroid& centroid, vector<Foot>& foot);
+    void Update               (const Timer& timer, const Param& param, Centroid& centroid, Base& base, vector<Foot>& foot);
     
 	Stabilizer();
 };

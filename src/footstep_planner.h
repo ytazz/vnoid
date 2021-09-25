@@ -5,7 +5,7 @@
 namespace cnoid{
 namespace vnoid{
 
-class Robot;
+class Param;
 class Footstep;
 
 /* 
@@ -17,7 +17,7 @@ class FootstepPlanner{
 public:
     
 public:
-	void Plan(const Robot& robot, Footstep& footstep);
+	void Plan(const Param& param, Footstep& footstep);
     
 	FootstepPlanner();
 };
