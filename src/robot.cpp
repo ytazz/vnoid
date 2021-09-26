@@ -106,6 +106,10 @@ Foot::Foot(){
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
 Param::Param(){
+    total_mass      = 50.0;
+	com_height      = 1.0;
+	gravity         = 9.8;
+    T               = sqrt(com_height/gravity);
 	nominal_inertia = Vector3(0.0, 0.0, 0.0);
 }
 

@@ -55,7 +55,6 @@ void FootstepPlanner::Plan(const Param& param, Footstep& footstep){
 	}
 
     // generate reference dcm and zmp 
-	double T = sqrt(param.com_height/param.gravity);
 		
 	// set final step's state
 	int i = nstep-1;
@@ -68,7 +67,7 @@ void FootstepPlanner::Plan(const Param& param, Footstep& footstep){
 		int sup =  footstep.steps[i].side;
 		int swg = !footstep.steps[i].side;
 		
-		double a = exp(-footstep.steps[i].duration/T);
+		double a = exp(-footstep.steps[i].duration/param.T);
 		// for initial step, set dcm to middle of feet, and determine zmp
 		if(i == 0){
 			//stepAuxs[i].dcm = (footstep[i].footPos[sup] + footstep[i].footPos[swg])/2.0;

@@ -16,8 +16,8 @@ namespace vnoid{
  */
 class IkSolver{
 public:
-	static void CompLegIk(const Vector3& pos, const Quaternion& ori, double l1, double l2, vector<double>& q);
-    static void CompArmIk(const Vector3& pos, const Quaternion& ori, double l1, double l2, vector<double>& q);
+	static void CompLegIk(const Vector3& pos, const Quaternion& ori, double l1, double l2, double* q);
+    static void CompArmIk(const Vector3& pos, const Quaternion& ori, double l1, double l2, double q2_ref, double* q);
 
 };
 

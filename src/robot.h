@@ -99,6 +99,7 @@ public:
 	Vector3  zmp;
 	Vector3  zmp_ref;
 	Vector3  zmp_mod;
+    Vector3  dcm_ref;
 
 	Vector3  com_pos_ref;
 	Vector3  com_pos_cor;

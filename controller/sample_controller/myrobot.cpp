@@ -6,11 +6,22 @@ namespace cnoid{
 namespace vnoid{
 
 MyRobot::MyRobot(){
-
+    upper_arm_length = 0.2;
+    lower_arm_length = 0.2;
+    upper_leg_length = 0.3;
+    lower_leg_length = 0.4;
 }
 
 void MyRobot::Init(SimpleControllerIO* io){
 	Robot::Init(io, timer, joint);
+
+    foot.resize(2);
+    hand.resize(2);
+
+    footstep.steps.resize(2);
+
+    stepping_controller.Init(param, footstep, centroid, base);
+
 }
 
 void MyRobot::Control(){
@@ -70,6 +81,8 @@ void MyRobot::Control(){
 
     stepping_controller.Update(timer, param, footstep, centroid, base, foot);
     stabilizer         .Update(timer, param, centroid, base, foot);
+
+    IkSolver::CompLegIk(
 	
 	Robot::Actuate(timer, base, joint);
 	
