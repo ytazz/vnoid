@@ -106,11 +106,25 @@ Foot::Foot(){
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
 Param::Param(){
-    total_mass      = 50.0;
-	com_height      = 1.0;
-	gravity         = 9.8;
-    T               = sqrt(com_height/gravity);
-	nominal_inertia = Vector3(0.0, 0.0, 0.0);
+    total_mass       = 50.0;
+	com_height       = 1.0;
+	gravity          = 9.8;
+    T                = sqrt(com_height/gravity);
+	
+    base_to_shoulder[0] = Vector3(0.0, 0.0, 0.0);
+    base_to_shoulder[1] = Vector3(0.0, 0.0, 0.0);
+    base_to_hip     [0] = Vector3(0.0, 0.0, 0.0);
+    base_to_hip     [1] = Vector3(0.0, 0.0, 0.0);
+    arm_joint_index [0] = 0;
+    arm_joint_index [1] = 0;
+    leg_joint_index [0] = 0;
+    leg_joint_index [1] = 0;
+    
+    upper_arm_length = 0.2;
+    lower_arm_length = 0.2;
+    upper_leg_length = 0.3;
+    lower_leg_length = 0.4;
+
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -183,7 +197,7 @@ void Robot::Init(SimpleControllerIO* io, Timer& timer, vector<Joint>& joint){
 
 }
 
-void Robot::Sense(Timer& timer, Base& base, vector<Foot>& foot){
+void Robot::Sense(Timer& timer, Base& base, vector<Foot>& foot, vector<Joint>& joint){
 	// angular momentum feedback
 	// gyro of RHP model is rotated
     if(gyro_sensor){
@@ -202,20 +216,28 @@ void Robot::Sense(Timer& timer, Base& base, vector<Foot>& foot){
         }
     }
 
+    for (int i = 0; i < joint.size(); ++i) {
+		cnoid::Link* jnt = io_body->joint(i);
+
+        // get position and velocity of each joint
+		joint[i].q  = jnt->q ();
+		joint[i].dq = jnt->dq();
+	}
 }
 
 void Robot::Actuate(Timer& timer, Base& base, vector<Joint>& joint){
+    // if base actuation is enabled, directly specify the position and orientation of the base link
     if(base_actuation){
         Link* lnk = io_body->link(0);
         lnk->p() = base.pos_ref;
         lnk->R() = base.ori_ref.matrix();
     }
+
     for (int i = 0; i < joint.size(); ++i) {
 		cnoid::Link* jnt = io_body->joint(i);
 		
-		joint[i].q  = jnt->q ();
-		joint[i].dq = jnt->dq();
-		joint[i].CalcTorque(timer.dt);
+		// determine joint torque by PD control
+        joint[i].CalcTorque(timer.dt);
 		jnt->u() = joint[i].u;
 	}
 }

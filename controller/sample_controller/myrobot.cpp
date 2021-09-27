@@ -6,10 +6,7 @@ namespace cnoid{
 namespace vnoid{
 
 MyRobot::MyRobot(){
-    upper_arm_length = 0.2;
-    lower_arm_length = 0.2;
-    upper_leg_length = 0.3;
-    lower_leg_length = 0.4;
+    base_actuation = true;
 }
 
 void MyRobot::Init(SimpleControllerIO* io){
@@ -25,7 +22,7 @@ void MyRobot::Init(SimpleControllerIO* io){
 }
 
 void MyRobot::Control(){
-    Robot::Sense(timer, base, foot);
+    Robot::Sense(timer, base, foot, joint);
 
 	if(timer.count % plan_cycle == 0){
 		// generate footsteps from joystick command
@@ -82,7 +79,7 @@ void MyRobot::Control(){
     stepping_controller.Update(timer, param, footstep, centroid, base, foot);
     stabilizer         .Update(timer, param, centroid, base, foot);
 
-    IkSolver::CompLegIk(
+    //IkSolver::CompLegIk(
 	
 	Robot::Actuate(timer, base, joint);
 	

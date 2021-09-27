@@ -118,11 +118,23 @@ public:
  */
 class Param{
 public:
+    // dynamical parameters
 	double   total_mass;
 	double   com_height;
 	double   gravity;
     double   T;
-    Vector3  nominal_inertia;
+    
+    // kinematic parameters
+    Vector3   base_to_shoulder[2];
+    Vector3   base_to_hip[2];
+    Vector3   wrist_to_hand[2];
+    Vector3   ankle_to_foot[2];
+    int       arm_joint_index[2];
+    int       leg_joint_index[2];
+    double    upper_arm_length;
+    double    lower_arm_length;
+    double    upper_leg_length;
+    double    lower_leg_length;
 
     Param();
 };
@@ -162,7 +174,7 @@ public:
     	
 public:
 	void  Init   (SimpleControllerIO* io, Timer& timer, vector<Joint>& joint);
-	void  Sense  (Timer& timer, Base& base, vector<Foot>& foot);
+	void  Sense  (Timer& timer, Base& base, vector<Foot>& foot, vector<Joint>& joint);
 	void  Actuate(Timer& timer, Base& base, vector<Joint>& joint);
 
 	Robot();

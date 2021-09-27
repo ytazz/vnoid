@@ -1,5 +1,6 @@
 ﻿#include "iksolver.h"
 #include "rollpitchyaw.h"
+#include "robot.h"
 
 namespace cnoid{
 namespace vnoid{
@@ -60,17 +61,26 @@ void IkSolver::CompArmIk(const Vector3& pos, const Quaternion& ori, double l1, d
         q[3] = pi - acos(tmp);
     }
 
-    // shoulder pitch
-    q[0] = atan2(pos.x(), pos.z());
-
-    // wrist pos expressed in shoulder pitch local
-    Vector3 pos_local = AngleAxis(-q[0], Vector3::UnitY())*pos;
-
-    // shoulder roll
-    q[1] = atan2(pos_local.y(), pos_local.z());
-
     // shoulder yaw is given
     q[2] = q2_ref;
+
+    // wrist pos expressed in shoulder pitch-roll local
+    Vector3 pos_local = AngleAxis(q[2], Vector3::UnitZ())*Vector3(-l2*sin(q[3]), 0.0, -l1 - l2*cos(q[3]));
+
+    // shoulder roll
+    q[1] = atan2(pos.y(), sqrt(pos.x()*pos.x() + pos.z()*pos.z()))
+         - atan2(pos_local.y(), sqrt(pos_local.x()*pos_local.x() + pos_local.z()*pos_local.z()));
+    if(q[1] >  pi) q[1] -= 2.0*pi;
+    if(q[1] < -pi) q[1] += 2.0*pi;
+
+    // wrist pos expressed in shoulde pitch local
+    Vector3 pos_local2 = AngleAxis(q[1], Vector3::UnitX())*pos_local;
+
+    // shoulder pitch
+    q[0] = atan2(pos.x(), pos.z())
+         - atan2(pos_local.x(), pos_local.z());
+    if(q[0] >  pi) q[0] -= 2.0*pi;
+    if(q[0] < -pi) q[0] += 2.0*pi;
 
     // desired hand orientation
     Quaternion qhand = ( AngleAxis(q[0], Vector3::UnitY())
@@ -86,6 +96,37 @@ void IkSolver::CompArmIk(const Vector3& pos, const Quaternion& ori, double l1, d
     q[5] = angle_hand.y();
     q[6] = angle_hand.x();
 
+}
+
+void IkSolver::Comp(const Param& param, const Centroid& centroid, const Base& base, const vector<Hand>& hand, const vector<Foot>& foot, vector<Joint>& joint){
+    
+    Vector3    pos_local;
+    Quaternion ori_local;
+    double     q[7];
+
+    // comp arm ik
+    for(int i = 0; i < 2; i++){
+        pos_local = base.ori_ref.conjugate()*(hand[i].pos_ref - centroid.com_pos_ref) - param.base_to_shoulder[i];
+        ori_local = base.ori_ref.conjugate()* hand[i].ori_ref;
+
+        CompArmIk(pos_local, ori_local, param.upper_arm_length, param.lower_arm_length, 0.0, q);
+
+        for(int j = 0; j < 7; j++){
+            joint[param.arm_joint_index[i] + j].q_ref = q[j];
+        }
+    }
+
+    // comp leg ik
+    for(int i = 0; i < 2; i++){
+        pos_local = base.ori_ref.conjugate()*(foot[i].pos_ref - centroid.com_pos_ref) - param.base_to_hip[i];
+        ori_local = base.ori_ref.conjugate()* foot[i].ori_ref;
+
+        CompLegIk(pos_local, ori_local, param.upper_leg_length, param.lower_leg_length, q);
+
+        for(int j = 0; j < 6; j++){
+            joint[param.leg_joint_index[i] + j].q_ref = q[j];
+        }
+    }
 }
 
 }

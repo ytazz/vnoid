@@ -15,11 +15,6 @@ public:
     double    standby_period;      ///< period of initial standby mode
 	double    standby_com_height;  ///< com height in standby mode
 
-    double    upper_arm_length;
-    double    lower_arm_length;
-    double    upper_leg_length;
-    double    lower_leg_length;
-
     int       plan_cycle;
     bool      use_joystick;
     double    max_stride;
