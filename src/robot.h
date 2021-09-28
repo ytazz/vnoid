@@ -136,6 +136,8 @@ public:
     double    upper_leg_length;
     double    lower_leg_length;
 
+    void Init();
+
     Param();
 };
 

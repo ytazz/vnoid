@@ -33,7 +33,7 @@ links:
     name: CHEST_Y
     parent: HIPS
     jointType: revolute
-    jointId: 6
+    jointId: 0
     jointAxis: [0,0,1]
     translation: [0, 0, 0.2]
     rotation: [0, 0, 1, 0]
@@ -61,7 +61,7 @@ links:
     name: CHEST_P
     parent: CHEST_Y
     jointType: revolute
-    jointId: 7
+    jointId: 1
     jointAxis: [0,1,0]
     translation: [0, 0, 0]
     rotation: [0, 1, 0, 0]
@@ -81,7 +81,7 @@ links:
     name: HEAD_Y
     parent: CHEST_P
     jointType: revolute
-    jointId: 14
+    jointId: 2
     jointAxis: [0,0,1]
     translation: [0, 0, 0.3]
     rotation: [0, 0, 1, 0]
@@ -101,7 +101,7 @@ links:
     name: HEAD_P
     parent: HEAD_Y
     jointType: revolute
-    jointId: 15
+    jointId: 3
     jointAxis: [0,1,0]
     translation: [0, 0, 0]
     rotation: [1, 0, 0, 0]
@@ -121,7 +121,7 @@ links:
     name: R_UPPERARM_P
     parent: CHEST_P
     jointType: revolute
-    jointId: 23
+    jointId: 4
     jointAxis: [0,1,0]
     translation: [0.0, -0.1, 0.1]
     rotation: [1, 0, 0, 0]
@@ -141,7 +141,7 @@ links:
     name: R_UPPERARM_R
     parent: R_UPPERARM_P
     jointType: revolute
-    jointId: 24
+    jointId: 5
     jointAxis: [1,0,0]
     translation: [0, 0, 0]
     rotation: [0, 1, 0, 0]
@@ -161,7 +161,7 @@ links:
     name: R_UPPERARM_Y
     parent: R_UPPERARM_R
     jointType: revolute
-    jointId: 25
+    jointId: 6
     jointAxis: [0,0,1]
     translation: [0, 0, 0]
     rotation: [0, 1, 0, 0]
@@ -182,7 +182,7 @@ links:
     name: R_LOWERARM_P
     parent: R_UPPERARM_Y
     jointType: revolute
-    jointId: 26
+    jointId: 7
     jointAxis: [0,1,0]
     translation: [0, 0, -0.2]
     rotation: [0, 0, 1, 0]
@@ -203,7 +203,7 @@ links:
     name: R_LOWERARM_Y
     parent: R_LOWERARM_P
     jointType: revolute
-    jointId: 27
+    jointId: 8
     jointAxis: [0,0,1]
     translation: [0,0,0]
     rotation: [0, 0, 1, 0]
@@ -223,7 +223,7 @@ links:
     name: R_HAND_P
     parent: R_LOWERARM_Y
     jointType: revolute
-    jointId: 28
+    jointId: 9
     jointAxis: [0,1,0]
     translation: [0, 0, -0.2]
     rotation: [0, 0, 1, 0]
@@ -243,7 +243,7 @@ links:
     name: R_HAND_Y
     parent: R_HAND_P
     jointType: revolute
-    jointId: 29
+    jointId: 10
     jointAxis: [0,0,1]
     translation: [0,0,0]
     rotation: [0, 0, 1, 0]
@@ -263,7 +263,7 @@ links:
     name: L_UPPERARM_P
     parent: CHEST_P
     jointType: revolute
-    jointId: 16
+    jointId: 11
     jointAxis: [0,1,0]
     translation: [0.0,  0.1, 0.1]
     rotation: [1, 0, 0, 0]
@@ -283,7 +283,7 @@ links:
     name: L_UPPERARM_R
     parent: L_UPPERARM_P
     jointType: revolute
-    jointId: 17
+    jointId: 12
     jointAxis: [1,0,0]
     translation: [0, 0, 0]
     rotation: [0, 1, 0, 0]
@@ -303,7 +303,7 @@ links:
     name: L_UPPERARM_Y
     parent: L_UPPERARM_R
     jointType: revolute
-    jointId: 18
+    jointId: 13
     jointAxis: [0,0,1]
     translation: [0, 0, 0]
     rotation: [0, 1, 0, 0]
@@ -323,7 +323,7 @@ links:
     name: L_LOWERARM_P
     parent: L_UPPERARM_Y
     jointType: revolute
-    jointId: 19
+    jointId: 14
     jointAxis: [0,1,0]
     translation: [0, 0, -0.2]
     rotation: [0, 0, 1, 0]
@@ -343,7 +343,7 @@ links:
     name: L_LOWERARM_Y
     parent: L_LOWERARM_P
     jointType: revolute
-    jointId: 20
+    jointId: 15
     jointAxis: [0,0,1]
     translation: [0,0,0]
     rotation: [0, 0, 1, 0]
@@ -363,7 +363,7 @@ links:
     name: L_HAND_P
     parent: L_LOWERARM_Y
     jointType: revolute
-    jointId: 21
+    jointId: 16
     jointAxis: [0,1,0]
     translation: [0, 0, -0.2]
     rotation: [0, 0, 1, 0]
@@ -383,7 +383,7 @@ links:
     name: L_HAND_Y
     parent: L_HAND_P
     jointType: revolute
-    jointId: 22
+    jointId: 17
     jointAxis: [0,0,1]
     translation: [0,0,0]
     rotation: [0, 0, 1, 0]
@@ -403,7 +403,7 @@ links:
     name: R_UPPERLEG_Y
     parent: HIPS
     jointType: revolute
-    jointId: 8
+    jointId: 18
     jointAxis: [0,0,1]
     translation: [0, -0.1, -0.1]
     rotation: [0, 0, 1, 0]
@@ -423,7 +423,7 @@ links:
     name: R_UPPERLEG_R
     parent: R_UPPERLEG_Y
     jointType: revolute
-    jointId: 9
+    jointId: 19
     jointAxis: [1,0,0]
     translation: [0,0,0]
     rotation: [1, 0, 0, 0]
@@ -443,7 +443,7 @@ links:
     name: R_UPPERLEG_P
     parent: R_UPPERLEG_R
     jointType: revolute
-    jointId: 10
+    jointId: 20
     jointAxis: [0,1,0]
     translation: [0, 0, 0]
     rotation: [0, 1, 0, 0]
@@ -463,7 +463,7 @@ links:
     name: R_LOWERLEG_P
     parent: R_UPPERLEG_P
     jointType: revolute
-    jointId: 11
+    jointId: 21
     jointAxis: [0,1,0]
     translation: [0, 0, -0.3]
     rotation: [0, 1, 0, 0]
@@ -483,7 +483,7 @@ links:
     name: R_FOOT_R
     parent: R_LOWERLEG_P
     jointType: revolute
-    jointId: 12
+    jointId: 22
     jointAxis: [1,0,0]
     translation: [0, 0, -0.4]
     rotation: [0, 1, 0, 0]
@@ -503,7 +503,7 @@ links:
     name: R_FOOT_P
     parent: R_FOOT_R
     jointType: revolute
-    jointId: 13
+    jointId: 23
     jointAxis: [0,1,0]
     translation: [0,0,0]
     rotation: [1, 0, 0, 0]
@@ -529,7 +529,7 @@ links:
     name: L_UPPERLEG_Y
     parent: HIPS
     jointType: revolute
-    jointId: 0
+    jointId: 24
     jointAxis: [0,0,1]
     translation: [0, 0.1, -0.1]
     rotation: [0, 0, 1, 0]
@@ -549,7 +549,7 @@ links:
     name: L_UPPERLEG_R
     parent: L_UPPERLEG_Y
     jointType: revolute
-    jointId: 1
+    jointId: 25
     jointAxis: [1,0,0]
     translation: [0,0,0]
     rotation: [1, 0, 0, 0]
@@ -569,7 +569,7 @@ links:
     name: L_UPPERLEG_P
     parent: L_UPPERLEG_R
     jointType: revolute
-    jointId: 2
+    jointId: 26
     jointAxis: [0,1,0]
     translation: [0, 0, 0]
     rotation: [0, 1, 0, 0]
@@ -589,7 +589,7 @@ links:
     name: L_LOWERLEG_P
     parent: L_UPPERLEG_P
     jointType: revolute
-    jointId: 3
+    jointId: 27
     jointAxis: [0,1,0]
     translation: [0, 0, -0.3]
     rotation: [0, 1, 0, 0]
@@ -609,7 +609,7 @@ links:
     name: L_FOOT_R
     parent: L_LOWERLEG_P
     jointType: revolute
-    jointId: 4
+    jointId: 28
     jointAxis: [1,0,0]
     translation: [0, 0, -0.4]
     rotation: [0, 1, 0, 0]
@@ -629,7 +629,7 @@ links:
     name: L_FOOT_P
     parent: L_FOOT_R
     jointType: revolute
-    jointId: 5
+    jointId: 29
     jointAxis: [0,1,0]
     translation: [0,0,0]
     rotation: [1, 0, 0, 0]

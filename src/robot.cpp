@@ -109,8 +109,7 @@ Param::Param(){
     total_mass       = 50.0;
 	com_height       = 1.0;
 	gravity          = 9.8;
-    T                = sqrt(com_height/gravity);
-	
+    
     base_to_shoulder[0] = Vector3(0.0, 0.0, 0.0);
     base_to_shoulder[1] = Vector3(0.0, 0.0, 0.0);
     base_to_hip     [0] = Vector3(0.0, 0.0, 0.0);
@@ -125,6 +124,11 @@ Param::Param(){
     upper_leg_length = 0.3;
     lower_leg_length = 0.4;
 
+    Init();
+}
+
+void Param::Init(){
+    T = sqrt(com_height/gravity);
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
