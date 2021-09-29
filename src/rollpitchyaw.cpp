@@ -3,7 +3,7 @@
 namespace cnoid{
 namespace vnoid{
 
-static const double pi = M_PI;
+const double pi = 3.14159265358979;
 
 Vector3 ToRollPitchYaw(const Quaternion& q){
 	Vector3 angles;
@@ -13,7 +13,7 @@ Vector3 ToRollPitchYaw(const Quaternion& q){
 	angles[1] = atan2(-xdir.z(), sqrt(xdir.x()*xdir.x() + xdir.y()*xdir.y()));
 	
 	Quaternion qroll = AngleAxis(-angles[1], Vector3::UnitY()) * AngleAxis(-angles[2], Vector3::UnitZ()) * q;
-	angles[0] = 2.0 * atan2(qroll.y(), qroll.x());
+	angles[0] = 2.0 * atan2(qroll.x(), qroll.w());
 
 	// yaw angle needs wrapping
 	if(angles[0] >  pi) angles[0] -= 2.0*pi;

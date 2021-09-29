@@ -44,8 +44,8 @@ void MyRobot::Init(SimpleControllerIO* io){
     joint.resize(30);
     for(int i = 0; i < 30; i++){
         joint[i].pgain  = 5000.0;
-        joint[i].dgain  = 75.0;
-        joint[i].ulimit = 100.0;
+        joint[i].dgain  = 500.0;
+        joint[i].ulimit = 1000.0;
     }
 
     // init hardware (simulator interface)
@@ -122,8 +122,8 @@ void MyRobot::Control(){
     centroid.com_pos_ref = Vector3(0.0, 0.0, 1.5);
     foot[0].pos_ref      = Vector3(0.0, -0.1, 1.5 - 0.7 + 0.1);
     foot[1].pos_ref      = Vector3(0.0,  0.1, 1.5 - 0.7 + 0.2);
-    hand[0].pos_ref      = Vector3(0.0, -0.3, 1.5);
-    hand[1].pos_ref      = Vector3(0.0,  0.3, 1.5);
+    hand[0].pos_ref      = Vector3(0.1, -0.3, 1.5 + 0.1);
+    hand[1].pos_ref      = Vector3(-0.1,  0.3, 1.5 + 0.1);
     ik_solver.Comp(param, centroid, base, hand, foot, joint);
 
 	Robot::Actuate(timer, base, joint);

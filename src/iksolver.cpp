@@ -13,36 +13,42 @@ void IkSolver::CompLegIk(const Vector3& pos, const Quaternion& ori, double l1, d
     // hip yaw is directly determined from foot yaw
     q[0] = angle.z();
 
-    // knee pitch from trigonometrics
-    double tmp = (l1*l1 + l2*l2 - pos.squaredNorm())/(2*l1*l2);
-    //  singularity: too close
-    if(tmp > 1.0){
-        q[3] = pi;
-    }
-    //  singularity: too far
-    else if(tmp < -1.0){
-        q[3] = 0.0;
-    }
-    //  nonsingular
-    else{
-        q[3] = pi - acos(tmp);
-    }
-
     // ankle pos expressed in hip-yaw local
     Vector3 pos_local = AngleAxis(-q[0], Vector3::UnitZ())*pos;
 
     // hip roll
-    q[1] = atan2(pos_local.y(), pos_local.z());
+    q[1] = atan2(pos_local.y(), -pos_local.z());
 
     // ankle pos expressed in hip yaw and hip roll local
     Vector3 pos_local2 = AngleAxis(-q[1], Vector3::UnitX())*pos_local;
 
-    // hip pitch
-    q[2] = atan2(pos_local2.x(), pos_local2.z()) - q[3];
+    double  alpha = -atan2(pos_local2.x(), -pos_local2.z());
+    
+    // hip pitch and knee pitch from trigonometrics
+    double d   = pos.norm();
+    double tmp = (l1*l1 + l2*l2 - d*d)/(2*l1*l2);
+    //  singularity: too close
+    if(tmp > 1.0){
+        q[3] = pi;
+        q[2] = alpha;
+    }
+    //  singularity: too far
+    else if(tmp < -1.0){
+        q[3] = 0.0;
+        q[2] = alpha;
+    }
+    //  nonsingular
+    else{
+        q[3] = pi - acos(tmp);
+        q[2] = alpha - asin((l2/d)*sin(q[3]));
+    }
 
-    // ankle pitch and ankle roll are determined from foot pitch and foot roll
+    // ankle pitch
     q[4] = angle.y() - q[2] - q[3];
+
+    // ankle roll
     q[5] = angle.x() - q[1];
+
 }
 
 void IkSolver::CompArmIk(const Vector3& pos, const Quaternion& ori, double l1, double l2, double q2_ref, double* q){
@@ -58,7 +64,7 @@ void IkSolver::CompArmIk(const Vector3& pos, const Quaternion& ori, double l1, d
     }
     //  nonsingular
     else{
-        q[3] = pi - acos(tmp);
+        q[3] = -(pi - acos(tmp));
     }
 
     // shoulder yaw is given

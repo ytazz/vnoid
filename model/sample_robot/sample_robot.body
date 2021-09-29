@@ -145,7 +145,7 @@ links:
     jointAxis: [1,0,0]
     translation: [0, 0, 0]
     rotation: [0, 1, 0, 0]
-    jointRange: [-100, 10]
+    jointRange: [-90, 90]
     jointVelocityRange: [-540, 540]
     gearRatio: 1
     rotorInertia: 1.0
@@ -186,7 +186,7 @@ links:
     jointAxis: [0,1,0]
     translation: [0, 0, -0.2]
     rotation: [0, 0, 1, 0]
-    jointRange: [-130, 0]
+    jointRange: [-150, 0]
     jointVelocityRange: [-540, 540]
     gearRatio: 1
     rotorInertia: 1.0
@@ -207,7 +207,7 @@ links:
     jointAxis: [0,0,1]
     translation: [0,0,0]
     rotation: [0, 0, 1, 0]
-    jointRange: [-115, 115]
+    jointRange: [-90, 90]
     jointVelocityRange: [-540, 540]
     gearRatio: 1
     rotorInertia: 1.0
@@ -227,7 +227,7 @@ links:
     jointAxis: [0,1,0]
     translation: [0, 0, -0.2]
     rotation: [0, 0, 1, 0]
-    jointRange: [-90, 55]
+    jointRange: [-90, 90]
     jointVelocityRange: [-540, 540]
     gearRatio: 1
     rotorInertia: 1.0
@@ -240,14 +240,14 @@ links:
         geometry: { type: Resource, uri: "HandP.stl" }
         appearance: *MAT_LINK
   -
-    name: R_HAND_Y
+    name: R_HAND_R
     parent: R_HAND_P
     jointType: revolute
     jointId: 10
-    jointAxis: [0,0,1]
+    jointAxis: [1,0,0]
     translation: [0,0,0]
     rotation: [0, 0, 1, 0]
-    jointRange: [-180, 180]
+    jointRange: [-90, 90]
     jointVelocityRange: [-540, 540]
     gearRatio: 1
     rotorInertia: 1.0
@@ -257,7 +257,7 @@ links:
     elements:
       -
         type: Shape
-        geometry: { type: Resource, uri: "HandY.stl" }
+        geometry: { type: Resource, uri: "HandR.stl" }
         appearance: *MAT_LINK
   -
     name: L_UPPERARM_P
@@ -287,7 +287,7 @@ links:
     jointAxis: [1,0,0]
     translation: [0, 0, 0]
     rotation: [0, 1, 0, 0]
-    jointRange: [-10, 100]
+    jointRange: [-90, 90]
     jointVelocityRange: [-540, 540]
     gearRatio: 1
     rotorInertia: 1.0
@@ -327,7 +327,7 @@ links:
     jointAxis: [0,1,0]
     translation: [0, 0, -0.2]
     rotation: [0, 0, 1, 0]
-    jointRange: [-130, 0]
+    jointRange: [-150, 0]
     jointVelocityRange: [-540, 540]
     gearRatio: 1
     rotorInertia: 1.0
@@ -347,7 +347,7 @@ links:
     jointAxis: [0,0,1]
     translation: [0,0,0]
     rotation: [0, 0, 1, 0]
-    jointRange: [-115, 115]
+    jointRange: [-90, 90]
     jointVelocityRange: [-540, 540]
     gearRatio: 1
     rotorInertia: 1.0
@@ -367,7 +367,7 @@ links:
     jointAxis: [0,1,0]
     translation: [0, 0, -0.2]
     rotation: [0, 0, 1, 0]
-    jointRange: [-90, 55]
+    jointRange: [-90, 90]
     jointVelocityRange: [-540, 540]
     gearRatio: 1
     rotorInertia: 1.0
@@ -380,14 +380,14 @@ links:
         geometry: { type: Resource, uri: "HandP.stl" }
         appearance: *MAT_LINK
   -
-    name: L_HAND_Y
+    name: L_HAND_R
     parent: L_HAND_P
     jointType: revolute
     jointId: 17
-    jointAxis: [0,0,1]
+    jointAxis: [1,0,0]
     translation: [0,0,0]
     rotation: [0, 0, 1, 0]
-    jointRange: [-180, 180]
+    jointRange: [-90, 90]
     jointVelocityRange: [-540, 540]
     gearRatio: 1
     rotorInertia: 1.0
@@ -397,7 +397,7 @@ links:
     elements:
       -
         type: Shape
-        geometry: { type: Resource, uri: "HandY.stl" }
+        geometry: { type: Resource, uri: "HandR.stl" }
         appearance: *MAT_LINK
   -
     name: R_UPPERLEG_Y
@@ -480,14 +480,14 @@ links:
         geometry: { type: Resource, uri: "LowerlegP.stl" }
         appearance: *MAT_LINK
   -
-    name: R_FOOT_R
+    name: R_FOOT_P
     parent: R_LOWERLEG_P
     jointType: revolute
     jointId: 22
-    jointAxis: [1,0,0]
+    jointAxis: [0,1,0]
     translation: [0, 0, -0.4]
     rotation: [0, 1, 0, 0]
-    jointRange: [-30, 30]
+    jointRange: [-60, 60]
     jointVelocityRange: [-540, 540]
     gearRatio: 1
     rotorInertia: 1.0
@@ -497,17 +497,17 @@ links:
     elements:
       -
         type: Shape
-        geometry: { type: Resource, uri: "FootR.stl" }
+        geometry: { type: Resource, uri: "FootP.stl" }
         appearance: *MAT_LINK
   -
-    name: R_FOOT_P
-    parent: R_FOOT_R
+    name: R_FOOT_R
+    parent: R_FOOT_P
     jointType: revolute
     jointId: 23
-    jointAxis: [0,1,0]
+    jointAxis: [1,0,0]
     translation: [0,0,0]
     rotation: [1, 0, 0, 0]
-    jointRange: [-100, 40]
+    jointRange: [-60, 60]
     jointVelocityRange: [-540, 540]
     gearRatio: 1
     rotorInertia: 1.0
@@ -523,7 +523,7 @@ links:
         rotation: [0,1,0,0]
       -
         type: Shape
-        geometry: { type: Resource, uri: "FootP_flat.stl" }
+        geometry: { type: Resource, uri: "FootR_flat.stl" }
         appearance: *MAT_LINK
   -
     name: L_UPPERLEG_Y
@@ -606,14 +606,14 @@ links:
         geometry: { type: Resource, uri: "LowerlegP.stl" }
         appearance: *MAT_LINK
   -
-    name: L_FOOT_R
+    name: L_FOOT_P
     parent: L_LOWERLEG_P
     jointType: revolute
     jointId: 28
-    jointAxis: [1,0,0]
+    jointAxis: [0,1,0]
     translation: [0, 0, -0.4]
     rotation: [0, 1, 0, 0]
-    jointRange: [-30, 30]
+    jointRange: [-60, 60]
     jointVelocityRange: [-540, 540]
     gearRatio: 1
     rotorInertia: 1.0
@@ -623,17 +623,17 @@ links:
     elements:
       -
         type: Shape
-        geometry: { type: Resource, uri: "FootR.stl" }
+        geometry: { type: Resource, uri: "FootP.stl" }
         appearance: *MAT_LINK
   -
-    name: L_FOOT_P
-    parent: L_FOOT_R
+    name: L_FOOT_R
+    parent: L_FOOT_P
     jointType: revolute
     jointId: 29
-    jointAxis: [0,1,0]
+    jointAxis: [1,0,0]
     translation: [0,0,0]
     rotation: [1, 0, 0, 0]
-    jointRange: [-100, 40]
+    jointRange: [-60, 60]
     jointVelocityRange: [-540, 540]
     gearRatio: 1
     rotorInertia: 1.0
@@ -649,7 +649,7 @@ links:
         rotation: [0,1,0,0]
       -
         type: Shape
-        geometry: { type: Resource, uri: "FootP_flat.stl" }
+        geometry: { type: Resource, uri: "FootR_flat.stl" }
         appearance: *MAT_LINK
   
 collisionDetection:
