@@ -14,13 +14,10 @@ FootstepPlanner::FootstepPlanner(){
 }
 
 void FootstepPlanner::Plan(const Param& param, Footstep& footstep){
-    Step& st0 = footstep.steps[0];
-	st0.side = 0;
-	st0.foot_pos[0] = Vector3(0.0, -st0.spacing/2.0, 0.0);
-	st0.foot_pos[1] = Vector3(0.0,  st0.spacing/2.0, 0.0);
-	st0.foot_ori[0] = 0.0;
-	st0.foot_ori[1] = 0.0;
+    
+    // we assume that foot placement, support foot flag, and dcm of step[0] are specified from outside
 
+    // determine foot placement and support foot flag of remaining steps
     int nstep = footstep.steps.size();
 	for(int i = 0; i < nstep-1; i++){
 	    Step& st0 = footstep.steps[i+0];
@@ -68,9 +65,8 @@ void FootstepPlanner::Plan(const Param& param, Footstep& footstep){
 		int swg = !footstep.steps[i].side;
 		
 		double a = exp(-footstep.steps[i].duration/param.T);
-		// for initial step, set dcm to middle of feet, and determine zmp
+		// for initial step, the dcm is specified from outside. determine zmp accordingly
 		if(i == 0){
-			//stepAuxs[i].dcm = (footstep[i].footPos[sup] + footstep[i].footPos[swg])/2.0;
 			footstep.steps[i].zmp = (footstep.steps[i].dcm - a*footstep.steps[i+1].dcm)/(1.0 - a);
 		}
 		// for other steps, set zmp to support foot, and determine dcm

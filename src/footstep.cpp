@@ -3,13 +3,14 @@
 namespace cnoid{
 namespace vnoid{
 
-Step::Step(){
-    stride   = 0.0;
-    sway     = 0.0;
-	spacing  = 0.0;
-	turn     = 0.0;
-	climb    = 0.0;
-	duration = 0.0;
+Step::Step(double _stride, double _sway, double _spacing, double _turn, double _climb, double _duration, int _side){
+    stride   = _stride  ;
+    sway     = _sway    ;
+	spacing  = _spacing ;
+	turn     = _turn    ;
+	climb    = _climb   ;
+	duration = _duration;
+    side     = _side    ;
     
     for(int i = 0; i < 2; i++){
 		foot_pos   [i] = Vector3(0.0, 0.0, 0.0);

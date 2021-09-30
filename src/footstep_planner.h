@@ -17,6 +17,10 @@ class FootstepPlanner{
 public:
     
 public:
+    /*
+     * generate footsteps including zmp and dcm
+     * 
+     */
 	void Plan(const Param& param, Footstep& footstep);
     
 	FootstepPlanner();

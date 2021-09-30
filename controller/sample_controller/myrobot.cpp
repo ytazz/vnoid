@@ -6,14 +6,14 @@ namespace cnoid{
 namespace vnoid{
 
 MyRobot::MyRobot(){
-    base_actuation = true;
+    base_actuation = false;
 }
 
 void MyRobot::Init(SimpleControllerIO* io){
     // init params
     //  dynamical parameters
 	param.total_mass = 50.0;
-	param.com_height =  1.0;
+	param.com_height =  0.7;
 	param.gravity    =  9.8;
     
     // kinematic parameters
@@ -36,7 +36,7 @@ void MyRobot::Init(SimpleControllerIO* io){
 
     param.Init();
 
-    // two hands and twe feet
+    // two hands and two feet
     foot.resize(2);
     hand.resize(2);
 
@@ -52,81 +52,90 @@ void MyRobot::Init(SimpleControllerIO* io){
 	Robot::Init(io, timer, joint);
 
     // init footsteps
-    footstep.steps.resize(2);
+    footstep.steps.push_back(Step(0.0, 0.0, 0.2, 0.0, 0.0, 0.5, 0));
+    footstep.steps.push_back(Step(0.0, 0.0, 0.2, 0.0, 0.0, 0.5, 1));
+    footstep_planner.Plan(param, footstep);
 
     // init stepping controller
-    stepping_controller.Init(param, footstep, centroid, base);
+    stepping_controller.Init(param, centroid, base);
 
 }
 
 void MyRobot::Control(){
     Robot::Sense(timer, base, foot, joint);
 
-	if(timer.count % plan_cycle == 0){
-		// generate footsteps from joystick command
-		if(use_joystick){
-		    // read joystick
-		    joystick.readCurrentState();
+	if(timer.count % 10 == 0){
+		// read joystick
+		joystick.readCurrentState();
 
-		    /* Xbox controller mapping:
-			    L_STICK_H_AXIS -> L stick right
-			    L_STICK_V_AXIS -> L stick down
-			    R_STICK_H_AXIS -> L trigger - R trigger
-			    R_STICK_V_AXIS -> R stick down
-			    A_BUTTON -> A
-			    B_BUTTON -> B
-			    X_BUTTON -> X
-			    Y_BUTTON -> Y
-			    L_BUTTON -> L
-			    R_BUTTON -> R
-		     */
-		    /*
-		    DSTR << joystick.getPosition(Joystick::L_STICK_H_AXIS) << " " 
-			     << joystick.getPosition(Joystick::L_STICK_V_AXIS) << " " 
-			     << joystick.getPosition(Joystick::R_STICK_H_AXIS) << " " 
-			     << joystick.getPosition(Joystick::R_STICK_V_AXIS) << " " 
-			     << joystick.getButtonState(Joystick::A_BUTTON) << " "
-			     << joystick.getButtonState(Joystick::B_BUTTON) << " "
-			     << joystick.getButtonState(Joystick::X_BUTTON) << " "
-			     << joystick.getButtonState(Joystick::Y_BUTTON) << " "
-			     << joystick.getButtonState(Joystick::L_BUTTON) << " "
-			     << joystick.getButtonState(Joystick::R_BUTTON) << endl;
+		/* Xbox controller mapping:
+			L_STICK_H_AXIS -> L stick right
+			L_STICK_V_AXIS -> L stick down
+			R_STICK_H_AXIS -> L trigger - R trigger
+			R_STICK_V_AXIS -> R stick down
+			A_BUTTON -> A
+			B_BUTTON -> B
+			X_BUTTON -> X
+			Y_BUTTON -> Y
+			L_BUTTON -> L
+			R_BUTTON -> R
 		    */
+		/*
+		DSTR << joystick.getPosition(Joystick::L_STICK_H_AXIS) << " " 
+			    << joystick.getPosition(Joystick::L_STICK_V_AXIS) << " " 
+			    << joystick.getPosition(Joystick::R_STICK_H_AXIS) << " " 
+			    << joystick.getPosition(Joystick::R_STICK_V_AXIS) << " " 
+			    << joystick.getButtonState(Joystick::A_BUTTON) << " "
+			    << joystick.getButtonState(Joystick::B_BUTTON) << " "
+			    << joystick.getButtonState(Joystick::X_BUTTON) << " "
+			    << joystick.getButtonState(Joystick::Y_BUTTON) << " "
+			    << joystick.getButtonState(Joystick::L_BUTTON) << " "
+			    << joystick.getButtonState(Joystick::R_BUTTON) << endl;
+		*/
 	
-			// erase current footsteps
-			while(footstep.steps.size() > 2)
-				footstep.steps.pop_back();
+		// erase current footsteps
+		while(footstep.steps.size() > 2)
+			footstep.steps.pop_back();
 
-			Step step;
-			step.stride   = -max_stride*joystick.getPosition(Joystick::L_STICK_V_AXIS);
-			step.turn     = -max_turn  *joystick.getPosition(Joystick::L_STICK_H_AXIS);
-			step.spacing  = 0.2;
-			step.climb    = 0.0;
-			step.duration = 0.7;
-			footstep.steps.push_back(step);
-			footstep.steps.push_back(step);
-			footstep.steps.push_back(step);
-			step.stride = 0.0;
-			step.turn   = 0.0;
-			footstep.steps.push_back(step);
-		}
-
+		Step step;
+		step.stride   = 0.1; //-max_stride*joystick.getPosition(Joystick::L_STICK_V_AXIS);
+		step.turn     = 0.0; //-max_turn  *joystick.getPosition(Joystick::L_STICK_H_AXIS);
+		step.spacing  = 0.2;
+		step.climb    = 0.0;
+		step.duration = 0.7;
+		footstep.steps.push_back(step);
+		footstep.steps.push_back(step);
+		footstep.steps.push_back(step);
+		step.stride = 0.0;
+		step.turn   = 0.0;
+		footstep.steps.push_back(step);
+		
 		footstep_planner.Plan(param, footstep);
 	}
 
     stepping_controller.Update(timer, param, footstep, centroid, base, foot);
     stabilizer         .Update(timer, param, centroid, base, foot);
 
-    //IkSolver::CompLegIk(
-	base.pos_ref         = Vector3(0.0, 0.0, 1.5);
+    /*
+    // IK testing
+    joystick.readCurrentState();
+    double jv = joystick.getPosition(Joystick::L_STICK_V_AXIS);
+    double jh = joystick.getPosition(Joystick::L_STICK_H_AXIS);
+
     centroid.com_pos_ref = Vector3(0.0, 0.0, 1.5);
-    foot[0].pos_ref      = Vector3(0.0, -0.1, 1.5 - 0.7 + 0.1);
-    foot[1].pos_ref      = Vector3(0.0,  0.1, 1.5 - 0.7 + 0.2);
-    hand[0].pos_ref      = Vector3(0.1, -0.3, 1.5 + 0.1);
-    hand[1].pos_ref      = Vector3(-0.1,  0.3, 1.5 + 0.1);
+    foot[0].pos_ref      = Vector3(0.2*jh, -0.1, 1.5 - 0.7 + 0.1*jv);
+    foot[1].pos_ref      = Vector3(-0.2*jh,  0.1, 1.5 - 0.7 - 0.1*jv);
+    hand[0].pos_ref      = Vector3(0.1, -0.3, 1.5 + 0.1*jh);
+    hand[1].pos_ref      = Vector3(-0.1,  0.3, 1.5 + 0.1*jh);
+    */
+
+    hand[0].pos_ref = centroid.com_pos_ref + base.ori_ref*Vector3(0.0, -0.2, 0.0);
+    hand[1].pos_ref = centroid.com_pos_ref + base.ori_ref*Vector3(0.0,  0.2, 0.0);
     ik_solver.Comp(param, centroid, base, hand, foot, joint);
 
-	Robot::Actuate(timer, base, joint);
+	base.pos_ref         = Vector3(0.0, 0.0, 1.5);
+
+    Robot::Actuate(timer, base, joint);
 	
 	timer.Countup();
 }
