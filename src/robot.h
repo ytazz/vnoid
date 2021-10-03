@@ -5,6 +5,8 @@
 #include <cnoid/SimpleController>
 #include <cnoid/Joystick>
 
+#include "filter.h"
+
 #include <string>
 using namespace std;
 
@@ -23,6 +25,7 @@ public:
 	double  dq_ref;
 	double  u;
 
+    void Set(double _pgain, double _dgain, double _ulimit);
 	void CalcTorque(double dt);
 
 	Joint();
@@ -64,14 +67,10 @@ public:
 	double      balance;
 	double      balance_ref;
 	Vector3     pos_ref;
-	Vector3     pos_mod;
 	Quaternion  ori_ref;
 	Vector3     angle_ref;
-	Vector3     angle_mod;
 	Vector3     vel_ref;
-	Vector3     vel_mod;
 	Vector3     angvel_ref;
-	Vector3     angvel_mod;
 	Vector3     acc_ref;
 	Vector3     angacc_ref;
 	Vector3     force;
@@ -95,21 +94,14 @@ class Centroid{
 public:
 	Vector3  force_ref;
 	Vector3  moment_ref;
-	Vector3  moment_mod;
 	Vector3  zmp;
 	Vector3  zmp_ref;
-	Vector3  zmp_mod;
-    Vector3  dcm_ref;
+	Vector3  dcm_ref;
 
 	Vector3  com_pos_ref;
-	Vector3  com_pos_cor;
-	Vector3  com_pos_mod;
 	Vector3  com_vel_ref;
-	Vector3  com_vel_cor;
-	Vector3  com_vel_mod;
 	Vector3  com_acc_ref;
-	Vector3  com_acc_cor;
-
+	
 	Centroid();
 };
 
@@ -157,11 +149,21 @@ public:
 	Body*     io_body;
 
     bool      base_actuation;
+    double    gyro_filter_cutoff;
+    double    acc_filter_cutoff;
+    double    foot_force_filter_cutoff;
+    double    foot_moment_filter_cutoff;
+    double    joint_pos_filter_cutoff;
 	
-    ForceSensor*        force_sensor;
-	AccelerationSensor* accel_sensor;
+    AccelerationSensor* accel_sensor;
 	RateGyroSensor*     gyro_sensor;
 	ForceSensor*        foot_force_sensor[2];
+
+    Filter   acc_filter [3];
+    Filter   gyro_filter[3];
+    Filter   foot_force_filter [2][3];
+    Filter   foot_moment_filter[2][3];
+    vector<Filter>  joint_pos_filter;
 
 	string   base_force_sensor_name;
     string   base_acc_sensor_name;

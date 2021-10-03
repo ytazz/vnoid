@@ -1,6 +1,7 @@
 
 set(VNOID_HEADERS
     "iksolver.h"
+    "filter.h"
     "footstep.h"
     "footstep_planner.h"
 	"robot.h"
@@ -10,6 +11,7 @@ set(VNOID_HEADERS
 	)
 set(VNOID_SOURCES
     "iksolver.cpp"
+    "filter.cpp"
     "footstep.cpp"
     "footstep_planner.cpp"
 	"robot.cpp"

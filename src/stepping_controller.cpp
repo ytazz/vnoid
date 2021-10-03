@@ -11,6 +11,7 @@ const double pi = 3.14159265358979;
 
 SteppingController::SteppingController(){
     swing_height = 0.05;
+    dsp_duration = 0.1;
 }
 
 void SteppingController::Init(const Param& param, Centroid& centroid, Base& base){
@@ -56,15 +57,18 @@ void SteppingController::Update(const Timer& timer, const Param& param, Footstep
     foot[sup].contact_ref = true;
 
 	// set swing foot position
-    //  if lift-off and landing poses are the same
-    if( st0.foot_pos[swg] == st1.foot_pos[swg] &&
-        st0.foot_ori[swg] == st1.foot_ori[swg] ){
-        foot[swg].pos_ref       = st0.foot_pos[swg];
-        foot[swg].angle_ref.z() = st0.foot_ori[swg];
+    //  if lift-off and landing poses are the same or it is double support phase
+    if( (st0.foot_pos[swg] == st1.foot_pos[swg] &&
+         st0.foot_ori[swg] == st1.foot_ori[swg] ) ||
+         t - tswitch < dsp_duration )
+    {
+        foot[swg].pos_ref     = st0.foot_pos[swg];
+        foot[swg].angle_ref   = Vector3(0.0, 0.0, st0.foot_ori[swg]);
+        foot[swg].contact_ref = true;
     }
     else{
         // cycloid swing profile
-        double s     = (t - tswitch)/st0.duration;
+        double s     = (t - tswitch - dsp_duration)/(st0.duration - dsp_duration);
         double theta = 2.0*pi*s;
         double ch    = (theta - sin(theta))/(2.0*pi);
         double cv    = (1.0 - cos(theta))/2.0;
@@ -77,9 +81,9 @@ void SteppingController::Update(const Timer& timer, const Param& param, Footstep
         foot[swg].pos_ref      = (1.0 - ch)*st0.foot_pos[swg] + ch*st1.foot_pos[swg];
         foot[swg].pos_ref.z() += cv*swing_height;
         foot[swg].angle_ref    = Vector3(0.0, 0.0, st0.foot_ori[swg] + ch*turn);
+        foot[swg].contact_ref  = false;
     }
     foot[swg].ori_ref     = FromRollPitchYaw(foot[swg].angle_ref);
-    foot[swg].contact_ref = false;
 
 	// calc reference dcm
     centroid.dcm_ref = centroid.com_pos_ref + param.T*centroid.com_vel_ref;
@@ -98,8 +102,11 @@ void SteppingController::Update(const Timer& timer, const Param& param, Footstep
 		(1.0/(param.T*param.T))*(centroid.com_pos_ref[1] - centroid.zmp_ref[1]),
 		0.0);
 
-    // calc reference base orientation
-	base.angle_ref = Vector3(0.0, 0.0, (st0.foot_ori[sup] + st0.foot_ori[swg])/2.0);
+    // reference base orientation is set as the middle of feet orientation
+    double angle_diff = foot[1].angle_ref.z() - foot[0].angle_ref.z();
+    if(angle_diff >  pi) angle_diff -= 2.0*pi;
+    if(angle_diff < -pi) angle_diff += 2.0*pi;
+	base.angle_ref.z() = foot[0].angle_ref.z() + angle_diff/2.0;
     base.ori_ref   = FromRollPitchYaw(base.angle_ref);
 	
 }

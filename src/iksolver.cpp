@@ -112,7 +112,7 @@ void IkSolver::Comp(const Param& param, const Centroid& centroid, const Base& ba
 
     // comp arm ik
     for(int i = 0; i < 2; i++){
-        pos_local = base.ori_ref.conjugate()*(hand[i].pos_ref - centroid.com_pos_ref) - param.base_to_shoulder[i];
+        pos_local = base.ori_ref.conjugate()*(hand[i].pos_ref - hand[i].ori_ref*param.wrist_to_hand[i] - centroid.com_pos_ref) - param.base_to_shoulder[i];
         ori_local = base.ori_ref.conjugate()* hand[i].ori_ref;
 
         CompArmIk(pos_local, ori_local, param.upper_arm_length, param.lower_arm_length, 0.0, q);
@@ -124,7 +124,7 @@ void IkSolver::Comp(const Param& param, const Centroid& centroid, const Base& ba
 
     // comp leg ik
     for(int i = 0; i < 2; i++){
-        pos_local = base.ori_ref.conjugate()*(foot[i].pos_ref - centroid.com_pos_ref) - param.base_to_hip[i];
+        pos_local = base.ori_ref.conjugate()*(foot[i].pos_ref - foot[i].ori_ref*param.ankle_to_foot[i] - centroid.com_pos_ref) - param.base_to_hip[i];
         ori_local = base.ori_ref.conjugate()* foot[i].ori_ref;
 
         CompLegIk(pos_local, ori_local, param.upper_leg_length, param.lower_leg_length, q);

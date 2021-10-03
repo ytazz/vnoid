@@ -19,8 +19,10 @@ class Foot;
 
 class SteppingController{
 public:
-	double    tswitch;
     double    swing_height;
+    double    dsp_duration;
+
+    double    tswitch;   //< time instant of previous support foot exchange
 
 public:
 	void Init  (const Param& param, Centroid& centroid, Base& base);

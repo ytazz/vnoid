@@ -25,7 +25,6 @@ public:
 	double  moment_ctrl_limit;
 	double  orientation_ctrl_gain_p;
 	double  orientation_ctrl_gain_d;
-	double  swing_height_adjust_rate;
 
 public:
     void CalcZmp              (const Timer& timer, const Param& param, Centroid& centroid, vector<Foot>& foot);
