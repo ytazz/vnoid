@@ -22,15 +22,13 @@ void Stabilizer::CalcZmp(const Timer& timer, const Param& param, Centroid& centr
     // get actual force from the sensor
 	for(int i = 0; i < 2; i++){
 		// set contact state
-		foot[i].contact = (foot[i].force[2] >= min_contact_force);
+		foot[i].contact = (foot[i].force.z() >= min_contact_force);
 
 		// measure continuous contact duration
 		if(foot[i].contact){
-			foot[i].contact_duration += timer.dt;
-			foot[i].zmp = Vector3(-foot[i].moment[1]/foot[i].force[2], foot[i].moment[0]/foot[i].force[2], 0.0);
+			foot[i].zmp = Vector3(-foot[i].moment.y()/foot[i].force.z(), foot[i].moment.x()/foot[i].force.z(), 0.0);
 		}
 		else{
-			foot[i].contact_duration = 0.0;
 			foot[i].zmp = Vector3(0.0, 0.0, 0.0);
 		}
 	}
@@ -42,8 +40,8 @@ void Stabilizer::CalcZmp(const Timer& timer, const Param& param, Centroid& centr
 		centroid.zmp = Vector3(0.0, 0.0, 0.0);
 	}
 	else{
-		double f0 = std::max(0.0, foot[0].force[2]);
-		double f1 = std::max(0.0, foot[1].force[2]);
+		double f0 = std::max(0.0, foot[0].force.z());
+		double f1 = std::max(0.0, foot[1].force.z());
 		foot[0].balance = f0/(f0 + f1);
 		foot[1].balance = f1/(f0 + f1);
 		centroid.zmp =
@@ -100,9 +98,9 @@ void Stabilizer::CalcForceDistribution(const Timer& timer, const Param& param, C
 	for(int i = 0; i < 2; i++){
 		// force and moment to realize desired Zmp
 		foot[i].force_ref     =  foot[i].ori_ref.conjugate() * (foot[i].balance_ref * centroid.force_ref);
-		foot[i].moment_ref[0] =  foot[i].force_ref[2] * foot[i].zmp_ref[1];
-		foot[i].moment_ref[1] = -foot[i].force_ref[2] * foot[i].zmp_ref[0];
-		foot[i].moment_ref[2] =  foot[i].balance_ref * centroid.moment_ref[2];
+		foot[i].moment_ref[0] =  foot[i].force_ref.z() * foot[i].zmp_ref.y();
+		foot[i].moment_ref[1] = -foot[i].force_ref.z() * foot[i].zmp_ref.x();
+		foot[i].moment_ref[2] =  foot[i].balance_ref * centroid.moment_ref.z();
 	}
 }
 
@@ -111,10 +109,8 @@ void Stabilizer::Update(const Timer& timer, const Param& param, Centroid& centro
     CalcZmp(timer, param, centroid, foot);
 
 	// copy reference values from iksolver
-	centroid.force_ref[0] = param.total_mass* centroid.com_acc_ref[0];
-	centroid.force_ref[1] = param.total_mass* centroid.com_acc_ref[1];
-	centroid.force_ref[2] = param.total_mass*(centroid.com_acc_ref[2] + param.gravity);
-	centroid.moment_ref   = Vector3(0.0, 0.0, 0.0);
+	centroid.force_ref  = param.total_mass*(centroid.com_acc_ref + Vector3(0.0, 0.0, param.gravity));
+	centroid.moment_ref = Vector3(0.0, 0.0, 0.0);
 
 	// feedback base orientation to zmp
 	{
@@ -129,26 +125,16 @@ void Stabilizer::Update(const Timer& timer, const Param& param, Centroid& centro
 	// calculate desired forces from desired zmp
 	CalcForceDistribution(timer, param, centroid, foot);
 
-	//for(int i = 0; i < 2; i++){
-	//	foot[i].pos_mod    = Vector3(0.0, 0.0, 0.0);
-	//	foot[i].angle_mod  = Vector3(0.0, 0.0, 0.0);
-	//	foot[i].vel_mod    = Vector3(0.0, 0.0, 0.0);
-	//	foot[i].angvel_mod = Vector3(0.0, 0.0, 0.0);
-	//}
-
 	for(int i = 0; i < 2; i++){
 		// ground reaction force control
 		if( foot[i].contact ){
-			foot[i].force_error[2] = foot[i].force_ref[2] - foot[i].force[2];
-			foot[i].dpos[2] += (-force_ctrl_damping*foot[i].dpos[2] + force_ctrl_gain*foot[i].force_error[2])*timer.dt;
-			foot[i].dpos[2] = std::min(std::max(-force_ctrl_limit, foot[i].dpos[2]), force_ctrl_limit);
+			foot[i].dpos.z() += (-force_ctrl_damping*foot[i].dpos.z() + force_ctrl_gain*(foot[i].force_ref.z() - foot[i].force.z()))*timer.dt;
+			foot[i].dpos.z() = std::min(std::max(-force_ctrl_limit, foot[i].dpos.z()), force_ctrl_limit);
 
-			foot[i].moment_error[0] = foot[i].moment_ref[0] - foot[i].moment[0];
-			foot[i].moment_error[1] = foot[i].moment_ref[1] - foot[i].moment[1];
-			foot[i].drot[0] += (-moment_ctrl_damping*foot[i].drot[0] + moment_ctrl_gain*foot[i].moment_error[0])*timer.dt;
-			foot[i].drot[1] += (-moment_ctrl_damping*foot[i].drot[1] + moment_ctrl_gain*foot[i].moment_error[1])*timer.dt;
-			foot[i].drot[0] = std::min(std::max(-moment_ctrl_limit, foot[i].drot[0]), moment_ctrl_limit);
-			foot[i].drot[1] = std::min(std::max(-moment_ctrl_limit, foot[i].drot[1]), moment_ctrl_limit);
+			foot[i].drot.x() += (-moment_ctrl_damping*foot[i].drot.x() + moment_ctrl_gain*(foot[i].moment_ref.x() - foot[i].moment.x()))*timer.dt;
+			foot[i].drot.y() += (-moment_ctrl_damping*foot[i].drot.y() + moment_ctrl_gain*(foot[i].moment_ref.y() - foot[i].moment.x()))*timer.dt;
+			foot[i].drot.x() = std::min(std::max(-moment_ctrl_limit, foot[i].drot.x()), moment_ctrl_limit);
+			foot[i].drot.y() = std::min(std::max(-moment_ctrl_limit, foot[i].drot.y()), moment_ctrl_limit);
 
 			// feedback to desired foot pose
 			foot[i].pos_ref   += -foot[i].dpos;

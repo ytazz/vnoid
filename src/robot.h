@@ -63,7 +63,6 @@ class Foot{
 public:
 	bool        contact;
 	bool        contact_ref;
-	double      contact_duration;
 	double      balance;
 	double      balance_ref;
 	Vector3     pos_ref;

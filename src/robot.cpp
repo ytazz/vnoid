@@ -73,7 +73,6 @@ Hand::Hand(){
 Foot::Foot(){
     contact          = false;
 	contact_ref      = false;
-	contact_duration = 0.0;
 	balance          = 0.0;
 	balance_ref      = 0.0;
 	pos_ref          = Vector3(0.0, 0.0, 0.0);
