@@ -84,17 +84,10 @@ Foot::Foot(){
 	angacc_ref       = Vector3(0.0, 0.0, 0.0);
 	force            = Vector3(0.0, 0.0, 0.0);
 	force_ref        = Vector3(0.0, 0.0, 0.0);
-	force_error      = Vector3(0.0, 0.0, 0.0);
 	moment           = Vector3(0.0, 0.0, 0.0);
 	moment_ref       = Vector3(0.0, 0.0, 0.0);
-	moment_error     = Vector3(0.0, 0.0, 0.0);
 	zmp              = Vector3(0.0, 0.0, 0.0);
 	zmp_ref          = Vector3(0.0, 0.0, 0.0);
-	dpos             = Vector3(0.0, 0.0, 0.0);
-	drot             = Vector3(0.0, 0.0, 0.0);
-	tliftoff         = 0.0;
-	tlanding         = 0.0;
-	foothold         = Vector3(0.0, 0.0, 0.0);
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////

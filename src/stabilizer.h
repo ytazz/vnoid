@@ -26,6 +26,9 @@ public:
 	double  orientation_ctrl_gain_p;
 	double  orientation_ctrl_gain_d;
 
+    Vector3     dpos[2];
+	Vector3     drot[2];
+
 public:
     void CalcZmp              (const Timer& timer, const Param& param, Centroid& centroid, vector<Foot>& foot);
     void CalcForceDistribution(const Timer& timer, const Param& param, Centroid& centroid, vector<Foot>& foot);

@@ -74,17 +74,10 @@ public:
 	Vector3     angacc_ref;
 	Vector3     force;
 	Vector3     force_ref;
-	Vector3     force_error;
 	Vector3     moment;
 	Vector3     moment_ref;
-	Vector3     moment_error;
 	Vector3     zmp;
 	Vector3     zmp_ref;
-	Vector3     dpos;
-	Vector3     drot;
-	double      tliftoff;
-	double      tlanding;
-	Vector3     foothold;   ///< foot origin to foothold origin
 	
 	Foot();
 };

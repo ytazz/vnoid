@@ -85,11 +85,11 @@ void MyRobot::Init(SimpleControllerIO* io){
     footstep_planner.Plan(param, footstep);
 
     // init stepping controller
+    stepping_controller.swing_height = 0.10;
     stepping_controller.dsp_duration = 0.15;
     stepping_controller.Init(param, centroid, base);
 
     // init stabilizer
-    stabilizer.swing_height_adjust_rate = 0.0;
     stabilizer.orientation_ctrl_gain_p  = 1000.0;
     stabilizer.orientation_ctrl_gain_d  = 200.0;
     stabilizer.min_contact_force        = 1.0;

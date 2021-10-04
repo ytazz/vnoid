@@ -16,6 +16,12 @@ Stabilizer::Stabilizer(){
 	moment_ctrl_limit        = 0.0;
 	orientation_ctrl_gain_p  = 0.0;
 	orientation_ctrl_gain_d  = 0.0;
+
+    for(int i = 0; i < 2; i++){
+        dpos[i] = Vector3(0.0, 0.0, 0.0);
+	    drot[i] = Vector3(0.0, 0.0, 0.0);
+    }
+
 }
 
 void Stabilizer::CalcZmp(const Timer& timer, const Param& param, Centroid& centroid, vector<Foot>& foot){
@@ -128,17 +134,17 @@ void Stabilizer::Update(const Timer& timer, const Param& param, Centroid& centro
 	for(int i = 0; i < 2; i++){
 		// ground reaction force control
 		if( foot[i].contact ){
-			foot[i].dpos.z() += (-force_ctrl_damping*foot[i].dpos.z() + force_ctrl_gain*(foot[i].force_ref.z() - foot[i].force.z()))*timer.dt;
-			foot[i].dpos.z() = std::min(std::max(-force_ctrl_limit, foot[i].dpos.z()), force_ctrl_limit);
+			dpos[i].z() += (-force_ctrl_damping*dpos[i].z() + force_ctrl_gain*(foot[i].force_ref.z() - foot[i].force.z()))*timer.dt;
+			dpos[i].z() = std::min(std::max(-force_ctrl_limit, dpos[i].z()), force_ctrl_limit);
 
-			foot[i].drot.x() += (-moment_ctrl_damping*foot[i].drot.x() + moment_ctrl_gain*(foot[i].moment_ref.x() - foot[i].moment.x()))*timer.dt;
-			foot[i].drot.y() += (-moment_ctrl_damping*foot[i].drot.y() + moment_ctrl_gain*(foot[i].moment_ref.y() - foot[i].moment.x()))*timer.dt;
-			foot[i].drot.x() = std::min(std::max(-moment_ctrl_limit, foot[i].drot.x()), moment_ctrl_limit);
-			foot[i].drot.y() = std::min(std::max(-moment_ctrl_limit, foot[i].drot.y()), moment_ctrl_limit);
+			drot[i].x() += (-moment_ctrl_damping*drot[i].x() + moment_ctrl_gain*(foot[i].moment_ref.x() - foot[i].moment.x()))*timer.dt;
+			drot[i].y() += (-moment_ctrl_damping*drot[i].y() + moment_ctrl_gain*(foot[i].moment_ref.y() - foot[i].moment.x()))*timer.dt;
+			drot[i].x() = std::min(std::max(-moment_ctrl_limit, drot[i].x()), moment_ctrl_limit);
+			drot[i].y() = std::min(std::max(-moment_ctrl_limit, drot[i].y()), moment_ctrl_limit);
 
 			// feedback to desired foot pose
-			foot[i].pos_ref   += -foot[i].dpos;
-			foot[i].angle_ref += -foot[i].drot;
+			foot[i].pos_ref   += -dpos[i];
+			foot[i].angle_ref += -drot[i];
             foot[i].ori_ref = FromRollPitchYaw(foot[i].angle_ref);
 		}
 	}
