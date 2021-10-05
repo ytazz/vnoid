@@ -19,7 +19,7 @@ perform acrobatic movements.
 
 ## Challenge Theme
 
-
+![field](fig/field.png "Athletics Field")
 
 ## Rules
 
