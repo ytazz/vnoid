@@ -31,15 +31,16 @@ It also implements the controller of the robot using the SimpleController interf
 ### Creating a robot model
 
 - The model is recommended to be written in the .body format.
-- number of joints must not exceed 50.
-- the type of joints may be revolute or prismatic.
-- the total mass of the robot must be between 50-100 [kg].
-- at the initial posture, the robot must be inside the box of X x Y x Z = 70cm x 70cm x 200cm.
+- The number of joints must not exceed 50.
+- The type of joints may be revolute or prismatic.
+- The total mass of the robot must be between 50-100 [kg].
+- At the initial posture, the robot must be inside the box of X x Y x Z = 70cm x 70cm x 200cm.
 
 ### Implementation of a controller
 
 - The controller should be implemented as a SimpleController of Choreonoid.
-- 
+- The main controller could be implemented using some other framework such as ROS,
+  and exchange information between Choreonoid over a communication bridge.
 
 #### Actuation
 - The actuation mode of each joint may be either Velocity or Torque.
@@ -54,13 +55,14 @@ It also implements the controller of the robot using the SimpleController interf
 - Retrieving the absolute position and orientation of links (rigid bodies) is also permitted
   (there is no need for position/posture estimation).
 
-### Detailed simulator setting
+### Simulator setting
+- The AISTsimulator physics engine for simulation.
+- Switching to other physics engines. or changing the parameters of the AISTsimulator is not permitted in the trial.
+- A sample .cnoid project file is provided.
+  Use the simulator setting described in this file for the trial.
 
-We use AISTsimulator physics engine for simulation.
-Use of other simulators is not allowed in this challenge.
-
-
-
+### Teleoperation of the robot
+- 
 
 ## Quick Start
 
