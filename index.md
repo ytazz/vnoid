@@ -23,23 +23,36 @@ perform acrobatic movements.
 
 ## Rules
 
-Choreonoid (<choreonoid.org>) is used the simulation environment of this challenge.
-Each team designs a robot model in the .body format of Choreonoid that complies with the regulation detailed below.
+Choreonoid (<choreonoid.org>) is used for the simulation environment of this challenge.
+Each team designs a robot model and a controller that can be loaded and run on Choreonoid.
+
 It also implements the controller of the robot using the SimpleController interface of Choreonoid.
 
-### Creation of robot model
+### Creating a robot model
 
+- The model is recommended to be written in the .body format.
 - number of joints must not exceed 50.
 - the type of joints may be revolute or prismatic.
 - the total mass of the robot must be between 50-100 [kg].
 - at the initial posture, the robot must be inside the box of X x Y x Z = 70cm x 70cm x 200cm.
 
-### Implementation of controller
+### Implementation of a controller
+
+- The controller should be implemented as a SimpleController of Choreonoid.
+- 
 
 #### Actuation
-- the actuation mode of each joint may be either Velocity or Torque.
-  torque mode is recommended for stable simulation.
-
+- The actuation mode of each joint may be either Velocity or Torque.
+  Torque mode is recommended for stable simulation.
+- Only joints can be directly actuated.
+  Directly actuating the links (the rigid bodes) is not permitted in the trial (use it for test purpose only).
+  
+#### Sensing
+- Various sensor nodes supported by Choreonoid such as ForceSensor, RateGyroSensor, and AccelerationSensor, may be used.
+  The number of sensors is not limited.
+- The position and velocity of joints can be retrieved through the SimpleControllerIO interface.
+- Retrieving the absolute position and orientation of links (rigid bodies) is also permitted
+  (there is no need for position/posture estimation).
 
 ### Detailed simulator setting
 
