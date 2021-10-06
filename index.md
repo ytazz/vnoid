@@ -19,6 +19,9 @@ perform acrobatic movements.
 
 ## Challenge Theme
 
+The goal of the challenge is to make the robot traverse the athletic field shown in the figure below
+ from the starting position to the goal.
+
 ![field](fig/field.png "Athletics Field")
 
 ## Rules
@@ -36,7 +39,7 @@ It also implements the controller of the robot using the SimpleController interf
 - The total mass of the robot must be between 50-100 [kg].
 - At the initial posture, the robot must be inside the box of X x Y x Z = 70cm x 70cm x 200cm.
 
-### Implementation of a controller
+### Implementing a controller
 
 - The controller should be implemented as a SimpleController of Choreonoid.
 - The main controller could be implemented using some other framework such as ROS,
@@ -61,8 +64,23 @@ It also implements the controller of the robot using the SimpleController interf
 - A sample .cnoid project file is provided.
   Use the simulator setting described in this file for the trial.
 
-### Teleoperation of the robot
+### Operating the robot
+- The robot can be operated with an input device, typically a joystick.
+- The operator can operate the robot while monitoring the robot on the 3D view of Choreonoid.
+
+### Evaluation
+- The quality of the trial is scored based on the following criteria:
+
+#### Goal reaching
+- The goal and several intermediate checkpoints are specified in the field. They are shown in different colors.
+  Score is assigned based on the furthest checkpoint (of the goal) reached during the trial.
+  
+#### Realtime-ness
+- Score is assigned based on the ratio of simulation-time versus computation-time.
+
+#### Subjective evaluation
 - 
+
 
 ## Quick Start
 
