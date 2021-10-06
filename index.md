@@ -69,24 +69,26 @@ It also implements the controller of the robot using the SimpleController interf
 - The operator can operate the robot while monitoring the robot on the 3D view of Choreonoid.
 
 ### Evaluation
-- The quality of the trial is evaluated based on the following criteria:
+The quality of the trial is evaluated based on the following criteria:
 
 #### Goal reaching
 - The goal and several intermediate checkpoints are specified in the field. They are shown in different colors.
   The furthest checkpoint (or the goal) reached during the trial is recorded.
   
-### Speed
+#### Speed
 - Simulation time elapsed before reaching the goal is recorded.
   
 #### Realtime-ness
-- The ratio of simulation-time and computation-time is recorded to evaluate how much the controller complies with the realtime constraint.
+- The ratio of simulation-time and computation-time is recorded to evaluate how much the controller violates the realtime constraint.
 
 
 ## Quick Start
 
 
+## How to Apply
+- Send an email to [email address]. Tell me your team name (required) and your robot's name (optional).
 
 ## Asking Questions
-
+- Post your question at https://github.com/ytazz/vnoid/discussions
 
 
