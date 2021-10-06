@@ -24,7 +24,7 @@ The goal of the challenge is to make the robot traverse the athletic field shown
 
 ![field](fig/field.png "Athletics Field")
 
-## Rules
+## Regulation
 
 Choreonoid (<choreonoid.org>) is used for the simulation environment of this challenge.
 Each team designs a robot model and a controller that can be loaded and run on Choreonoid.
@@ -69,17 +69,17 @@ It also implements the controller of the robot using the SimpleController interf
 - The operator can operate the robot while monitoring the robot on the 3D view of Choreonoid.
 
 ### Evaluation
-- The quality of the trial is scored based on the following criteria:
+- The quality of the trial is evaluated based on the following criteria:
 
 #### Goal reaching
 - The goal and several intermediate checkpoints are specified in the field. They are shown in different colors.
-  Score is assigned based on the furthest checkpoint (of the goal) reached during the trial.
+  The furthest checkpoint (or the goal) reached during the trial is recorded.
+  
+### Speed
+- Simulation time elapsed before reaching the goal is recorded.
   
 #### Realtime-ness
-- Score is assigned based on the ratio of simulation-time versus computation-time.
-
-#### Subjective evaluation
-- 
+- The ratio of simulation-time and computation-time is recorded to evaluate how much the controller complies with the realtime constraint.
 
 
 ## Quick Start
