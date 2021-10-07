@@ -20,7 +20,7 @@ items:
           plugin: Body
           class: BodyItem
           data: 
-            modelFile: "${SHARE}/model/misc/floor.body"
+            modelFile: "${SHARE}/model/sample_field/sample_field.body"
             currentBaseLink: "Floor"
             rootPosition: [ 0, 0, -0.1 ]
             rootAttitude: [ 
@@ -235,7 +235,7 @@ views:
       worldLightAmbient: 0.3
       additionalLights: true
       fog: true
-      floorGrid: true
+      floorGrid: false
       floorGridSpan: 10
       floorGridInterval: 0.5
       xzGridSpan: 10
