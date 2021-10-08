@@ -1,35 +1,33 @@
 ![top image](fig/robot.png "Top Image")
 
 ## Aim of this challenge
-The aim fo this challenge is to facilitate cutting-edge research on humanoid robotics
- (motion planning, whole-body control, environmental sensing, etc...)
- by sharing knowledge and technical resources in the research community and
- encouraging students and researchers to tackle challenging problems through competition.
 
-Several simulation-based humanoid robot competitions have been held in the past.
-Compared to these events, This challenge is aiming at exploring the potential ability of humanoid robots to
-perform acrobatic movements.
+The aim fo this challenge is to provide students and researchers in the humanoid robotics research community
+ with a common development platform and an opportunity for competition and
+ thereby facilitate cutting-edge research in this field
+ through the sharing of knowledge, ideas, and technical resources.
+
+Compared to several simulation-based humanoid robot competitions held in the past (e.g., JVRC, DRC, WRS, Robocup),
+ the major uniqueness of this challenge is that it focuses of the potential ability of humanoid robots to perform acrobatic movements.
 
 
 ## Important Dates
 
 - Website opening: early October 2021
-- Preliminary challenge: December 2021, online
-- Main challenge: March 2022, online
+- Preliminary challenge: 25 December 2021, online
+- Main challenge: 12 March 2022, online
 
 ## Challenge Theme
 
 The goal of the challenge is to make the robot traverse the athletic field shown in the figure below
- from the starting position to the goal.
+ from the starting position to the goal, either by teleoperation, automatic control, or combination of both.
 
 ![field](fig/field.png "Athletics Field")
 
 ## Regulation
 
-Choreonoid (<choreonoid.org>) is used for the simulation environment of this challenge.
+[Choreonoid](choreonoid.org) is used for the simulation environment of this challenge.
 Each team designs a robot model and a controller that can be loaded and run on Choreonoid.
-
-It also implements the controller of the robot using the SimpleController interface of Choreonoid.
 
 ### Creating a robot model
 
@@ -52,7 +50,7 @@ It also implements the controller of the robot using the SimpleController interf
   Directly actuating the links (the rigid bodes) is not permitted in the trial (use it for test purpose only).
   
 #### Sensing
-- Various sensor nodes supported by Choreonoid such as ForceSensor, RateGyroSensor, and AccelerationSensor, may be used.
+- Various sensor nodes supported by Choreonoid such as ForceSensor, RateGyroSensor, AccelerationSensor, and RangeSensor, may be used.
   The number of sensors is not limited.
 - The position and velocity of joints can be retrieved through the SimpleControllerIO interface.
 - Retrieving the absolute position and orientation of links (rigid bodies) is also permitted
@@ -83,12 +81,18 @@ The quality of the trial is evaluated based on the following criteria:
 
 
 ## Quick Start
+- Clone Choreonoid from [here](https://github.com/choreonoid/choreonoid), and clone vnoid from [here](https://github.com/ytazz/vnoid)
+  as a submodule of Choreonoid (so the directories will look like choreonoid/vnoid).
+- Configure Chorenoid on Cmake. Add the path to vnoid to ADDITIONAL_EXT_DIRECTORIES. Configure, generate, build, and install.
+  See [here](https://choreonoid.org/en/documents/latest/install/install.html) or [here](https://choreonoid.org/ja/documents/latest/install/index.html)
+  for more info on how to build Chorenoid.
+- Run Choreonoid, load [install directory of Chorenoid]/share/project/vnoid_sample_project.cnoid
 
 
 ## How to Apply
-- Send an email to [email address]. Tell me your team name (required) and your robot's name (optional).
+- Send an email to tazaki_at_mech.kobe-u.ac.jp. Tell me your team name (required) and your robot's name (optional).
 
 ## Asking Questions
-- Post your question at https://github.com/ytazz/vnoid/discussions
+- Post your question at [https://github.com/ytazz/vnoid/discussions](https://github.com/ytazz/vnoid/discussions)
 
 
