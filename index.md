@@ -2,7 +2,7 @@
 
 ## Aim of this challenge
 
-The aim fo this challenge is to provide students and researchers in the humanoid robotics research community
+The aim of this challenge is to provide students and researchers in the humanoid robotics research community
  with a common development platform and an opportunity for competition and
  thereby facilitate cutting-edge research in this field
  through the sharing of knowledge, ideas, and technical resources.
@@ -14,8 +14,10 @@ Compared to several simulation-based humanoid robot competitions held in the pas
 ## Important Dates
 
 - Website opening: early October 2021
-- Preliminary challenge: 25 December 2021, online
-- Main challenge: 12 March 2022, online
+- Application deadline: 30 October 2021 (later application is welcome)
+- Preliminary challenge: **25 December 2021**, online
+- Main challenge: **12 March 2022**, online
+-- Zoom meating address will be e-mailed to the participants.
 
 ## Challenge Theme
 
