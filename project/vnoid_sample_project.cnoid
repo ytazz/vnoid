@@ -157,7 +157,7 @@ views:
     mounted: true
     state: 
       selected: [ 4 ]
-      checked: [ 4, [ 6, "ForceSensor" ], 7 ]
+      checked: [ 2, 4, [ 6, "ForceSensor" ], 7 ]
       expanded: [ 1, 4, 6 ]
   - 
     id: 3
