@@ -92,7 +92,7 @@ The quality of the trial is evaluated based on the following criteria:
 
 
 ## How to Apply
-- Send an email to tazaki_at_mech.kobe-u.ac.jp. Tell me your team name (required) and your robot's name (optional).
+- Fill in and send your application information from [Google Forms](https://docs.google.com/forms/d/e/1FAIpQLSfSJpFjd2HKMdh3X6ul73qPH_Yzn0-rUjdUMSX40r42tThosQ/viewform?usp=sf_link)
 
 ## Asking Questions
 - Post your question at [https://github.com/ytazz/vnoid/discussions](https://github.com/ytazz/vnoid/discussions)
