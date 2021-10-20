@@ -17,7 +17,6 @@ Compared to several simulation-based humanoid robot competitions held in the pas
 - Application deadline: 30 October 2021 (later application is welcome)
 - Preliminary challenge: **25 December 2021**, online
 - Main challenge: **12 March 2022**, online
--- Zoom meating address will be e-mailed to the participants.
 
 ## Challenge Theme
 
