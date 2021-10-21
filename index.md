@@ -89,6 +89,7 @@ The quality of the trial is evaluated based on the following criteria:
   for more info on how to build Chorenoid.
 - Run Choreonoid, load [install directory of Chorenoid]/share/project/vnoid_sample_project.cnoid
 
+- See [here](https://ytazz.github.io/vnoid/build_sample.html) for how to build and run the sample.
 
 ## How to Apply
 - Fill in and send your application information from [Google Forms](https://docs.google.com/forms/d/e/1FAIpQLSfSJpFjd2HKMdh3X6ul73qPH_Yzn0-rUjdUMSX40r42tThosQ/viewform?usp=sf_link)
