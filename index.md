@@ -14,7 +14,7 @@ Compared to several simulation-based humanoid robot competitions held in the pas
 ## Important Dates
 
 - Website opening: early October 2021
-- Application deadline: 30 October 2021 (later application is welcome)
+- Application deadline: **15 November 2021**
 - Preliminary challenge: **25 December 2021**, online
 - Main challenge: **12 March 2022**, online
 
