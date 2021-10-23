@@ -82,13 +82,6 @@ The quality of the trial is evaluated based on the following criteria:
 
 
 ## Quick Start
-- Clone Choreonoid from [here](https://github.com/choreonoid/choreonoid), and clone vnoid from [here](https://github.com/ytazz/vnoid)
-  as a submodule of Choreonoid (so the directories will look like choreonoid/vnoid).
-- Configure Chorenoid on Cmake. Add the path to vnoid to ADDITIONAL_EXT_DIRECTORIES. Configure, generate, build, and install.
-  See [here](https://choreonoid.org/en/documents/latest/install/install.html) or [here](https://choreonoid.org/ja/documents/latest/install/index.html)
-  for more info on how to build Chorenoid.
-- Run Choreonoid, load [install directory of Chorenoid]/share/project/vnoid_sample_project.cnoid
-
 - See [here](https://ytazz.github.io/vnoid/build_sample.html) for how to build and run the sample.
 
 ## How to Apply
