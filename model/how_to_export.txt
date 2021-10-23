@@ -1,0 +1,9 @@
+How to create mesh data with colors
+
+- Create a model on 3DCAD
+- Export the model as stl
+- Load stl on blender
+- Assign materials to selected faces
+- Export as obj
+ - select Z up, Y front to prevent rotation
+
