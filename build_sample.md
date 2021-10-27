@@ -35,7 +35,26 @@ If you are not familiar with creating a robot model and its controller, the easi
 
 #### Creating your robot model
 
+Copy the directory vnoid/model/sample_robot to vnoid/model/my_robot (my_robot part is arbitrary).
+Inside vnoid/model/my_robot, rename sample_robot.body to my_robot.body.
+my_robot.body is the description file of your robot model.
+Edit it as you like.
+You could also replace the 3D models used for visualization and collision detection.
+
 #### Creating your controller
 
+Copy the directory vnoid/controller/sample_controller to vnoid/controller/my_controller (again, my_controller part is arbitrary).
+Inside vnoid/controller/my_controller, edit CMakeLists.txt and replace vnoid_sample_controller to my_controller.
+Edit main.cpp and possibly other files to implement your own controller.
+
 #### Creating your project
+
+Copy vnoid/project/sample_project.cnoid to my_project.cnoid in the same directory.
+Open my_project.cnoid.
+Find the reference to sample_robot.body and replace it with my_robot.body.
+Similarly, find the reference to vnoid_sample_controller.dll and replace it with my_controller.dll.
+
+When all the above procedure is finished, build and install Choreonoid.
+You will find your project file in [Install directory of Choreonoid]/share/project/.
+Open it on Choreonoid, and run simulation.
 
