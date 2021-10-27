@@ -47,9 +47,11 @@ Copy the directory vnoid/controller/sample_controller to vnoid/controller/my_con
 Inside vnoid/controller/my_controller, edit CMakeLists.txt and replace vnoid_sample_controller to my_controller.
 Edit main.cpp and possibly other files to implement your own controller.
 
+Also edit CMakeLists.txt right below vnoid/controller, and add add_subdirectory(my_controller).
+
 #### Creating your project
 
-Copy vnoid/project/sample_project.cnoid to my_project.cnoid in the same directory.
+Copy vnoid/project/vnoid_sample_project.cnoid to my_project.cnoid in the same directory.
 Open my_project.cnoid.
 Find the reference to sample_robot.body and replace it with my_robot.body.
 Similarly, find the reference to vnoid_sample_controller.dll and replace it with my_controller.dll.
