@@ -1,0 +1,46 @@
+##
+## with NVIDIA video-card
+## git clone -b fix_for_linux https://github.com/YoheiKakiuchi/vnoid.git
+## docker build -f docker/Dockerfile.with_choreonoid -t vnoid_with_choreonoid .
+## docker/run_docker.sh
+##
+
+FROM nvidia/opengl:1.2-glvnd-runtime-ubuntu18.04
+
+SHELL ["/bin/bash", "-c"]
+ENV DEBIAN_FRONTEND noninteractive
+
+RUN apt-get update -y -q && \
+    apt-get install -q -qq -y git sudo patch && \
+    apt clean -q -y && \
+    rm -rf /var/lib/apt/lists/
+
+WORKDIR /choreonoid_build
+### fix version(tag, revision)
+RUN git clone --depth=1 https://github.com/choreonoid/choreonoid.git
+##RUN git clone --depth=1 -b v1.7.0 https://github.com/choreonoid/choreonoid.git
+
+RUN cd /choreonoid_build/choreonoid && \
+    apt-get update -y -q && \
+    echo "y" | ./misc/script/install-requisites-ubuntu-18.04.sh && \
+    apt clean -q -y && \
+    rm -rf /var/lib/apt/lists/
+
+COPY . /choreonoid_build/choreonoid/vnoid
+
+### build only choreonoid
+#RUN cd /choreonoid_build/choreonoid && \
+#    cmake . && \
+#    make -j$(nproc) && \
+#    make install
+
+RUN cd /choreonoid_build/choreonoid && \
+    cmake -DADDITIONAL_EXT_DIRECTORIES=vnoid . && \
+    make -j$(nproc) && \
+    make install
+
+## DEBUG compile
+#RUN cd /choreonoid_build/choreonoid && \
+#    cmake -DCMAKE_VERBOSE_MAKEFILE=1 -DADDITIONAL_EXT_DIRECTORIES=vnoid . && \
+#    VERBOSE=1 make -j1 && \
+#    make install
