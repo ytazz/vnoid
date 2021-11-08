@@ -12,7 +12,6 @@ items:
       data: 
         collisionDetection: false
         collisionDetector: AISTCollisionDetector
-        materialTableFile: "${SHARE}/model/material/materials_gs.yaml"
       children: 
         - 
           id: 2
