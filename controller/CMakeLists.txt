@@ -1,2 +1,1 @@
 add_subdirectory(sample_controller)
-add_subdirectory(my_controller)

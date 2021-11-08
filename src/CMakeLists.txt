@@ -20,10 +20,7 @@ set(VNOID_SOURCES
     "stepping_controller.cpp"
 	)
 
-add_cnoid_library(vnoid_lib
- ${VNOID_HEADERS}
- ${VNOID_SOURCES}
- )
+choreonoid_add_library(vnoid_lib SHARED ${VNOID_HEADERS} ${VNOID_SOURCES})
 
 target_link_libraries(vnoid_lib CnoidBody)
 
