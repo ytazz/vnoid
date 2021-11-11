@@ -3,6 +3,8 @@
 
 ## with NVIDIA video-card
 At vnoid directory (not at vnoid/docker directory)
+
+You should install nvidia-docker https://github.com/NVIDIA/nvidia-docker
 - docker build -f docker/Dockerfile.with_choreonoid -t vnoid_with_choreonoid .
 - docker/run_docker.sh
 
