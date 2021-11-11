@@ -110,7 +110,7 @@ items:
               data: 
                 isNoDelayMode: false
                 controllerOptions: ""
-                controller: "vnoid_sample_controller.dll"
+                controller: "vnoid_sample_controller"
                 baseDirectory: "Controller directory"
                 reloading: false
                 exportSymbols: false
