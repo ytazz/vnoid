@@ -12,12 +12,12 @@ namespace vnoid{
  Single footstep
  **/
 struct Step{
-	double   stride;
-    double   sway;
-	double   spacing;
-	double   turn;
-	double   climb;
-	double   duration;
+	double   stride;    ///< longitudinal stride [m]
+    double   sway;      ///< lateral stride [m]
+	double   spacing;   ///< lateral spacing between left and right feet [m]
+	double   turn;      ///< turning angle in single step [rad]
+	double   climb;     ///< vertical displacement in single step [m]
+	double   duration;  ///< step duration [s]
     
 	int      side;
 		
