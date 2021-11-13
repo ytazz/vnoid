@@ -1,5 +1,5 @@
 # First of All
-- git clone -b fix_for_linux https://github.com/YoheiKakiuchi/vnoid.git
+- git clone https://github.com/ytazz/vnoid.git
 
 ## with NVIDIA video-card
 At vnoid directory (not at vnoid/docker directory)
