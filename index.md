@@ -14,9 +14,28 @@ Compared to several simulation-based humanoid robot competitions held in the pas
 ## Important Dates
 
 - Website opening: early October 2021
-- Application deadline: **15 November 2021**
+- Application deadline: **15 November 2021**  still open for later application
 - Preliminary challenge: **25 December 2021**, online
 - Main challenge: **12 March 2022**, online
+
+### List of Teams
+
+Listed in the order of application.
+
+|  Team name        |  Robot name |
+| ----              | ----        |
+| MA1               | Uriborg Mk1 |
+| ssr-act           |             |
+| FisMa	            |             |
+| Legendless  	    |             |
+| solver	        |             |
+| 水内研究室仮配属1 | First Gear  |
+| IRL-Meiji	        | Meiped-HVAC |
+| 落合重工          |             |
+| prime4294967279	|             |
+| Team Jaxon        | Jaxon       |
+| 水内研究室仮配属  | minimum man |
+
 
 ## Challenge Theme
 
