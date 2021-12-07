@@ -46,6 +46,9 @@ The goal of the challenge is to make the robot traverse the athletic field shown
 
 ## Regulation
 
+See [here](https://drive.google.com/file/d/1gUBYM62HW0czXO8-PiJqJn6ycbd-Wtij/view?usp=sharing)
+for detailed regulation (Japanese only).
+
 [Choreonoid](choreonoid.org) is used for the simulation environment of this challenge.
 Each team designs a robot model and a controller that can be loaded and run on Choreonoid.
 
@@ -54,7 +57,7 @@ Each team designs a robot model and a controller that can be loaded and run on C
 - The model is recommended to be written in the .body format.
 - The number of joints must not exceed 50.
 - The type of joints may be revolute or prismatic.
-- The total mass of the robot must be between 50-100 [kg].
+- The total mass of the robot must be 40[kg] at the minimum.
 - At the initial posture, the robot must be inside the box of X x Y x Z = 70cm x 70cm x 200cm.
 
 ### Implementing a controller
@@ -91,10 +94,10 @@ The quality of the trial is evaluated based on the following criteria:
 
 #### Goal reaching
 - The goal and several intermediate checkpoints are specified in the field. They are shown in different colors.
-  The furthest checkpoint (or the goal) reached during the trial is recorded.
+  Whether the robot could reach each checkpoint during the trial is recorded.
   
 #### Speed
-- Simulation time elapsed before reaching the goal is recorded.
+- Simulation time elapsed before reaching the each checkpoint is recorded.
   
 #### Realtime-ness
 - The ratio of simulation-time and computation-time is recorded to evaluate how much the controller violates the realtime constraint.
