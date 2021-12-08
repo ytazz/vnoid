@@ -22,8 +22,12 @@ Each function is implemented by about 100 lines of code.
 ### Building and running vnoid
 
 - Using your git client, clone Choreonoid from [here](https://github.com/choreonoid/choreonoid), and clone vnoid from [here](https://github.com/ytazz/vnoid)
-  as a submodule of Choreonoid (so the directories will look like choreonoid/vnoid).
-- Configure Chorenoid on Cmake. Add the path to vnoid to ADDITIONAL_EXT_DIRECTORIES. Configure, generate, build, and install.
+  as a submodule of Choreonoid (so the directories will look like choreonoid/ext/vnoid).
+- Configure Chorenoid on Cmake. 
+  If you have cloned vnoid below a directory other than choreonoid/ext/, then
+  add the path to the vnoid directory to ADDITIONAL_EXT_DIRECTORIES. 
+  If you have cloned it to chorenoid/ext/, no need to do this.
+  Configure, generate, build, and install.
   As a result, Choreonoid will be installed to the location specified by CMAKE_INSTALL_PREFIX.
 - Run Choreonoid, load [install directory of Choreonoid]/share/project/vnoid_sample_project.cnoid
 - Run simulation.
