@@ -15,26 +15,27 @@ Compared to several simulation-based humanoid robot competitions held in the pas
 
 - Website opening: early October 2021
 - Application deadline: **15 November 2021**  still open for later application
-- Preliminary challenge: **25 December 2021**, online
+- Preliminary challenge: **25 December 2021**, online, finished.
 - Main challenge: **12 March 2022**, online
 
 ### List of Teams
 
 Listed in the order of application.
+Results of preliminary challenge are listed (Dec 28, 2021).
 
-|  Team name        |  Robot name |
-| ----              | ----        |
-| MA1               | Uriborg Mk1 |
-| ssr-act           |             |
-| FisMa	            |             |
-| Legendless  	    |             |
-| solver	        |             |
-| 水内研究室仮配属1 | First Gear  |
-| IRL-Meiji	        | Meiped-HVAC |
-| 落合重工          |             |
-| prime4294967279	|             |
-| Team Jaxon        | Jaxon       |
-| 水内研究室仮配属  | minimum man |
+|  Team name        |  Robot name | Reached Landmark  | Simulation Time | Realtime-factor |
+| ----              | ----        | ----              | ----            | ----            |
+| MA1               | Uriborg Mk1 | Green             | 0:25            | 1.15            |
+| ssr-act           |             |                   |                 |                 |
+| FisMa	            |             |                   |                 |                 |
+| Legendless  	    |             | Orange (Top stair)| 3:21            |                 |
+| solver	        |             | Blue              |                 |                 |
+| 水内研究室仮配属1 | First Gear  | Green             | 0:55            | 2.29            |
+| IRL-Meiji	        | Meiped-HVAC |                   |                 |                 |
+| 落合重工          |             |                   |                 |                 |
+| prime4294967279	|             | Green             | 0:09            | 1.17            |
+| Team Jaxon        | Jaxon       | Red (Goal)        | 3:32            | 1.48            |
+| 水内研究室仮配属  | minimum man | Blue              |                 | 1.00            |
 
 
 ## Challenge Theme
