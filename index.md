@@ -34,7 +34,7 @@ Results of preliminary challenge are listed (Dec 28, 2021).
 | IRL-Meiji	        | Meiped-HVAC |                   |                 |                 |
 | 落合重工          |             |                   |                 |                 |
 | prime4294967279	|             | Green             | 0:09            | 1.17            |
-| Team Jaxon        | Jaxon       | Red (Goal)        | 3:32            | 1.48            |
+| Team Jaxon        | Jaxon       | Red (Goal)        | 2:32            | 1.48            |
 | 水内研究室仮配属  | minimum man | Blue              |                 | 1.00            |
 
 
