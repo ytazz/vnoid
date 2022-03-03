@@ -225,6 +225,7 @@ links:
           -
             type: Shape
             translation: [0.0, 0.0, -0.1]
+            rotation: [1.0, 0.0, 0.0, 90.0]
             geometry: {type: Cylinder, radius: 0.025, height: 0.2}
 
   -
@@ -279,6 +280,7 @@ links:
           -
             type: Shape
             translation: [0.0, 0.0, -0.1]
+            rotation: [1.0, 0.0, 0.0, 90.0]
             geometry: {type: Cylinder, radius: 0.025, height: 0.1}
   -
     name: R_HAND_P
@@ -411,6 +413,7 @@ links:
           -
             type: Shape
             translation: [0.0, 0.0, -0.1]
+            rotation: [1.0, 0.0, 0.0, 90.0]
             geometry: {type: Cylinder, radius: 0.025, height: 0.2}
   -
     name: L_LOWERARM_P
@@ -464,6 +467,7 @@ links:
           -
             type: Shape
             translation: [0.0, 0.0, -0.1]
+            rotation: [1.0, 0.0, 0.0, 90.0]
             geometry: {type: Cylinder, radius: 0.025, height: 0.1}
   -
     name: L_HAND_P
@@ -596,6 +600,7 @@ links:
           -
             type: Shape
             translation: [0.0, 0.0, -0.150]
+            rotation: [1.0, 0.0, 0.0, 90.0]
             geometry: {type: Cylinder, radius: 0.025, height: 0.300}
   -
     name: R_LOWERLEG_P
@@ -623,6 +628,7 @@ links:
           -
             type: Shape
             translation: [0.0, 0.0, -0.200]
+            rotation: [1.0, 0.0, 0.0, 90.0]
             geometry: {type: Cylinder, radius: 0.025, height: 0.400}
   -
     name: R_FOOT_P
@@ -761,6 +767,7 @@ links:
           -
             type: Shape
             translation: [0.0, 0.0, -0.150]
+            rotation: [1.0, 0.0, 0.0, 90.0]
             geometry: {type: Cylinder, radius: 0.025, height: 0.300}
   -
     name: L_LOWERLEG_P
@@ -788,6 +795,7 @@ links:
           -
             type: Shape
             translation: [0.0, 0.0, -0.200]
+            rotation: [1.0, 0.0, 0.0, 90.0]
             geometry: {type: Cylinder, radius: 0.025, height: 0.400}
   -
     name: L_FOOT_P
