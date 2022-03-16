@@ -26,8 +26,8 @@ Log data can be opened on Choreonoid (development version) and the simulation ca
 |  Team name        |  Robot name | Reached Checkpoint | Simulation Time | Realtime-factor | Links | Remark |
 | ----              | ----        | ----               | ----            | ----            | ----  | ----   |
 | FisMa	            |             | Blue               |                 | 1.0028          |       |        |
-| IRL-Meiji	        | Meiped-HVAC | Blue               |                 | 1.0000          | [slides](https://drive.google.com/file/d/1I7LMPIfDUpaGNXRAfyksNxGXzJ8qQKcp/view?usp=sharing) <br> [log](https://drive.google.com/file/d/1vRJoS5daS3EGJletM248c_m90PzaIW1C/view?usp=sharing)      |        |
-| AIST-JRL-MM       | HRP-5P      | Red                | 129.324         | 1.5586          |       |        |
+| IRL-Meiji	        | Meiped-HVAC | Blue               |                 | 1.0000          | [slides](https://drive.google.com/file/d/1I7LMPIfDUpaGNXRAfyksNxGXzJ8qQKcp/view?usp=sharing) <br> [log](https://drive.google.com/file/d/1vRJoS5daS3EGJletM248c_m90PzaIW1C/view?usp=sharing) <br> [video](https://drive.google.com/file/d/1BRAAFbS7PDz-Zvv7Y0jauWS5MB9QR_QK/view?usp=sharing)     |        |
+| AIST-JRL-MM       | HRP-5P      | Red                | 129.324         | 1.5586          | [video](https://drive.google.com/file/d/1jP5NVx3h8Ve3DX90CJLhUdsz7ng8M9h_/view?usp=sharing)      |        |
 | Solver	        |             | Orange*            |                 |                 |       | Started from Green area |
 | 水内研究室仮配属  | minimum man | Green              |                 | 1.00078         | [slides](https://drive.google.com/file/d/10-31CTZPaWFn2ohFl7nEk7OAqVKGjYRg/view?usp=sharing) <br> [log](https://drive.google.com/file/d/1zvlJKVtGOZs-cjCvDWr2C9iLHDmtubp2/view?usp=sharing) <br> [video](https://drive.google.com/file/d/1TnD4TB7rtbTy4HDwaKA3FFkMtxc3Ax2O/view?usp=sharing)      |        |
 | 水内研究室仮配属1 | First Gear  | Red                |                 | 1.6970          |       |        |
