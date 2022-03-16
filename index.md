@@ -30,7 +30,7 @@ Log data, movie, and presentation materials will be uploaded soon.
 | Solver	        |             | Orange*            |                 |                 |       | Started from Green area |
 | 水内研究室仮配属  | minimum man | Blue               |                 |                 |       |        |
 | 水内研究室仮配属1 | First Gear  | Green              |                 |                 |       |        |
-| MA1               | Uriborg Mk1 | Red                |                 | 1.4298          |       |        |
+| MA1               | Uriborg Mk1 | Red                |                 | 1.4298          | [slides](https://drive.google.com/file/d/1AumTRIRqJkpo2p3qCCXyiSZ18NaMXQFA/view?usp=sharing) <br> [log](https://drive.google.com/file/d/15ap6TAAxZ167Gtpg5pVj2n9EIu1VYVao/view?usp=sharing)      |        |
 | Legendless  	    |             | Red*               |                 |                 |       | Used own simulator |
 | Team Jaxon        | Jaxon       | Red                |                 |                 |       |        |
 
