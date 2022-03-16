@@ -16,10 +16,25 @@ Compared to several simulation-based humanoid robot competitions held in the pas
 - Website opening: early October 2021
 - Application deadline: **15 November 2021**  still open for later application
 - Preliminary challenge: **25 December 2021**, online, finished.
-- Main challenge: **12 March 2022**, online
+- Main challenge: **12 March 2022**, online, finished. Many thanks for attending!
 
-### List of Teams
+### Challenge Results
 
+Log data, movie, and presentation materials will be uploaded soon.
+
+|  Team name        |  Robot name | Reached Checkpoint | Simulation Time | Realtime-factor | Links | Remark |
+| ----              | ----        | ----               | ----            | ----            | ----  | ----   |
+| FisMa	            |             | Blue               |                 |                 |       |        |
+| IRL-Meiji	        | Meiped-HVAC | Blue               |                 |                 |       |        |
+| AIST-JRL-MM       | HRP-5P      | Red                |                 |                 |       |        |
+| Solver	        |             | Orange*            |                 |                 |       | Started from Green area |
+| 水内研究室仮配属  | minimum man | Blue               |                 |                 |       |        |
+| 水内研究室仮配属1 | First Gear  | Green              |                 |                 |       |        |
+| MA1               | Uriborg Mk1 | Red                |                 | 1.4298          |       |        |
+| Legendless  	    |             | Red*               |                 |                 |       | Used own simulator |
+| Team Jaxon        | Jaxon       | Red                |                 |                 |       |        |
+
+<!--
 Listed in the order of application.
 Results of preliminary challenge are listed (Dec 28, 2021).
 
@@ -36,7 +51,7 @@ Results of preliminary challenge are listed (Dec 28, 2021).
 | prime4294967279	|             | Green             | 0:09            | 1.17            |
 | Team Jaxon        | Jaxon       | Red (Goal)        | 2:32            | 1.48            |
 | 水内研究室仮配属  | minimum man | Blue              |                 | 1.00            |
-
+-->
 
 ## Challenge Theme
 
