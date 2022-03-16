@@ -20,19 +20,20 @@ Compared to several simulation-based humanoid robot competitions held in the pas
 
 ### Challenge Results
 
-Log data, movie, and presentation materials will be uploaded soon.
+Log data, video, and presentation materials will be uploaded soon.
+Log data can be opened on Choreonoid (development version) and the simulation can be replayed on your PC.
 
 |  Team name        |  Robot name | Reached Checkpoint | Simulation Time | Realtime-factor | Links | Remark |
 | ----              | ----        | ----               | ----            | ----            | ----  | ----   |
-| FisMa	            |             | Blue               |                 |                 |       |        |
-| IRL-Meiji	        | Meiped-HVAC | Blue               |                 |                 |       |        |
-| AIST-JRL-MM       | HRP-5P      | Red                |                 |                 |       |        |
+| FisMa	            |             | Blue               |                 | 1.0028          |       |        |
+| IRL-Meiji	        | Meiped-HVAC | Blue               |                 | 1.0000          | [slides](https://drive.google.com/file/d/1I7LMPIfDUpaGNXRAfyksNxGXzJ8qQKcp/view?usp=sharing) <br> [log](https://drive.google.com/file/d/1vRJoS5daS3EGJletM248c_m90PzaIW1C/view?usp=sharing)      |        |
+| AIST-JRL-MM       | HRP-5P      | Red                | 129.324         | 1.5586          |       |        |
 | Solver	        |             | Orange*            |                 |                 |       | Started from Green area |
-| 水内研究室仮配属  | minimum man | Blue               |                 |                 |       |        |
-| 水内研究室仮配属1 | First Gear  | Green              |                 |                 |       |        |
+| 水内研究室仮配属  | minimum man | Green              |                 | 1.00078         |       |        |
+| 水内研究室仮配属1 | First Gear  | Red                |                 | 1.6970          |       |        |
 | MA1               | Uriborg Mk1 | Red                |                 | 1.4298          | [slides](https://drive.google.com/file/d/1AumTRIRqJkpo2p3qCCXyiSZ18NaMXQFA/view?usp=sharing) <br> [log](https://drive.google.com/file/d/15ap6TAAxZ167Gtpg5pVj2n9EIu1VYVao/view?usp=sharing)      |        |
-| Legendless  	    |             | Red*               |                 |                 |       | Used own simulator |
-| Team Jaxon        | Jaxon       | Red                |                 |                 |       |        |
+| Legendless  	    |             | Red*               |                 |                 | [slides](https://drive.google.com/file/d/1Id0sNaff4Jir__VoHBTM66eqd0Sjswj_/view?usp=sharing) <br> [video](https://drive.google.com/file/d/1wRUm-Bed5oJzsy2XyzJSTttKrfIXcQ17/view?usp=sharing)      | Used own simulator |
+| Team Jaxon        | Jaxon       | Red                |                 | 1.30028         |       |        |
 
 <!--
 Listed in the order of application.
