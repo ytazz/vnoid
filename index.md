@@ -33,7 +33,7 @@ Log data can be opened on Choreonoid (development version) and the simulation ca
 | 水内研究室仮配属1 | First Gear  | Red                |                 | 1.6970          |       |        |
 | MA1               | Uriborg Mk1 | Red                |                 | 1.4298          | [slides](https://drive.google.com/file/d/1AumTRIRqJkpo2p3qCCXyiSZ18NaMXQFA/view?usp=sharing) <br> [log](https://drive.google.com/file/d/15ap6TAAxZ167Gtpg5pVj2n9EIu1VYVao/view?usp=sharing)      |        |
 | Legendless  	    |             | Red*               |                 |                 | [slides](https://drive.google.com/file/d/1Id0sNaff4Jir__VoHBTM66eqd0Sjswj_/view?usp=sharing) <br> [video](https://drive.google.com/file/d/1wRUm-Bed5oJzsy2XyzJSTttKrfIXcQ17/view?usp=sharing)      | Used own simulator |
-| Team Jaxon        | Jaxon       | Red                |                 | 1.30028         |       |        |
+| Team Jaxon        | Jaxon       | Red                |                 | 1.30028         | [log](https://drive.google.com/file/d/1QikZcG_u_6faHn1pj-RhfqBb3d6ogwIa/view?usp=sharing) <br> [video](https://drive.google.com/file/d/1SK09fC3H-_Hl87ZEojlEcsuwXV64MTFG/view?usp=sharing) <br> [video (ladder)](https://drive.google.com/file/d/1DN01mFGuJruH5QhGEmNrIAxDku3vr7u9/view?usp=sharing)      |        |
 
 <!--
 Listed in the order of application.
