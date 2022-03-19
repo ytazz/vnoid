@@ -1,4 +1,7 @@
+<!--
 ![top image](fig/robot.png "Top Image")
+-->
+![top image](fig/hvac2021.png "Top Image")
 
 ## Aim of this challenge
 
