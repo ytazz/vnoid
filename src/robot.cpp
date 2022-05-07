@@ -25,7 +25,7 @@ void Joint::Set(double _pgain, double _dgain, double _ulimit){
     ulimit = _ulimit;
 }
 
-void Joint::CalcTorque(double dt){
+void Joint::CalcTorque(){
 	u = pgain*(q_ref - q) + dgain*(dq_ref - dq);
 	u = std::min(std::max(-ulimit, u), ulimit);
 }
@@ -252,7 +252,7 @@ void Robot::Actuate(Timer& timer, Base& base, vector<Joint>& joint){
         joint[i].dq_ref = joint_pos_filter[i].yd;
 		
 		// determine joint torque by PD control
-        joint[i].CalcTorque(timer.dt);
+        joint[i].CalcTorque();
 		jnt->u() = joint[i].u;
 	}
 }

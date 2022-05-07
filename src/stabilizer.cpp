@@ -24,7 +24,7 @@ Stabilizer::Stabilizer(){
 
 }
 
-void Stabilizer::CalcZmp(const Timer& timer, const Param& param, Centroid& centroid, vector<Foot>& foot){
+void Stabilizer::CalcZmp(const Param& param, Centroid& centroid, vector<Foot>& foot){
     // get actual force from the sensor
 	for(int i = 0; i < 2; i++){
 		// set contact state
@@ -56,7 +56,7 @@ void Stabilizer::CalcZmp(const Timer& timer, const Param& param, Centroid& centr
 	}
 }
 
-void Stabilizer::CalcForceDistribution(const Timer& timer, const Param& param, Centroid& centroid, vector<Foot>& foot){
+void Stabilizer::CalcForceDistribution(const Param& param, Centroid& centroid, vector<Foot>& foot){
 	// switch based on contact state
 	if(!foot[0].contact_ref && !foot[1].contact_ref){
 		foot[0].balance_ref = 0.5;
@@ -112,7 +112,7 @@ void Stabilizer::CalcForceDistribution(const Timer& timer, const Param& param, C
 
 void Stabilizer::Update(const Timer& timer, const Param& param, Centroid& centroid, Base& base, vector<Foot>& foot){
     // calc zmp from forces
-    CalcZmp(timer, param, centroid, foot);
+    CalcZmp(param, centroid, foot);
 
 	// copy reference values from iksolver
 	centroid.force_ref  = param.total_mass*(centroid.com_acc_ref + Vector3(0.0, 0.0, param.gravity));
@@ -129,7 +129,7 @@ void Stabilizer::Update(const Timer& timer, const Param& param, Centroid& centro
 	}
 
 	// calculate desired forces from desired zmp
-	CalcForceDistribution(timer, param, centroid, foot);
+	CalcForceDistribution(param, centroid, foot);
 
 	for(int i = 0; i < 2; i++){
 		// ground reaction force control
