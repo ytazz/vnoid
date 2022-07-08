@@ -50,6 +50,8 @@ The robot traverse the athletic field from the starting position to the goal.
 The robot walks/runs the 20[m] short track field.
 Time is recorded.
 
+![field](fig/field_shorttrack2022.png "Short-track Field")
+
 ### Free performance
 
 The robot performs something extraordinary.
