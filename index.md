@@ -40,24 +40,20 @@ Compared to several simulation-based humanoid robot competitions held in the pas
 ## Challenge Themes
 
 ### Athletics
-=======
-## Important Dates
 
-- Website opening: early October 2021
-- Application deadline: **15 November 2021**  still open for later application
-- Preliminary challenge: **25 December 2021**, online, finished.
-- Main challenge: **12 March 2022**, online, finished. Many thanks for attending!
-
-## Challenge Theme
-
-The goal of the challenge is to make the robot traverse the athletic field shown in the figure below
- from the starting position to the goal, either by teleoperation, automatic control, or combination of both.
+The robot traverse the athletic field from the starting position to the goal.
 
 ![field](fig/field.png "Athletics Field")
 
 ### Short track
 
+The robot walks/runs the 20[m] short track field.
+Time is recorded.
+
 ### Free performance
+
+The robot performs something extraordinary.
+
 
 ## Regulation
 
