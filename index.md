@@ -43,7 +43,7 @@ Compared to several simulation-based humanoid robot competitions held in the pas
 
 The robot traverse the athletic field from the starting position to the goal.
 
-![field](fig/field.png "Athletics Field")
+![field](fig/field_athletics2022.png "Athletics Field")
 
 ### Short track
 
