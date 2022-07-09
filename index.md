@@ -56,6 +56,7 @@ Time is recorded.
 
 The robot performs something extraordinary.
 
+![field](fig/field_performance2022.png "Free Performance Field")
 
 ## Regulation
 
