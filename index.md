@@ -35,26 +35,31 @@ Compared to several simulation-based humanoid robot competitions held in the pas
 
 ## Application form
 
+Now being prepared.
+<!--
 [Here](https://docs.google.com/forms/d/e/1FAIpQLSdFkUbLTEVpoHGqvfrTeW59-84Kaf-RCNaI9FLpQUu1h0EpCQ/viewform?usp=sf_link)
+-->
 
 ## Challenge Themes
 
 ### Athletics
 
-The robot traverse the athletic field from the starting position to the goal.
+The robot traverses the athletic field from the starting position to the goal.
+Performance is evaluated by reached landmark and elapsed simulation time.
 
 ![field](fig/field_athletics2022.png "Athletics Field")
 
 ### Short track
 
-The robot walks/runs the 20[m] short track field.
-Time is recorded.
+The robot walks/runs the 20[m] short track.
+Performance is evaluated by elapsed simluation time while the robot passes the start line and the goal line.
 
 ![field](fig/field_shorttrack2022.png "Short-track Field")
 
 ### Free performance
 
 The robot performs something extraordinary.
+How to evaluate the quality of free performance is T.B.D.
 
 ![field](fig/field_performance2022.png "Free Performance Field")
 
@@ -62,6 +67,7 @@ The robot performs something extraordinary.
 
 ### Detailed regulation
 
+Please see the following document for detailed regulation (to be uploaded soon).
 - [English version]()
 - [Japanese version]()
 
@@ -99,16 +105,14 @@ Each team designs a robot model and a controller that can be loaded and run on C
 
 #### Simulator setting
 - The AISTsimulator physics engine for simulation.
-- Switching to other physics engines. or changing the parameters of the AISTsimulator is not permitted.
-- A sample .cnoid project file is provided.
-  Use the simulator setting described in this file for the trial.
+  Switching to other physics engines. or changing the parameters of the AISTsimulator is not permitted.
+- A sample .cnoid project file is provided for each challenge theme.
+  Use the simulator setting described in this file for simulation.
 
 #### Operating the robot
 - The robot can be operated with an input device, typically a joystick.
 - The operator can operate the robot while monitoring the robot on the 3D view of Choreonoid.
 
-#### Evaluation
-- 
 
 ## Quick Start
 - See [here](https://ytazz.github.io/vnoid/build_sample.html) for how to build and run the sample.
