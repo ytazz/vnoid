@@ -56,22 +56,23 @@ Performance is evaluated by elapsed simluation time while the robot passes the s
 
 ![field](fig/field_shorttrack2022.png "Short-track Field")
 
-### Free performance
+### Free-style performance
 
 The robot performs something extraordinary.
-How to evaluate the quality of free performance is T.B.D.
+How to evaluate the quality of free-tyle performance is T.B.D.
 
-![field](fig/field_performance2022.png "Free Performance Field")
+![field](fig/field_performance2022.png "Free-style Performance Field")
 
 ## Regulation
 
 ### Detailed regulation
 
-Please see the following document for detailed regulation (to be uploaded soon).
-- [English version]()
-- [Japanese version]()
+Please see the following document for detailed regulations.
+Regulations are tentative and subject to change.
+- [English version](https://docs.google.com/document/d/1IByD9HIQXkZe2DvtmmWsXEv41ggnn6dhuJRX_RMjAMU/edit?usp=sharing)
+- [Japanese version](https://docs.google.com/document/d/1ogiDxNIxWfxW_FQZx8znWPebEcD6XJPvIECpy_ovViE/edit?usp=sharing)
 
-### Regulation overview
+### Regulations overview
 
 [Choreonoid](choreonoid.org) is used for the simulation environment of this challenge.
 Each team designs a robot model and a controller that can be loaded and run on Choreonoid.
