@@ -115,7 +115,7 @@ Each team designs a robot model and a controller that can be loaded and run on C
 
 
 ## Quick Start
-- See [here](https://ytazz.github.io/vnoid/build_sample.html) for how to build and run the sample.
+- See [here](https://ytazz.github.io/vnoid/build_sample_2022.html) for how to build and run the sample.
 
 ## Asking Questions
 - Post your question at [https://github.com/ytazz/vnoid/discussions](https://github.com/ytazz/vnoid/discussions)
