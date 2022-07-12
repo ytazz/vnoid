@@ -17,7 +17,8 @@ It includes:
 - Stepping control
 - Stabilization control
 
-Each function is implemented by about 100 lines of code.
+Each function is implemented by about 100 lines of code,
+ so it will serve as a good learning material for beginners.
 
 ### Building and running vnoid
 
