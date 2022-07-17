@@ -1,0 +1,696 @@
+format: ChoreonoidBody
+formatVersion: 1.0
+name: Floor
+links:
+  -
+    name: Base
+    translation: [ 0, 0, 0 ]
+    jointType: fixed
+    material: Ground
+    elements:
+      -
+        type: RangeSensor
+        id: 0
+        on: true
+        name: rangeSensor0
+        yawRange: 0
+        yawStep: 0
+        pitchRange: 4
+        pitchStep: 0.5
+        scanRate: 100
+        minDistance: 22.5
+        maxDistance: 27.5
+        translation: [0.5, 25.0, 1.0]
+        rotation: [1,0,0,-90]
+      -
+        type: RangeSensor
+        id: 1
+        on: true
+        name: rangeSensor1
+        yawRange: 0
+        yawStep: 0
+        pitchRange: 4
+        pitchStep: 0.5
+        scanRate: 100
+        minDistance: 22.5
+        maxDistance: 27.5
+        translation: [20.4, 25.0, 1.0]
+        rotation: [1,0,0,-90]
+      -
+        type: RangeSensor
+        id: 2
+        on: true
+        name: rangeSensor2
+        yawRange: 0
+        yawStep: 0
+        pitchRange: 4
+        pitchStep: 0.5
+        scanRate: 100
+        minDistance: 22.5
+        maxDistance: 27.5
+        translation: [20.5, 25.0, 1.0]
+        rotation: [1,0,0,-90]
+      -
+        type: Visual
+        resource:
+          uri: "GroundShorttrack.obj"
+#        type: Shape
+#        geometry: { type: Box, size: [ 25.0, 5.0, 1.0 ] }
+#        appearance: { material: { diffuseColor: [ 1.0, 1.0, 1.0 ] }, texture: { url: "shorttrack.png", repeatS: false, repeatT: false}, textureTransform: { scale: [1, 1] } }
+#        translation: [11.5, 0, -0.5]
+      -
+        type: Collision
+        resource:
+          uri: "GroundShorttrack.stl"
+  -
+    name: TimeBoard
+    parent: Base
+    translation: [ 10.0, 2.5, 1.5 ]
+    rotation: [0, 0, 1, -90.0]
+    jointType: fixed
+    elements:
+      -
+        type: Shape
+        geometry: { type: Box, size: [1.0, 10.0, 3.0] }
+        appearance: { material: { diffuseColor: [ 0.0, 0.0, 0.0 ] } }
+        translation: [-0.5, 0.0, 0.0]
+  -
+    name: D0Base
+    parent: TimeBoard
+    translation: [ 0, -2.5, 0]
+    jointType: fixed
+  -
+    name: D0S0
+    parent: D0Base
+    translation: [ 0, -0.4, +0.4 ]
+    jointType: prismatic
+    jointId: 0
+    jointAxis: [1,0,0]
+    gearRatio: 1
+    rotorInertia: 1.0
+    mass: 0.1
+    centerOfMass: [0, 0, 0]
+    inertia: [0.001, 0, 0,  0, 0.001, 0,  0, 0, 0.001]
+    elements:
+      -
+        type: Shape
+        geometry: { type: Capsule, radius: 0.05, height: 0.6 }
+        rotation: [1, 0, 0, 90.0]
+  -
+    name: D0S1
+    parent: D0Base
+    translation: [ 0, -0.4, -0.4 ]
+    jointType: prismatic
+    jointId: 1
+    jointAxis: [1,0,0]
+    gearRatio: 1
+    rotorInertia: 1.0
+    mass: 0.1
+    centerOfMass: [0, 0, 0]
+    inertia: [0.001, 0, 0,  0, 0.001, 0,  0, 0, 0.001]
+    elements:
+      -
+        type: Shape
+        geometry: { type: Capsule, radius: 0.05, height: 0.6 }
+        rotation: [1, 0, 0, 90.0]
+  -
+    name: D0S2
+    parent: D0Base
+    translation: [ 0,  0.0, 0.8 ]
+    jointType: prismatic
+    jointId: 2
+    jointAxis: [1,0,0]
+    gearRatio: 1
+    rotorInertia: 1.0
+    mass: 0.1
+    centerOfMass: [0, 0, 0]
+    inertia: [0.001, 0, 0,  0, 0.001, 0,  0, 0, 0.001]
+    elements:
+      -
+        type: Shape
+        geometry: { type: Capsule, radius: 0.05, height: 0.6 }
+        rotation: [1, 0, 0, 0.0]
+  -
+    name: D0S3
+    parent: D0Base
+    translation: [ 0,  0.0, 0.0 ]
+    jointType: prismatic
+    jointId: 3
+    jointAxis: [1,0,0]
+    gearRatio: 1
+    rotorInertia: 1.0
+    mass: 0.1
+    centerOfMass: [0, 0, 0]
+    inertia: [0.001, 0, 0,  0, 0.001, 0,  0, 0, 0.001]
+    elements:
+      -
+        type: Shape
+        geometry: { type: Capsule, radius: 0.05, height: 0.6 }
+        rotation: [1, 0, 0, 0.0]
+  -
+    name: D0S4
+    parent: D0Base
+    translation: [ 0, 0.0, -0.8 ]
+    jointType: prismatic
+    jointId: 4
+    jointAxis: [1,0,0]
+    gearRatio: 1
+    rotorInertia: 1.0
+    mass: 0.1
+    centerOfMass: [0, 0, 0]
+    inertia: [0.001, 0, 0,  0, 0.001, 0,  0, 0, 0.001]
+    elements:
+      -
+        type: Shape
+        geometry: { type: Capsule, radius: 0.05, height: 0.6 }
+        rotation: [1, 0, 0, 0.0]
+  -
+    name: D0S5
+    parent: D0Base
+    translation: [ 0, 0.4, +0.4 ]
+    jointType: prismatic
+    jointId: 5
+    jointAxis: [1,0,0]
+    gearRatio: 1
+    rotorInertia: 1.0
+    mass: 0.1
+    centerOfMass: [0, 0, 0]
+    inertia: [0.001, 0, 0,  0, 0.001, 0,  0, 0, 0.001]
+    elements:
+      -
+        type: Shape
+        geometry: { type: Capsule, radius: 0.05, height: 0.6 }
+        rotation: [1, 0, 0, 90.0]
+  -
+    name: D0S6
+    parent: D0Base
+    translation: [ 0, 0.4, -0.4 ]
+    jointType: prismatic
+    jointId: 6
+    jointAxis: [1,0,0]
+    gearRatio: 1
+    rotorInertia: 1.0
+    mass: 0.1
+    centerOfMass: [0, 0, 0]
+    inertia: [0.001, 0, 0,  0, 0.001, 0,  0, 0, 0.001]
+    elements:
+      -
+        type: Shape
+        geometry: { type: Capsule, radius: 0.05, height: 0.6 }
+        rotation: [1, 0, 0, 90.0]
+  -
+    name: D1Base
+    parent: TimeBoard
+    translation: [ 0, -0.5, 0]
+    jointType: fixed
+  -
+    name: D1S0
+    parent: D1Base
+    translation: [ 0, -0.4, +0.4 ]
+    jointType: prismatic
+    jointId: 7
+    jointAxis: [1,0,0]
+    gearRatio: 1
+    rotorInertia: 1.0
+    mass: 0.1
+    centerOfMass: [0, 0, 0]
+    inertia: [0.001, 0, 0,  0, 0.001, 0,  0, 0, 0.001]
+    elements:
+      -
+        type: Shape
+        geometry: { type: Capsule, radius: 0.05, height: 0.6 }
+        rotation: [1, 0, 0, 90.0]
+  -
+    name: D1S1
+    parent: D1Base
+    translation: [ 0, -0.4, -0.4 ]
+    jointType: prismatic
+    jointId: 8
+    jointAxis: [1,0,0]
+    gearRatio: 1
+    rotorInertia: 1.0
+    mass: 0.1
+    centerOfMass: [0, 0, 0]
+    inertia: [0.001, 0, 0,  0, 0.001, 0,  0, 0, 0.001]
+    elements:
+      -
+        type: Shape
+        geometry: { type: Capsule, radius: 0.05, height: 0.6 }
+        rotation: [1, 0, 0, 90.0]
+  -
+    name: D1S2
+    parent: D1Base
+    translation: [ 0,  0.0, 0.8 ]
+    jointType: prismatic
+    jointId: 9
+    jointAxis: [1,0,0]
+    gearRatio: 1
+    rotorInertia: 1.0
+    mass: 0.1
+    centerOfMass: [0, 0, 0]
+    inertia: [0.001, 0, 0,  0, 0.001, 0,  0, 0, 0.001]
+    elements:
+      -
+        type: Shape
+        geometry: { type: Capsule, radius: 0.05, height: 0.6 }
+        rotation: [1, 0, 0, 0.0]
+  -
+    name: D1S3
+    parent: D1Base
+    translation: [ 0,  0.0, 0.0 ]
+    jointType: prismatic
+    jointId: 10
+    jointAxis: [1,0,0]
+    gearRatio: 1
+    rotorInertia: 1.0
+    mass: 0.1
+    centerOfMass: [0, 0, 0]
+    inertia: [0.001, 0, 0,  0, 0.001, 0,  0, 0, 0.001]
+    elements:
+      -
+        type: Shape
+        geometry: { type: Capsule, radius: 0.05, height: 0.6 }
+        rotation: [1, 0, 0, 0.0]
+  -
+    name: D1S4
+    parent: D1Base
+    translation: [ 0, 0.0, -0.8 ]
+    jointType: prismatic
+    jointId: 11
+    jointAxis: [1,0,0]
+    gearRatio: 1
+    rotorInertia: 1.0
+    mass: 0.1
+    centerOfMass: [0, 0, 0]
+    inertia: [0.001, 0, 0,  0, 0.001, 0,  0, 0, 0.001]
+    elements:
+      -
+        type: Shape
+        geometry: { type: Capsule, radius: 0.05, height: 0.6 }
+        rotation: [1, 0, 0, 0.0]
+  -
+    name: D1S5
+    parent: D1Base
+    translation: [ 0, 0.4, +0.4 ]
+    jointType: prismatic
+    jointId: 12
+    jointAxis: [1,0,0]
+    gearRatio: 1
+    rotorInertia: 1.0
+    mass: 0.1
+    centerOfMass: [0, 0, 0]
+    inertia: [0.001, 0, 0,  0, 0.001, 0,  0, 0, 0.001]
+    elements:
+      -
+        type: Shape
+        geometry: { type: Capsule, radius: 0.05, height: 0.6 }
+        rotation: [1, 0, 0, 90.0]
+  -
+    name: D1S6
+    parent: D1Base
+    translation: [ 0, 0.4, -0.4 ]
+    jointType: prismatic
+    jointId: 13
+    jointAxis: [1,0,0]
+    gearRatio: 1
+    rotorInertia: 1.0
+    mass: 0.1
+    centerOfMass: [0, 0, 0]
+    inertia: [0.001, 0, 0,  0, 0.001, 0,  0, 0, 0.001]
+    elements:
+      -
+        type: Shape
+        geometry: { type: Capsule, radius: 0.05, height: 0.6 }
+        rotation: [1, 0, 0, 90.0]
+  -
+    name: D2Base
+    parent: TimeBoard
+    translation: [ 0, 0.5, 0]
+    jointType: fixed
+  -
+    name: D2S0
+    parent: D2Base
+    translation: [ 0, -0.4, +0.4 ]
+    jointType: prismatic
+    jointId: 14
+    jointAxis: [1,0,0]
+    gearRatio: 1
+    rotorInertia: 1.0
+    mass: 0.1
+    centerOfMass: [0, 0, 0]
+    inertia: [0.001, 0, 0,  0, 0.001, 0,  0, 0, 0.001]
+    elements:
+      -
+        type: Shape
+        geometry: { type: Capsule, radius: 0.05, height: 0.6 }
+        rotation: [1, 0, 0, 90.0]
+  -
+    name: D2S1
+    parent: D2Base
+    translation: [ 0, -0.4, -0.4 ]
+    jointType: prismatic
+    jointId: 15
+    jointAxis: [1,0,0]
+    gearRatio: 1
+    rotorInertia: 1.0
+    mass: 0.1
+    centerOfMass: [0, 0, 0]
+    inertia: [0.001, 0, 0,  0, 0.001, 0,  0, 0, 0.001]
+    elements:
+      -
+        type: Shape
+        geometry: { type: Capsule, radius: 0.05, height: 0.6 }
+        rotation: [1, 0, 0, 90.0]
+  -
+    name: D2S2
+    parent: D2Base
+    translation: [ 0,  0.0, 0.8 ]
+    jointType: prismatic
+    jointId: 16
+    jointAxis: [1,0,0]
+    gearRatio: 1
+    rotorInertia: 1.0
+    mass: 0.1
+    centerOfMass: [0, 0, 0]
+    inertia: [0.001, 0, 0,  0, 0.001, 0,  0, 0, 0.001]
+    elements:
+      -
+        type: Shape
+        geometry: { type: Capsule, radius: 0.05, height: 0.6 }
+        rotation: [1, 0, 0, 0.0]
+  -
+    name: D2S3
+    parent: D2Base
+    translation: [ 0,  0.0, 0.0 ]
+    jointType: prismatic
+    jointId: 17
+    jointAxis: [1,0,0]
+    gearRatio: 1
+    rotorInertia: 1.0
+    mass: 0.1
+    centerOfMass: [0, 0, 0]
+    inertia: [0.001, 0, 0,  0, 0.001, 0,  0, 0, 0.001]
+    elements:
+      -
+        type: Shape
+        geometry: { type: Capsule, radius: 0.05, height: 0.6 }
+        rotation: [1, 0, 0, 0.0]
+  -
+    name: D2S4
+    parent: D2Base
+    translation: [ 0, 0.0, -0.8 ]
+    jointType: prismatic
+    jointId: 18
+    jointAxis: [1,0,0]
+    gearRatio: 1
+    rotorInertia: 1.0
+    mass: 0.1
+    centerOfMass: [0, 0, 0]
+    inertia: [0.001, 0, 0,  0, 0.001, 0,  0, 0, 0.001]
+    elements:
+      -
+        type: Shape
+        geometry: { type: Capsule, radius: 0.05, height: 0.6 }
+        rotation: [1, 0, 0, 0.0]
+  -
+    name: D2S5
+    parent: D2Base
+    translation: [ 0, 0.4, +0.4 ]
+    jointType: prismatic
+    jointId: 19
+    jointAxis: [1,0,0]
+    gearRatio: 1
+    rotorInertia: 1.0
+    mass: 0.1
+    centerOfMass: [0, 0, 0]
+    inertia: [0.001, 0, 0,  0, 0.001, 0,  0, 0, 0.001]
+    elements:
+      -
+        type: Shape
+        geometry: { type: Capsule, radius: 0.05, height: 0.6 }
+        rotation: [1, 0, 0, 90.0]
+  -
+    name: D2S6
+    parent: D2Base
+    translation: [ 0, 0.4, -0.4 ]
+    jointType: prismatic
+    jointId: 20
+    jointAxis: [1,0,0]
+    gearRatio: 1
+    rotorInertia: 1.0
+    mass: 0.1
+    centerOfMass: [0, 0, 0]
+    inertia: [0.001, 0, 0,  0, 0.001, 0,  0, 0, 0.001]
+    elements:
+      -
+        type: Shape
+        geometry: { type: Capsule, radius: 0.05, height: 0.6 }
+        rotation: [1, 0, 0, 90.0]
+  -
+    name: D3Base
+    parent: TimeBoard
+    translation: [ 0, 2.5, 0]
+    jointType: fixed
+  -
+    name: D3S0
+    parent: D3Base
+    translation: [ 0, -0.4, +0.4 ]
+    jointType: prismatic
+    jointId: 21
+    jointAxis: [1,0,0]
+    gearRatio: 1
+    rotorInertia: 1.0
+    mass: 0.1
+    centerOfMass: [0, 0, 0]
+    inertia: [0.001, 0, 0,  0, 0.001, 0,  0, 0, 0.001]
+    elements:
+      -
+        type: Shape
+        geometry: { type: Capsule, radius: 0.05, height: 0.6 }
+        rotation: [1, 0, 0, 90.0]
+  -
+    name: D3S1
+    parent: D3Base
+    translation: [ 0, -0.4, -0.4 ]
+    jointType: prismatic
+    jointId: 22
+    jointAxis: [1,0,0]
+    gearRatio: 1
+    rotorInertia: 1.0
+    mass: 0.1
+    centerOfMass: [0, 0, 0]
+    inertia: [0.001, 0, 0,  0, 0.001, 0,  0, 0, 0.001]
+    elements:
+      -
+        type: Shape
+        geometry: { type: Capsule, radius: 0.05, height: 0.6 }
+        rotation: [1, 0, 0, 90.0]
+  -
+    name: D3S2
+    parent: D3Base
+    translation: [ 0,  0.0, 0.8 ]
+    jointType: prismatic
+    jointId: 23
+    jointAxis: [1,0,0]
+    gearRatio: 1
+    rotorInertia: 1.0
+    mass: 0.1
+    centerOfMass: [0, 0, 0]
+    inertia: [0.001, 0, 0,  0, 0.001, 0,  0, 0, 0.001]
+    elements:
+      -
+        type: Shape
+        geometry: { type: Capsule, radius: 0.05, height: 0.6 }
+        rotation: [1, 0, 0, 0.0]
+  -
+    name: D3S3
+    parent: D3Base
+    translation: [ 0,  0.0, 0.0 ]
+    jointType: prismatic
+    jointId: 24
+    jointAxis: [1,0,0]
+    gearRatio: 1
+    rotorInertia: 1.0
+    mass: 0.1
+    centerOfMass: [0, 0, 0]
+    inertia: [0.001, 0, 0,  0, 0.001, 0,  0, 0, 0.001]
+    elements:
+      -
+        type: Shape
+        geometry: { type: Capsule, radius: 0.05, height: 0.6 }
+        rotation: [1, 0, 0, 0.0]
+  -
+    name: D3S4
+    parent: D3Base
+    translation: [ 0, 0.0, -0.8 ]
+    jointType: prismatic
+    jointId: 25
+    jointAxis: [1,0,0]
+    gearRatio: 1
+    rotorInertia: 1.0
+    mass: 0.1
+    centerOfMass: [0, 0, 0]
+    inertia: [0.001, 0, 0,  0, 0.001, 0,  0, 0, 0.001]
+    elements:
+      -
+        type: Shape
+        geometry: { type: Capsule, radius: 0.05, height: 0.6 }
+        rotation: [1, 0, 0, 0.0]
+  -
+    name: D3S5
+    parent: D3Base
+    translation: [ 0, 0.4, +0.4 ]
+    jointType: prismatic
+    jointId: 26
+    jointAxis: [1,0,0]
+    gearRatio: 1
+    rotorInertia: 1.0
+    mass: 0.1
+    centerOfMass: [0, 0, 0]
+    inertia: [0.001, 0, 0,  0, 0.001, 0,  0, 0, 0.001]
+    elements:
+      -
+        type: Shape
+        geometry: { type: Capsule, radius: 0.05, height: 0.6 }
+        rotation: [1, 0, 0, 90.0]
+  -
+    name: D3S6
+    parent: D3Base
+    translation: [ 0, 0.4, -0.4 ]
+    jointType: prismatic
+    jointId: 27
+    jointAxis: [1,0,0]
+    gearRatio: 1
+    rotorInertia: 1.0
+    mass: 0.1
+    centerOfMass: [0, 0, 0]
+    inertia: [0.001, 0, 0,  0, 0.001, 0,  0, 0, 0.001]
+    elements:
+      -
+        type: Shape
+        geometry: { type: Capsule, radius: 0.05, height: 0.6 }
+        rotation: [1, 0, 0, 90.0]
+  -
+    name: D4Base
+    parent: TimeBoard
+    translation: [ 0, 3.5, 0]
+    jointType: fixed
+  -
+    name: D4S0
+    parent: D4Base
+    translation: [ 0, -0.4, +0.4 ]
+    jointType: prismatic
+    jointId: 28
+    jointAxis: [1,0,0]
+    gearRatio: 1
+    rotorInertia: 1.0
+    mass: 0.1
+    centerOfMass: [0, 0, 0]
+    inertia: [0.001, 0, 0,  0, 0.001, 0,  0, 0, 0.001]
+    elements:
+      -
+        type: Shape
+        geometry: { type: Capsule, radius: 0.05, height: 0.6 }
+        rotation: [1, 0, 0, 90.0]
+  -
+    name: D4S1
+    parent: D4Base
+    translation: [ 0, -0.4, -0.4 ]
+    jointType: prismatic
+    jointId: 29
+    jointAxis: [1,0,0]
+    gearRatio: 1
+    rotorInertia: 1.0
+    mass: 0.1
+    centerOfMass: [0, 0, 0]
+    inertia: [0.001, 0, 0,  0, 0.001, 0,  0, 0, 0.001]
+    elements:
+      -
+        type: Shape
+        geometry: { type: Capsule, radius: 0.05, height: 0.6 }
+        rotation: [1, 0, 0, 90.0]
+  -
+    name: D4S2
+    parent: D4Base
+    translation: [ 0,  0.0, 0.8 ]
+    jointType: prismatic
+    jointId: 30
+    jointAxis: [1,0,0]
+    gearRatio: 1
+    rotorInertia: 1.0
+    mass: 0.1
+    centerOfMass: [0, 0, 0]
+    inertia: [0.001, 0, 0,  0, 0.001, 0,  0, 0, 0.001]
+    elements:
+      -
+        type: Shape
+        geometry: { type: Capsule, radius: 0.05, height: 0.6 }
+        rotation: [1, 0, 0, 0.0]
+  -
+    name: D4S3
+    parent: D4Base
+    translation: [ 0,  0.0, 0.0 ]
+    jointType: prismatic
+    jointId: 31
+    jointAxis: [1,0,0]
+    gearRatio: 1
+    rotorInertia: 1.0
+    mass: 0.1
+    centerOfMass: [0, 0, 0]
+    inertia: [0.001, 0, 0,  0, 0.001, 0,  0, 0, 0.001]
+    elements:
+      -
+        type: Shape
+        geometry: { type: Capsule, radius: 0.05, height: 0.6 }
+        rotation: [1, 0, 0, 0.0]
+  -
+    name: D4S4
+    parent: D4Base
+    translation: [ 0, 0.0, -0.8 ]
+    jointType: prismatic
+    jointId: 32
+    jointAxis: [1,0,0]
+    gearRatio: 1
+    rotorInertia: 1.0
+    mass: 0.1
+    centerOfMass: [0, 0, 0]
+    inertia: [0.001, 0, 0,  0, 0.001, 0,  0, 0, 0.001]
+    elements:
+      -
+        type: Shape
+        geometry: { type: Capsule, radius: 0.05, height: 0.6 }
+        rotation: [1, 0, 0, 0.0]
+  -
+    name: D4S5
+    parent: D4Base
+    translation: [ 0, 0.4, +0.4 ]
+    jointType: prismatic
+    jointId: 33
+    jointAxis: [1,0,0]
+    gearRatio: 1
+    rotorInertia: 1.0
+    mass: 0.1
+    centerOfMass: [0, 0, 0]
+    inertia: [0.001, 0, 0,  0, 0.001, 0,  0, 0, 0.001]
+    elements:
+      -
+        type: Shape
+        geometry: { type: Capsule, radius: 0.05, height: 0.6 }
+        rotation: [1, 0, 0, 90.0]
+  -
+    name: D4S6
+    parent: D4Base
+    translation: [ 0, 0.4, -0.4 ]
+    jointType: prismatic
+    jointId: 34
+    jointAxis: [1,0,0]
+    gearRatio: 1
+    rotorInertia: 1.0
+    mass: 0.1
+    centerOfMass: [0, 0, 0]
+    inertia: [0.001, 0, 0,  0, 0.001, 0,  0, 0, 0.001]
+    elements:
+      -
+        type: Shape
+        geometry: { type: Capsule, radius: 0.05, height: 0.6 }
+        rotation: [1, 0, 0, 90.0]

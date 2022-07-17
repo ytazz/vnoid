@@ -1,0 +1,106 @@
+format: ChoreonoidBody
+formatVersion: 1.0
+name: Floor
+links:
+  -
+    name: Base
+    translation: [ 0, 0, 0 ]
+    jointType: fixed
+    material: Ground
+    elements:
+      -
+        type: Visual
+        resource:
+          uri: "Ground1.obj"
+      -
+        type: Visual
+        resource:
+          uri: "Ground2.obj"
+      -
+        type: Visual
+        resource:
+          uri: "Ground3.obj"
+      -
+        type: Visual
+        resource:
+          uri: "Stage.obj"
+      -
+        type: Visual
+        resource:
+          uri: "Slope.obj"
+      -
+        type: Visual
+        resource:
+          uri: "Stairs.obj"
+      -
+        type: Visual
+        resource:
+          uri: "Goal.obj"
+      -
+        type: Visual
+        resource:
+          uri: "Bar1.stl"
+      -
+        type: Visual
+        resource:
+          uri: "Bar2.stl"
+      -
+        type: Visual
+        resource:
+          uri: "Bar3.obj"
+      -
+        type: Visual
+        resource:
+          uri: "Bar4.stl"
+      -
+        type: Visual
+        resource:
+          uri: "Bar5.stl"
+      -
+        type: Collision
+        resource:
+          uri: "Ground1.stl"
+      -
+        type: Collision
+        resource:
+          uri: "Ground2.stl"
+      -
+        type: Collision
+        resource:
+          uri: "Ground3.stl"
+      -
+        type: Collision
+        resource:
+          uri: "Stage.stl"
+      -
+        type: Collision
+        resource:
+          uri: "Slope.stl"
+      -
+        type: Collision
+        resource:
+          uri: "Stairs.stl"
+      -
+        type: Collision
+        resource:
+          uri: "Goal.stl"
+      -
+        type: Collision
+        resource:
+          uri: "Bar1.stl"
+      -
+        type: Collision
+        resource:
+          uri: "Bar2.stl"
+      -
+        type: Collision
+        resource:
+          uri: "Bar3.stl"
+      -
+        type: Collision
+        resource:
+          uri: "Bar4.stl"
+      -
+        type: Collision
+        resource:
+          uri: "Bar5.stl"

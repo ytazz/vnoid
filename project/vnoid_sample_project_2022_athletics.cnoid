@@ -22,15 +22,15 @@ items:
           class: BodyItem
           is_checked: true
           data: 
-            file: "${SHARE}/model/sample_field/sample_field.body"
+            file: "${SHARE}/model/field2022/field2022_athletics.body"
             format: CHOREONOID-BODY
-            rootPosition: [ 0, 0, -0.1 ]
+            rootPosition: [ 0, 0, 0 ]
             rootAttitude: [ 
               1, 0, 0, 
               0, 1, 0, 
               0, 0, 1 ]
             jointPositions: [  ]
-            initialRootPosition: [ 0, 0, -0.1 ]
+            initialRootPosition: [ 0, 0, 0 ]
             initialRootAttitude: [ 
               1, 0, 0, 
               0, 1, 0, 
