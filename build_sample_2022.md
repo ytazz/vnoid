@@ -30,13 +30,19 @@ Each function is implemented by about 100 lines of code,
   If you have cloned it to chorenoid/ext/, no need to do this.
   Configure, generate, build, and install.
   As a result, Choreonoid will be installed to the location specified by CMAKE_INSTALL_PREFIX.
-- Run Choreonoid, load [install directory of Choreonoid]/share/project/vnoid_sample_project.cnoid
+- Run Choreonoid, load a project file [install directory of Choreonoid]/share/project/[project name].cnoid,
+  where [project name] is one of the following for the 2022 challenge.
+-- vnoid_sample_project_2022_athletics (for athletics)
+-- vnoid_sample_project_2022_shorttrack (for short track)
+-- vnoid_sample_project_2022_performance (for free-style performance)
 - Run simulation.
+- Stop simulation.
+- Save log data.
+-- Right click "WorldLogFile", select "Save project as log playback archive", and save.
 
 ### Creating your own robot
 
-If you are not familiar with creating a robot model and its controller, the easiest way would be
- to modify your local copy of vnoid.
+If you are not familiar with creating a robot model and its controller, the easiest way would be to modify your local copy of vnoid.
 
 #### Creating your robot model
 
@@ -56,7 +62,7 @@ Also edit CMakeLists.txt right below vnoid/controller, and add add_subdirectory(
 
 #### Creating your project
 
-Copy vnoid/project/vnoid_sample_project.cnoid to my_project.cnoid in the same directory.
+Copy vnoid/project/vnoid_sample_project_2022_****.cnoid to my_project.cnoid in the same directory.
 Open my_project.cnoid.
 Find the reference to sample_robot.body and replace it with my_robot.body.
 Similarly, find the reference to vnoid_sample_controller.dll and replace it with my_controller.dll.
