@@ -35,10 +35,10 @@ Compared to several simulation-based humanoid robot competitions held in the pas
 
 ## Application form
 
-Now being prepared.
 <!--
-[Here](https://docs.google.com/forms/d/e/1FAIpQLSdFkUbLTEVpoHGqvfrTeW59-84Kaf-RCNaI9FLpQUu1h0EpCQ/viewform?usp=sf_link)
+Now being prepared.
 -->
+[Here](https://docs.google.com/forms/d/e/1FAIpQLSdFkUbLTEVpoHGqvfrTeW59-84Kaf-RCNaI9FLpQUu1h0EpCQ/viewform?usp=sf_link)
 
 ## Challenge Themes
 
