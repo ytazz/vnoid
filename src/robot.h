@@ -71,6 +71,7 @@ public:
 	Vector3    angle_ref;  ///< reference orientation in roll-pitch-yaw
 	Vector3    angvel_ref; ///< reference angular velocity
 	Vector3    angacc_ref; ///< reference angular acceleration
+	double     arm_twist;  ///< desired angle of shoulder-yaw joint. used by iksolver
 
     Hand();
 };
