@@ -32,15 +32,15 @@ Each function is implemented by about 100 lines of code,
   As a result, Choreonoid will be installed to the location specified by CMAKE_INSTALL_PREFIX.
 - Run Choreonoid, load a project file [install directory of Choreonoid]/share/project/[project name].cnoid,
   where [project name] is one of the following for the 2022 challenge.
--- vnoid_sample_project_2022_athletics (for athletics)
--- vnoid_sample_project_2022_shorttrack (for short track)
--- vnoid_sample_project_2022_performance (for free-style performance)
+	- vnoid_sample_project_2022_athletics (for athletics)
+	- vnoid_sample_project_2022_shorttrack (for short track)
+	- vnoid_sample_project_2022_performance (for free-style performance)
 - Run simulation.
 - Stop simulation.
 - Save log data.
--- Right click "WorldLogFile", select "Save project as log playback archive", and save.
--- There will be a log file named "[logname].cnoid", and a folder with the same name including all log data.
--- Archive them into a single zip file, and submit it.
+	- Right click "WorldLogFile", select "Save project as log playback archive", and save.
+	- There will be a log file named "[logname].cnoid", and a folder with the same name including all log data.
+	- Archive them into a single zip file, and submit it.
 
 ### Creating your own robot
 
