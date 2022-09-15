@@ -39,6 +39,8 @@ Each function is implemented by about 100 lines of code,
 - Stop simulation.
 - Save log data.
 -- Right click "WorldLogFile", select "Save project as log playback archive", and save.
+-- There will be a log file named "[logname].cnoid", and a folder with the same name including all log data.
+-- Archive them into a single zip file, and submit it.
 
 ### Creating your own robot
 
