@@ -117,6 +117,7 @@ void Stabilizer::Update(const Timer& timer, const Param& param, Centroid& centro
 	// copy reference values from iksolver
 	centroid.force_ref  = param.total_mass*(centroid.com_acc_ref + Vector3(0.0, 0.0, param.gravity));
 	centroid.moment_ref = Vector3(0.0, 0.0, 0.0);
+	centroid.zmp_ref    = Vector3(0.0, 0.0, 0.0);
 
 	// feedback base orientation to zmp
 	{
@@ -138,7 +139,7 @@ void Stabilizer::Update(const Timer& timer, const Param& param, Centroid& centro
 			dpos[i].z() = std::min(std::max(-force_ctrl_limit, dpos[i].z()), force_ctrl_limit);
 
 			drot[i].x() += (-moment_ctrl_damping*drot[i].x() + moment_ctrl_gain*(foot[i].moment_ref.x() - foot[i].moment.x()))*timer.dt;
-			drot[i].y() += (-moment_ctrl_damping*drot[i].y() + moment_ctrl_gain*(foot[i].moment_ref.y() - foot[i].moment.x()))*timer.dt;
+			drot[i].y() += (-moment_ctrl_damping*drot[i].y() + moment_ctrl_gain*(foot[i].moment_ref.y() - foot[i].moment.y()))*timer.dt;
 			drot[i].x() = std::min(std::max(-moment_ctrl_limit, drot[i].x()), moment_ctrl_limit);
 			drot[i].y() = std::min(std::max(-moment_ctrl_limit, drot[i].y()), moment_ctrl_limit);
 
