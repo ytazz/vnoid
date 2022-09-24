@@ -27,6 +27,7 @@ public:
 	double  q_ref;    ///< desired joint angle
 	double  dq_ref;   ///< desired joint velocity
 	double  u;        ///< torque command
+	double  u_ref;
 
 	/**
 	 * Set joint parameters
@@ -46,9 +47,11 @@ public:
  **/
 class Base{
 public:
+	Vector3     pos;        ///< position
 	Vector3     pos_ref;    ///< reference position
 	Vector3     angle;      ///< current orientation in roll-pitch-yaw
 	Vector3     angle_ref;  ///< reference orientation in roll-pitch-yaw
+	Quaternion  ori;        ///< orientation in quaternion
 	Quaternion  ori_ref;    ///< reference orientation in quaternion
 	Vector3     vel_ref;    ///< reference velocity
 	Vector3     angvel;     ///< current angular velocity
@@ -64,10 +67,13 @@ public:
  **/
 class Hand{	
 public:
+	Vector3    pos;        ///< position
 	Vector3    pos_ref;    ///< reference position
 	Vector3    vel_ref;    ///< reference velocity
 	Vector3    acc_ref;    ///< reference acceleration
+	Quaternion ori;        ///< orientation in quaternion
 	Quaternion ori_ref;    ///< reference orientation in quaternion
+	Vector3    angle;      ///< orientation in roll-pitch-yaw
 	Vector3    angle_ref;  ///< reference orientation in roll-pitch-yaw
 	Vector3    angvel_ref; ///< reference angular velocity
 	Vector3    angacc_ref; ///< reference angular acceleration
@@ -82,8 +88,11 @@ public:
 	bool        contact_ref;  ///< reference contact state
 	double      balance;      ///< current balance ratio [0.0, 1.0].  indicates the ratio of vertical reaction force applied to this foot
 	double      balance_ref;  ///< reference balance ratio [0.0, 1.0]
+	Vector3     pos;          ///< position
 	Vector3     pos_ref;      ///< reference position
+	Quaternion  ori;          ///< orientation in quaternion
 	Quaternion  ori_ref;      ///< reference orientation in quaternion
+	Vector3     angle;        ///< orientation in roll-pitch-yaw
 	Vector3     angle_ref;    ///< reference orientation in roll-pitch-yaw
 	Vector3     vel_ref;      ///< reference velocity
 	Vector3     angvel_ref;   ///< reference angular velocity
@@ -108,13 +117,28 @@ public:
 	Vector3  moment_ref;   ///< reference moment
 	Vector3  zmp;          ///< current ZMP
 	Vector3  zmp_ref;      ///< reference ZMP
+	Vector3  dcm;
 	Vector3  dcm_ref;      ///< reference DCM (divergent component of motion)
 
+	Vector3  com_pos;
 	Vector3  com_pos_ref;  ///< reference position of CoM
 	Vector3  com_vel_ref;  ///< reference velocity of CoM
 	Vector3  com_acc_ref;  ///< reference acceleration of CoM
 	
 	Centroid();
+};
+
+/**
+    Ground plane
+ **/
+class Ground{
+public:
+    Vector3     angle;   ///< ground inclination angle in roll and pitch. yaw is always zero
+    Quaternion  ori;     ///< ground inclination
+	double      tilt;
+	double      gradient;
+
+	Ground();
 };
 
 /**
@@ -131,14 +155,28 @@ public:
     // kinematic parameters
     Vector3   base_to_shoulder[2];   ///< relative position of each shoulder (i.e., base of arm) w.r.t. base link origin
     Vector3   base_to_hip[2];        ///< relative position of each hip (i.e., base of leg) w.r.t. base link origin
+    Vector3   base_to_com;           ///< nominal relative position of CoM w.r.t. base link origin
     Vector3   wrist_to_hand[2];      ///< offset from wrist joint to hand center
     Vector3   ankle_to_foot[2];      ///< offset from ankle joint to foot center
-    int       arm_joint_index[2];    ///< index of the first joint of each arm
-    int       leg_joint_index[2];    ///< index of the first joint of each leg
     double    upper_arm_length;      ///< length of upper arm (i.e., shoulder to elbow)
     double    lower_arm_length;      ///< length of lower arm (i.e., elbow to wrist)
     double    upper_leg_length;      ///< length of upper leg (i.e., hip to knee)
     double    lower_leg_length;      ///< length of lower leg (i.e., knee to ankle)
+
+	// mass parameters
+	double    trunk_mass;
+	double    arm_mass[7];           ///< array of mass of links
+	double    leg_mass[6];
+	Vector3   trunk_com;             ///< array of center of mass of links
+	Vector3   arm_com[7];
+	Vector3   leg_com[6];
+
+	int       arm_joint_index[2];    ///< index of the first joint of each arm
+    int       leg_joint_index[2];    ///< index of the first joint of each leg
+
+   	// dynamic parameters
+	Vector3   zmp_min;
+	Vector3   zmp_max;
 
 	/**
 	 * Set default values to parameters 
@@ -229,6 +267,7 @@ public:
 	 * @param joint  array of joint objects. current angle and velocity are stored.
 	 * 
 	 **/
+	void  Sense  (Timer& timer, Base& base, vector<Joint>& joint);
 	void  Sense  (Timer& timer, Base& base, vector<Foot>& foot, vector<Joint>& joint);
 
 	/**

@@ -5,15 +5,12 @@
 #include <vector>
 using namespace std;
 
+#include "robot.h"
+
 namespace cnoid{
 namespace vnoid{
 
-class Param;
-class Centroid;
-class Base;
-class Hand;
-class Foot;
-class Joint;
+class FkSolver;
 
 /* 
  * 
@@ -58,20 +55,48 @@ public:
 
     /** @brief Whole-body IK
      *
-     *  @param  param     parameters
-     *  @param  centroid  reference CoM position
-     *  @param  base      reference base orientation
-     *  @param  hand      reference hand pose
-     *  @param  foot      reference foot pose
-     *  @param  joint     array of joints to store the result
+     *  @param  param     Parameters
+     *  @param  base      Reference to Base object. Base::pos_ref and Base::ori_ref are used as inputs.
+     *  @param  hand      Reference to Hand objects. Hand::pos_ref and Hand::ori_ref are used as inputs.
+     *  @param  foot      Reference to Foot objects. Foot::pos_ref and Foot::ori_ref are used as inputs.
+     *  @param  joint     Array of joints to store the result
      * 
      *  Simple whole-body IK.
-     *  It takes reference base orientation, reference CoM position, and reference pose (position and orientation) of feet and hands
+     *  It takes reference pose (position and orientation) of the base link, hand, and feet
      *  as inputs and computes desired joint angles.
      *  Offsets (base link to shoulders and hips, wrist to hand, ankle to foot) set in param are taken into consideration.
-     *  Note that current implementation assumes that the CoM coincides with the base link origin.
+     *
      **/
-    void Comp(const Param& param, const Centroid& centroid, const Base& base, const vector<Hand>& hand, const vector<Foot>& foot, vector<Joint>& joint);
+    void Comp(const Param& param, const Base& base, const vector<Hand>& hand, const vector<Foot>& foot, vector<Joint>& joint);
+
+    /** @brief Whole-body CoM IK
+     *
+     *  @param  fk_solver Pointer to FK solver to be used internally
+     *  @param  param     Parameters
+     *  @param  centroid  Reference to Centroid object. Centroid::com_pos_ref is used as an input.
+     *  @param  base      Reference to Base object. Base::ori_ref is used as an input, and Base::pos_ref is used to store the result.
+     *  @param  hand      Reference to Hand objects. Hand::pos_ref and Hand::ori_ref are used as inputs.
+     *  @param  foot      Reference to Foot objects. Foot::pos_ref and Foot::ori_ref are used as inputs.
+     *  @param  joint     Array of joints to store the result
+     * 
+     *  CoM IK.
+     *  It takes reference CoM position, reference base link orientation, and reference pose of the hand and feet
+     *  as inputs and computes desired base link position and desired joint angles.
+     *  Offsets (base link to shoulders and hips, wrist to hand, ankle to foot) set in param are taken into consideration.
+     * 
+     *  It internally computes whole-body IK and FK repeatedly while adjusting the base link position until
+     *  CoM position computed by FK matches the reference value.
+     *
+     **/
+    void Comp(FkSolver* fk_solver, const Param& param, Centroid& centroid, Base& base, vector<Hand>& hand, vector<Foot>& foot, vector<Joint>& joint);
+
+protected:
+    // variables for internal use
+    Base           base_tmp;
+    Centroid       centroid_tmp;
+    vector<Joint>  joint_tmp;
+    vector<Hand>   hand_tmp;
+    vector<Foot>   foot_tmp;
 
 };
 

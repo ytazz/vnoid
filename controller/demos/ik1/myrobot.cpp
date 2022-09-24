@@ -73,18 +73,27 @@ void MyRobot::Init(SimpleControllerIO* io){
     // init hardware (simulator interface)
 	Robot::Init(io, timer, joint);
 
+    // configure marker links
+    marker_index = 31;
+    num_markers  = 10;
+    for (int i = 0; i < num_markers; i++) {
+        io_body->link(marker_index + i)->setActuationMode(cnoid::Link::LinkPosition);
+        io->enableIO(io_body->link(marker_index + i));
+    }
+
 }
 
 void MyRobot::Control(){
     Robot::Sense(timer, base, foot, joint);
 
+    // comp FK
+    fk_solver.Comp(param, joint, base, centroid, hand, foot);
+    
     // generate IK inputs. edit as you like! //
 	
     const double pi = 3.1415926535;
     double theta = 2.0*timer.time;
 
-    centroid.com_pos_ref = Vector3(0.0, 0.0, 1.5);
-    
     base.pos_ref = Vector3(0.0, 0.0, 1.5);
     base.ori_ref = Quaternion(1.0, 0.0, 0.0, 0.0);
 
@@ -94,17 +103,36 @@ void MyRobot::Control(){
     foot[1].pos_ref = Vector3(-0.3*cos(-theta),  0.1, 1.5 - 0.7 - 0.3*sin(-theta));
     foot[1].ori_ref = base.ori_ref;
     
-    hand[0].pos_ref   = centroid.com_pos_ref + base.ori_ref*Vector3( 0.3+0.2*cos(-theta), -0.2,  0.2*sin(-theta));
+    hand[0].pos_ref   = base.pos_ref + base.ori_ref*Vector3( 0.3+0.2*cos(-theta), -0.2,  0.2*sin(-theta));
     hand[0].ori_ref   = AngleAxis(-pi/2.0, Vector3::UnitX());
     hand[0].arm_twist = pi/2.0;
     
-    hand[1].pos_ref   = centroid.com_pos_ref + base.ori_ref*Vector3( 0.3+0.2*cos(-theta),  0.2,  0.2*sin(-theta));
+    hand[1].pos_ref   = base.pos_ref + base.ori_ref*Vector3( 0.3+0.2*cos(-theta),  0.2,  0.2*sin(-theta));
     hand[1].ori_ref   = AngleAxis( pi/2.0, Vector3::UnitX());
     hand[1].arm_twist = -pi/2.0;
     
-    ik_solver.Comp(param, centroid, base, hand, foot, joint);
+    ik_solver.Comp(param, base, hand, foot, joint);
 
     Robot::Actuate(timer, base, joint);
+
+    // update marker poses for visualization
+    io_body->link(marker_index + 0)->p() = hand[0].pos;
+    io_body->link(marker_index + 0)->R() = hand[0].ori.matrix();
+    io_body->link(marker_index + 1)->p() = hand[1].pos;
+    io_body->link(marker_index + 1)->R() = hand[1].ori.matrix();
+    io_body->link(marker_index + 2)->p() = foot[0].pos;
+    io_body->link(marker_index + 2)->R() = foot[0].ori.matrix();
+    io_body->link(marker_index + 3)->p() = foot[1].pos;
+    io_body->link(marker_index + 3)->R() = foot[1].ori.matrix();
+    io_body->link(marker_index + 4)->p() = hand[0].pos_ref;
+    io_body->link(marker_index + 4)->R() = hand[0].ori_ref.matrix();
+    io_body->link(marker_index + 5)->p() = hand[1].pos_ref;
+    io_body->link(marker_index + 5)->R() = hand[1].ori_ref.matrix();
+    io_body->link(marker_index + 6)->p() = foot[0].pos_ref;
+    io_body->link(marker_index + 6)->R() = foot[0].ori_ref.matrix();
+    io_body->link(marker_index + 7)->p() = foot[1].pos_ref;
+    io_body->link(marker_index + 7)->R() = foot[1].ori_ref.matrix();
+
 	
 	timer.Countup();
 }

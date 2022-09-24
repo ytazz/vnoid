@@ -16,24 +16,23 @@ items:
         default_material_table_file: "${SHARE}/default/materials.yaml"
       children: 
         - 
-          id: 3
+          id: 2
           name: "AISTSimulator"
           plugin: Body
           class: AISTSimulatorItem
-          is_selected: true
           data: 
-            timeStep: 0.001
-            realtimeSync: true
-            recording: "full"
-            timeRangeMode: "Unlimited"
-            timeLength: 180
-            active_control_time_range_mode: false
-            allLinkPositionOutputMode: true
-            deviceStateOutput: true
-            controllerThreads: true
-            recordCollisionData: false
-            controllerOptions: ""
-            scene_view_edit_mode_blocking: false
+            time_step: 0.001
+            realtime_sync_mode: compensatory
+            recording: full
+            time_range_mode: unlimited
+            time_length: 180
+            is_active_control_time_range_mode: false
+            output_all_link_positions: true
+            output_device_states: true
+            use_controller_threads: true
+            record_collision_data: false
+            controller_options: ""
+            block_scene_view_edit_mode: false
             dynamicsMode: "Forward dynamics"
             integrationMode: "Runge Kutta"
             gravity: [ 0, 0, -9.80665 ]
@@ -49,16 +48,16 @@ items:
             2Dmode: false
             oldAccelSensorMode: false
         - 
-          id: 5
+          id: 3
           name: "Unitychan"
           plugin: Body
           class: BodyItem
           is_checked: true
           data: 
             file: "${SHARE}/model/sample_robot/sample_robot_for_demo.body"
-            format: CHOREONOID-BODY
             currentBaseLink: "HIPS"
-            rootPosition: [ 0, 0, 0.9 ]
+            format: CHOREONOID-BODY
+            rootPosition: [ 0, 0, 1.0 ]
             rootAttitude: [ 
               1, 0, 0, 
               0, 1, 0, 
@@ -66,12 +65,14 @@ items:
             jointDisplacements: [ 
               0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
               0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
-              0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]
+              0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+              0, 0, 0, 0, 0, 0 ]
             jointPositions: [ 
               0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
               0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
-              0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]
-            initialRootPosition: [ 0, 0, 0.9 ]
+              0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+              0, 0, 0, 0, 0, 0 ]
+            initialRootPosition: [ 0, 0, 1.0 ]
             initialRootAttitude: [ 
               1, 0, 0, 
               0, 1, 0, 
@@ -80,7 +81,7 @@ items:
               0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
               0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
               0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]
-            staticModel: false
+            fix_root: false
             collisionDetection: true
             selfCollisionDetection: false
             location_editable: true
@@ -88,19 +89,19 @@ items:
             zmp: [ 0, 0, 0 ]
           children: 
             - 
-              id: 6
+              id: 4
               name: "SimpleController"
               plugin: Body
               class: SimpleControllerItem
               data: 
                 isNoDelayMode: false
                 controllerOptions: ""
-                controller: "vnoid_demos_ik1_controller"
+                controller: "vnoid_demos_balance1_controller"
                 base_directory: "Controller directory"
                 reloading: false
                 export_symbols: false
             - 
-              id: 7
+              id: 5
               name: "SensorVisualizer"
               plugin: Body
               class: SensorVisualizerItem
@@ -126,7 +127,7 @@ items:
                     threshold: 0.01
                     offset: [ 0, 0, 0 ]
             - 
-              id: 8
+              id: 6
               name: "BodyTrackingCamera"
               plugin: Body
               class: BodySyncCameraItem
@@ -139,10 +140,49 @@ items:
                 near_clip_distance: 0.04
                 far_clip_distance: 200
                 field_of_view: 0.785398
-                translation: [ 0, 0, 0 ]
+                translation: [ 0, 0, 0.05 ]
                 rotation: [ 1, 0, 0, 0 ]
                 local_translation: [ 0, 0, -0.9 ]
                 local_rotation: [ 1, 0, 0, 0 ]
+        - 
+          id: 7
+          name: "Floor"
+          plugin: Body
+          class: BodyItem
+          is_checked: true
+          data: 
+            file: "${SHARE}/model/demos/moving_floor/moving_floor.body"
+            format: CHOREONOID-BODY
+            rootPosition: [ 0, 0, 0 ]
+            rootAttitude: [ 
+              1, 0, 0, 
+              0, 1, 0, 
+              0, 0, 1 ]
+            jointPositions: [  ]
+            initialRootPosition: [ 0, 0, 0 ]
+            initialRootAttitude: [ 
+              1, 0, 0, 
+              0, 1, 0, 
+              0, 0, 1 ]
+            fix_root: false
+            collisionDetection: true
+            selfCollisionDetection: false
+            location_editable: false
+            scene_sensitive: true
+            zmp: [ 0, 0, 0 ]
+          children: 
+            - 
+              id: 8
+              name: "SimpleController"
+              plugin: Body
+              class: SimpleControllerItem
+              data: 
+                isNoDelayMode: false
+                controllerOptions: ""
+                controller: "vnoid_demos_moving_floor_controller"
+                base_directory: "Controller directory"
+                reloading: false
+                export_symbols: false
 views: 
   - 
     id: 0
@@ -160,7 +200,7 @@ views:
     class: ItemTreeView
     mounted: true
     state: 
-      expanded: [ 1, 3, 5, 6, 7 ]
+      expanded: [ 1, 2, 3 ]
   - 
     id: 3
     plugin: Base
@@ -234,18 +274,34 @@ views:
       visible_polygon_elements: [ face ]
       highlighting: false
       collisionLines: false
-      restrictCameraRoll: true
-      verticalAxis: Z
-      lightingMode: normal
-      cullingMode: enabled
-      defaultHeadLight: true
-      defaultHeadLightIntensity: 0.75
-      headLightLightingFromBack: false
-      worldLight: true
-      worldLightIntensity: 0.5
-      worldLightAmbient: 0.3
-      additionalLights: true
-      fog: true
+      cameras: 
+        - 
+          camera: [ System, Perspective ]
+          eye: [ 4.42481, -4.65211, 2.63032 ]
+          direction: [ -0.324398, 0.866901, -0.378482 ]
+          up: [ -0.132647, 0.354476, 0.925609 ]
+        - 
+          camera: [ System, Orthographic ]
+          isCurrent: true
+          orthoHeight: 3.47548
+      lighting_mode: normal
+      culling_mode: enabled
+      shading_mode: smooth
+      world_light: true
+      world_light_intensity: 0.5
+      ambient_light: true
+      ambient_light_intensity: 0.3
+      head_light: true
+      head_light_intensity: 0.75
+      world_light_shadow: true
+      shadow_lights: 
+        - { index: 0, enabled: false }
+        - { index: 1, enabled: false }
+      background_color: [ 0.5, 0.666667, 0.5 ]
+      line_width: 1
+      point_size: 1
+      field_of_view: 40
+      clip_distances: [ 0.04, 200 ]
       floorGrid: false
       floorGridSpan: 10
       floorGridInterval: 0.5
@@ -255,35 +311,9 @@ views:
       yzGrid: false
       yzGridSpan: 10
       yzGridInterval: 0.5
-      texture: true
-      lineWidth: 1
-      pointSize: 1
-      normalVisualization: false
-      normalLength: 0.01
-      lightweightViewChange: false
-      coordinateAxes: true
-      fpsTestIteration: 1
-      upsideDown: false
-      cameras: 
-        - 
-          camera: [ System, Perspective ]
-          fieldOfView: 0.698132
-          near: 0.04
-          far: 200
-          eye: [ 2.75414, -6.26342, 1.15063 ]
-          direction: [ -0.0376469, 0.988328, -0.147614 ]
-          up: [ -0.00561877, 0.147507, 0.989045 ]
-        - 
-          camera: [ System, Orthographic ]
-          isCurrent: true
-          orthoHeight: 3.47548
-          near: 0.04
-          far: 200
-      backgroundColor: [ 0.5, 0.666667, 0.5 ]
-      gridColor: [ 0.9, 0.9, 0.9, 1 ]
-      xzgridColor: [ 0.9, 0.9, 0.9, 1 ]
-      yzgridColor: [ 0.9, 0.9, 0.9, 1 ]
-      isDedicatedItemCheckEnabled: false
+      xy_grid_color: [ 0.9, 0.9, 0.9 ]
+      xz_grid_color: [ 0.9, 0.9, 0.9 ]
+      yz_grid_color: [ 0.9, 0.9, 0.9 ]
   - 
     id: 8
     plugin: Base
@@ -333,7 +363,7 @@ views:
     mounted: true
     state: 
       element_type: link
-      listingMode: list
+      listing_mode: list
   - 
     id: 15
     plugin: Body
@@ -376,12 +406,12 @@ views:
     class: LinkPropertyView
 toolbars: 
   "TimeBar": 
+    current_time: 0
     min_time: 0
     max_time: 30
     frame_rate: 1000
     playback_frame_rate: 60
     idle_loop_driven_mode: false
-    current_time: 0
     playback_speed_ratio: 1
     sync_to_ongoing_updates: true
     auto_expansion: true
@@ -399,17 +429,17 @@ toolbars:
     lazyCollisionDetectionMode: true
 Body: 
   "BodySelectionManager": 
-    current_body_item: 5
+    current_body_item: 3
     current_link: "HIPS"
   "EditableSceneBody": 
     editableSceneBodies: 
       - 
-        bodyItem: 2
+        bodyItem: 3
         show_cm: false
         show_cm_projection: false
         show_zmp: false
       - 
-        bodyItem: 5
+        bodyItem: 7
         show_cm: false
         show_cm_projection: false
         show_zmp: false
@@ -434,12 +464,12 @@ viewAreas:
     contents: 
       type: splitter
       orientation: horizontal
-      sizes: [ 335, 1580 ]
+      sizes: [ 446, 2104 ]
       children: 
         - 
           type: splitter
           orientation: vertical
-          sizes: [ 524, 523 ]
+          sizes: [ 598, 597 ]
           children: 
             - 
               type: pane
@@ -451,7 +481,7 @@ viewAreas:
         - 
           type: splitter
           orientation: vertical
-          sizes: [ 747, 300 ]
+          sizes: [ 853, 342 ]
           children: 
             - 
               type: pane

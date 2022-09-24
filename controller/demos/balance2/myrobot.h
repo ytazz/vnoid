@@ -3,9 +3,10 @@
 #include "robot.h"
 #include "fksolver.h"
 #include "iksolver.h"
+#include "stabilizer.h"
 
 /*
- * Inverse kinematics demo 
+ * Balance control demo 
  * 
  * 
  */
@@ -23,6 +24,7 @@ public:
     vector<Foot>   foot;
     vector<Joint>  joint;
     
+    Stabilizer     stabilizer;
     FkSolver       fk_solver;
     IkSolver       ik_solver;
 

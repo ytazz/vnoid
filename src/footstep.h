@@ -20,13 +20,15 @@ struct Step{
 	double   duration;  ///< step duration
     
 	int      side;      ///< indicates which foot (0: right, 1: left) is the support foot in this step
+	bool     stepping;  ///< stepping or standing still
 		
-	Vector3  foot_pos   [2];  ///< position of each foot at the beginning of this step
-	double   foot_ori   [2];  ///< orientation of each foot at the beginning of this step
-	Vector3  foot_vel   [2];
-	double   foot_angvel[2];
-    Vector3  zmp;             ///< position of zmp during this step
-	Vector3  dcm;             ///< position of dcm at the beginning of this step
+	Vector3     foot_pos   [2];  ///< position of each foot at the beginning of this step
+	Vector3     foot_angle [2];
+	Quaternion  foot_ori   [2];  ///< orientation of each foot at the beginning of this step
+	Vector3     foot_vel   [2];
+	Vector3     foot_angvel[2];
+    Vector3     zmp;             ///< position of zmp during this step
+	Vector3     dcm;             ///< position of dcm at the beginning of this step
 
     Step(double _stride = 0.0, double _sway = 0.0, double _spacing = 0.0, double _turn = 0.0, double _climb = 0.0, double _duration = 0.5, int _side = 0);
 };

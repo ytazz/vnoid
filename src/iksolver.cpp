@@ -1,4 +1,5 @@
 ﻿#include "iksolver.h"
+#include "fksolver.h"
 #include "rollpitchyaw.h"
 #include "robot.h"
 
@@ -127,15 +128,14 @@ void IkSolver::CompArmIk(const Vector3& pos, const Quaternion& ori, double l1, d
 
 }
 
-void IkSolver::Comp(const Param& param, const Centroid& centroid, const Base& base, const vector<Hand>& hand, const vector<Foot>& foot, vector<Joint>& joint){
-    
+void IkSolver::Comp(const Param& param, const Base& base, const vector<Hand>& hand, const vector<Foot>& foot, vector<Joint>& joint){
     Vector3    pos_local;
     Quaternion ori_local;
     double     q[7];
 
     // comp arm ik
     for(int i = 0; i < 2; i++){
-        pos_local = base.ori_ref.conjugate()*(hand[i].pos_ref - hand[i].ori_ref*param.wrist_to_hand[i] - centroid.com_pos_ref) - param.base_to_shoulder[i];
+        pos_local = base.ori_ref.conjugate()*(hand[i].pos_ref - hand[i].ori_ref*param.wrist_to_hand[i] - base.pos_ref) - param.base_to_shoulder[i];
         ori_local = base.ori_ref.conjugate()* hand[i].ori_ref;
 
         CompArmIk(pos_local, ori_local, param.upper_arm_length, param.lower_arm_length, hand[i].arm_twist, q);
@@ -144,17 +144,87 @@ void IkSolver::Comp(const Param& param, const Centroid& centroid, const Base& ba
             joint[param.arm_joint_index[i] + j].q_ref = q[j];
         }
     }
-    printf("\n");
-
+    
     // comp leg ik
     for(int i = 0; i < 2; i++){
-        pos_local = base.ori_ref.conjugate()*(foot[i].pos_ref - foot[i].ori_ref*param.ankle_to_foot[i] - centroid.com_pos_ref) - param.base_to_hip[i];
+        pos_local = base.ori_ref.conjugate()*(foot[i].pos_ref - foot[i].ori_ref*param.ankle_to_foot[i] - base.pos_ref) - param.base_to_hip[i];
         ori_local = base.ori_ref.conjugate()* foot[i].ori_ref;
 
         CompLegIk(pos_local, ori_local, param.upper_leg_length, param.lower_leg_length, q);
 
         for(int j = 0; j < 6; j++){
             joint[param.leg_joint_index[i] + j].q_ref = q[j];
+        }
+    }
+}
+
+void IkSolver::Comp(FkSolver* fk_solver, const Param& param, Centroid& centroid, Base& base, vector<Hand>& hand, vector<Foot>& foot, vector<Joint>& joint){
+    // objects to store temprary FK results
+    joint_tmp.resize(joint.size());
+    hand_tmp.resize(hand.size());
+    foot_tmp.resize(foot.size());
+
+    // initialize base position with desired CoM position
+    base.pos_ref = centroid.com_pos_ref;
+
+    const double eps = 1.0e-5;
+    
+    // maximum loop count is limited
+    int cnt = 0;
+    while(cnt++ < 10){
+        // comp ik
+        Comp(param, base, hand, foot, joint);
+
+        // copy q_ref to q
+        for(int i = 0; i < joint.size(); i++)
+            joint_tmp[i].q = joint[i].q_ref;
+
+        // copy base link pose
+        base_tmp.pos = base.pos_ref;
+        base_tmp.ori = base.ori_ref;
+
+        // comp fk
+        fk_solver->Comp(param, joint_tmp, base_tmp, centroid_tmp, hand_tmp, foot_tmp);
+
+        // calc difference of desired and calculated CoM position
+        Vector3 diff = centroid.com_pos_ref - centroid_tmp.com_pos;
+
+        // break if error is small enough
+        if(diff.norm() < eps)
+            break;
+
+        // otherwise, adjust base link position
+        base.pos_ref += diff;
+    }
+
+    // calc leg joint torque
+    Eigen::Matrix<double,6,6> J;
+    Eigen::Matrix<double,6,1> F;
+    Eigen::Matrix<double,6,1> tau;
+    double q[6];
+
+    for(int i = 0; i < 2; i++){
+        for(int j = 0; j < 6; j++){
+            q[j] = joint[param.leg_joint_index[i] + j].q_ref;
+        }
+        fk_solver->CompLegJacobian(param.upper_leg_length, param.lower_leg_length, q, J);
+
+        Quaternion ori_local = base.ori_ref.conjugate()* foot[i].ori_ref;
+        Vector3 fref = ori_local*foot[i].force_ref;
+        Vector3 mref = ori_local*foot[i].moment_ref;
+        F[0] = fref.x();
+        F[1] = fref.y();
+        F[2] = fref.z();
+        F[3] = mref.x();
+        F[4] = mref.y();
+        F[5] = mref.z();
+
+        tau = J.transpose()*F;
+        //printf("F  : %f %f %f %f %f %f\n", F[0], F[1], F[2], F[3], F[4], F[5]);
+        //printf("tau: %f %f %f %f %f %f\n", tau[0], tau[1], tau[2], tau[3], tau[4], tau[5]);
+
+        for(int j = 0; j < 6; j++){
+            joint[param.leg_joint_index[i] + j].u_ref = -tau[j];
         }
     }
 }

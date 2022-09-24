@@ -2,6 +2,7 @@
 
 #include "robot.h"
 #include "iksolver.h"
+#include "fksolver.h"
 #include "footstep.h"
 #include "footstep_planner.h"
 #include "stepping_controller.h"
@@ -33,6 +34,7 @@ public:
     FootstepPlanner     footstep_planner;
     SteppingController  stepping_controller;
     Stabilizer          stabilizer;
+    FkSolver            fk_solver;
     IkSolver            ik_solver;
 
 public:

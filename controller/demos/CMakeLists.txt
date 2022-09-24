@@ -1,1 +1,5 @@
 add_subdirectory(ik1)
+add_subdirectory(balance1)
+add_subdirectory(balance2)
+add_subdirectory(moving_floor)
+add_subdirectory(turning_floor)

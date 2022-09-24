@@ -17,6 +17,7 @@ Joint::Joint(){
 	q_ref  = 0.0;
 	dq_ref = 0.0;
 	u      = 0.0;
+	u_ref  = 0.0;
 }
 
 void Joint::Set(double _pgain, double _dgain, double _ulimit){
@@ -26,7 +27,7 @@ void Joint::Set(double _pgain, double _dgain, double _ulimit){
 }
 
 void Joint::CalcTorque(){
-	u = pgain*(q_ref - q) + dgain*(dq_ref - dq);
+	u = u_ref + pgain*(q_ref - q) + dgain*(dq_ref - dq);
 	u = std::min(std::max(-ulimit, u), ulimit);
 }
 
@@ -37,6 +38,9 @@ Centroid::Centroid(){
 	moment_ref  = Vector3(0.0, 0.0, 0.0);
 	zmp         = Vector3(0.0, 0.0, 0.0);
 	zmp_ref     = Vector3(0.0, 0.0, 0.0);
+	dcm         = Vector3(0.0, 0.0, 0.0);
+	dcm_ref     = Vector3(0.0, 0.0, 0.0);
+	com_pos     = Vector3(0.0, 0.0, 0.0);
 	com_pos_ref = Vector3(0.0, 0.0, 0.0);
 	com_vel_ref = Vector3(0.0, 0.0, 0.0);
 	com_acc_ref = Vector3(0.0, 0.0, 0.0);
@@ -45,9 +49,11 @@ Centroid::Centroid(){
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
 Base::Base(){
+	pos        = Vector3(0.0, 0.0, 0.0);
 	pos_ref    = Vector3(0.0, 0.0, 0.0);
 	angle      = Vector3(0.0, 0.0, 0.0);
 	angle_ref  = Vector3(0.0, 0.0, 0.0);
+	ori        = Quaternion(1.0, 0.0, 0.0, 0.0);
 	ori_ref    = Quaternion(1.0, 0.0, 0.0, 0.0);
 	vel_ref    = Vector3(0.0, 0.0, 0.0);
 	angvel     = Vector3(0.0, 0.0, 0.0);
@@ -59,10 +65,13 @@ Base::Base(){
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
 Hand::Hand(){
+	pos        = Vector3(0.0, 0.0, 0.0);
 	pos_ref    = Vector3(0.0, 0.0, 0.0);
 	vel_ref    = Vector3(0.0, 0.0, 0.0);
 	acc_ref    = Vector3(0.0, 0.0, 0.0);
+	ori        = Quaternion(1.0, 0.0, 0.0, 0.0);
 	ori_ref    = Quaternion(1.0, 0.0, 0.0, 0.0);
+	angle      = Vector3(0.0, 0.0, 0.0);
 	angle_ref  = Vector3(0.0, 0.0, 0.0);
 	angvel_ref = Vector3(0.0, 0.0, 0.0);
 	angacc_ref = Vector3(0.0, 0.0, 0.0);
@@ -76,8 +85,11 @@ Foot::Foot(){
 	contact_ref      = false;
 	balance          = 0.0;
 	balance_ref      = 0.0;
+	pos              = Vector3(0.0, 0.0, 0.0);
 	pos_ref          = Vector3(0.0, 0.0, 0.0);
+	ori              = Quaternion(1.0, 0.0, 0.0, 0.0);
 	ori_ref          = Quaternion(1.0, 0.0, 0.0, 0.0);
+	angle            = Vector3(0.0, 0.0, 0.0);
 	angle_ref        = Vector3(0.0, 0.0, 0.0);
 	vel_ref          = Vector3(0.0, 0.0, 0.0);
 	angvel_ref       = Vector3(0.0, 0.0, 0.0);
@@ -89,6 +101,13 @@ Foot::Foot(){
 	moment_ref       = Vector3(0.0, 0.0, 0.0);
 	zmp              = Vector3(0.0, 0.0, 0.0);
 	zmp_ref          = Vector3(0.0, 0.0, 0.0);
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+Ground::Ground(){
+	angle = Vector3(0.0, 0.0, 0.0);
+	ori   = Quaternion(1.0, 0.0, 0.0, 0.0);
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -111,6 +130,18 @@ Param::Param(){
     lower_arm_length = 0.2;
     upper_leg_length = 0.3;
     lower_leg_length = 0.4;
+
+	trunk_mass = 1.0;
+	trunk_com  = Vector3(0.0, 0.0, 0.0);
+	
+	for (int i = 0; i < 7; i++) {
+        arm_mass[i] = 0.0;
+        arm_com[i] = Vector3(0.0, 0.0, 0.0);
+    }
+    for (int i = 0; i < 6; i++) {
+        leg_mass[i] = 0.0;
+        leg_com[i] = Vector3(0.0, 0.0, 0.0);
+    }
 
     Init();
 }
@@ -205,7 +236,13 @@ void Robot::Init(SimpleControllerIO* io, Timer& timer, vector<Joint>& joint){
 
 }
 
-void Robot::Sense(Timer& timer, Base& base, vector<Foot>& foot, vector<Joint>& joint){
+void Robot::Sense(Timer& timer, Base& base, vector<Joint>& joint){
+	// store absolute position of base link
+	{
+        Link* lnk = io_body->link(0);
+        base.pos = lnk->p();
+    }
+
 	if(gyro_sensor){
         Vector3 w = gyro_sensor->w();
         base.angvel[0] = gyro_filter[0](gyro_axis_x.dot(w), timer.dt);
@@ -214,6 +251,18 @@ void Robot::Sense(Timer& timer, Base& base, vector<Foot>& foot, vector<Joint>& j
     }
 	base.angle [0] += base.angvel[0]*timer.dt;
 	base.angle [1] += base.angvel[1]*timer.dt;
+
+    for (int i = 0; i < joint.size(); ++i) {
+		cnoid::Link* jnt = io_body->joint(i);
+
+        // get position and velocity of each joint
+		joint[i].q  = jnt->q ();
+		joint[i].dq = jnt->dq();
+	}
+}
+
+void Robot::Sense(Timer& timer, Base& base, vector<Foot>& foot, vector<Joint>& joint){
+	Sense(timer, base, joint);
 
 	for(int i = 0; i < 2; i++){
 		// get force/moment from force sensor
@@ -227,13 +276,6 @@ void Robot::Sense(Timer& timer, Base& base, vector<Foot>& foot, vector<Joint>& j
         }
     }
 
-    for (int i = 0; i < joint.size(); ++i) {
-		cnoid::Link* jnt = io_body->joint(i);
-
-        // get position and velocity of each joint
-		joint[i].q  = jnt->q ();
-		joint[i].dq = jnt->dq();
-	}
 }
 
 void Robot::Actuate(Timer& timer, Base& base, vector<Joint>& joint){

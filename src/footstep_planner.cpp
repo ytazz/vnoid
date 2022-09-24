@@ -44,14 +44,55 @@ void FootstepPlanner::Plan(const Param& param, Footstep& footstep){
 			    dz);
 	    }
 
+	    // support foot exchange
 	    st1.side = !st0.side;
-	    st1.foot_pos[sup] = st0.foot_pos[sup];
-	    st1.foot_ori[sup] = st0.foot_ori[sup];
-	    st1.foot_pos[swg] = st0.foot_pos[sup] + Eigen::AngleAxisd(st0.foot_ori[sup], Vector3::UnitZ())*dprel;
-	    st1.foot_ori[swg] = st0.foot_ori[sup] + dtheta;
-	}
 
+	    // support foot pose does not change
+        st1.foot_pos  [sup] = st0.foot_pos  [sup];
+	    st1.foot_angle[sup] = st0.foot_angle[sup];
+	    st1.foot_ori  [sup] = st0.foot_ori  [sup];
+
+        // swing foot pose changes
+	    st1.foot_pos  [swg] = st0.foot_pos  [sup] + st0.foot_ori[sup]*dprel;
+        st1.foot_angle[swg] = st0.foot_angle[sup] + Vector3(0.0, 0.0, dtheta);
+	    st1.foot_ori  [swg] = FromRollPitchYaw(st1.foot_angle[swg]);
+	}
+}
+
+void FootstepPlanner::AlignToGround(const Ground& ground, Footstep& footstep){
+	// pivot with respect to the initial support foot center
+	Vector3 pivot = footstep.steps[0].foot_pos[footstep.steps[0].side];
+
+    // ground normal vector
+    Vector3 normal = ground.ori * Vector3(0.0, 0.0, 1.0);
+
+	// 0-th step is unchanged
+	for(int k = 0; k < footstep.steps.size(); k++){
+		Step& st = footstep.steps[k];
+
+		for(int i = 0; i < 2; i++){
+			// modify z
+			Vector3 dp = st.foot_pos[i] - pivot;
+			dp.z() = -(normal.x()*dp.x() + normal.y()*dp.y())/normal.z();
+
+			st.foot_pos[i].z() = pivot.z() + dp.z();
+
+			// ground normal in yaw-local coordinate of footprint
+			Vector3 nl = AngleAxis(-st.foot_angle[i].z(), Vector3::UnitZ()) * normal;
+			st.foot_angle[i].x() = asin (-nl.y());
+			st.foot_angle[i].y() = atan2( nl.x(), nl.z());
+
+            // convert it back to quaternion
+			st.foot_ori[i] = FromRollPitchYaw(st.foot_angle[i]);
+		}
+	}
+}
+
+void FootstepPlanner::GenerateDCM(const Param& param, Footstep& footstep){
     // generate reference dcm and zmp 
+	// dcm of step[0] should be already specified
+
+    int nstep = footstep.steps.size();
 		
 	// set final step's state
 	int i = nstep-1;
@@ -61,18 +102,34 @@ void FootstepPlanner::Plan(const Param& param, Footstep& footstep){
 
 	// calc N-1 to 0 step's state
 	for( ; i >= 0; i--) {
-		int sup =  footstep.steps[i].side;
-		int swg = !footstep.steps[i].side;
+		Step& st0 = footstep.steps[i+0];
+		Step& st1 = footstep.steps[i+1];
+			
+		int sup =  st0.side;
+		int swg = !st0.side;
 		
-		double a = exp(-footstep.steps[i].duration/param.T);
+		double a = exp(-st0.duration/param.T);
 		// for initial step, the dcm is specified from outside. determine zmp accordingly
 		if(i == 0){
-			footstep.steps[i].zmp = (footstep.steps[i].dcm - a*footstep.steps[i+1].dcm)/(1.0 - a);
+			st0.zmp = (st0.dcm - a*st1.dcm)/(1.0 - a);
 		}
-		// for other steps, set zmp to support foot, and determine dcm
+		// for other steps
 		else{
-			footstep.steps[i].zmp = footstep.steps[i].foot_pos[sup];
-			footstep.steps[i].dcm = footstep.steps[i].zmp + a*(footstep.steps[i+1].dcm - footstep.steps[i].zmp);
+			const double eps = 1.0e-3;
+			// if swing foot position is not changing, treated as double support and zmp is set to the middle of feet
+			if( (st0.foot_pos  [swg] - st1.foot_pos  [swg]).norm() < eps &&
+				(st0.foot_angle[swg] - st1.foot_angle[swg]).norm() < eps ){
+				st0.zmp = (st0.foot_pos[sup] + st0.foot_pos[swg])/2.0;
+				st0.stepping = false;
+			}
+			// otherwise, set zmp to support foot
+			else{
+				st0.zmp = st0.foot_pos[sup];
+				st0.stepping = true;
+			}
+
+			// determine dcm from zmp
+			st0.dcm = st0.zmp + a*(st1.dcm - st0.zmp);
 		}
 	}
 }
