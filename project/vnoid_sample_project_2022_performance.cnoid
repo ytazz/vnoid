@@ -95,7 +95,7 @@ items:
             file: "${SHARE}/model/sample_robot/sample_robot_ver2.body"
             currentBaseLink: "HIPS"
             format: CHOREONOID-BODY
-            rootPosition: [ 0, 0, 0.9 ]
+            rootPosition: [ 0, 0, 0.85 ]
             rootAttitude: [ 
               1, 0, 0, 
               0, 1, 0, 
@@ -108,7 +108,7 @@ items:
               0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
               0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
               0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]
-            initialRootPosition: [ 0, 0, 0.9 ]
+            initialRootPosition: [ 0, 0, 0.85 ]
             initialRootAttitude: [ 
               1, 0, 0, 
               0, 1, 0, 
