@@ -108,10 +108,12 @@ void MyRobot::Init(SimpleControllerIO* io){
 	Robot::Init(io, timer, joint);
 
     // init stabilizer
-    stabilizer.orientation_ctrl_gain_p  = 500.0;
-    stabilizer.orientation_ctrl_gain_d  = 50.0;
+    
+    // conventional PD control setting
+    //stabilizer.orientation_ctrl_gain_p  = 500.0;
+    //stabilizer.orientation_ctrl_gain_d  = 50.0;
         
-    /*
+    // state feedback control setting
     stabilizer.gain <<
    -0.0007,   -0.0000,   -0.0002,   -0.0000,    0.0100,    0.0000,    0.1418,    0.0000,   -0.0000,    0.0006,   -0.0000,    0.0002,
    -0.0000,   -0.0007,   -0.0000,   -0.0002,   -0.0000,    0.0100,   -0.0000,    0.1418,   -0.0006,    0.0000,   -0.0002,    0.0000,
@@ -119,14 +121,15 @@ void MyRobot::Init(SimpleControllerIO* io){
    12.9132,   -0.0000,    1.6935,   -0.0000,   -0.0002,    0.0000,   -0.0023,    0.0000,   -0.0000,    8.1660,   -0.0000,    5.0284,
    -0.0000,   -1.8255,   -0.0000,   -0.4127,   -0.0000,   -0.0000,   -0.0000,   -0.0004,   -1.5776,    0.0000,   -0.4105,    0.0000,
     1.8255,   -0.0000,    0.4127,   -0.0000,    0.0000,   -0.0000,    0.0004,   -0.0000,   -0.0000,   -1.5776,   -0.0000,   -0.4105;
-    */
-    stabilizer.min_contact_force        = 1.0;
-    stabilizer.force_ctrl_damping       = 5.0;
-    stabilizer.force_ctrl_gain          = 0.000;
-    stabilizer.force_ctrl_limit         = 0.01;
-    stabilizer.moment_ctrl_damping      = 5.0;
-    stabilizer.moment_ctrl_gain         = 0.000;
-    stabilizer.moment_ctrl_limit        = 0.5;
+    
+    // damping control-based ground reaction force control setting
+    //stabilizer.min_contact_force        = 1.0;
+    //stabilizer.force_ctrl_damping       = 5.0;
+    //stabilizer.force_ctrl_gain          = 0.0001;
+    //stabilizer.force_ctrl_limit         = 0.01;
+    //stabilizer.moment_ctrl_damping      = 5.0;
+    //stabilizer.moment_ctrl_gain         = 0.0001;
+    //stabilizer.moment_ctrl_limit        = 0.5;
 
     // configure marker links
     marker_index = 31;

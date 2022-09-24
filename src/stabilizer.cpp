@@ -175,9 +175,19 @@ void Stabilizer::Update(const Timer& timer, const Param& param, Centroid& centro
 		phid_mod += phidd_mod * timer.dt;
 	}
 
+	// modify CoM
 	centroid.com_pos_ref += base.ori_ref * com_pos_mod;
 	centroid.com_vel_ref += base.ori_ref * com_vel_mod;
 	centroid.com_acc_ref += base.ori_ref * com_acc_mod;
+
+	// modify swing foot position so that the relative position between CoM is maintained
+	for(int i = 0; i < 2; i++){
+		if(!foot[i].contact_ref){
+			foot[i].pos_ref += base.ori_ref * com_pos_mod;
+		}
+	}
+
+	// modify ZMP
 	centroid.zmp_ref     += base.ori_ref * (zmp_mod1 + zmp_mod2);
 
 	// calculate desired forces from desired zmp

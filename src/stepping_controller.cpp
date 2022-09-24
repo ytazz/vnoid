@@ -38,12 +38,12 @@ bool SteppingController::CheckLanding(const Timer& timer, Footstep& footstep, ve
     if(t >= tswitch + footstep.steps[0].duration){
         return true;
     }
-    /*
+    
     // force on landing foot exceeded threshold
     if( t >= tswitch + 0.9*footstep.steps[0].duration && foot[!footstep.steps[0].side].contact ){
         return true;
     }
-    */
+    
     return false;
 }
 
@@ -51,8 +51,7 @@ void SteppingController::Update(const Timer& timer, const Param& param, Footstep
     if(CheckLanding(timer, footstep, foot)){
         // store z difference between footstep and foot ref
         int swg = !footstep.steps[0].side;
-        //zdiff = foot[swg].pos_ref.z() - footstep.steps[1].foot_pos[swg].z();
-        zdiff = 0.0;
+        zdiff = foot[swg].pos_ref.z() - footstep.steps[1].foot_pos[swg].z();
         
         // store switching time
         tswitch = timer.time;

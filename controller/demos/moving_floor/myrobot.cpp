@@ -31,8 +31,8 @@ void MyRobot::Control(){
      * 
      * max acceleration = A omega^2 = 1.8
      */
-    joint[0].q_ref = 0.25*sin(2.0*(std::max(timer.time - 2.0, 0.0)));
-    joint[1].q_ref = 0.25*cos(2.0*(std::max(timer.time - 2.0, 0.0)));
+    joint[0].q_ref = 0.2*sin(2.0*(std::max(timer.time - 2.0, 0.0)));
+    joint[1].q_ref = 0.2*cos(2.0*(std::max(timer.time - 2.0, 0.0)));
 
     Robot::Actuate(timer, base, joint);
 	

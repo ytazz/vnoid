@@ -192,19 +192,6 @@ void MyRobot::Control(){
     stepping_controller.Update(timer, param, footstep, centroid, base, foot);
     stabilizer         .Update(timer, param, centroid, base, foot);
 
-    /*
-    // IK testing
-    joystick.readCurrentState();
-    double jv = joystick.getPosition(Joystick::L_STICK_V_AXIS);
-    double jh = joystick.getPosition(Joystick::L_STICK_H_AXIS);
-
-    centroid.com_pos_ref = Vector3(0.0, 0.0, 1.5);
-    foot[0].pos_ref      = Vector3(0.2*jh, -0.1, 1.5 - 0.7 + 0.1*jv);
-    foot[1].pos_ref      = Vector3(-0.2*jh,  0.1, 1.5 - 0.7 - 0.1*jv);
-    hand[0].pos_ref      = Vector3(0.1, -0.3, 1.5 + 0.1*jh);
-    hand[1].pos_ref      = Vector3(-0.1,  0.3, 1.5 + 0.1*jh);
-    */
-
     hand[0].pos_ref = centroid.com_pos_ref + base.ori_ref*Vector3(0.0, -0.25, -0.1);
     hand[0].ori_ref = base.ori_ref;
     hand[1].pos_ref = centroid.com_pos_ref + base.ori_ref*Vector3(0.0,  0.25, -0.1);
