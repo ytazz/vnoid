@@ -22,14 +22,15 @@ public:
     double    max_turn;
     Joystick  joystick;
 
-	Timer          timer;
-    Param          param;
-    Centroid       centroid;
-    Base           base;
-    vector<Hand>   hand;
-    vector<Foot>   foot;
-    vector<Joint>  joint;
-    Footstep       footstep;
+	Timer            timer;
+    Param            param;
+    Centroid         centroid;
+    Base             base;
+    vector<Hand>     hand;
+    vector<Foot>     foot;
+    vector<Joint>    joint;
+    Footstep         footstep;    
+    Footstep         footstep_buffer;
 
     FootstepPlanner     footstep_planner;
     SteppingController  stepping_controller;

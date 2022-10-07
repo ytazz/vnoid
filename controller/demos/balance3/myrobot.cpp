@@ -6,25 +6,25 @@ namespace cnoid{
 namespace vnoid{
 
 MyRobot::MyRobot(){
-    base_actuation = false;
+
 }
 
 void MyRobot::Init(SimpleControllerIO* io){
     // init params
     //  dynamical parameters
 	param.total_mass = 50.0;
-	param.com_height =  0.70;
+	param.com_height =  0.65;
 	param.gravity    =  9.8;
-    
+
     // kinematic parameters
     param.base_to_shoulder[0] = Vector3(0.0, -0.1,  0.3);
     param.base_to_shoulder[1] = Vector3(0.0,  0.1,  0.3);
     param.base_to_hip     [0] = Vector3(0.0, -0.1, -0.1);
     param.base_to_hip     [1] = Vector3(0.0,  0.1, -0.1);
-    param.wrist_to_hand   [0] = Vector3(0.0,  0.0, -0.1);
-    param.wrist_to_hand   [1] = Vector3(0.0,  0.0, -0.1);
-    param.ankle_to_foot   [0] = Vector3(0.0,  0.0, -0.05);
-    param.ankle_to_foot   [1] = Vector3(0.0,  0.0, -0.05);
+    param.wrist_to_hand   [0] = Vector3(0.0,  0.0, -0.0);
+    param.wrist_to_hand   [1] = Vector3(0.0,  0.0, -0.0);
+    param.ankle_to_foot   [0] = Vector3(0.0,  0.0, -0.0);
+    param.ankle_to_foot   [1] = Vector3(0.0,  0.0, -0.0);
     param.arm_joint_index [0] =  4;
     param.arm_joint_index [1] = 11;
     param.leg_joint_index [0] = 18;
@@ -67,7 +67,7 @@ void MyRobot::Init(SimpleControllerIO* io){
 
     param.zmp_min = Vector3(-0.1, -0.05, 0.0);
     param.zmp_max = Vector3( 0.1,  0.05, 0.0);
-
+    
     param.Init();
 
     // two hands and two feet
@@ -108,18 +108,18 @@ void MyRobot::Init(SimpleControllerIO* io){
     joint[29].Set(100.0, 20.0, 100.0);
     
     // init hardware (simulator interface)
-	Robot::Init(io, timer, joint);
+    Robot::Init(io, timer, joint);
 
     // set initial state
     centroid.com_pos_ref = Vector3(0.0, 0.0, param.com_height);
     centroid.dcm_ref     = Vector3(0.0, 0.0, param.com_height);
-    foot[0].pos_ref = Vector3(0.0, -0.2/2.0, 0.0);
-    foot[1].pos_ref = Vector3(0.0,  0.2/2.0, 0.0);
+    foot[0].pos_ref = Vector3(0.0, -0.15/2.0, 0.0);
+    foot[1].pos_ref = Vector3(0.0,  0.15/2.0, 0.0);
 
     // init footsteps
-    footstep.steps.push_back(Step(0.0, 0.0, 0.2, 0.0, 0.0, 0.5, 0));
-    footstep.steps.push_back(Step(0.0, 0.0, 0.2, 0.0, 0.0, 0.5, 1));
-    // foot placement and DCM of the initial step must be specified
+    footstep.steps.push_back(Step(0.0, 0.0, 0.15, 0.0, 0.0, 0.5, 0));
+    footstep.steps.push_back(Step(0.0, 0.0, 0.15, 0.0, 0.0, 0.5, 1));
+    // foot placement of the initial step must be specified
     footstep.steps[0].foot_pos[0] = foot[0].pos_ref;
     footstep.steps[0].foot_pos[1] = foot[1].pos_ref;
     footstep.steps[0].dcm = centroid.dcm_ref;
@@ -128,83 +128,55 @@ void MyRobot::Init(SimpleControllerIO* io){
 
     footstep_buffer.steps.push_back(footstep.steps[0]);
     footstep_buffer.steps.push_back(footstep.steps[1]);
-
+    
     // init stepping controller
     stepping_controller.swing_height = 0.05;
-    stepping_controller.swing_tilt   = 0.0;
     stepping_controller.dsp_duration = 0.05;
     
     // init stabilizer
     stabilizer.orientation_ctrl_gain_p = 20.0;
     stabilizer.orientation_ctrl_gain_d = 20.0;
-    stabilizer.dcm_ctrl_gain = 10.0;
+    stabilizer.dcm_ctrl_gain = 2.0;
+        
+    // configure marker links
+    marker_index = 31;
+    num_markers  = 10;
+    for (int i = 0; i < num_markers; i++) {
+        io_body->link(marker_index + i)->setActuationMode(cnoid::Link::LinkPosition);
+        io->enableIO(io_body->link(marker_index + i));
+    }
+
 
 }
 
 void MyRobot::Control(){
     Robot::Sense(timer, base, foot, joint);
 
-    // calc FK
-    fk_solver.Comp(param, joint, base, centroid, hand, foot);
+    while(footstep.steps.size() > 2)
+		footstep.steps.pop_back();
 
-	if(timer.count % 10 == 0){
-		// read joystick
-		joystick.readCurrentState();
-
-		/* Xbox controller mapping:
-			L_STICK_H_AXIS -> L stick right
-			L_STICK_V_AXIS -> L stick down
-			R_STICK_H_AXIS -> L trigger - R trigger
-			R_STICK_V_AXIS -> R stick down
-			A_BUTTON -> A
-			B_BUTTON -> B
-			X_BUTTON -> X
-			Y_BUTTON -> Y
-			L_BUTTON -> L
-			R_BUTTON -> R
-		    */
-		/*
-		DSTR << joystick.getPosition(Joystick::L_STICK_H_AXIS) << " " 
-			    << joystick.getPosition(Joystick::L_STICK_V_AXIS) << " " 
-			    << joystick.getPosition(Joystick::R_STICK_H_AXIS) << " " 
-			    << joystick.getPosition(Joystick::R_STICK_V_AXIS) << " " 
-			    << joystick.getButtonState(Joystick::A_BUTTON) << " "
-			    << joystick.getButtonState(Joystick::B_BUTTON) << " "
-			    << joystick.getButtonState(Joystick::X_BUTTON) << " "
-			    << joystick.getButtonState(Joystick::Y_BUTTON) << " "
-			    << joystick.getButtonState(Joystick::L_BUTTON) << " "
-			    << joystick.getButtonState(Joystick::R_BUTTON) << endl;
-		*/
-	
-		// erase current footsteps
-		while(footstep.steps.size() > 2)
-			footstep.steps.pop_back();
-
-		Step step;
-		step.stride   = 0.1; //-max_stride*joystick.getPosition(Joystick::L_STICK_V_AXIS);
-		step.turn     = 0.0; //-max_turn  *joystick.getPosition(Joystick::L_STICK_H_AXIS);
-		step.spacing  = 0.20;
-		step.climb    = 0.0;
-		step.duration = 0.5;
-		footstep.steps.push_back(step);
-		footstep.steps.push_back(step);
-		footstep.steps.push_back(step);
-		step.stride = 0.0;
-		step.turn   = 0.0;
-		footstep.steps.push_back(step);
+	Step step;
+	step.stride   = 0.005;
+	step.turn     = 0.0;
+	step.spacing  = 0.2;
+	step.climb    = 0.0;
+	step.duration = 0.5;
+	footstep.steps.push_back(step);
+	footstep.steps.push_back(step);
+	footstep.steps.push_back(step);
+	footstep.steps.push_back(step);
 		
-		footstep_planner.Plan(param, footstep);
-        footstep_planner.GenerateDCM(param, footstep);
-	}
+	footstep_planner.Plan(param, footstep);
+    footstep_planner.GenerateDCM(param, footstep);
 
     // stepping controller generates swing foot trajectory 
     // it also performs landing position adaptation
     stepping_controller.Update(timer, param, footstep, footstep_buffer, centroid, base, foot);
-    
+
     // stabilizer performs balance feedback
-    stabilizer         .Update(timer, param, footstep_buffer, centroid, base, foot);
-    
-    // step timing adaptation
+    stabilizer.Update(timer, param, footstep_buffer, centroid, base, foot);
+
+    // timing adaptation
     Centroid centroid_pred = centroid;
     stabilizer.Predict(timer, param, footstep_buffer, base, centroid_pred);
     stepping_controller.AdjustTiming(timer, param, centroid_pred, footstep, footstep_buffer);
@@ -213,12 +185,24 @@ void MyRobot::Control(){
     hand[0].ori_ref = base.ori_ref;
     hand[1].pos_ref = centroid.com_pos_ref + base.ori_ref*Vector3(0.0,  0.25, -0.1);
     hand[1].ori_ref = base.ori_ref;
-
-    // calc CoM IK
+    
+    // comp CoM IK
     ik_solver.Comp(&fk_solver, param, centroid, base, hand, foot, joint);
 
-	Robot::Actuate(timer, base, joint);
-	
+    Robot::Actuate(timer, base, joint);
+
+    // update marker poses for visualization
+    io_body->link(marker_index + 4)->p() = hand[0].pos_ref;
+    io_body->link(marker_index + 4)->R() = hand[0].ori_ref.matrix();
+    io_body->link(marker_index + 5)->p() = hand[1].pos_ref;
+    io_body->link(marker_index + 5)->R() = hand[1].ori_ref.matrix();
+    io_body->link(marker_index + 6)->p() = foot[0].pos_ref;
+    io_body->link(marker_index + 6)->R() = foot[0].ori_ref.matrix();
+    io_body->link(marker_index + 7)->p() = foot[1].pos_ref;
+    io_body->link(marker_index + 7)->R() = foot[1].ori_ref.matrix();
+	io_body->link(marker_index + 8)->p() = centroid.zmp;
+	io_body->link(marker_index + 9)->p() = centroid.zmp_ref;
+    
 	timer.Countup();
 }
 

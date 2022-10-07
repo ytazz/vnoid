@@ -147,10 +147,11 @@ public:
 class Param{
 public:
     // dynamical parameters
-	double   total_mass;   ///< total mass
-	double   com_height;   ///< height of CoM from the ground
-	double   gravity;      ///< gravitational acceleration
-    double   T;            ///< constant of LIPM. T= sqrt(h/g)
+	double   total_mass;       ///< total mass
+	Vector3  nominal_inertia;  ///< inertia around CoM in x,y,z directions
+	double   com_height;       ///< height of CoM from the ground
+	double   gravity;          ///< gravitational acceleration
+    double   T;                ///< constant of LIPM. T= sqrt(h/g)
     
     // kinematic parameters
     Vector3   base_to_shoulder[2];   ///< relative position of each shoulder (i.e., base of arm) w.r.t. base link origin

@@ -3,14 +3,15 @@
 #include "robot.h"
 #include "fksolver.h"
 #include "iksolver.h"
-#include "stabilizer.h"
 #include "footstep.h"
+#include "footstep_planner.h"
+#include "stabilizer.h"
+#include "stepping_controller.h"
 
 /*
- * Balance control demo 1
+ * Balance control demo 3
  * 
- * Robot keeps balance on a floor moving in x and y directions
- * 
+ * Robot keeps balance on a moving floor while making steps
  */
 
 namespace cnoid{
@@ -25,11 +26,14 @@ public:
     vector<Hand>   hand;
     vector<Foot>   foot;
     vector<Joint>  joint;
+    Footstep       footstep;
     Footstep       footstep_buffer;
 
-    Stabilizer     stabilizer;
-    FkSolver       fk_solver;
-    IkSolver       ik_solver;
+    FootstepPlanner     footstep_planner;
+    SteppingController  stepping_controller;
+    Stabilizer          stabilizer;
+    FkSolver            fk_solver;
+    IkSolver            ik_solver;
 
     int  marker_index;
     int  num_markers;

@@ -4,10 +4,12 @@
 #include "fksolver.h"
 #include "iksolver.h"
 #include "stabilizer.h"
+#include "footstep.h"
 
 /*
- * Balance control demo 
+ * Balance control demo 2
  * 
+ * Robot keeps balance on a tilting floor 
  * 
  */
 
@@ -23,6 +25,7 @@ public:
     vector<Hand>   hand;
     vector<Foot>   foot;
     vector<Joint>  joint;
+    Footstep       footstep_buffer;
     
     Stabilizer     stabilizer;
     FkSolver       fk_solver;

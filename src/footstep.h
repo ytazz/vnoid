@@ -11,7 +11,8 @@ namespace vnoid{
 /**
  Single footstep
  **/
-struct Step{
+class Step{
+public:
 	double   stride;    ///< longitudinal step length
     double   sway;      ///< lateral step length
 	double   spacing;   ///< lateral spacing between left and right feet
@@ -21,6 +22,7 @@ struct Step{
     
 	int      side;      ///< indicates which foot (0: right, 1: left) is the support foot in this step
 	bool     stepping;  ///< stepping or standing still
+	double   tbegin;    ///< starting time of this step
 		
 	Vector3     foot_pos   [2];  ///< position of each foot at the beginning of this step
 	Vector3     foot_angle [2];
@@ -40,7 +42,6 @@ class Footstep{
 public:
     /// series of footsteps
     deque<Step>  steps;
-
 };
 
 }

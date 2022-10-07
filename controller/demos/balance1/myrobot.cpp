@@ -71,6 +71,7 @@ void MyRobot::Init(SimpleControllerIO* io){
     hand.resize(2);
 
     // 30 joints
+    // assign small PD gains to ankle joints so that torque-based ZMP control works well
     joint.resize(30);
     joint[ 0].Set(1000.0, 200.0, 100.0);
     joint[ 1].Set(1000.0, 200.0, 100.0);
@@ -108,21 +109,17 @@ void MyRobot::Init(SimpleControllerIO* io){
 	Robot::Init(io, timer, joint);
 
     // init stabilizer
-    
-    // conventional PD control setting
-    //stabilizer.orientation_ctrl_gain_p  = 500.0;
-    //stabilizer.orientation_ctrl_gain_d  = 50.0;
-        
-    // state feedback control setting
-    stabilizer.gain <<
-   -0.0007,   -0.0000,   -0.0002,   -0.0000,    0.0100,    0.0000,    0.1418,    0.0000,   -0.0000,    0.0006,   -0.0000,    0.0002,
-   -0.0000,   -0.0007,   -0.0000,   -0.0002,   -0.0000,    0.0100,   -0.0000,    0.1418,   -0.0006,    0.0000,   -0.0002,    0.0000,
-    0.0000,  -12.9132,    0.0000,   -1.6935,   -0.0000,    0.0002,   -0.0000,    0.0023,    8.1660,   -0.0000,    5.0284,   -0.0000,
-   12.9132,   -0.0000,    1.6935,   -0.0000,   -0.0002,    0.0000,   -0.0023,    0.0000,   -0.0000,    8.1660,   -0.0000,    5.0284,
-   -0.0000,   -1.8255,   -0.0000,   -0.4127,   -0.0000,   -0.0000,   -0.0000,   -0.0004,   -1.5776,    0.0000,   -0.4105,    0.0000,
-    1.8255,   -0.0000,    0.4127,   -0.0000,    0.0000,   -0.0000,    0.0004,   -0.0000,   -0.0000,   -1.5776,   -0.0000,   -0.4105;
-    
+    stabilizer.orientation_ctrl_gain_p = 10.0;
+    stabilizer.orientation_ctrl_gain_d = 10.0;
+    stabilizer.dcm_ctrl_gain           = 10.0;
+
+    footstep_buffer.steps.resize(2);
+    footstep_buffer.steps[0].zmp = Vector3(0.0, 0.0, 0.0);
+    footstep_buffer.steps[0].dcm = Vector3(0.0, 0.0, param.com_height);
+    footstep_buffer.steps[1].dcm = Vector3(0.0, 0.0, param.com_height);
+            
     // damping control-based ground reaction force control setting
+    // not necessary if torque control is used
     //stabilizer.min_contact_force        = 1.0;
     //stabilizer.force_ctrl_damping       = 5.0;
     //stabilizer.force_ctrl_gain          = 0.0001;
@@ -131,7 +128,7 @@ void MyRobot::Init(SimpleControllerIO* io){
     //stabilizer.moment_ctrl_gain         = 0.0001;
     //stabilizer.moment_ctrl_limit        = 0.5;
 
-    // configure marker links
+    // configure marker links for visualization
     marker_index = 31;
     num_markers  = 10;
     for (int i = 0; i < num_markers; i++) {
@@ -156,7 +153,7 @@ void MyRobot::Control(){
     foot[0].contact_ref = true;
     foot[1].contact_ref = true;
     
-    stabilizer.Update(timer, param, centroid, base, foot);
+    stabilizer.Update(timer, param, footstep_buffer, centroid, base, foot);
 
     hand[0].pos_ref = centroid.com_pos_ref + base.ori_ref*Vector3(0.0, -0.25, -0.1);
     hand[0].ori_ref = base.ori_ref;
@@ -166,8 +163,6 @@ void MyRobot::Control(){
     // comp CoM IK
     ik_solver.Comp(&fk_solver, param, centroid, base, hand, foot, joint);
 
-    joint[1].q_ref = stabilizer.phi_mod.y();
-    
     Robot::Actuate(timer, base, joint);
 
     // update marker poses for visualization

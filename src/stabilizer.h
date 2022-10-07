@@ -13,6 +13,8 @@ class Param;
 class Centroid;
 class Base;
 class Foot;
+class Footstep;
+class Step;
 
 /** @brief Simple balance controller
  *
@@ -33,8 +35,12 @@ public:
 	 * PD Gains used for balance control using ZMP as control input.
 	 * Use gain matrix for more general balance control.
 	 */
-	double  orientation_ctrl_gain_p;   ///< p gain of orientation control
-	double  orientation_ctrl_gain_d;   ///< d gain of orientation control
+	//double  orientation_ctrl_gain_p;   ///< p gain of orientation control
+	//double  orientation_ctrl_gain_d;   ///< d gain of orientation control
+
+	double  orientation_ctrl_gain_p;
+	double  orientation_ctrl_gain_d;
+	double  dcm_ctrl_gain;
 
 	/* @brief feedback gain matrix
 	 *
@@ -63,18 +69,20 @@ public:
 	 * All variables are offset from reference value.
 	 *
 	 */ 
-	Eigen::Matrix<double,  6, 12>    gain;
+	//Eigen::Matrix<double,  6, 12>    gain;
 
-	Eigen::Matrix<double, 12,  1>    state;
-	Eigen::Matrix<double,  6,  1>    input;
+	//Eigen::Matrix<double, 12,  1>    state;
+	//Eigen::Matrix<double,  6,  1>    input;
 	
 	/// upper body rotation
-	Vector3     phi_mod;
-	Vector3     phid_mod;
+	//Vector3     phi_mod;
+	//Vector3     phid_mod;
 	
 	/// CoM modification
-	Vector3     com_pos_mod;
-	Vector3     com_vel_mod;
+	//Vector3     com_pos_mod;
+	//Vector3     com_vel_mod;
+	//Vector3     dcm_mod;
+	//Vector3     zmp_mod;
 	
 	Vector3     dpos[2];   ///< foot position modification
 	Vector3     drot[2];   ///< foot orientation modification
@@ -125,8 +133,11 @@ public:
 	 *
 	 *  
 	 **/
-    void Update(const Timer& timer, const Param& param, Centroid& centroid, Base& base, vector<Foot>& foot);
+    void Update(const Timer& timer, const Param& param, const Footstep& footstep_buffer, Centroid& centroid, Base& base, vector<Foot>& foot);
     
+	// do prediction
+	void Predict(const Timer& timer, const Param& param, const Footstep& footstep_buffer, const Base& base, Centroid& centroid);
+	
 	Stabilizer();
 };
 

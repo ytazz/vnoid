@@ -2,6 +2,7 @@
 
 #include "robot.h"
 #include "rollpitchyaw.h"
+#include "footstep.h"
 
 namespace cnoid{
 namespace vnoid{
@@ -14,17 +15,11 @@ Stabilizer::Stabilizer(){
 	moment_ctrl_damping      = 0.0;
 	moment_ctrl_gain         = 0.0;
 	moment_ctrl_limit        = 0.0;
-	orientation_ctrl_gain_p  = 0.0;
-	orientation_ctrl_gain_d  = 0.0;
-
-	gain  = Eigen::Matrix<double,  6, 12>::Zero();
-	state = Eigen::Matrix<double, 12,  1>::Zero();
-	input = Eigen::Matrix<double,  6,  1>::Zero();
-
-	phi_mod     = Vector3(0.0, 0.0, 0.0);
-	phid_mod    = Vector3(0.0, 0.0, 0.0);
-	com_pos_mod = Vector3(0.0, 0.0, 0.0);
-	com_vel_mod = Vector3(0.0, 0.0, 0.0);
+	
+	// default gain setting
+	orientation_ctrl_gain_p = 10.0;
+	orientation_ctrl_gain_d = 10.0;
+	dcm_ctrl_gain           = 10.0;
 	
     for(int i = 0; i < 2; i++){
         dpos[i] = Vector3(0.0, 0.0, 0.0);
@@ -126,69 +121,115 @@ void Stabilizer::CalcForceDistribution(const Param& param, Centroid& centroid, v
 	}
 }
 
-void Stabilizer::Update(const Timer& timer, const Param& param, Centroid& centroid, Base& base, vector<Foot>& foot){
-    // calc zmp from forces
+void Stabilizer::Predict(const Timer& timer, const Param& param, const Footstep& footstep_buffer, const Base& base, Centroid& centroid){
+	const Step& stb0 = footstep_buffer.steps[0];
+    const Step& stb1 = footstep_buffer.steps[1];
+    int sup =  stb0.side;
+    int swg = !stb0.side;
+	
+	double ttl = (stb0.tbegin + stb0.duration - timer.time);
+	int N = (int)(ttl/timer.dt);
+
+	Vector3 theta = base.angle  - base.angle_ref;
+	Vector3 omega = base.angvel - base.angvel_ref;
+
+	Vector3 offset(0.0, 0.0, param.com_height);
+	
+	for(int k = 0; k < N-1; k++){
+		// calc moment for regulating orientation
+		Vector3 Ld = base.ori_ref * Vector3(
+			-param.nominal_inertia.x()*(orientation_ctrl_gain_p*theta.x() + orientation_ctrl_gain_d*omega.x()),
+			-param.nominal_inertia.y()*(orientation_ctrl_gain_p*theta.y() + orientation_ctrl_gain_d*omega.y()),
+			 0.0);
+
+		// predicted update of base link orientation
+		theta += omega*timer.dt;
+		omega += -(orientation_ctrl_gain_p*theta + orientation_ctrl_gain_d*omega)*timer.dt;
+		
+		double T = param.T;
+		double m = param.total_mass;
+		double h = param.com_height;
+		double T_mh = T/(m*h);
+
+		// calc target DCM
+		ttl = (stb0.tbegin + stb0.duration) - (timer.time + k*timer.dt);
+        double alpha = exp(-ttl/T);
+        Vector3 dcm_target = (1.0-alpha)*(stb0.zmp + offset) + alpha*stb1.dcm;
+		
+		// calc zmp for regulating dcm
+		centroid.zmp_ref = stb0.zmp + dcm_ctrl_gain*(centroid.dcm_ref - dcm_target);
+
+		// project zmp inside support region
+		Vector3 zmp_local = stb0.foot_ori[sup].conjugate()*(centroid.zmp_ref - stb0.foot_pos[sup]);
+		for(int j = 0; j < 3; j++){
+			zmp_local[j] = std::min(std::max(param.zmp_min[j], zmp_local[j]), param.zmp_max[j]);
+		}
+		centroid.zmp_ref = stb0.foot_pos[sup] + stb0.foot_ori[sup]*zmp_local;
+
+		// calc DCM derivative
+		Vector3 dcm_d = (1/T)*(centroid.dcm_ref - (centroid.zmp_ref + Vector3(0.0, 0.0, h))) + Vector3(-T_mh*Ld.y(), T_mh*Ld.x(), 0.0);
+
+		// calc CoM acceleration
+		centroid.com_acc_ref = (1/T)*(dcm_d - centroid.com_vel_ref);
+
+		// update DCM
+		centroid.dcm_ref += dcm_d*timer.dt;
+
+		// calc CoM velocity from dcm
+		centroid.com_vel_ref = (1/T)*(centroid.dcm_ref - centroid.com_pos_ref);
+
+		// update CoM position
+		centroid.com_pos_ref += centroid.com_vel_ref*timer.dt;
+
+	}
+}
+
+void Stabilizer::Update(const Timer& timer, const Param& param, const Footstep& footstep_buffer, Centroid& centroid, Base& base, vector<Foot>& foot){
+	const Step& stb0 = footstep_buffer.steps[0];
+    const Step& stb1 = footstep_buffer.steps[1];
+    int sup =  stb0.side;
+    int swg = !stb0.side;
+
+	double T = param.T;
+	double m = param.total_mass;
+	double h = param.com_height;
+	double T_mh = T/(m*h);
+
+	// calc zmp from forces
     CalcZmp(param, centroid, foot);
 
+	Vector3 theta = base.angle  - base.angle_ref;
+	Vector3 omega = base.angvel - base.angvel_ref;
+
+	Vector3 offset(0.0, 0.0, param.com_height);
+	
+	// calc moment for regulating orientation
+	Vector3 Ld = base.ori_ref * Vector3(
+		-param.nominal_inertia.x()*(orientation_ctrl_gain_p*theta.x() + orientation_ctrl_gain_d*omega.x()),
+		-param.nominal_inertia.y()*(orientation_ctrl_gain_p*theta.y() + orientation_ctrl_gain_d*omega.y()),
+		0.0);
+		
+	// calc zmp for regulating dcm
+	centroid.zmp_ref = stb0.zmp + dcm_ctrl_gain*(centroid.dcm_ref - stb0.dcm);
+
+	// calc DCM derivative
+	Vector3 dcm_d = (1/T)*(centroid.dcm_ref - (centroid.zmp_ref + Vector3(0.0, 0.0, h))) + Vector3(-T_mh*Ld.y(), T_mh*Ld.x(), 0.0);
+
+	// calc CoM acceleration
+	centroid.com_acc_ref = (1/T)*(dcm_d - centroid.com_vel_ref);
+
+	// update DCM
+	centroid.dcm_ref += dcm_d*timer.dt;
+
+	// calc CoM velocity from dcm
+	centroid.com_vel_ref = (1/T)*(centroid.dcm_ref - centroid.com_pos_ref);
+
+	// update CoM position
+	centroid.com_pos_ref += centroid.com_vel_ref*timer.dt;
+
+	// calc desired force applied to CoM
 	centroid.force_ref = param.total_mass*(centroid.com_acc_ref + Vector3(0.0, 0.0, param.gravity));
 	centroid.moment_ref = Vector3(0.0, 0.0, 0.0);
-
-	Vector3 zmp_mod1(0.0, 0.0, 0.0);
-	Vector3 zmp_mod2(0.0, 0.0, 0.0);
-	Vector3 com_acc_mod(0.0, 0.0, 0.0);
-	Vector3 phidd_mod(0.0, 0.0, 0.0);
-
-	// PD control of base link orientation using zmp only
-	{
-		Vector3 m(0.0, 0.0, 0.0);
-		m[0] = orientation_ctrl_gain_p * (base.angle_ref[0] - base.angle[0]) + orientation_ctrl_gain_d * (base.angvel_ref[0] - base.angvel[0]);
-		m[1] = orientation_ctrl_gain_p * (base.angle_ref[1] - base.angle[1]) + orientation_ctrl_gain_d * (base.angvel_ref[1] - base.angvel[1]);
-
-		zmp_mod1 = (1.0/centroid.force_ref[2])*Vector3(-m[1], m[0], 0.0);
-	}
-	// more general state feedback control
-	{
-		// calc state
-		Vector3 theta = base.angle  - base.angle_ref;
-		Vector3 omega = base.angvel - base.angvel_ref;
-		state << theta.x(), theta.y(),
-			     omega.x(), omega.y(),
-			     phi_mod.x(), phi_mod.y(),
-			     phid_mod.x(), phid_mod.y(),
-			     com_pos_mod.x(), com_pos_mod.y(),
-			     com_vel_mod.x(), com_vel_mod.y();
-		
-		// u = -K*x
-		input = -gain*state;
-
-		phidd_mod.x() = input(0);
-		phidd_mod.y() = input(1);
-		com_acc_mod.x() = input(2);
-		com_acc_mod.y() = input(3);
-		zmp_mod2.x() = input(4);
-		zmp_mod2.y() = input(5);
-
-		com_pos_mod += com_vel_mod * timer.dt;
-		com_vel_mod += com_acc_mod * timer.dt;
-
-		phi_mod  += phid_mod  * timer.dt;
-		phid_mod += phidd_mod * timer.dt;
-	}
-
-	// modify CoM
-	centroid.com_pos_ref += base.ori_ref * com_pos_mod;
-	centroid.com_vel_ref += base.ori_ref * com_vel_mod;
-	centroid.com_acc_ref += base.ori_ref * com_acc_mod;
-
-	// modify swing foot position so that the relative position between CoM is maintained
-	for(int i = 0; i < 2; i++){
-		if(!foot[i].contact_ref){
-			foot[i].pos_ref += base.ori_ref * com_pos_mod;
-		}
-	}
-
-	// modify ZMP
-	centroid.zmp_ref     += base.ori_ref * (zmp_mod1 + zmp_mod2);
 
 	// calculate desired forces from desired zmp
 	CalcForceDistribution(param, centroid, foot);

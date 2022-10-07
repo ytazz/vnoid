@@ -12,7 +12,7 @@
 using namespace cnoid;
 using namespace cnoid::vnoid;
 
-class VnoidDemosBalance2Controller : public SimpleController{
+class VnoidDemosBalance3Controller : public SimpleController{
 public:
 	MyRobot*  robot;
 
@@ -34,4 +34,4 @@ public:
 	}
 };
 
-CNOID_IMPLEMENT_SIMPLE_CONTROLLER_FACTORY(VnoidDemosBalance2Controller)
+CNOID_IMPLEMENT_SIMPLE_CONTROLLER_FACTORY(VnoidDemosBalance3Controller)

@@ -12,9 +12,6 @@ GroundEstimator::GroundEstimator(){
 }
 
 void GroundEstimator::Update(const Timer& timer, const Base& base, const vector<Foot>& foot, Ground& ground){
-    // base link z direction in global coord (base yaw is taken from reference value)
-    //Vector3 n = FromRollPitchYaw(Vector3(base.angle.x(), base.angle.y(), base.angle_ref.z()))*Vector3(0.0, 0.0, 1.0);
-
     // do nothing if the robot is not in contact with the ground
     if(!foot[0].contact && !foot[1].contact)
         return;

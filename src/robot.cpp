@@ -114,6 +114,7 @@ Ground::Ground(){
 
 Param::Param(){
     total_mass       = 50.0;
+	nominal_inertia  = Vector3(20.0, 20.0, 5.0);
 	com_height       = 1.0;
 	gravity          = 9.8;
     
@@ -252,7 +253,7 @@ void Robot::Sense(Timer& timer, Base& base, vector<Joint>& joint){
 	base.angle [0] += base.angvel[0]*timer.dt;
 	base.angle [1] += base.angvel[1]*timer.dt;
 
-    for (int i = 0; i < joint.size(); ++i) {
+	for (int i = 0; i < joint.size(); ++i) {
 		cnoid::Link* jnt = io_body->joint(i);
 
         // get position and velocity of each joint

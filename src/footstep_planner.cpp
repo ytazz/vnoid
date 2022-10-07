@@ -96,8 +96,12 @@ void FootstepPlanner::GenerateDCM(const Param& param, Footstep& footstep){
 		
 	// set final step's state
 	int i = nstep-1;
+	// ZMP is in the middle of feet
 	footstep.steps[i].zmp = (footstep.steps[i].foot_pos[0] + footstep.steps[i].foot_pos[1])/2.0;
-	footstep.steps[i].dcm = (footstep.steps[i].foot_pos[0] + footstep.steps[i].foot_pos[1])/2.0;
+
+	// DCM is com_height above ZMP
+	footstep.steps[i].dcm = (footstep.steps[i].foot_pos[0] + footstep.steps[i].foot_pos[1])/2.0
+		                  + Vector3(0.0, 0.0, param.com_height);
 	i--;
 
 	// calc N-1 to 0 step's state
@@ -111,26 +115,34 @@ void FootstepPlanner::GenerateDCM(const Param& param, Footstep& footstep){
 		double a = exp(-st0.duration/param.T);
 		// for initial step, the dcm is specified from outside. determine zmp accordingly
 		if(i == 0){
-			st0.zmp = (st0.dcm - a*st1.dcm)/(1.0 - a);
+			st0.zmp = (st0.dcm - a*st1.dcm)/(1.0 - a) - Vector3(0.0, 0.0, param.com_height);
 		}
 		// for other steps
 		else{
 			const double eps = 1.0e-3;
-			// if swing foot position is not changing, treated as double support and zmp is set to the middle of feet
+			// if swing foot position is not changing, treated as double support and set zmp to the middle of feet
 			if( (st0.foot_pos  [swg] - st1.foot_pos  [swg]).norm() < eps &&
 				(st0.foot_angle[swg] - st1.foot_angle[swg]).norm() < eps ){
 				st0.zmp = (st0.foot_pos[sup] + st0.foot_pos[swg])/2.0;
-				st0.stepping = false;
 			}
 			// otherwise, set zmp to support foot
 			else{
 				st0.zmp = st0.foot_pos[sup];
-				st0.stepping = true;
 			}
 
 			// determine dcm from zmp
-			st0.dcm = st0.zmp + a*(st1.dcm - st0.zmp);
+			st0.dcm = (1.0 - a)*(st0.zmp + Vector3(0.0, 0.0, param.com_height)) + a*st1.dcm;
 		}
+
+		// set stepping flag based on whether swing foot position is chanching or not
+		if( (st0.foot_pos  [swg] - st1.foot_pos  [swg]).norm() < eps &&
+			(st0.foot_angle[swg] - st1.foot_angle[swg]).norm() < eps ){
+			st0.stepping = false;
+		}
+		else{
+			st0.stepping = true;
+		}
+
 	}
 }
 
