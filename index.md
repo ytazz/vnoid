@@ -76,7 +76,7 @@ Regulations are tentative and subject to change.
 
 ### Regulations overview
 
-[Choreonoid](choreonoid.org) is used for the simulation environment of this challenge.
+[Choreonoid](https://www.choreonoid.org/) is used for the simulation environment of this challenge.
 Each team designs a robot model and a controller that can be loaded and run on Choreonoid.
 
 #### Creating a robot model
