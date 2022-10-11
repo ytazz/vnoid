@@ -1,0 +1,237 @@
+@charset "UTF-8";
+/* overall page layout
+-----------------------------------------------------------------------------*/
+body {
+    margin: 0px;
+    padding: 0px;
+    text-align: center;
+    background-color: #fff0e0;
+}
+
+.wrapper {
+    margin-left: auto;
+    margin-right: auto;
+    width: 1024px;
+    text-align: left;
+    background-color: #FFFFFF;
+}
+
+p {
+    margin: 8px;
+    padding: 16px;
+}
+
+/* header
+-----------------------------------------------------------------------------*/
+
+.header {
+    position: relative;
+    top: 0px;
+    padding: 0px;
+    margin: 0px;
+    width: 1024px;
+    background-color: #ffffff;
+}
+
+.header h1 {
+    position: relative;
+    text-align: center;
+    padding: 24px 0px 4px 0px;
+    margin: 0px;
+    font-size: 32px;
+    text-shadow: 2px 2px 2px #f0e0b0;
+    line-height: 32px;
+}
+
+.header h2 {
+    position: relative;
+    text-align: center;
+    padding: 2px 0px 2px 0px;
+    margin: 0px;
+    font-size: 18px;
+    text-shadow: 1px 1px 1px #f0e0b0;
+    line-height: 18px;
+}
+
+.header p {
+    position: relative;
+    text-align: center;
+    font-size: 16px;
+    padding: 1px 0px 1px 0px;
+    margin: 0px;
+    text-shadow: 1px 1px 1px #f0e0b0;
+    line-height: 16px;
+}
+
+/* navigation bar
+-----------------------------------------------------------------------------*/
+.nav{
+    width: 1024px;
+    margin: 0px;
+    padding: 0px;
+}
+
+.nav ul {
+    list-style-type: none;
+    margin: 0px;
+    margin-left: 4px;
+    padding: 0px;
+}
+
+.nav li {
+    float: left;
+    height: 24px;
+    line-height: 24px;
+    width: 125px;
+    margin: 0px;
+    padding: 0px;
+    font-size: 14px;
+    text-align: center;
+    border-style: solid;
+    border-color: #fff0c0;
+    border-width: 1px 1px 1px 1px;
+}
+
+.nav li a {
+    color: #000000;
+    background-color: #f0e0b0;
+    text-shadow: 1px 1px 1px #ffffff;
+    text-decoration: none;
+    display: block;
+}
+
+.nav li a:hover {
+    color: #000000;
+    background-color: #fff0c0;
+    text-decoration: none;
+    display: block;
+}
+
+.undernav {
+    text-align: center;
+    font-size: 10px;
+    margin: 0px;
+    line-height: 12px;
+}
+
+/* contents
+-----------------------------------------------------------------------------*/
+.content {
+	background-color: #ffffff;
+    width: 1024px;
+    float: left;
+}
+
+.content h1 {
+    margin: 0px;
+    padding: 0px;
+}
+
+.content h2 {
+    font-size: 18px;
+    margin-left: 8px;
+    margin-right: 8px;
+    padding: 2px;
+    padding-left: 8px;
+    border-style: solid;
+    border-width: 1px 1px 4px 8px;
+    border-color: #f0e0b0;
+    text-shadow: 1px 1px 1px #f0e0b0;
+}
+
+.content h3 {
+    font-size: 16px;
+    padding: 8px 0px 0px 8px;
+    margin: 0px 16px 0px 16px;
+    border-width: 1px;
+    border-bottom-style: solid;
+    border-color: #f0e0b0;
+}
+
+.content h4 {
+    font-size: 14px;
+    padding: 8px 0px 0px 8px;
+    margin: 0px 16px 0px 16px;
+    border-width: 1px;
+    border-bottom-style: solid;
+    border-color: #f0e0b0;
+}
+
+.content h5 {
+    font-size: 14px;
+    font-weight: normal;
+    text-align: left;
+    padding: 0px 64px 0px 72px;
+}
+
+.content p {
+    font-size: 16px;
+    padding: 2px 64px 4px 64px;
+    margin: 2px 0px 2px 0px;
+}
+
+.content ul {
+    list-style-type: square;
+    font-size: 16px;
+    margin: 8px 0px 8px 48px;
+}
+
+.content ol {
+    margin-left: 16px;
+    font-size: 16px;
+}
+
+.content strong {
+    color: #000000;
+    font-weight: bold;
+}
+
+.content hr {
+    color: #a0a0a0;
+    width: 1024px;
+    border-style: dotted;
+}
+
+.content table{
+    margin-left: 64px;
+    margin-right: 64px;
+    border-collapse: separate;
+    border-spacing: 16px 8px;
+}
+
+.content th{
+    background-color: #fff0c0;
+    color: #000000;
+    border: solid 1px #000000;
+    text-align: left;
+    font-size: 90%;
+    font-weight: bold;
+    text-shadow: 1px 1px 1px #ffffff;
+    padding: 4px 2px 2px 4px;
+    width: 200px;
+}
+
+.content td{
+    background-color: #ffffff;
+    border: solid 0px #000000;
+    text-align: left;
+    vertical-align: top;
+    font-size: 90%;
+    font-weight: normal;
+}
+
+.content td a{
+    text-decoration: none;
+}
+
+/* footer
+-----------------------------------------------------------------------------*/
+.footer {
+    padding: 16px 0px 16px 0px;
+    margin: 0px;
+    clear: both;
+    text-align: center;
+    border-top-width: 1px;
+    border-top-style: dotted;
+    border-color: black;
+}
