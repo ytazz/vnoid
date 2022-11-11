@@ -5,7 +5,7 @@
 
 # Challenge 2022
 
-Under construction. Information is tentative.
+<!-- Under construction. Information is tentative. -->
 
 ## Aim of this challenge
 
@@ -48,6 +48,8 @@ The robot traverses the athletic field from the starting position to the goal.
 Performance is evaluated by reached landmark and elapsed simulation time.
 
 ![field](fig/field_athletics2022.png "Athletics Field")
+
+- [Results](https://ytazz.github.io/vnoid/results_athletics2022.html)
 
 ### Short track
 
