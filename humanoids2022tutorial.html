@@ -52,11 +52,19 @@ A zoom webinar will be prepared for online participation.
 -->
 Talks marked "remote" will be presented online.
 Other talks will be presented physically in a seminar room of the conference venue.
+<br>
+<i>
+The tutorial has ended with success.
+Thank you all for your participation!
+</i>
+
+<!--
 You can listen to all talks on Zoom.
 <br>
 <a href="https://kobe-u-ac-jp.zoom.us/j/89828393143?pwd=bFl1WXNhK0tyK2dwS0pCSWdSNmV1UT09">
 Join Zoom meeting
 </a>
+-->
 
 </p>
 
@@ -96,28 +104,28 @@ This talk reviews basic building blocks that enable a humanoid robot walk robust
 Theoretical basics of kinematics, DCM-based balance control, walking pattern generation, and step adaptation are
  described using actual implementation examples on Choreonoid.
 <br>
-<a href="doc/humanoids2022tutorial_tazaki_1121.pdf">slides (tentative)</a>
+<a href="doc/humanoids2022tutorial_tazaki.pdf">slides</a>
 </p>
 <br>
 <a name="seminar_sugihara">
-<h3><font color="darkblue">Seminar 2:</font> Title: T.B.A. </h3></a>
+<h3><font color="darkblue">Seminar 2:</font> An approach to build a locomotion system of a humanoid robot </h3></a>
 <h3><font color="darkblue">Speaker:</font> Tomomichi Sugihara (OMRON Corp.)</h3>
-<!--
-<h3>Abstract</h3>
 <p>
-abst abast astasdf
+A biped locomotion control system of the speaker's robot is presented. The controller is designed based on the reduced-order dynamics (COM-ZMP) model, with which biped locomotion skill is encoded by a model predictive control scheme. The robot motion is synthesized in real-time by combining it with a motion resolution technique. The observer to estimate unmeasurable quantities such as COM is also presented.
 </p>
--->
 <br>
 <a name="seminar_kakiuchi">
-<h3><font color="darkblue">Seminar 3:</font> Title: T.B.A. </h3></a>
+<h3><font color="darkblue">Seminar 3:</font> Robot programming, Simulation and Environment using Choreonoid for Humanoid Novice </h3></a>
 <h3><font color="darkblue">Speaker:</font> Yohei Kakiuchi (Toyohashi University of Technology)</h3>
-<!--
-<h3>Abstract</h3>
 <p>
-abst abast astasdf
+What kind of environment would be best for a novice to learn about humanoid robots?
+I would like to discuss how to build basic system for humanoid robot using Choreonoid,
+which are considered to help transition from novice to expert as quickly as possible.
+I will also present how to use Choreonoid as an integrated environment that includes
+from the design of a robot to the control system for the real robot.
+<br>
+<a href="doc/Humanoids2022WS_kakiuchi.pdf">slides</a>
 </p>
--->
 <br>
 <a name="seminar_carpentier">
 <h3><font color="darkblue">Seminar 4:</font> Revisiting Contact Dynamics within the lens of Proximal Algorithms</h3></a>
@@ -125,6 +133,8 @@ abst abast astasdf
 <p>
 In this tutorial, I will mostly cover Contact Dynamics revisited under the lens of Proximal Algorithms. While the latter has been introduced more than half a century ago by Jean-Jacques Moreau to study nonsmooth contact dynamics problems (essentially granular mechanics), their use for solving rigid contact dynamic problems involving multi-body systems such as in Robotics has been minimally or even not yet covered in the literature. 
 Through this talk, I will introduce our recent work on <a href="https://hal.inria.fr/hal-03271811/document">Proximal and Sparse Resolution of Constrained Dynamic Equations</a> to efficiently and robustly solve constrained dynamics problems. While this work essentially covers bilateral contact problems, I will sketch the ongoing directions to extend these approaches for unilateral contacts involving friction and Signorini conditions. This is will be also the occasion to discuss the development of the <a href="https://hal.archives-ouvertes.fr/hal-01790971">Analytical derivatives of rigid body dynamics algorithms<a/> and their extension to constrained problems, and to introduce the versatile Pinocchio library which integrates all these ongoing developments, among other features.
+<br>
+<a href="https://mybox.inria.fr/f/f25b5a3037aa41d8b26a/?dl=1">slides</a>
 </p>
 <br>
 <a name="seminar_caron">
@@ -133,7 +143,9 @@ Through this talk, I will introduce our recent work on <a href="https://hal.inri
 <p>
 The physics of a task dictate how fast a controller should run to perform it. Balancing, in particular, is a rather low-frequency task: it was demonstrated (in theory and on real hardware) that a DCM-based controller can balance an adult-size humanoid while running at only 10 Hz. In this talk, we will discuss how this property allows us to write more control-critical code in a high-level language like Python. We will illustrate our points with practical sub-modules from two controllers: the LIPM walking controller for HRP humanoids, implemented with mc_rtc, and the Pink controller for the Upkie wheeled-biped, implemented with Vulp (🦊). 
 <br>
-<a href="https://scaron.info/humanoids-2022.pdf">slides (tentative)</a>
+<a href="https://scaron.info/slides/humanoids-2022.pdf">slides (tentative)</a></br>
+<a href="https://gist.github.com/stephane-caron/6575ec518edd2c3d32ae9cf2498b9486">code</a><br>
+<a href="https://scaron.info/talks/humanoids-2022.html#discussion">discussion log</a>
 </p>
 <br>
 <a name="talk_hiraoka">
@@ -151,12 +163,17 @@ The physics of a task dictate how fast a controller should run to perform it. Ba
 <a name="talk_murooka">
 <h3><font color="steelblue">Talk 4:</font> Humanoid controller for walking and jumping motion based on mc_rtc framework</h3></a>
 <h3><font color="steelblue">Speaker:</font> Masaki Murooka (CNRS-AIST JRL, IRL)</h3>
+<p>
+<a href="doc/murooka-humanoids2022-WorkshopHVAC.pdf">slides</a>
+</p>
 <br>
 <a name="talk_katayama">
 <h3><font color="steelblue">Talk 5:</font> Whole-body model predictive control of bipedal locomotion in Humanoid Virtual Athletic Challenges</h3></a>
 <h3><font color="steelblue">Speaker:</font> Sotaro Katayama (Kyoto University)</h3>
+<p>
+<a href="https://docs.google.com/presentation/d/1RKJ-wPY-gZBZkX0atwM9zRM5i0vTMuQd/edit?usp=share_link&ouid=100910248095054849671&rtpof=true&sd=true">slides</a>
+</p>
 <br>
-
 <a name="contact"><h2>Inquiry</h2></a>
 <p>
 Yuichi Tazaki
