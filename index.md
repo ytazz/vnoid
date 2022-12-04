@@ -3,6 +3,8 @@
 -->
 ![top image](fig/hvac2021.png "Top Image")
 
+<iframe width="560" height="315" src="https://www.youtube.com/embed/2xOmlHx2b4U" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 # Challenge 2022
 
 <!-- Under construction. Information is tentative. -->
