@@ -62,7 +62,7 @@ void SteppingController::Update(const Timer& timer, const Param& param, Footstep
     int swg = !st0.side;
 	
     double T  = param.T;
-    Vector3 offset = Vector3(0.0, 0.0, param.com_height);
+    Vector3 offset(0.0, 0.0, param.com_height);
     
     if(!buffer_ready){
         // update support, lift-off, and landing positions
@@ -78,12 +78,13 @@ void SteppingController::Update(const Timer& timer, const Param& param, Footstep
         stb0.foot_pos  [swg] = foot[swg].pos_ref;
         stb0.foot_angle[swg] = Vector3(0.0, 0.0, foot[swg].angle_ref.z());
         stb0.foot_ori  [swg] = FromRollPitchYaw(stb0.foot_angle[swg]);
+        stb0.dcm = centroid.dcm_ref;
     
         // landing position relative to support foot, taken from footsteps
         Quaternion ori_rel = st0.foot_ori[sup].conjugate()* st1.foot_ori[swg];
         Vector3    pos_rel = st0.foot_ori[sup].conjugate()*(st1.foot_pos[swg] - st0.foot_pos[sup]);
         Vector3    dcm_rel = st0.foot_ori[sup].conjugate()*(st1.dcm - st0.foot_pos[sup]);
-    
+
         // calc absolute landing position
         stb1.foot_pos  [sup] = stb0.foot_pos  [sup];
         stb1.foot_ori  [sup] = stb0.foot_ori  [sup];
@@ -110,13 +111,11 @@ void SteppingController::Update(const Timer& timer, const Param& param, Footstep
     
 	stb0.dcm = (1.0-alpha)*(stb0.zmp + offset) + alpha*stb1.dcm;
     
-    if(timer.time - stb0.tbegin > dsp_duration){
-        // landing adjustment
-        Vector3 land_rel = (st1.foot_pos[swg] - st0.foot_pos[sup]) - (stb0.dcm - stb0.foot_pos[sup]);
-	    stb1.foot_pos[swg].x() = centroid.dcm_ref.x() + land_rel.x();
-	    stb1.foot_pos[swg].y() = centroid.dcm_ref.y() + land_rel.y();
-    }
-    
+    // landing adjustment based on dcm
+    Vector3 land_rel = (st1.foot_pos[swg] - st0.foot_pos[sup]) - (stb0.dcm - stb0.foot_pos[sup]) + 0.0*(stb0.zmp - stb0.foot_pos[sup]);
+	stb1.foot_pos[swg].x() = centroid.dcm_ref.x() + land_rel.x();
+	stb1.foot_pos[swg].y() = centroid.dcm_ref.y() + land_rel.y();
+
     // reference base orientation is set as the middle of feet orientation
     double angle_diff = foot[1].angle_ref.z() - foot[0].angle_ref.z();
     while(angle_diff >  pi) angle_diff -= 2.0*pi;
@@ -168,8 +167,16 @@ void SteppingController::Update(const Timer& timer, const Param& param, Footstep
         foot[swg].ori_ref      = FromRollPitchYaw(foot[swg].angle_ref);
         foot[swg].contact_ref  = false;
 
-        /*
         // adjust swing foot considering base link inclination
+        Quaternion qrel = 
+            FromRollPitchYaw(Vector3(base.angle_ref.x(), base.angle_ref.y(), base.angle_ref.z()))*
+            FromRollPitchYaw(Vector3(base.angle    .x(), base.angle    .y(), base.angle_ref.z())).conjugate();
+        Vector3 pivot   = centroid.zmp_ref;
+        foot[swg].pos_ref   = qrel*(foot[swg].pos_ref - pivot) + pivot;
+        foot[swg].ori_ref   = qrel* foot[swg].ori_ref;
+        foot[swg].angle_ref = ToRollPitchYaw(foot[swg].ori_ref);
+
+        /*
         // base link orientation error
         Quaternion base_rot = 
             FromRollPitchYaw(Vector3(base.angle_ref.x(), base.angle_ref.y(), base.angle_ref.z()))*

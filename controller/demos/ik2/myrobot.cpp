@@ -6,22 +6,22 @@ namespace cnoid{
 namespace vnoid{
 
 MyRobot::MyRobot(){
-    // base link is fixed to space
-    base_actuation = true;
+    base_actuation = false;
 }
 
 void MyRobot::Init(SimpleControllerIO* io){
     // init params
+    param.com_height = 0.7;
     
     // kinematic parameters
     param.base_to_shoulder[0] = Vector3(0.0, -0.1,  0.3);
     param.base_to_shoulder[1] = Vector3(0.0,  0.1,  0.3);
     param.base_to_hip     [0] = Vector3(0.0, -0.1, -0.1);
     param.base_to_hip     [1] = Vector3(0.0,  0.1, -0.1);
-    param.wrist_to_hand   [0] = Vector3(0.0,  0.0, -0.0);
-    param.wrist_to_hand   [1] = Vector3(0.0,  0.0, -0.0);
-    param.ankle_to_foot   [0] = Vector3(0.0,  0.0, -0.0);
-    param.ankle_to_foot   [1] = Vector3(0.0,  0.0, -0.0);
+    param.wrist_to_hand   [0] = Vector3(0.0,  0.0, -0.1);
+    param.wrist_to_hand   [1] = Vector3(0.0,  0.0, -0.1);
+    param.ankle_to_foot   [0] = Vector3(0.0,  0.0, -0.05);
+    param.ankle_to_foot   [1] = Vector3(0.0,  0.0, -0.05);
     param.arm_joint_index [0] =  4;
     param.arm_joint_index [1] = 11;
     param.leg_joint_index [0] = 18;
@@ -86,26 +86,21 @@ void MyRobot::Control(){
     // generate IK inputs. edit as you like! //
 	
     const double pi = 3.1415926535;
-    double theta = 2.0*timer.time;
+    double theta = 1.0*std::max(timer.time - 2.0, 0.0);
 
-    base.pos_ref = Vector3(0.0, 0.0, 1.5);
-    base.ori_ref = Quaternion(1.0, 0.0, 0.0, 0.0);
-
-    foot[0].pos_ref = Vector3( 0.3*cos(-theta), -0.1, 1.5 - 0.7 + 0.3*sin(-theta));
-    foot[0].ori_ref = base.ori_ref;
+    foot[0].pos_ref = Vector3(0.0, -0.1, 0.0);
+    foot[1].pos_ref = Vector3(0.0,  0.1, 0.0);
     
-    foot[1].pos_ref = Vector3(-0.3*cos(-theta),  0.1, 1.5 - 0.7 - 0.3*sin(-theta));
-    foot[1].ori_ref = base.ori_ref;
-    
-    hand[0].pos_ref   = base.pos_ref + base.ori_ref*Vector3( 0.3+0.2*cos(-theta), -0.2,  0.2*sin(-theta));
+    hand[0].pos_ref   = Vector3(0.0, -0.2,  0.7);
     hand[0].ori_ref   = AngleAxis(-pi/2.0, Vector3::UnitX());
-    hand[0].arm_twist = pi/2.0;
     
-    hand[1].pos_ref   = base.pos_ref + base.ori_ref*Vector3( 0.3+0.2*cos(-theta),  0.2,  0.2*sin(-theta));
+    hand[1].pos_ref   = Vector3(0.0,  0.2,  0.7);
     hand[1].ori_ref   = AngleAxis( pi/2.0, Vector3::UnitX());
-    hand[1].arm_twist = -pi/2.0;
+
+    centroid.com_pos_ref = Vector3(0.0*sin(theta), 0.0*sin(theta), param.com_height + 0.07*sin(theta));
     
-    ik_solver.Comp(param, base, hand, foot, joint);
+    // comp CoM IK
+    ik_solver.Comp(&fk_solver, param, centroid, base, hand, foot, joint);
 
     Robot::Actuate(timer, base, joint);
 

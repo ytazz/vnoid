@@ -1041,7 +1041,16 @@ links:
         geometry: {type: Capsule, radius: 0.01, height: 0.1}
         appearance: {material: {diffuseColor: [0.0, 0.0, 1.0], transparency: 0.5}}
   -
-    name: MARKER_ZMP
+    name: MARKER_COM
+    parent: HIPS
+    jointType: free
+    elements:
+      -
+        type: Shape
+        geometry: {type: Sphere, radius: 0.03}
+        appearance: {material: {diffuseColor: [1.0, 0.0, 0.0], transparency: 0.5}}
+  -
+    name: MARKER_COM_REF
     parent: HIPS
     jointType: free
     elements:
@@ -1050,7 +1059,7 @@ links:
         geometry: {type: Sphere, radius: 0.03}
         appearance: {material: {diffuseColor: [0.0, 1.0, 0.0], transparency: 0.5}}
   -
-    name: MARKER_ZMP_REF
+    name: MARKER_ZMP
     parent: HIPS
     jointType: free
     elements:
@@ -1058,7 +1067,70 @@ links:
         type: Shape
         geometry: {type: Sphere, radius: 0.03}
         appearance: {material: {diffuseColor: [1.0, 0.0, 0.0], transparency: 0.5}}
+  -
+    name: MARKER_ZMP_REF
+    parent: HIPS
+    jointType: free
+    elements:
+      -
+        type: Shape
+        geometry: {type: Sphere, radius: 0.03}
+        appearance: {material: {diffuseColor: [0.0, 1.0, 0.0], transparency: 0.5}}
+  -
+    name: MARKER_DCM_REF
+    parent: HIPS
+    jointType: free
+    elements:
+      -
+        type: Shape
+        geometry: {type: Sphere, radius: 0.03}
+        appearance: {material: {diffuseColor: [0.0, 1.0, 0.0], transparency: 0.5}}
+  -
+    name: MARKER_ZMP_TARGET
+    parent: HIPS
+    jointType: free
+    elements:
+      -
+        type: Shape
+        geometry: {type: Sphere, radius: 0.03}
+        appearance: {material: {diffuseColor: [0.0, 0.0, 1.0], transparency: 0.5}}
+  -
+    name: MARKER_DCM_TARGET0
+    parent: HIPS
+    jointType: free
+    elements:
+      -
+        type: Shape
+        geometry: {type: Sphere, radius: 0.03}
+        appearance: {material: {diffuseColor: [0.0, 0.0, 1.0], transparency: 0.5}}
+  -
+    name: MARKER_DCM_TARGET1
+    parent: HIPS
+    jointType: free
+    elements:
+      -
+        type: Shape
+        geometry: {type: Sphere, radius: 0.03}
+        appearance: {material: {diffuseColor: [0.0, 0.0, 1.0], transparency: 0.5}}
+  -
+    name: MARKER_FOOTSTEP_SUP
+    parent: HIPS
+    jointType: free
+    elements:
+      -
+        type: Shape
+        geometry: {type: Box, size: [0.2, 0.1, 0.01]}
+        appearance: {material: {diffuseColor: [0.0, 0.0, 1.0], transparency: 0.5}}
+  -
+    name: MARKER_FOOTSTEP_LAND
+    parent: HIPS
+    jointType: free
+    elements:
+      -
+        type: Shape
+        geometry: {type: Box, size: [0.2, 0.1, 0.01]}
+        appearance: {material: {diffuseColor: [0.0, 1.0, 0.0], transparency: 0.5}}
 
 collisionDetection:
   excludeTreeDepth: 30
-  excludeLinks: [MARKER_HAND_R, MARKER_HAND_L, MARKER_FOOT_R, MARKER_FOOT_L, MARKER_HAND_REF_R, MARKER_HAND_REF_L, MARKER_FOOT_REF_R, MARKER_FOOT_REF_L, MARKER_ZMP, MARKER_ZMP_REF]
+  excludeLinks: [MARKER_HAND_R, MARKER_HAND_L, MARKER_FOOT_R, MARKER_FOOT_L, MARKER_HAND_REF_R, MARKER_HAND_REF_L, MARKER_FOOT_REF_R, MARKER_FOOT_REF_L, MARKER_COM, MARKER_COM_REF, MARKER_ZMP, MARKER_ZMP_REF, MARKER_DCM_REF, MARKER_ZMP_TARGET, MARKER_DCM_TARGET0, MARKER_DCM_TARGET1, MARKER_FOOTSTEP_SUP, MARKER_FOOTSTEP_LAND]

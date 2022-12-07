@@ -41,6 +41,8 @@ public:
 	double  orientation_ctrl_gain_p;
 	double  orientation_ctrl_gain_d;
 	double  dcm_ctrl_gain;
+	double  recovery_moment_limit;
+	double  dcm_deviation_limit;
 
 	/* @brief feedback gain matrix
 	 *
@@ -88,6 +90,12 @@ public:
 	Vector3     drot[2];   ///< foot orientation modification
 
 public:
+	/**
+	 *  @brief calculates 1-step update of DCM dynamics.
+	 * 
+	 *  This is an internal function called from Update and Predict.
+	 **/
+	void CalcDcmDynamics(const Timer& timer, const Param& param, const Footstep& footstep_buffer, const Base& base, Vector3 theta, Vector3 omega, Centroid& centroid);
 
 	/** @brief calculates ZMP from ground reaction force acting on the feet
 	 *

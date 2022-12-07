@@ -11,16 +11,20 @@ MyRobot::MyRobot(){
 
 void MyRobot::Init(SimpleControllerIO* io){
     // init params
-    
+    //  dynamical parameters
+	param.total_mass = 50.0;
+	param.com_height =  0.70;
+	param.gravity    =  9.8;
+
     // kinematic parameters
     param.base_to_shoulder[0] = Vector3(0.0, -0.1,  0.3);
     param.base_to_shoulder[1] = Vector3(0.0,  0.1,  0.3);
     param.base_to_hip     [0] = Vector3(0.0, -0.1, -0.1);
     param.base_to_hip     [1] = Vector3(0.0,  0.1, -0.1);
-    param.wrist_to_hand   [0] = Vector3(0.0,  0.0, -0.0);
-    param.wrist_to_hand   [1] = Vector3(0.0,  0.0, -0.0);
-    param.ankle_to_foot   [0] = Vector3(0.0,  0.0, -0.0);
-    param.ankle_to_foot   [1] = Vector3(0.0,  0.0, -0.0);
+    param.wrist_to_hand   [0] = Vector3(0.0,  0.0, -0.1);
+    param.wrist_to_hand   [1] = Vector3(0.0,  0.0, -0.1);
+    param.ankle_to_foot   [0] = Vector3(0.0,  0.0, -0.05);
+    param.ankle_to_foot   [1] = Vector3(0.0,  0.0, -0.05);
     param.arm_joint_index [0] =  4;
     param.arm_joint_index [1] = 11;
     param.leg_joint_index [0] = 18;
@@ -61,8 +65,8 @@ void MyRobot::Init(SimpleControllerIO* io){
     param.leg_com[4] = Vector3(0.0, 0.0,  0.0);
     param.leg_com[5] = Vector3(0.0, 0.0,  0.0);
 
-    param.zmp_min = Vector3(-0.1, -0.05, 0.0);
-    param.zmp_max = Vector3( 0.1,  0.05, 0.0);
+    param.zmp_min = Vector3(-0.1, -0.05, -0.1);
+    param.zmp_max = Vector3( 0.1,  0.05,  0.1);
     
     param.Init();
 
@@ -107,28 +111,24 @@ void MyRobot::Init(SimpleControllerIO* io){
     Robot::Init(io, timer, joint);
 
     // init stabilizer
-    stabilizer.orientation_ctrl_gain_p = 10.0;
+    stabilizer.orientation_ctrl_gain_p = 100.0;
     stabilizer.orientation_ctrl_gain_d = 10.0;
-    stabilizer.dcm_ctrl_gain = 10.0;
+    stabilizer.dcm_ctrl_gain = 2.0;
 
     footstep_buffer.steps.resize(2);
     footstep_buffer.steps[0].zmp = Vector3(0.0, 0.0, 0.0);
     footstep_buffer.steps[0].dcm = Vector3(0.0, 0.0, param.com_height);
     footstep_buffer.steps[1].dcm = Vector3(0.0, 0.0, param.com_height);
     
-    // configure marker links
-    marker_index = 31;
-    num_markers  = 10;
-    for (int i = 0; i < num_markers; i++) {
-        io_body->link(marker_index + i)->setActuationMode(cnoid::Link::LinkPosition);
-        io->enableIO(io_body->link(marker_index + i));
-    }
-
+    InitMarkers(io);
 
 }
 
 void MyRobot::Control(){
     Robot::Sense(timer, base, foot, joint);
+
+    // comp FK
+    fk_solver.Comp(param, joint, base, centroid, hand, foot);
 
     base.ori_ref   = Quaternion(1.0, 0.0, 0.0, 0.0);
     base.angle_ref = Vector3(0.0, 0.0, 0.0);
@@ -153,17 +153,7 @@ void MyRobot::Control(){
 
     Robot::Actuate(timer, base, joint);
 
-    // update marker poses for visualization
-    io_body->link(marker_index + 4)->p() = hand[0].pos_ref;
-    io_body->link(marker_index + 4)->R() = hand[0].ori_ref.matrix();
-    io_body->link(marker_index + 5)->p() = hand[1].pos_ref;
-    io_body->link(marker_index + 5)->R() = hand[1].ori_ref.matrix();
-    io_body->link(marker_index + 6)->p() = foot[0].pos_ref;
-    io_body->link(marker_index + 6)->R() = foot[0].ori_ref.matrix();
-    io_body->link(marker_index + 7)->p() = foot[1].pos_ref;
-    io_body->link(marker_index + 7)->R() = foot[1].ori_ref.matrix();
-	io_body->link(marker_index + 8)->p() = centroid.zmp;
-	io_body->link(marker_index + 9)->p() = centroid.zmp_ref;
+    UpdateMarkers(base, centroid, hand, foot);
     
 	timer.Countup();
 }

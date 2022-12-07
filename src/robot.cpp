@@ -1,6 +1,7 @@
 ﻿#include "robot.h"
 #include "footstep.h"
 #include "iksolver.h"
+#include "rollpitchyaw.h"
 
 namespace cnoid{
 namespace vnoid{
@@ -192,7 +193,7 @@ void Robot::Init(SimpleControllerIO* io, Timer& timer, vector<Joint>& joint){
         io_body->link(0)->setActuationMode(cnoid::Link::LinkPosition);
         io->enableIO(io_body->link(0));
     }
-	io->enableInput(io_body->link(0), cnoid::Link::LinkPosition);
+	io->enableInput (io_body->link(0), cnoid::Link::LinkPosition);
 
     joint_pos_filter.resize(joint.size());
 	for (int i = 0; i < joint.size(); ++i) {
@@ -244,14 +245,26 @@ void Robot::Sense(Timer& timer, Base& base, vector<Joint>& joint){
         base.pos = lnk->p();
     }
 
+	if(accel_sensor){
+		Vector3 a = accel_sensor->dv();
+		base.acc[0] = acc_filter[0](gyro_axis_x.dot(a), timer.dt);
+		base.acc[1] = acc_filter[1](gyro_axis_y.dot(a), timer.dt);
+		base.acc[2] = acc_filter[2](gyro_axis_z.dot(a), timer.dt);
+	}
 	if(gyro_sensor){
         Vector3 w = gyro_sensor->w();
         base.angvel[0] = gyro_filter[0](gyro_axis_x.dot(w), timer.dt);
         base.angvel[1] = gyro_filter[1](gyro_axis_y.dot(w), timer.dt);
         base.angvel[2] = gyro_filter[2](gyro_axis_z.dot(w), timer.dt);
     }
-	base.angle [0] += base.angvel[0]*timer.dt;
-	base.angle [1] += base.angvel[1]*timer.dt;
+
+	const double g = 9.8;
+	const double angle_correction_gain = 0.01;
+	base.angle [0] += (base.angvel[0] + angle_correction_gain*(  base.acc.y() - g*base.angle.x() ))*timer.dt;
+	base.angle [1] += (base.angvel[1] + angle_correction_gain*( -base.acc.x() - g*base.angle.y() ))*timer.dt;
+	base.angle [2] +=  base.angvel[2]*timer.dt;
+
+	base.ori = FromRollPitchYaw(base.angle);
 
 	for (int i = 0; i < joint.size(); ++i) {
 		cnoid::Link* jnt = io_body->joint(i);

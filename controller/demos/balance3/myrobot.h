@@ -1,6 +1,6 @@
 ﻿#pragma once
 
-#include "robot.h"
+#include "../src/robot_demo.h"
 #include "fksolver.h"
 #include "iksolver.h"
 #include "footstep.h"
@@ -17,7 +17,7 @@
 namespace cnoid{
 namespace vnoid{
 
-class MyRobot : public Robot{
+class MyRobot : public RobotDemo{
 public:
 	Timer          timer;
     Param          param;
@@ -34,9 +34,6 @@ public:
     Stabilizer          stabilizer;
     FkSolver            fk_solver;
     IkSolver            ik_solver;
-
-    int  marker_index;
-    int  num_markers;
 
 public:
 	virtual void  Init   (SimpleControllerIO* io);

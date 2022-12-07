@@ -56,6 +56,7 @@ public:
 	Vector3     vel_ref;    ///< reference velocity
 	Vector3     angvel;     ///< current angular velocity
 	Vector3     angvel_ref; ///< reference angular velocity
+	Vector3     acc;
 	Vector3     acc_ref;    ///< reference acceleration
 	Vector3     angacc_ref; ///< reference angular acceleration
 		
