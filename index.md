@@ -32,8 +32,8 @@ Compared to several simulation-based humanoid robot competitions held in the pas
 ## Important Dates of 2022
 
 - Website opening: mid July
-- Application deadline: August 31st.
-- Challenge period: mid July to mid November
+- Application deadline: Anytime during challenge period
+- Challenge period: Until March 18, 2023
 
 ## Application form
 
