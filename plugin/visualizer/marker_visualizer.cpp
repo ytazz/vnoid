@@ -1,5 +1,4 @@
 #include "marker_visualizer.h"
-#include "marker_item.h"
 
 #include <cnoid/MessageView>
 #include <cnoid/ItemManager>
