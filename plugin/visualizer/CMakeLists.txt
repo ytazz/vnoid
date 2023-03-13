@@ -1,0 +1,9 @@
+
+make_gettext_mofiles(CnoidVnoidMarkerVisualizerPlugin mofiles)
+choreonoid_add_plugin(CnoidVnoidMarkerVisualizerPlugin
+ marker_visualizer.cpp
+ marker_visualizer.h
+ )
+
+target_link_libraries(CnoidVnoidMarkerVisualizerPlugin CnoidBodyPlugin)
+target_link_libraries(CnoidVnoidMarkerVisualizerPlugin vnoid_lib)
