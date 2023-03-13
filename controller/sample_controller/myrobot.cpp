@@ -65,8 +65,10 @@ void MyRobot::Init(SimpleControllerIO* io){
     param.leg_com[4] = Vector3(0.0, 0.0,  0.0);
     param.leg_com[5] = Vector3(0.0, 0.0,  0.0);
 
-    param.zmp_min = Vector3(-0.1, -0.05, 0.0);
-    param.zmp_max = Vector3( 0.1,  0.05, 0.0);
+    // stabilizer uses z-movement of zmp to stabilize com height
+    // so certain admissible range in z-direction is needed
+    param.zmp_min = Vector3(-0.1, -0.05, -0.1);
+    param.zmp_max = Vector3( 0.1,  0.05,  0.1);
 
     param.Init();
 
@@ -135,9 +137,9 @@ void MyRobot::Init(SimpleControllerIO* io){
     stepping_controller.dsp_duration = 0.05;
     
     // init stabilizer
-    stabilizer.orientation_ctrl_gain_p = 20.0;
-    stabilizer.orientation_ctrl_gain_d = 20.0;
-    stabilizer.dcm_ctrl_gain = 10.0;
+    stabilizer.orientation_ctrl_gain_p = 100.0;
+    stabilizer.orientation_ctrl_gain_d = 10.0;
+    stabilizer.dcm_ctrl_gain = 2.0;
 
 }
 
@@ -205,9 +207,9 @@ void MyRobot::Control(){
     stabilizer         .Update(timer, param, footstep_buffer, centroid, base, foot);
     
     // step timing adaptation
-    Centroid centroid_pred = centroid;
-    stabilizer.Predict(timer, param, footstep_buffer, base, centroid_pred);
-    stepping_controller.AdjustTiming(timer, param, centroid_pred, footstep, footstep_buffer);
+    //Centroid centroid_pred = centroid;
+    //stabilizer.Predict(timer, param, footstep_buffer, base, centroid_pred);
+    //stepping_controller.AdjustTiming(timer, param, centroid_pred, footstep, footstep_buffer);
 
     hand[0].pos_ref = centroid.com_pos_ref + base.ori_ref*Vector3(0.0, -0.25, -0.1);
     hand[0].ori_ref = base.ori_ref;
