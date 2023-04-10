@@ -17,6 +17,42 @@
 namespace cnoid{
 namespace vnoid{
 
+MarkerVisualizerItem::ShapeInfo::ShapeInfo(){
+    mat = new SgMaterial();
+};
+
+void MarkerVisualizerItem::ShapeInfo::SetMaterial(Visualizer::Shape* shape){
+    mat->setDiffuseColor(shape->color);
+    mat->setTransparency(shape->alpha);
+}
+
+MarkerVisualizerItem::ShapeWithPoseInfo::ShapeWithPoseInfo(){
+    trans  = new SgPosTransform();
+    shape  = new SgShape();
+    trans->addChild(shape);
+    shape->setMaterial(mat);
+};
+
+void MarkerVisualizerItem::ShapeWithPoseInfo::SetPose(Visualizer::ShapeWithPose* shape){
+    trans->setTranslation(shape->pos);
+    trans->setRotation   (shape->ori);
+}
+
+MarkerVisualizerItem::LinesInfo::LinesInfo(){
+    lines = new SgLineSet();
+    vtx   = new SgVertexArray();
+    lines->setVertices(vtx);
+    lines->setMaterial(mat);
+};
+
+MarkerVisualizerItem::SphereInfo::SphereInfo(){
+    radius = 0.0f;
+};
+
+MarkerVisualizerItem::BoxInfo::BoxInfo(){
+    size = Vector3(0.0, 0.0, 0.0);
+};
+
 MarkerVisualizerItem::MarkerVisualizerItem()
 {
     ready = false;
@@ -34,56 +70,69 @@ Item* MarkerVisualizerItem::doDuplicate() const
 void MarkerVisualizerItem::Prepare(){
     sgNode = new SgPosTransform();
 
-    /*
-    SgLineSetPtr lines = new SgLineSet();
-    SgVertexArrayPtr vtxs = new SgVertexArray();
-
-    lines->setVertices(vtxs);
-    
-    vtxs->resize(6);
-    (*vtxs)[0] = Vector3f(-1.0f,  0.0f,  0.0f);
-    (*vtxs)[1] = Vector3f( 1.0f,  0.0f,  0.0f);
-    (*vtxs)[2] = Vector3f( 0.0f, -1.0f,  0.0f);
-    (*vtxs)[3] = Vector3f( 0.0f,  1.0f,  0.0f);
-    (*vtxs)[4] = Vector3f( 0.0f,  0.0f, -1.0f);
-    (*vtxs)[5] = Vector3f( 0.0f,  0.0f,  1.0f);
-    
-    lines->lineVertexIndices() =
-        { 0, 1,
-          2, 3,
-          4, 5 };
-
-    node->addChild(lines);
-    */
-
     ready = true;
 }
 
 void MarkerVisualizerItem::Sync(Visualizer::Data*  data, int iframe){
     Visualizer::Frame* fr = data->GetFrame(iframe);
 
-    while(sgLines.size() < fr->numLines){
-        sgLines        .push_back(new SgLineSet());
-        sgVtxs         .push_back(new SgVertexArray());
-        sgLineMaterials.push_back(new SgMaterial());
-        sgLines.back()->setVertices(sgVtxs.back());
-        sgLines.back()->setMaterial(sgLineMaterials.back());
-        sgNode->addChild(sgLines.back());
+    while(linesInfo.size() < fr->numLines){
+        linesInfo.push_back(LinesInfo());
+        sgNode->addChild(linesInfo.back().lines);
+    }
+    while(sphereInfo.size() < fr->numSpheres){
+        sphereInfo.push_back(SphereInfo());
+        sgNode->addChild(sphereInfo.back().trans);
+    }
+    while(boxInfo.size() < fr->numBoxes){
+        boxInfo.push_back(BoxInfo());
+        sgNode->addChild(boxInfo.back().trans);
     }
 
     for(int i = 0; i < fr->numLines; i++){
         Visualizer::Lines* lines = data->GetLines(iframe, i);
+        LinesInfo& li = linesInfo[i];
+
         Vector3f* pvtx = data->GetLineVertices(iframe, i);
         int*      pidx = data->GetLineIndices (iframe, i);
 
-        sgVtxs[i]->resize(lines->numVertices);
-        std::copy(pvtx, pvtx + lines->numVertices, sgVtxs[i]->begin());
-        sgLines[i]->lineVertexIndices() = std::vector<int>(pidx, pidx + lines->numIndices);
+        li.vtx->resize(lines->numVertices);
+        std::copy(pvtx, pvtx + lines->numVertices, li.vtx->begin());
+        li.lines->lineVertexIndices() = std::vector<int>(pidx, pidx + lines->numIndices);
 
-        sgLineMaterials[i]->setDiffuseColor(lines->color);
-        sgLineMaterials[i]->setTransparency(lines->alpha);
+        li.SetMaterial(lines);
 
-        sgLines[i]->notifyUpdate();
+        li.lines->notifyUpdate();
+    }
+    for(int i = 0; i < fr->numSpheres; i++){
+        Visualizer::Sphere* sphere = data->GetSphere(iframe, i);
+        SphereInfo& si = sphereInfo[i];
+
+        if(si.radius != sphere->radius){
+            si.mesh = meshGen.generateSphere(sphere->radius);
+            si.radius = sphere->radius;
+            si.shape->setMesh(si.mesh);
+        }
+
+        si.SetPose(sphere);
+        si.SetMaterial(sphere);
+        
+        si.trans->notifyUpdate();
+    }
+    for(int i = 0; i < fr->numBoxes; i++){
+        Visualizer::Box* box = data->GetBox(iframe, i);
+        BoxInfo& bi = boxInfo[i];
+
+        if(bi.size != box->size){
+            bi.mesh = meshGen.generateBox(box->size);
+            bi.size = box->size;
+            bi.shape->setMesh(bi.mesh);
+        }
+
+        bi.SetPose(box);
+        bi.SetMaterial(box);
+
+        bi.shape->notifyUpdate();
     }
 }
 
@@ -182,7 +231,7 @@ bool MarkerVisualizerPlugin::onTimeChanged(double time){
     if(iframe == -1)
         return false;
     
-    //printf("%d %d\n", data->numFrames, iframe);
+    printf("%d %d %f %f\n", data->numFrames, iframe, data->GetFrame(iframe)->time, time);
 
     for(auto& item : RootItem::instance()->checkedItems<MarkerVisualizerItem>()){
         item->Sync(data, iframe);

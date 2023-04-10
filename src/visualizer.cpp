@@ -18,6 +18,7 @@ Visualizer::Header::Header(){
 	numMaxFrames       = 1000;
     numMaxLines        = 10;
     numMaxSpheres      = 10;
+	numMaxBoxes        = 10;
     numMaxLineVertices = 2000;
 
     numFrames = 0;
@@ -28,7 +29,8 @@ Visualizer::Header::Header(){
 void Visualizer::Header::CalcSize(){
     szLines  = sizeof(LinesHeader) + (sizeof(Vector3f) + sizeof(int))*numMaxLineVertices;
     szSphere = sizeof(Sphere);
-    szFrame  = sizeof(FrameHeader) + numMaxLines*szLines + numMaxSpheres*szSphere;
+	szBox    = sizeof(Box);
+    szFrame  = sizeof(FrameHeader) + numMaxLines*szLines + numMaxSpheres*szSphere + numMaxBoxes*szBox;
 	szTotal  = sizeof(Header) + numMaxFrames*szFrame;
 }
 
@@ -68,6 +70,20 @@ Visualizer::Sphere* Visualizer::Data::GetSphere(int iframe, int i){
 		fr->numSpheres = i + 1;
 
 	return (Sphere*)(((byte*)fr) + sizeof(FrameHeader) + szLines*numMaxLines + szSphere*i);
+}
+
+Visualizer::Box* Visualizer::Data::GetBox(int iframe, int i){
+	Frame* fr = GetFrame(iframe);
+	if(!fr)
+		return 0;
+
+	if(i >= numMaxBoxes)
+		return 0;
+
+	if(i >= fr->numBoxes)
+		fr->numBoxes= i + 1;
+
+	return (Box*)(((byte*)fr) + sizeof(FrameHeader) + szLines*numMaxLines + szSphere*numMaxSpheres + szBox*i);
 }
 
 Vector3f* Visualizer::Data::GetLineVertices(int iframe, int i){

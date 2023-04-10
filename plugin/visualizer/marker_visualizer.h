@@ -6,6 +6,7 @@
 #include <cnoid/RootItem>
 #include <cnoid/BodyItem>
 #include <cnoid/SceneDrawables>
+#include <cnoid/MeshGenerator>
 
 #include "../../src/visualizer.h"
 
@@ -15,10 +16,46 @@ namespace vnoid{
 class MarkerVisualizerItem : public Item, public RenderableItem
 {
 public:
-    SgPosTransformPtr              sgNode;
-    std::vector<SgLineSetPtr>      sgLines;
-    std::vector<SgVertexArrayPtr>  sgVtxs;
-    std::vector<SgMaterialPtr>     sgLineMaterials;
+    struct ShapeInfo{
+        SgMaterialPtr  mat;
+
+        void SetMaterial(Visualizer::Shape* shape);
+
+        ShapeInfo();
+    };
+    struct ShapeWithPoseInfo : ShapeInfo{
+        SgPosTransformPtr  trans;
+        SgShapePtr         shape;
+        SgMeshPtr          mesh;
+
+        void SetPose(Visualizer::ShapeWithPose* shape);
+
+        ShapeWithPoseInfo();
+    };
+    struct LinesInfo : ShapeInfo{
+        SgLineSetPtr      lines;
+        SgVertexArrayPtr  vtx;
+
+        LinesInfo();
+    };
+    struct SphereInfo : ShapeWithPoseInfo{
+        float              radius;
+
+        SphereInfo();
+    };
+    struct BoxInfo : ShapeWithPoseInfo{
+        Vector3            size;
+
+        BoxInfo();
+    };
+
+    SgPosTransformPtr        sgNode;
+    std::vector<LinesInfo>   linesInfo;
+    std::vector<SphereInfo>  sphereInfo;
+    std::vector<BoxInfo>     boxInfo;
+
+    MeshGenerator meshGen;
+    
     bool  ready;
 
 public:

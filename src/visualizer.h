@@ -21,12 +21,17 @@ public:
         float  time;
         int    numLines;
         int    numSpheres;
+        int    numBoxes;
     };
     struct Frame : FrameHeader{
     };
     struct Shape{
-        Vector3f  color;
-        float     alpha;
+        Vector3f    color;
+        float       alpha;
+    };
+    struct ShapeWithPose : Shape{
+        Vector3     pos;
+        Quaternion  ori;
     };
     struct LinesHeader : Shape{
         int        numVertices;
@@ -34,20 +39,24 @@ public:
     };
     struct Lines : LinesHeader{
     };
-    struct Sphere : Shape{
-        Vector3f  pos;
+    struct Sphere : ShapeWithPose{
         float     radius;
+    };
+    struct Box : ShapeWithPose{
+        Vector3   size;
     };
     struct Header{
         int    numMaxFrames;
         int    numMaxLines;
         int    numMaxSpheres;
+        int    numMaxBoxes;
         int    numMaxLineVertices;
         int    numFrames;
         int    szTotal;
         int    szFrame;
         int    szLines;
         int    szSphere;
+        int    szBox;
 
         void CalcSize();
 
@@ -57,6 +66,7 @@ public:
         Frame*     GetFrame (int i);
         Lines*     GetLines (int iframe, int i);
         Sphere*    GetSphere(int iframe, int i);
+        Box*       GetBox   (int iframe, int i);
         Vector3f*  GetLineVertices(int iframe, int i);
         int*       GetLineIndices (int iframe, int i);
     };
