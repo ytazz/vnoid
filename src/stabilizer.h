@@ -30,19 +30,19 @@ public:
 	double  moment_ctrl_gain;          ///< gain of moment damping control
 	double  moment_ctrl_limit;         ///< movement limit of moment damping control
 	
-	/* @brief feedback gain (old formulation)
+	/* @brief feedback gain
 	 * 
 	 * PD Gains used for balance control using ZMP as control input.
-	 * Use gain matrix for more general balance control.
 	 */
-	//double  orientation_ctrl_gain_p;   ///< p gain of orientation control
-	//double  orientation_ctrl_gain_d;   ///< d gain of orientation control
-
 	double  orientation_ctrl_gain_p;
 	double  orientation_ctrl_gain_d;
+
 	double  dcm_ctrl_gain;
 	double  recovery_moment_limit;
 	double  dcm_deviation_limit;
+	double  base_tilt_rate;
+	double  base_tilt_damping_p;
+	double  base_tilt_damping_d;
 
 	/* @brief feedback gain matrix
 	 *
@@ -90,6 +90,8 @@ public:
 	Vector3     drot[2];   ///< foot orientation modification
 
 public:
+	void CalcBaseTilt(const Timer& timer, const Param& param, Base& base, Vector3 theta, Vector3 omega);
+	
 	/**
 	 *  @brief calculates 1-step update of DCM dynamics.
 	 * 

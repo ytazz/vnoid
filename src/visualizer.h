@@ -36,6 +36,7 @@ public:
     struct LinesHeader : Shape{
         int        numVertices;
         int        numIndices;
+        float      width;
     };
     struct Lines : LinesHeader{
     };

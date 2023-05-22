@@ -116,6 +116,9 @@ void MyRobot::Init(SimpleControllerIO* io){
     stabilizer.orientation_ctrl_gain_p = 100.0;
     stabilizer.orientation_ctrl_gain_d = 10.0;
     stabilizer.dcm_ctrl_gain           = 2.0;
+    stabilizer.base_tilt_rate          = 2.0;
+    stabilizer.base_tilt_damping_p     = 10.0;
+    stabilizer.base_tilt_damping_d     = 5.0;
 
     footstep_buffer.steps.resize(2);
     footstep_buffer.steps[0].zmp = Vector3(0.0, 0.0, 0.0);

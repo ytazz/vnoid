@@ -46,11 +46,11 @@ MarkerVisualizerItem::LinesInfo::LinesInfo(){
 };
 
 MarkerVisualizerItem::SphereInfo::SphereInfo(){
-    radius = 0.0f;
+    radius = -1.0f;
 };
 
 MarkerVisualizerItem::BoxInfo::BoxInfo(){
-    size = Vector3(0.0, 0.0, 0.0);
+    size = Vector3(-1.0, -1.0, -1.0);
 };
 
 MarkerVisualizerItem::MarkerVisualizerItem()
@@ -100,6 +100,7 @@ void MarkerVisualizerItem::Sync(Visualizer::Data*  data, int iframe){
         std::copy(pvtx, pvtx + lines->numVertices, li.vtx->begin());
         li.lines->lineVertexIndices() = std::vector<int>(pidx, pidx + lines->numIndices);
 
+        li.lines->setLineWidth(lines->width);
         li.SetMaterial(lines);
 
         li.lines->notifyUpdate();
@@ -231,7 +232,7 @@ bool MarkerVisualizerPlugin::onTimeChanged(double time){
     if(iframe == -1)
         return false;
     
-    printf("%d %d %f %f\n", data->numFrames, iframe, data->GetFrame(iframe)->time, time);
+    //printf("%d %d %f %f\n", data->numFrames, iframe, data->GetFrame(iframe)->time, time);
 
     for(auto& item : RootItem::instance()->checkedItems<MarkerVisualizerItem>()){
         item->Sync(data, iframe);
