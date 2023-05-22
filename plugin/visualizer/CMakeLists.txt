@@ -5,5 +5,5 @@ choreonoid_add_plugin(CnoidVnoidMarkerVisualizerPlugin
  marker_visualizer.h
  )
 
-target_link_libraries(CnoidVnoidMarkerVisualizerPlugin CnoidBodyPlugin)
-target_link_libraries(CnoidVnoidMarkerVisualizerPlugin vnoid_lib)
+target_link_libraries(CnoidVnoidMarkerVisualizerPlugin PRIVATE CnoidBodyPlugin)
+target_link_libraries(CnoidVnoidMarkerVisualizerPlugin PRIVATE vnoid_lib)
