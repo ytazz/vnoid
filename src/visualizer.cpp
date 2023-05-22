@@ -55,7 +55,10 @@ Visualizer::Lines*  Visualizer::Data::GetLines(int iframe, int i){
 	if(i >= fr->numLines)
 		fr->numLines = i + 1;
 
-	return (Lines*)(((byte*)fr) + sizeof(FrameHeader) + szLines*i);
+	Lines* lines = (Lines*)(((byte*)fr) + sizeof(FrameHeader) + szLines*i);
+	//new(lines) Lines();
+	
+	return lines;
 }
 
 Visualizer::Sphere* Visualizer::Data::GetSphere(int iframe, int i){
@@ -69,7 +72,9 @@ Visualizer::Sphere* Visualizer::Data::GetSphere(int iframe, int i){
 	if(i >= fr->numSpheres)
 		fr->numSpheres = i + 1;
 
-	return (Sphere*)(((byte*)fr) + sizeof(FrameHeader) + szLines*numMaxLines + szSphere*i);
+	Sphere* sphere = (Sphere*)(((byte*)fr) + sizeof(FrameHeader) + szLines*numMaxLines + szSphere*i);
+	//new(sphere) Sphere();
+	return sphere;
 }
 
 Visualizer::Box* Visualizer::Data::GetBox(int iframe, int i){
@@ -83,7 +88,9 @@ Visualizer::Box* Visualizer::Data::GetBox(int iframe, int i){
 	if(i >= fr->numBoxes)
 		fr->numBoxes= i + 1;
 
-	return (Box*)(((byte*)fr) + sizeof(FrameHeader) + szLines*numMaxLines + szSphere*numMaxSpheres + szBox*i);
+	Box* box = (Box*)(((byte*)fr) + sizeof(FrameHeader) + szLines*numMaxLines + szSphere*numMaxSpheres + szBox*i);
+	//new(box) Box();
+	return box;
 }
 
 Vector3f* Visualizer::Data::GetLineVertices(int iframe, int i){

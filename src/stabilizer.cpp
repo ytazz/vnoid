@@ -19,7 +19,11 @@ Stabilizer::Stabilizer(){
 	// default gain setting
 	orientation_ctrl_gain_p = 10.0;
 	orientation_ctrl_gain_d = 10.0;
-	dcm_ctrl_gain           = 10.0;
+	dcm_ctrl_gain           =  2.0;
+
+	base_tilt_rate = 0.0;
+	base_tilt_damping_p = 0.1;
+	base_tilt_damping_d = 0.1;
 
 	//
 	recovery_moment_limit = 100.0;
@@ -143,6 +147,26 @@ void Stabilizer::Predict(const Timer& timer, const Param& param, const Footstep&
 	}
 }
 
+void Stabilizer::CalcBaseTilt(const Timer& timer, const Param& param, Base& base, Vector3 theta, Vector3 omega){
+	// desired angular acceleration for regulating orientation (in local coordinate)
+	Vector3 omegadd_local(
+		-(orientation_ctrl_gain_p*theta.x() + orientation_ctrl_gain_d*omega.x()),
+		-(orientation_ctrl_gain_p*theta.y() + orientation_ctrl_gain_d*omega.y()),
+		0.0
+	);
+
+	// 
+	Vector3 omegadd_base(
+		-base_tilt_rate*omegadd_local.x() - base_tilt_damping_p*base.angle_ref.x() - base_tilt_damping_d*base.angvel_ref.x(),
+		-base_tilt_rate*omegadd_local.y() - base_tilt_damping_p*base.angle_ref.y() - base_tilt_damping_d*base.angvel_ref.y(),
+		 0.0
+	);
+
+	base.angle_ref  += base.angvel_ref*timer.dt;
+	base.ori_ref = FromRollPitchYaw(base.angle_ref);
+	base.angvel_ref += omegadd_base*timer.dt;
+}
+
 void Stabilizer::CalcDcmDynamics(const Timer& timer, const Param& param, const Footstep& footstep_buffer, const Base& base, Vector3 theta, Vector3 omega, Centroid& centroid){
 	const Step& stb0 = footstep_buffer.steps[0];
     const Step& stb1 = footstep_buffer.steps[1];
@@ -157,38 +181,25 @@ void Stabilizer::CalcDcmDynamics(const Timer& timer, const Param& param, const F
 
 	Vector3 offset(0.0, 0.0, param.com_height);
 
-	// calc moment for regulating orientation
-	Vector3 Ld = base.ori_ref * Vector3(
-		-param.nominal_inertia.x()*(orientation_ctrl_gain_p*theta.x() + orientation_ctrl_gain_d*omega.x()),
-		-param.nominal_inertia.y()*(orientation_ctrl_gain_p*theta.y() + orientation_ctrl_gain_d*omega.y()),
-		//-param.nominal_inertia.z()*(/*orientation_ctrl_gain_p*theta.z() + */1.0*orientation_ctrl_gain_d*omega.z())
+	// desired angular acceleration for regulating orientation (in local coordinate)
+	Vector3 omegadd_local(
+		-(orientation_ctrl_gain_p*theta.x() + orientation_ctrl_gain_d*omega.x()),
+		-(orientation_ctrl_gain_p*theta.y() + orientation_ctrl_gain_d*omega.y()),
+		//-(orientation_ctrl_gain_p*theta.z() + orientation_ctrl_gain_d*omega.z())
 		0.0
 	);
-
-	// safe to limit recovery moment
+	// desired moment (in local coordinate)
+	Vector3 Ld_local(
+		param.nominal_inertia.x()*omegadd_local.x(),
+		param.nominal_inertia.y()*omegadd_local.y(),
+		param.nominal_inertia.z()*omegadd_local.z()
+	);
+	// limit recovery moment for safety
 	for(int i = 0; i < 3; i++){
-		Ld[i] = std::min(std::max(-recovery_moment_limit, Ld[i]), recovery_moment_limit);
+		Ld_local[i] = std::min(std::max(-recovery_moment_limit, Ld_local[i]), recovery_moment_limit);
 	}
-
-	/*
-	// test code. never mind!
-	Vector3 r = centroid.com_pos_ref - stb0.zmp;
-	Vector3 tz = r/r.norm();
-	Vector3 tx;
-	Vector3 ty(0.0, 1.0, 0.0);
-	tx = ty.cross(tz);
-	ty = tz.cross(tx);
-
-	Eigen::Matrix<double,3,2> S;
-	S.col(0) = tx;
-	S.col(1) = ty;
-	Matrix3 rc;
-	rc(0,0) =  0.0;   rc(0,1) = -r.z(); rc(0,2) =  r.y();
-	rc(1,0) =  r.z(); rc(1,1) =  0.0;   rc(1,2) = -r.x();
-	rc(2,0) = -r.y(); rc(2,1) =  r.x(); rc(2,2) =  0.0;
-	Matrix2 tmp = S.transpose()*rc*S;
-	Vector3 delta = -(S*tmp.inverse()*S.transpose())*((T/m)*Ld);
-	*/
+	// desired moment (in global coordinate);
+	Vector3 Ld = base.ori_ref * Ld_local;
 
 	// virtual disturbance applied to DCM dynamics to generate desired recovery moment
 	Vector3 delta = Vector3(-T_mh*Ld.y(), T_mh*Ld.x(), 0.0);
@@ -235,9 +246,14 @@ void Stabilizer::Update(const Timer& timer, const Param& param, const Footstep& 
 	// calc zmp from forces
     CalcZmp(param, centroid, foot);
 
+	// error between desired and actual base link orientation
 	Vector3 theta = base.angle  - base.angle_ref;
 	Vector3 omega = base.angvel - base.angvel_ref;
+
+	// calc base link tilt
+	CalcBaseTilt(timer, param, base, theta, omega);
 	
+	// calc dcm and zmp 
 	CalcDcmDynamics(timer, param, footstep_buffer, base, theta, omega, centroid);
 
 	// calc desired force applied to CoM
