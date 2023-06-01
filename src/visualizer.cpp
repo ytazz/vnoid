@@ -9,6 +9,8 @@
 # include <unistd.h>
 #endif
 
+#include <stdint.h>
+
 namespace cnoid{
 namespace vnoid{
 
@@ -41,7 +43,7 @@ Visualizer::Frame*  Visualizer::Data::GetFrame(int iframe){
 	if(iframe >= numFrames)
 		numFrames = iframe + 1;
 
-	return (Frame*)(((byte*)this) + sizeof(Header) + szFrame*iframe);
+	return (Frame*)(((uint8_t*)this) + sizeof(Header) + szFrame*iframe);
 }
 
 Visualizer::Lines*  Visualizer::Data::GetLines(int iframe, int i){
@@ -55,7 +57,7 @@ Visualizer::Lines*  Visualizer::Data::GetLines(int iframe, int i){
 	if(i >= fr->numLines)
 		fr->numLines = i + 1;
 
-	Lines* lines = (Lines*)(((byte*)fr) + sizeof(FrameHeader) + szLines*i);
+	Lines* lines = (Lines*)(((uint8_t*)fr) + sizeof(FrameHeader) + szLines*i);
 	//new(lines) Lines();
 	
 	return lines;
@@ -72,7 +74,7 @@ Visualizer::Sphere* Visualizer::Data::GetSphere(int iframe, int i){
 	if(i >= fr->numSpheres)
 		fr->numSpheres = i + 1;
 
-	Sphere* sphere = (Sphere*)(((byte*)fr) + sizeof(FrameHeader) + szLines*numMaxLines + szSphere*i);
+	Sphere* sphere = (Sphere*)(((uint8_t*)fr) + sizeof(FrameHeader) + szLines*numMaxLines + szSphere*i);
 	//new(sphere) Sphere();
 	return sphere;
 }
@@ -88,7 +90,7 @@ Visualizer::Box* Visualizer::Data::GetBox(int iframe, int i){
 	if(i >= fr->numBoxes)
 		fr->numBoxes= i + 1;
 
-	Box* box = (Box*)(((byte*)fr) + sizeof(FrameHeader) + szLines*numMaxLines + szSphere*numMaxSpheres + szBox*i);
+	Box* box = (Box*)(((uint8_t*)fr) + sizeof(FrameHeader) + szLines*numMaxLines + szSphere*numMaxSpheres + szBox*i);
 	//new(box) Box();
 	return box;
 }
@@ -98,7 +100,7 @@ Vector3f* Visualizer::Data::GetLineVertices(int iframe, int i){
 	if(!lines)
 		return 0;
 
-	return (Vector3f*)((byte*)lines + sizeof(LinesHeader));
+	return (Vector3f*)((uint8_t*)lines + sizeof(LinesHeader));
 }
 
 int* Visualizer::Data::GetLineIndices(int iframe, int i){
@@ -106,7 +108,7 @@ int* Visualizer::Data::GetLineIndices(int iframe, int i){
 	if(!lines)
 		return 0;
 
-	return (int*)((byte*)lines + sizeof(LinesHeader) + sizeof(Vector3f)*numMaxLineVertices);
+	return (int*)((uint8_t*)lines + sizeof(LinesHeader) + sizeof(Vector3f)*numMaxLineVertices);
 }
 
 Visualizer::Visualizer(){

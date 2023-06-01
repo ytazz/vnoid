@@ -73,7 +73,11 @@ public:
     };
 
     Header  header;
+#ifdef _WIN32
     void*   file;
+#else
+    int     file;
+#endif    
 	Data*   data;
 	
 public:

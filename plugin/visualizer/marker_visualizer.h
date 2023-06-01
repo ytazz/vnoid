@@ -75,7 +75,11 @@ class MarkerVisualizerPlugin : public Plugin
 public:
     ScopedConnectionSet connections;
 
+#ifdef _WIN32
     void*  file;
+#else
+    int    file;
+#endif
 	Visualizer::Data*  data;
 
 public:
