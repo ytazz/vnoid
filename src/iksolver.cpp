@@ -9,6 +9,73 @@ namespace vnoid{
 const double pi = 3.14159265358979;
 
 void IkSolver::CompLegIk(const Vector3& pos, const Quaternion& ori, double l1, double l2, double* q){
+    // hip pitch and knee pitch from trigonometrics
+    double d = pos.norm();
+    double c = (l1*l1 + l2*l2 - d*d)/(2*l1*l2);
+    double beta;
+    
+    //  singularity: too close
+    if(c > 1.0){
+        beta     = 0.0;
+    }
+    //  singularity: too far
+    else if(c < -1.0){
+        beta     = pi;
+    }
+    //  nonsingular
+    else{
+        beta  = acos(c);
+    }
+
+    q[3] = pi - beta;
+
+    Quaternion qinv =   ori.conjugate();
+    Vector3    phat = -(qinv*pos);
+    Quaternion qhat =   qinv;
+
+    // ankle pitch
+    Vector3 phatd(-l1*sin(q[3]), 0.0, l1*cos(q[3]) + l2);
+    double  c2 = phat.x()/sqrt(phatd.x()*phatd.x() + phatd.z()*phatd.z());
+    double  gamma;
+    if(c2 > 1.0){
+        gamma = 0.0;
+    }
+    else if(c2 < -1.0){
+        gamma = pi;
+    }
+    else{
+        gamma = acos(c2);
+    }
+
+    double alpha = atan2(phatd.z(), phatd.x());
+    q[4] = -alpha + gamma;
+    
+    // hip pos expressed in ankle pitch local
+    Vector3 phatdd = AngleAxis(-q[4], Vector3::UnitY())*phatd;
+
+    // ankle roll
+    q[5] = -atan2(phat.z(), phat.y())
+          + atan2(phatdd.z(), phatdd.y());
+    if(q[5] >  pi) q[5] -= 2.0*pi;
+    if(q[5] < -pi) q[5] += 2.0*pi;
+
+    // desired hip rotation
+    Quaternion qyy(AngleAxis(q[3] + q[4], Vector3::UnitY()));
+    Quaternion qyyx   = qyy*AngleAxis(q[5], Vector3::UnitX());
+    Quaternion qhip   = ori*qyyx.conjugate();
+    Quaternion qzquad(AngleAxis(pi/2.0, Vector3::UnitZ()));
+
+    // convert it to roll-pitch-yaw
+    Vector3 angle_hip = ToRollPitchYaw(qzquad*qhip*qzquad.conjugate());
+
+    // then wrist angles are determined
+    q[0] =  angle_hip.z();
+    q[1] =  angle_hip.y();
+    q[2] = -angle_hip.x();
+}
+
+// note: the following IK code is wrong; you cannot determine hip yaw first. consider why!
+void IkSolver::CompLegIkOld(const Vector3& pos, const Quaternion& ori, double l1, double l2, double* q){
     Vector3 angle = ToRollPitchYaw(ori);
 
     // hip yaw is directly determined from foot yaw

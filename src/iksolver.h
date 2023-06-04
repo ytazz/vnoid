@@ -35,6 +35,9 @@ public:
      **/
 	void CompLegIk(const Vector3& pos, const Quaternion& ori, double l1, double l2, double* q);
 
+    /// old implementation which turned out to be incorrect. left here for educational purpose...
+    void CompLegIkOld(const Vector3& pos, const Quaternion& ori, double l1, double l2, double* q);
+
     /** @brief IK from shoulder to wrist
      *
      *  @param pos    desired wrist position relative to shoulder
