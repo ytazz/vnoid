@@ -5,10 +5,9 @@
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/2xOmlHx2b4U" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-# Challenge 2023
+# Challenge 2022
 
-<!--  -->
-Under construction. Information is tentative.
+<!-- Under construction. Information is tentative. -->
 
 ## Aim of this challenge
 
@@ -30,20 +29,18 @@ Compared to several simulation-based humanoid robot competitions held in the pas
   Submitted data will be checked by the steering committee if it conforms with the regulation,
    and if qualified, will appear in the list of qualified submissions shown in this webpage.
 
-## Important Dates of 2023
+## Important Dates of 2022
 
 - Website opening: mid July
-- Application deadline: T.B.D.
-- Preliminary Competition Event: November 11, 2023
-- Main Competition Event: March 16, 2024
-- Challenge period: Until March 16, 2024
+- Application deadline: Anytime during challenge period
+- Challenge period: Until March 18, 2023
 
 ## Application form
 
-Now being prepared.
 <!--
-[Here](https://docs.google.com/forms/d/e/1FAIpQLSdFkUbLTEVpoHGqvfrTeW59-84Kaf-RCNaI9FLpQUu1h0EpCQ/viewform?usp=sf_link)
+Now being prepared.
 -->
+[Here](https://docs.google.com/forms/d/e/1FAIpQLSdFkUbLTEVpoHGqvfrTeW59-84Kaf-RCNaI9FLpQUu1h0EpCQ/viewform?usp=sf_link)
 
 ## Challenge Themes
 
@@ -52,13 +49,9 @@ Now being prepared.
 The robot traverses the athletic field from the starting position to the goal.
 Performance is evaluated by reached landmark and elapsed simulation time.
 
-<!--
 ![field](fig/field_athletics2022.png "Athletics Field")
--->
 
-<!--
 - [Results](https://ytazz.github.io/vnoid/results_athletics2022.html)
--->
 
 ### Short track
 
@@ -67,18 +60,14 @@ Performance is evaluated by elapsed simluation time while the robot passes the s
 
 ![field](fig/field_shorttrack2022.png "Short-track Field")
 
-<!--
 - [Results](https://ytazz.github.io/vnoid/results_shorttrack2022.html)
--->
 
-<!--
 ### Free-style performance
 
 The robot performs something extraordinary.
 How to evaluate the quality of free-tyle performance is T.B.D.
 
 ![field](fig/field_performance2022.png "Free-style Performance Field")
--->
 
 ## Regulation
 
@@ -140,4 +129,3 @@ Each team designs a robot model and a controller that can be loaded and run on C
 
 ## Old pages
 - [Challenge 2021 page](https://ytazz.github.io/vnoid/index2021.html)
-- [Challenge 2022 page](https://ytazz.github.io/vnoid/index2022.html)
