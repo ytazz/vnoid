@@ -52,6 +52,11 @@ Now being prepared.
 The robot traverses the athletic field from the starting position to the goal.
 Performance is evaluated by reached landmark and elapsed simulation time.
 
+### Dance
+
+The robot performs dancing that requires whole-body motion.
+How to evaluate the quality of the dance performance is T.B.D.
+
 <!--
 ![field](fig/field_athletics2022.png "Athletics Field")
 -->
