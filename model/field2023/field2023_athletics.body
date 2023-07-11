@@ -1,0 +1,15 @@
+format: ChoreonoidBody
+formatVersion: 1.0
+name: Floor
+links:
+  -
+    name: Base
+    translation: [ 0, 0, 0 ]
+    material: Ground
+    elements:
+      - type: Collision
+        resource:
+          uri: "field2023_athletics2.wrl"
+      - type: Visual
+        resource:
+          uri: "field2023_athletics2.wrl"
