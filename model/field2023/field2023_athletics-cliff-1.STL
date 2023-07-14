@@ -2,15 +2,15 @@ solid field2023_athletics-cliff-1
    facet normal -1.000000e+00 0.000000e+00 0.000000e+00
       outer loop
          vertex 1.285000e+01 -1.350000e+00 -1.000000e+00
-         vertex 1.285000e+01 -1.350000e+00 1.702975e-09
+         vertex 1.285000e+01 -1.350000e+00 1.703056e-09
          vertex 1.285000e+01 -6.500000e-01 -1.000000e+00
       endloop
    endfacet
    facet normal -1.000000e+00 0.000000e+00 0.000000e+00
       outer loop
          vertex 1.285000e+01 -6.500000e-01 -1.000000e+00
-         vertex 1.285000e+01 -1.350000e+00 1.702975e-09
-         vertex 1.285000e+01 -6.500000e-01 1.702975e-09
+         vertex 1.285000e+01 -1.350000e+00 1.703056e-09
+         vertex 1.285000e+01 -6.500000e-01 1.703056e-09
       endloop
    endfacet
    facet normal -0.000000e+00 0.000000e+00 -1.000000e+00
@@ -57,16 +57,16 @@ solid field2023_athletics-cliff-1
    endfacet
    facet normal 0.000000e+00 0.000000e+00 1.000000e+00
       outer loop
-         vertex 1.404186e+01 -6.500000e-01 1.702975e-09
-         vertex 1.285000e+01 -6.500000e-01 1.702975e-09
-         vertex 1.404186e+01 -1.350000e+00 1.702975e-09
+         vertex 1.404186e+01 -6.500000e-01 1.703056e-09
+         vertex 1.285000e+01 -6.500000e-01 1.703056e-09
+         vertex 1.404186e+01 -1.350000e+00 1.703056e-09
       endloop
    endfacet
    facet normal 0.000000e+00 0.000000e+00 1.000000e+00
       outer loop
-         vertex 1.404186e+01 -1.350000e+00 1.702975e-09
-         vertex 1.285000e+01 -6.500000e-01 1.702975e-09
-         vertex 1.285000e+01 -1.350000e+00 1.702975e-09
+         vertex 1.404186e+01 -1.350000e+00 1.703056e-09
+         vertex 1.285000e+01 -6.500000e-01 1.703056e-09
+         vertex 1.285000e+01 -1.350000e+00 1.703056e-09
       endloop
    endfacet
    facet normal 0.000000e+00 -1.000000e+00 0.000000e+00
@@ -127,15 +127,15 @@ solid field2023_athletics-cliff-1
    endfacet
    facet normal 0.000000e+00 -1.000000e+00 0.000000e+00
       outer loop
-         vertex 1.404186e+01 -1.350000e+00 1.702975e-09
-         vertex 1.285000e+01 -1.350000e+00 1.702975e-09
+         vertex 1.404186e+01 -1.350000e+00 1.703056e-09
+         vertex 1.285000e+01 -1.350000e+00 1.703056e-09
          vertex 1.414050e+01 -1.350000e+00 -7.512829e-02
       endloop
    endfacet
    facet normal 0.000000e+00 -1.000000e+00 0.000000e+00
       outer loop
          vertex 1.414050e+01 -1.350000e+00 -7.512829e-02
-         vertex 1.285000e+01 -1.350000e+00 1.702975e-09
+         vertex 1.285000e+01 -1.350000e+00 1.703056e-09
          vertex 1.285000e+01 -1.350000e+00 -1.000000e+00
       endloop
    endfacet
@@ -219,13 +219,13 @@ solid field2023_athletics-cliff-1
    facet normal 0.000000e+00 1.000000e+00 0.000000e+00
       outer loop
          vertex 1.285000e+01 -6.500000e-01 -1.000000e+00
-         vertex 1.285000e+01 -6.500000e-01 1.702975e-09
-         vertex 1.404186e+01 -6.500000e-01 1.702975e-09
+         vertex 1.285000e+01 -6.500000e-01 1.703056e-09
+         vertex 1.404186e+01 -6.500000e-01 1.703056e-09
       endloop
    endfacet
    facet normal 0.000000e+00 1.000000e+00 -0.000000e+00
       outer loop
-         vertex 1.404186e+01 -6.500000e-01 1.702975e-09
+         vertex 1.404186e+01 -6.500000e-01 1.703056e-09
          vertex 1.414050e+01 -6.500000e-01 -7.512829e-02
          vertex 1.285000e+01 -6.500000e-01 -1.000000e+00
       endloop
@@ -365,15 +365,15 @@ solid field2023_athletics-cliff-1
    endfacet
    facet normal 6.059135e-01 0.000000e+00 7.955306e-01
       outer loop
-         vertex 1.404186e+01 -6.500000e-01 1.702975e-09
-         vertex 1.404186e+01 -1.350000e+00 1.702975e-09
+         vertex 1.404186e+01 -6.500000e-01 1.703056e-09
+         vertex 1.404186e+01 -1.350000e+00 1.703056e-09
          vertex 1.414050e+01 -6.500000e-01 -7.512829e-02
       endloop
    endfacet
    facet normal 6.059135e-01 0.000000e+00 7.955306e-01
       outer loop
          vertex 1.414050e+01 -6.500000e-01 -7.512829e-02
-         vertex 1.404186e+01 -1.350000e+00 1.702975e-09
+         vertex 1.404186e+01 -1.350000e+00 1.703056e-09
          vertex 1.414050e+01 -1.350000e+00 -7.512829e-02
       endloop
    endfacet
