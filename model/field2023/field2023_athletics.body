@@ -278,27 +278,27 @@ links:
             geometry: { type: Box, size: [0.04, 0.04, 1.03] }
             appearance: { material: {diffuse: [ 0.9, 0.9, 0 ]}}
 extraJoints:
-  -
-    link1Name: Link2
-    link2Name: MovablePlate
-    jointType: piston
-    jointAxis: [ 0, 1, 0]
-    link1LocalPos: [0, 0, -0.495]
-    link2LocalPos: [-1.5, 0.7, 0]
+  # -
+  #   link1Name: Link2
+  #   link2Name: MovablePlate
+  #   jointType: piston
+  #   jointAxis: [ 0, 1, 0]
+  #   link1LocalPos: [0, 0, -0.495]
+  #   link2LocalPos: [-1.5, 0.7, 0]
   -
     link1Name: Link3
     link2Name: MovablePlate
     jointType: piston
     jointAxis: [ 0, 1, 0]
-    link1LocalPos: [0, 0, -0.99]
-    link2LocalPos: [1.5, -0.7, 0]
-  -
-    link1Name: Link4
-    link2Name: MovablePlate
-    jointType: piston
-    jointAxis: [ 0, 1, 0]
-    link1LocalPos: [0, 0, -0.99]
-    link2LocalPos: [1.5, 0.7, 0]
+    link1LocalPos: [0, 0.02, -0.99]
+    link2LocalPos: [2.0, 0, 0]
+  # -
+  #   link1Name: Link4
+  #   link2Name: MovablePlate
+  #   jointType: piston
+  #   jointAxis: [ 0, 1, 0]
+  #   link1LocalPos: [0, 0, -0.99]
+  #   link2LocalPos: [1.5, 0.7, 0]
 
 body_handlers: SwingBridgeHandler    
 

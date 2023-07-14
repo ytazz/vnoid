@@ -6,6 +6,8 @@ using namespace std;
 using namespace cnoid;
 using fmt::format;
 
+#define TWO_LINK_CONSTRAINT 1
+
 class SwingBridgeHandler : public LinkedJointHandler
 {
 public:
@@ -29,10 +31,14 @@ BodyHandler* SwingBridgeHandler::clone()
 
 bool SwingBridgeHandler::initialize(Body* body, std::ostream& os)
 {
+#if TWO_LINK_CONSTRAINT
+    const std::vector<std::string> names = {"Link3", "MovablePlate"};
+#else
     const std::vector<std::string> names = {"Link2",
                                             "Link3",
                                             "Link4",
                                             "MovablePlate"};
+#endif
     for (int i = 0; i < 3; ++i) {
         joints[i] = body->link(names[i]);
         if (!joints[i]) {
@@ -47,6 +53,16 @@ bool SwingBridgeHandler::initialize(Body* body, std::ostream& os)
 bool SwingBridgeHandler::updateLinkedJointDisplacements(
     Link* masterJoint, double masterJointDisplacement)
 {
+#if TWO_LINK_CONSTRAINT
+    if (masterJoint) {
+        masterJoint->q() = masterJointDisplacement;
+    }
+    if (!masterJoint || masterJoint == joints[0]) {
+        joints[1]->q() = joints[0]->q();
+    } else if (masterJoint == joints[1]) {
+        joints[0]->q() = joints[1]->q();
+    }
+#else
     if (masterJoint) {
         masterJoint->q() = masterJointDisplacement;
     }
@@ -67,5 +83,6 @@ bool SwingBridgeHandler::updateLinkedJointDisplacements(
         joints[1]->q() = joints[3]->q();
         joints[2]->q() = joints[3]->q();
     }
+#endif
     return true;
 }
