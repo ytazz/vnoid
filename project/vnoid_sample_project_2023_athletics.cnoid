@@ -29,7 +29,9 @@ items:
               1, 0, 0, 
               0, 1, 0, 
               0, 0, 1 ]
-            jointPositions: [  ]
+            jointPositions: [ 0, 0, 0, 0, 0 ]
+            jointDisplacements: [ 0, 0, 0, 0, 0 ] 
+            initialJointPositions: [ 0, 0, 0, 0, 0 ]  
             initialRootPosition: [ 0, 0, 0 ]
             initialRootAttitude: [ 
               1, 0, 0, 
