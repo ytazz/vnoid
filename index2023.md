@@ -147,9 +147,9 @@ Each team designs a robot model and a controller that can be loaded and run on C
 ## Committee
 
 - HVAC2023 is hosted by the Special Interest Group on Humanoid Robotics of the Robotics Society of Japan (RSJ-SIG-HR).
-- HVAC2023 is run by volunteers including members of RSJ-SIG-HR.
--- Commitee members
---- Yuichi Tazaki (Kobe University)
+- HVAC2023 is run by volunteers consisting of members and non-members of RSJ-SIG-HR.
+  - Commitee members
+    - Yuichi Tazaki (Kobe University)
 
 ## Asking Questions
 - Post your question at [https://github.com/ytazz/vnoid/discussions](https://github.com/ytazz/vnoid/discussions)
