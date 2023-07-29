@@ -56,9 +56,7 @@ Now being prepared.
 The robot traverses the athletic field from the starting position to the goal.
 Performance is evaluated by reached landmark and elapsed simulation time.
 
-<!--
-![field](fig/field_athletics2022.png "Athletics Field")
--->
+![field](fig/field_athletics2023.png "Athletics Field")
 
 ### Dance
 
