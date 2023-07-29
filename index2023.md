@@ -97,8 +97,11 @@ How to evaluate the quality of free-tyle performance is T.B.D.
 
 Please see the following document for detailed regulations.
 Regulations are tentative and subject to change.
-- [English version](https://docs.google.com/document/d/1IByD9HIQXkZe2DvtmmWsXEv41ggnn6dhuJRX_RMjAMU/edit?usp=sharing)
-- [Japanese version](https://docs.google.com/document/d/1ogiDxNIxWfxW_FQZx8znWPebEcD6XJPvIECpy_ovViE/edit?usp=sharing)
+- [English version] Being prepared.
+- [共通レギュレーション](https://docs.google.com/document/d/1dcAGtvMtwe-3d4sP9VaLWPo771_S5pBR--lq0CypRls/edit?usp=sharing)
+- [アスレチック](https://docs.google.com/document/d/1ib7GlNOn1qRKZZ-hGxog0hHFQIQzdH84j6EV4cKOJnc/edit?usp=sharing)
+- [ダンス](https://docs.google.com/document/d/1AZ8EWB1Y8ITu5elp3QQBQHv5C-FL7t1HwnD2UbKIIa0/edit?usp=sharing)
+- [短距離](https://docs.google.com/document/d/1hnAQm6T4lx1NdhgrTaBNoMrfIc3fg87qDnvxAWstkNM/edit?usp=sharing)
 
 ### Regulations overview
 
@@ -156,8 +159,8 @@ Each team designs a robot model and a controller that can be loaded and run on C
     - Tomomichi Sugihara
     - Masaki Murooka
     - Kenji Hashimoto
-    - Yohei Kakiuchi
     - Ikuo Mizuuchi
+    - Yohei Kakiuchi
     - Shin'ichiro Nakaoka
 
 
