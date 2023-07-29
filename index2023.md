@@ -61,7 +61,9 @@ Performance is evaluated by reached landmark and elapsed simulation time.
 ### Dance
 
 The robot performs dancing that requires whole-body motion.
-How to evaluate the quality of the dance performance is T.B.D.
+Dance performance is evaluated in terms of both artistic quality and technical quality.
+
+![robots](fig/dance2023.png "Robot models used for dance performance")
 
 <!--
 - [Results](https://ytazz.github.io/vnoid/results_athletics2022.html)
