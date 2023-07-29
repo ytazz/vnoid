@@ -44,7 +44,7 @@ Compared to several simulation-based humanoid robot competitions held in the pas
 Now being prepared.
 -->
 
-[Here](https://docs.google.com/forms/d/e/1FAIpQLScJD0zL3r_wv2M09Hj_TMIfLwAr0-pc8-OSdCSNlDXvBhAdZg/viewform?usp=sf_link)
+-[Here](https://docs.google.com/forms/d/e/1FAIpQLScJD0zL3r_wv2M09Hj_TMIfLwAr0-pc8-OSdCSNlDXvBhAdZg/viewform?usp=sf_link)
 
 <!--
 2022
