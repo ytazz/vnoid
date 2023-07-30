@@ -7,8 +7,9 @@
 
 # Challenge 2023
 
-<!--  -->
+<!--
 Under construction. Information is tentative.
+-->
 
 ## Aim of this challenge
 
