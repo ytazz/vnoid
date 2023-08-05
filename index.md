@@ -34,7 +34,7 @@ Compared to several simulation-based humanoid robot competitions held in the pas
 ## Important Dates of 2023
 
 - Website opening: August
-- Application deadline: T.B.D.
+- Application deadline: September 15, 2023 (application beyond deadline is welcome)
 - Preliminary Competition Event: November 11, 2023
 - Main Competition Event: March 16, 2024
 - Challenge period: Until March 16, 2024
