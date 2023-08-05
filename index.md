@@ -7,8 +7,9 @@
 
 # Challenge 2023
 
-<!--  -->
+<!--
 Under construction. Information is tentative.
+-->
 
 ## Aim of this challenge
 
@@ -40,9 +41,11 @@ Compared to several simulation-based humanoid robot competitions held in the pas
 
 ## Application form
 
+<!--
 Now being prepared.
+-->
 
-[Here](https://docs.google.com/forms/d/e/1FAIpQLScJD0zL3r_wv2M09Hj_TMIfLwAr0-pc8-OSdCSNlDXvBhAdZg/viewform?usp=sf_link)
+-[Here](https://docs.google.com/forms/d/e/1FAIpQLScJD0zL3r_wv2M09Hj_TMIfLwAr0-pc8-OSdCSNlDXvBhAdZg/viewform?usp=sf_link)
 
 <!--
 2022
@@ -56,14 +59,14 @@ Now being prepared.
 The robot traverses the athletic field from the starting position to the goal.
 Performance is evaluated by reached landmark and elapsed simulation time.
 
-<!--
-![field](fig/field_athletics2022.png "Athletics Field")
--->
+![field](fig/field_athletics2023.png "Athletics Field")
 
 ### Dance
 
 The robot performs dancing that requires whole-body motion.
-How to evaluate the quality of the dance performance is T.B.D.
+Dance performance is evaluated in terms of both artistic quality and technical quality.
+
+![robots](fig/dance2023.png "Robot models used for dance performance")
 
 <!--
 - [Results](https://ytazz.github.io/vnoid/results_athletics2022.html)
@@ -95,8 +98,11 @@ How to evaluate the quality of free-tyle performance is T.B.D.
 
 Please see the following document for detailed regulations.
 Regulations are tentative and subject to change.
-- [English version](https://docs.google.com/document/d/1IByD9HIQXkZe2DvtmmWsXEv41ggnn6dhuJRX_RMjAMU/edit?usp=sharing)
-- [Japanese version](https://docs.google.com/document/d/1ogiDxNIxWfxW_FQZx8znWPebEcD6XJPvIECpy_ovViE/edit?usp=sharing)
+- [English version] Being prepared.
+- [共通レギュレーション](https://docs.google.com/document/d/1dcAGtvMtwe-3d4sP9VaLWPo771_S5pBR--lq0CypRls/edit?usp=sharing)
+- [アスレチック](https://docs.google.com/document/d/1ib7GlNOn1qRKZZ-hGxog0hHFQIQzdH84j6EV4cKOJnc/edit?usp=sharing)
+- [ダンス](https://docs.google.com/document/d/1AZ8EWB1Y8ITu5elp3QQBQHv5C-FL7t1HwnD2UbKIIa0/edit?usp=sharing)
+- [短距離](https://docs.google.com/document/d/1hnAQm6T4lx1NdhgrTaBNoMrfIc3fg87qDnvxAWstkNM/edit?usp=sharing)
 
 ### Regulations overview
 
@@ -143,6 +149,21 @@ Each team designs a robot model and a controller that can be loaded and run on C
 
 ## Quick Start
 - See [here](https://ytazz.github.io/vnoid/build_sample_2022.html) for how to build and run the sample.
+
+## Committee
+
+- HVAC2023 is hosted by the Special Interest Group on Humanoid Robotics of the Robotics Society of Japan (RSJ-SIG-HR).
+- HVAC2023 is run by volunteers consisting of members and non-members of RSJ-SIG-HR.
+  - Commitee members
+    - Yuichi Tazaki
+    - Takumi Kamioka
+    - Tomomichi Sugihara
+    - Masaki Murooka
+    - Kenji Hashimoto
+    - Ikuo Mizuuchi
+    - Yohei Kakiuchi
+    - Shin'ichiro Nakaoka
+
 
 ## Asking Questions
 - Post your question at [https://github.com/ytazz/vnoid/discussions](https://github.com/ytazz/vnoid/discussions)
