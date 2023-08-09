@@ -163,6 +163,7 @@ Each team designs a robot model and a controller that can be loaded and run on C
     - Ikuo Mizuuchi
     - Yohei Kakiuchi
     - Shin'ichiro Nakaoka
+    - Soh Yukizaki
 
 
 ## Asking Questions
