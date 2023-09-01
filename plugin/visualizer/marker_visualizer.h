@@ -19,7 +19,8 @@ public:
     struct ShapeInfo{
         SgMaterialPtr  mat;
 
-        void SetMaterial(Visualizer::Shape* shape);
+        void SetMaterial (Visualizer::Shape* shape);
+        //void SetInvisible();
 
         ShapeInfo();
     };
@@ -29,6 +30,7 @@ public:
         SgMeshPtr          mesh;
 
         void SetPose(Visualizer::ShapeWithPose* shape);
+        void SetOutOfView();
 
         ShapeWithPoseInfo();
     };
@@ -44,15 +46,22 @@ public:
         SphereInfo();
     };
     struct BoxInfo : ShapeWithPoseInfo{
-        Vector3            size;
+        Vector3           size;
 
         BoxInfo();
     };
+    struct CylinderInfo : ShapeWithPoseInfo{
+        float  radius;
+        float  length;
 
-    SgPosTransformPtr        sgNode;
-    std::vector<LinesInfo>   linesInfo;
-    std::vector<SphereInfo>  sphereInfo;
-    std::vector<BoxInfo>     boxInfo;
+        CylinderInfo();
+    };
+
+    SgPosTransformPtr          sgNode;
+    std::vector<LinesInfo>     linesInfo;
+    std::vector<SphereInfo>    sphereInfo;
+    std::vector<BoxInfo>       boxInfo;
+    std::vector<CylinderInfo>  cylinderInfo;
 
     MeshGenerator meshGen;
     

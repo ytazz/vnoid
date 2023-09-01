@@ -21,6 +21,7 @@ Visualizer::Header::Header(){
     numMaxLines        = 10;
     numMaxSpheres      = 10;
 	numMaxBoxes        = 10;
+	numMaxCylinders    = 10;
     numMaxLineVertices = 2000;
 
     numFrames = 0;
@@ -29,11 +30,12 @@ Visualizer::Header::Header(){
 }
 
 void Visualizer::Header::CalcSize(){
-    szLines  = sizeof(LinesHeader) + (sizeof(Vector3f) + sizeof(int))*numMaxLineVertices;
-    szSphere = sizeof(Sphere);
-	szBox    = sizeof(Box);
-    szFrame  = sizeof(FrameHeader) + numMaxLines*szLines + numMaxSpheres*szSphere + numMaxBoxes*szBox;
-	szTotal  = sizeof(Header) + numMaxFrames*szFrame;
+    szLines    = sizeof(LinesHeader) + (sizeof(Vector3f) + sizeof(int))*numMaxLineVertices;
+    szSphere   = sizeof(Sphere);
+	szBox      = sizeof(Box);
+	szCylinder = sizeof(Cylinder);
+    szFrame    = sizeof(FrameHeader) + numMaxLines*szLines + numMaxSpheres*szSphere + numMaxBoxes*szBox + numMaxCylinders*szCylinder;
+	szTotal    = sizeof(Header) + numMaxFrames*szFrame;
 }
 
 Visualizer::Frame*  Visualizer::Data::GetFrame(int iframe){
@@ -88,11 +90,27 @@ Visualizer::Box* Visualizer::Data::GetBox(int iframe, int i){
 		return 0;
 
 	if(i >= fr->numBoxes)
-		fr->numBoxes= i + 1;
+		fr->numBoxes = i + 1;
 
 	Box* box = (Box*)(((uint8_t*)fr) + sizeof(FrameHeader) + szLines*numMaxLines + szSphere*numMaxSpheres + szBox*i);
 	//new(box) Box();
 	return box;
+}
+
+Visualizer::Cylinder* Visualizer::Data::GetCylinder(int iframe, int i){
+	Frame* fr = GetFrame(iframe);
+	if(!fr)
+		return 0;
+
+	if(i >= numMaxCylinders)
+		return 0;
+
+	if(i >= fr->numCylinders)
+		fr->numCylinders = i + 1;
+
+	Cylinder* cylinder = (Cylinder*)(((uint8_t*)fr) + sizeof(FrameHeader) + szLines*numMaxLines + szSphere*numMaxSpheres + szBox*numMaxBoxes + szCylinder*i);
+	
+	return cylinder;
 }
 
 Vector3f* Visualizer::Data::GetLineVertices(int iframe, int i){

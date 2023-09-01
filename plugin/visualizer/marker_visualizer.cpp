@@ -38,6 +38,10 @@ void MarkerVisualizerItem::ShapeWithPoseInfo::SetPose(Visualizer::ShapeWithPose*
     trans->setRotation   (shape->ori);
 }
 
+void MarkerVisualizerItem::ShapeWithPoseInfo::SetOutOfView(){
+    trans->setTranslation(Vector3(0.0, 0.0, -100.0));
+}
+
 MarkerVisualizerItem::LinesInfo::LinesInfo(){
     lines = new SgLineSet();
     vtx   = new SgVertexArray();
@@ -52,6 +56,11 @@ MarkerVisualizerItem::SphereInfo::SphereInfo(){
 MarkerVisualizerItem::BoxInfo::BoxInfo(){
     size = Vector3(-1.0, -1.0, -1.0);
 };
+
+MarkerVisualizerItem::CylinderInfo::CylinderInfo(){
+    radius = -1.0f;
+    length = -1.0f;
+}
 
 MarkerVisualizerItem::MarkerVisualizerItem()
 {
@@ -75,6 +84,7 @@ void MarkerVisualizerItem::Prepare(){
 
 void MarkerVisualizerItem::Sync(Visualizer::Data*  data, int iframe){
     Visualizer::Frame* fr = data->GetFrame(iframe);
+    int i;
 
     while(linesInfo.size() < fr->numLines){
         linesInfo.push_back(LinesInfo());
@@ -88,8 +98,16 @@ void MarkerVisualizerItem::Sync(Visualizer::Data*  data, int iframe){
         boxInfo.push_back(BoxInfo());
         sgNode->addChild(boxInfo.back().trans);
     }
+    while(cylinderInfo.size() < fr->numCylinders){
+        cylinderInfo.push_back(CylinderInfo());
+        sgNode->addChild(cylinderInfo.back().trans);
+    }
 
-    for(int i = 0; i < fr->numLines; i++){
+    //* user program (simple controller) and visualizer plugin run asyncronously, 
+    //  so number of visualization items might increase at any moment
+
+    int nline = std::min(fr->numLines, (int)linesInfo.size());
+    for(i = 0; i < nline; i++){
         Visualizer::Lines* lines = data->GetLines(iframe, i);
         LinesInfo& li = linesInfo[i];
 
@@ -105,7 +123,9 @@ void MarkerVisualizerItem::Sync(Visualizer::Data*  data, int iframe){
 
         li.lines->notifyUpdate();
     }
-    for(int i = 0; i < fr->numSpheres; i++){
+
+    int nsphere = std::min(fr->numSpheres, (int)sphereInfo.size());
+    for(i = 0; i < nsphere; i++){
         Visualizer::Sphere* sphere = data->GetSphere(iframe, i);
         SphereInfo& si = sphereInfo[i];
 
@@ -120,12 +140,20 @@ void MarkerVisualizerItem::Sync(Visualizer::Data*  data, int iframe){
         
         si.trans->notifyUpdate();
     }
-    for(int i = 0; i < fr->numBoxes; i++){
+    for( ; i < sphereInfo.size(); i++){
+        SphereInfo& si = sphereInfo[i];
+
+        si.SetOutOfView();
+        si.shape->notifyUpdate();
+    }
+
+    int nbox = std::min(fr->numBoxes, (int)boxInfo.size());
+    for(i = 0; i < nbox; i++){
         Visualizer::Box* box = data->GetBox(iframe, i);
         BoxInfo& bi = boxInfo[i];
 
         if(bi.size != box->size){
-            bi.mesh = meshGen.generateBox(box->size);
+            bi.mesh = meshGen.generateBox(box->size.cast<double>());
             bi.size = box->size;
             bi.shape->setMesh(bi.mesh);
         }
@@ -134,6 +162,37 @@ void MarkerVisualizerItem::Sync(Visualizer::Data*  data, int iframe){
         bi.SetMaterial(box);
 
         bi.shape->notifyUpdate();
+    }
+    for( ; i < boxInfo.size(); i++){
+        BoxInfo& bi = boxInfo[i];
+
+        bi.SetOutOfView();
+        bi.shape->notifyUpdate();
+    }
+
+    int ncylinder = std::min(fr->numCylinders, (int)cylinderInfo.size());
+    for(i = 0; i < ncylinder; i++){
+        Visualizer::Cylinder* cylinder = data->GetCylinder(iframe, i);
+        CylinderInfo& ci = cylinderInfo[i];
+
+        if( ci.radius != cylinder->radius ||
+            ci.length != cylinder->length ){
+            ci.mesh = meshGen.generateCylinder(cylinder->radius, cylinder->length);
+            ci.radius = cylinder->radius;
+            ci.length = cylinder->length;
+            ci.shape->setMesh(ci.mesh);
+        }
+
+        ci.SetPose(cylinder);
+        ci.SetMaterial(cylinder);
+
+        ci.shape->notifyUpdate();
+    }
+    for( ; i < cylinderInfo.size(); i++){
+        CylinderInfo& ci = cylinderInfo[i];
+
+        ci.SetOutOfView();
+        ci.shape->notifyUpdate();
     }
 }
 

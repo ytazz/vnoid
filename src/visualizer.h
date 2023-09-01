@@ -22,6 +22,7 @@ public:
         int    numLines;
         int    numSpheres;
         int    numBoxes;
+        int    numCylinders;
     };
     struct Frame : FrameHeader{
     };
@@ -46,11 +47,16 @@ public:
     struct Box : ShapeWithPose{
         Vector3   size;
     };
+    struct Cylinder : ShapeWithPose{
+        float     radius;
+        float     length;
+    };
     struct Header{
         int    numMaxFrames;
         int    numMaxLines;
         int    numMaxSpheres;
         int    numMaxBoxes;
+        int    numMaxCylinders;
         int    numMaxLineVertices;
         int    numFrames;
         int    szTotal;
@@ -58,16 +64,18 @@ public:
         int    szLines;
         int    szSphere;
         int    szBox;
+        int    szCylinder;
 
         void CalcSize();
 
         Header();
     };
     struct Data : Header{
-        Frame*     GetFrame (int i);
-        Lines*     GetLines (int iframe, int i);
-        Sphere*    GetSphere(int iframe, int i);
-        Box*       GetBox   (int iframe, int i);
+        Frame*     GetFrame   (int i);
+        Lines*     GetLines   (int iframe, int i);
+        Sphere*    GetSphere  (int iframe, int i);
+        Box*       GetBox     (int iframe, int i);
+        Cylinder*  GetCylinder(int iframe, int i);
         Vector3f*  GetLineVertices(int iframe, int i);
         int*       GetLineIndices (int iframe, int i);
     };
