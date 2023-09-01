@@ -1,0 +1,319 @@
+format: ChoreonoidBody
+formatVersion: 1.0
+angle_unit: "degree"
+name: HVAC2023_athletics_field
+links:
+  - name: Base
+    translation: [ 0, 0, 0 ]
+    material: Ground
+    elements:
+      - type: Visual
+        resource:
+          uri: "field2023_athletics-cliff-1.STL"
+      - type: Visual
+        resource:
+          uri: "field2023_athletics-curve-1.STL"
+      - type: Visual
+        resource:
+          uri: "field2023_athletics-goal0-1.STL"
+      - type: Visual
+        resource:
+          uri: "field2023_athletics-goal1-1.STL"
+      - type: Visual
+        resource:
+          uri: "field2023_athletics-goal1-2.STL"
+      - type: Visual
+        resource:
+          uri: "field2023_athletics-goal1-3.STL"
+      - type: Visual
+        resource:
+          uri: "field2023_athletics-intermediate_step-2.STL"
+      - type: Visual
+        resource:
+          uri: "field2023_athletics-intermediate_step-3.STL"
+      - type: Visual
+        resource:
+          uri: "field2023_athletics-slope-1.STL"
+      - type: Visual
+        resource:
+          uri: "field2023_athletics-stair-1.STL"
+      - type: Visual
+        resource:
+          uri: "field2023_athletics-start0-1.STL"
+      - type: Visual
+        resource:
+          uri: "field2023_athletics-start1-2.STL"
+      - type: Visual
+        resource:
+          uri: "field2023_athletics-step_right-1.STL"
+      - type: Visual
+        resource:
+          uri: "field2023_athletics-step_right-2.STL"
+      - type: Visual
+        resource:
+          uri: "field2023_athletics-step_right-3.STL"
+      - type: Visual
+        resource:
+          uri: "field2023_athletics-step_right-4.STL"
+      - type: Collision
+        resource:
+          uri: "field2023_athletics-cliff-1.STL"
+      - type: Collision
+        resource:
+          uri: "field2023_athletics-curve-1.STL"
+      - type: Collision
+        resource:
+          uri: "field2023_athletics-goal0-1.STL"
+      - type: Collision
+        resource:
+          uri: "field2023_athletics-goal1-1.STL"
+      - type: Collision
+        resource:
+          uri: "field2023_athletics-goal1-2.STL"
+      - type: Collision
+        resource:
+          uri: "field2023_athletics-goal1-3.STL"
+      - type: Collision
+        resource:
+          uri: "field2023_athletics-intermediate_step-2.STL"
+      - type: Collision
+        resource:
+          uri: "field2023_athletics-intermediate_step-3.STL"
+      - type: Collision
+        resource:
+          uri: "field2023_athletics-slope-1.STL"
+      - type: Collision
+        resource:
+          uri: "field2023_athletics-stair-1.STL"
+      - type: Collision
+        resource:
+          uri: "field2023_athletics-start0-1.STL"
+      - type: Collision
+        resource:
+          uri: "field2023_athletics-start1-2.STL"
+      - type: Collision
+        resource:
+          uri: "field2023_athletics-step_right-1.STL"
+      - type: Collision
+        resource:
+          uri: "field2023_athletics-step_right-2.STL"
+      - type: Collision
+        resource:
+          uri: "field2023_athletics-step_right-3.STL"
+      - type: Collision
+        resource:
+          uri: "field2023_athletics-step_right-4.STL"
+  - name: Prop1
+    translation: [ 0, 0, 0 ]
+    material: Ground
+    parent: Base
+    jointType: fixed
+    elements:
+      - type: Visual
+        resource:
+          uri: "field2023_athletics-frame1-1.STL"
+  - name: Link1
+    translation: [ 1.7859, -1.380, 1.050 ]
+    parent: Prop1
+    jointType: revolute
+    jointAxis: [ 0, 1, 0 ]
+    jointId: 0
+    jointRange: [ -90, 90 ]
+    material: Ground
+    mass: 10
+    centerOfMass: [ 0.0, 0.0, -0.495 ]
+    inertia: [
+      0.88542, 0.000000, 0.000000,
+      0.000000, 0.88542, 0.000000,
+
+      0.000000, 0.000000, 0.0026667 ]
+    elements:
+      - type: Visual
+        translation: [ 0.0, 0.0, -0.495 ]
+        resource:
+          uri: "link1.STL"
+      -
+        type: Collision
+        translation: [ 0.0, 0.0, -0.495 ]
+        elements:
+          Shape:
+            geometry: { type: Box, size: [0.04, 0.04, 1.03] }
+            appearance: { material: {diffuse: [ 0.9, 0.9, 0 ]}}
+  # - name: Link1Joint
+  #   translation: [0, 0, -0.99]
+  #   parent: Link1
+  #   jointType: revolute
+  #   jointAxis: [ 0, 1, 0 ]
+  #   jointId: 4
+  #   jointRange: [-90, 90]
+  - name: Prop2
+    translation: [ 0, 0, 0 ]
+    material: Ground
+    parent: Base
+    jointType: fixed
+    elements:
+      - type: Visual
+        resource:
+          uri: "field2023_athletics-frame1-2.STL"
+  - name: Link2
+    translation: [ 1.7859, -0.63486, 1.050 ]
+    parent: Prop2
+    jointType: revolute
+    jointAxis: [ 0, 1, 0 ]
+    jointId: 1
+    jointRange: [ -90, 90 ]
+    material: Ground
+    mass: 10
+    centerOfMass: [ 0.0, 0.0, -0.495 ]
+    inertia: [
+      0.88542, 0.000000, 0.000000,
+      0.000000, 0.88542, 0.000000,
+      0.000000, 0.000000, 0.0026667 ]
+    elements:
+      - type: Visual
+        translation: [ 0.0, 0.0, -0.495 ]
+        resource:
+          uri: "link1.STL"
+      -
+        type: Collision
+        translation: [ 0.0, 0.0, -0.495 ]
+        elements:
+          Shape:
+            geometry: { type: Box, size: [0.04, 0.04, 1.03] }
+            appearance: { material: {diffuse: [ 0.9, 0.9, 0 ]}}
+  - name: Prop3
+    translation: [ 0, 0, 0 ]
+    material: Ground
+    parent: Base
+    jointType: fixed
+    elements:
+      - type: Visual
+        resource:
+          uri: "field2023_athletics-frame1-3.STL"
+  - name: Link3
+    translation: [ 3.7859, -1.380, 1.050 ]
+    parent: Prop3
+    jointType: revolute
+    jointAxis: [ 0, 1, 0 ]
+    jointId: 2
+    jointRange: [ -90, 90 ]
+    material: Ground
+    mass: 10
+    centerOfMass: [ 0.0, 0.0, -0.495 ]
+    inertia: [
+      0.88542, 0.000000, 0.000000,
+      0.000000, 0.88542, 0.000000,
+      0.000000, 0.000000, 0.0026667 ]
+    elements:
+      - type: Visual
+        translation: [ 0.0, 0.0, -0.495 ]
+        resource:
+          uri: "link1.STL"
+      -
+        type: Collision
+        translation: [ 0.0, 0.0, -0.495 ]
+        elements:
+          Shape:
+            geometry: { type: Box, size: [0.04, 0.04, 1.03] }
+            appearance: { material: {diffuse: [ 0.9, 0.9, 0 ]}}
+  - name: Prop4
+    translation: [ 0, 0, 0 ]
+    material: Ground
+    parent: Base
+    jointType: fixed
+    elements:
+      - type: Visual
+        resource:
+          uri: "field2023_athletics-frame1-4.STL"
+  - name: Link4
+    translation: [ 3.7859, -0.63486, 1.050 ]
+    parent: Prop4
+    jointType: revolute
+    jointAxis: [ 0, 1, 0 ]
+    jointId: 3
+    jointRange: [ -90, 90 ]
+    material: Ground
+    mass: 10
+    centerOfMass: [ 0.0, 0.0, -0.495 ]
+    inertia: [
+      0.88542, 0.000000, 0.000000,
+      0.000000, 0.88542, 0.000000,
+      0.000000, 0.000000, 0.0026667 ]
+    elements:
+      - type: Visual
+        translation: [ 0.0, 0.0, -0.495 ]
+        resource:
+          uri: "link1.STL"
+      -
+        type: Collision
+        translation: [ 0.0, 0.0, -0.495 ]
+        elements:
+          Shape:
+            geometry: { type: Box, size: [0.04, 0.04, 1.03] }
+            appearance: { material: {diffuse: [ 0.9, 0.9, 0 ]}}
+  - name: MovablePlate
+    translation: [ 0, 0.02, -0.99 ]
+    parent: Link1
+    jointType: revolute
+    jointAxis: [ 0, 1, 0 ]
+    jointId: 4
+    jointRange: [ -90, 90 ]
+    material: Ground
+    mass: 30
+    centerOfMass: [1.0, 0.35, 0]
+    inertia: [
+      1.2500, 0.000000, 0.000000,
+      0.000000, 22.525, 0.000000,
+      0.000000, 0.000000, 23.725 ]
+    elements:
+      - type: Visual
+        translation: [1.0, 0.35, 0]
+        resource:
+          uri: "movable_plate.STL"
+      -
+        type: Collision
+        translation: [1.0, 0.35, 0]
+        elements:
+          Shape:
+            geometry: { type: Box, size: [0.04, 0.04, 1.03] }
+            appearance: { material: {diffuse: [ 0.9, 0.9, 0 ]}}
+extraJoints:
+  # -
+  #   link1Name: Link2
+  #   link2Name: MovablePlate
+  #   jointType: piston
+  #   jointAxis: [ 0, 1, 0]
+  #   link1LocalPos: [0, 0, -0.495]
+  #   link2LocalPos: [-1.5, 0.7, 0]
+  -
+    link1Name: Link3
+    link2Name: MovablePlate
+    jointType: piston
+    jointAxis: [ 0, 1, 0]
+    link1LocalPos: [0, 0.02, -0.99]
+    link2LocalPos: [2.0, 0, 0]
+  # -
+  #   link1Name: Link4
+  #   link2Name: MovablePlate
+  #   jointType: piston
+  #   jointAxis: [ 0, 1, 0]
+  #   link1LocalPos: [0, 0, -0.99]
+  #   link2LocalPos: [1.5, 0.7, 0]
+
+body_handlers: SwingBridgeHandler    
+
+collisionDetection:
+  excludeTreeDepth: 2
+  excludeLinkGroups:
+    -
+      name: group1
+      links: [ Prop1, Link1, MovablePlate ]
+    -
+      name: group2
+      links: [ Prop2, Link2, MovablePlate ]
+    -
+      name: group3
+      links: [ Prop3, Link3, MovablePlate ]
+    -
+      name: group4
+      links: [ Prop4, Link4, MovablePlate ]

@@ -139,7 +139,7 @@ void FkSolver::Comp(const Param& param, const vector<Joint>& joint, const Base& 
     Vector3  com(0.0, 0.0, 0.0);
 
     total_mass += param.trunk_mass;
-    com += param.trunk_com;
+    com += param.trunk_mass * param.trunk_com;
 
     for(int i = 0; i < 2; i++){
         for (int j = 0; j < 7; j++) {

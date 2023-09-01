@@ -29,3 +29,5 @@ choreonoid_add_library(vnoid_lib STATIC ${VNOID_HEADERS} ${VNOID_SOURCES})
 
 target_link_libraries(vnoid_lib CnoidBody)
 
+choreonoid_add_body_handler(SwingBridgeHandler SwingBridgeHandler.cpp)
+
