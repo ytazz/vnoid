@@ -35,6 +35,7 @@ Compared to several simulation-based humanoid robot competitions held in the pas
 
 - Website opening: August
 - Application deadline: September 15, 2023 (application beyond deadline is welcome)
+- Online Tutorial (https://connpass.com/event/294393/  NOTE: Held in Japanese, Japan time zone)
 - Preliminary Competition Event: November 11, 2023
 - Main Competition Event: March 16, 2024
 - Challenge period: Until March 16, 2024
