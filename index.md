@@ -100,9 +100,9 @@ How to evaluate the quality of free-tyle performance is T.B.D.
 Please see the following document for detailed regulations.
 Regulations are tentative and subject to change.
 - [Common Regulations](https://docs.google.com/document/d/1hL-ns9MkidtIpFoKp9cHbZRFIo1nW6Ego-rR1P4yRMM/edit?usp=sharing)
-- [Athletics Regulations] being prepared
-- [Dance Regulations] being prepared
-- [Shorttrack Regulations] being prepared
+- [Athletics Regulations](https://docs.google.com/document/d/1WNHcZ7FfaSInEFvoUKmaJLhk5DHf0tpzMpSAXry-yVk/edit?usp=sharing)
+- [Dance Regulations](https://docs.google.com/document/d/1HiyRylE11WXyljx85HUTuemjwWejz7O3PF82FPFGrFs/edit?usp=sharing)
+- [Shorttrack Regulations](https://docs.google.com/document/d/1Vv8XXraaJvP1Y915PREzVQYeKrLEQcASY0MD5nD3D0c/edit?usp=sharing)
 - [共通レギュレーション](https://docs.google.com/document/d/1dcAGtvMtwe-3d4sP9VaLWPo771_S5pBR--lq0CypRls/edit?usp=sharing)
 - [アスレチック](https://docs.google.com/document/d/1ib7GlNOn1qRKZZ-hGxog0hHFQIQzdH84j6EV4cKOJnc/edit?usp=sharing)
 - [ダンス](https://docs.google.com/document/d/1AZ8EWB1Y8ITu5elp3QQBQHv5C-FL7t1HwnD2UbKIIa0/edit?usp=sharing)
