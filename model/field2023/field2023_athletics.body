@@ -9,52 +9,7 @@ links:
     elements:
       - type: Visual
         resource:
-          uri: "field2023_athletics-cliff-1.STL"
-      - type: Visual
-        resource:
-          uri: "field2023_athletics-curve-1.STL"
-      - type: Visual
-        resource:
-          uri: "field2023_athletics-goal0-1.STL"
-      - type: Visual
-        resource:
-          uri: "field2023_athletics-goal1-1.STL"
-      - type: Visual
-        resource:
-          uri: "field2023_athletics-goal1-2.STL"
-      - type: Visual
-        resource:
-          uri: "field2023_athletics-goal1-3.STL"
-      - type: Visual
-        resource:
-          uri: "field2023_athletics-intermediate_step-2.STL"
-      - type: Visual
-        resource:
-          uri: "field2023_athletics-intermediate_step-3.STL"
-      - type: Visual
-        resource:
-          uri: "field2023_athletics-slope-1.STL"
-      - type: Visual
-        resource:
-          uri: "field2023_athletics-stair-1.STL"
-      - type: Visual
-        resource:
-          uri: "field2023_athletics-start0-1.STL"
-      - type: Visual
-        resource:
-          uri: "field2023_athletics-start1-2.STL"
-      - type: Visual
-        resource:
-          uri: "field2023_athletics-step_right-1.STL"
-      - type: Visual
-        resource:
-          uri: "field2023_athletics-step_right-2.STL"
-      - type: Visual
-        resource:
-          uri: "field2023_athletics-step_right-3.STL"
-      - type: Visual
-        resource:
-          uri: "field2023_athletics-step_right-4.STL"
+          uri: "2023_hvac_stage.obj"
       - type: Collision
         resource:
           uri: "field2023_athletics-cliff-1.STL"
@@ -111,7 +66,8 @@ links:
     elements:
       - type: Visual
         resource:
-          uri: "field2023_athletics-frame1-1.STL"
+          # uri: "field2023_athletics-frame1-1.STL"
+          uri: "2023_hvac_stage_frame1.obj"
   - name: Link1
     translation: [ 1.7859, -1.380, 1.050 ]
     parent: Prop1
@@ -154,7 +110,8 @@ links:
     elements:
       - type: Visual
         resource:
-          uri: "field2023_athletics-frame1-2.STL"
+          # uri: "field2023_athletics-frame1-2.STL"
+          uri: "2023_hvac_stage_frame2.obj"
   - name: Link2
     translation: [ 1.7859, -0.63486, 1.050 ]
     parent: Prop2
@@ -189,7 +146,8 @@ links:
     elements:
       - type: Visual
         resource:
-          uri: "field2023_athletics-frame1-3.STL"
+          # uri: "field2023_athletics-frame1-3.STL"
+          uri: "2023_hvac_stage_frame3.obj"
   - name: Link3
     translation: [ 3.7859, -1.380, 1.050 ]
     parent: Prop3
@@ -224,7 +182,8 @@ links:
     elements:
       - type: Visual
         resource:
-          uri: "field2023_athletics-frame1-4.STL"
+          # uri: "field2023_athletics-frame1-4.STL"
+          uri: "2023_hvac_stage_frame4.obj"
   - name: Link4
     translation: [ 3.7859, -0.63486, 1.050 ]
     parent: Prop4
