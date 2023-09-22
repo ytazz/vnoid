@@ -17,7 +17,12 @@ public:
         Link* masterJoint, double masterJointDisplacement) override;
 
 private:
-    Link* joints[4];
+#if TWO_LINK_CONSTRAINT
+    static const int NUM_JOINTS = 3;
+#else
+    static const int NUM_JOINTS = 5;
+#endif
+    Link* joints[NUM_JOINTS];
 };
 
 CNOID_IMPLEMENT_BODY_HANDLER_FACTORY(SwingBridgeHandler)
@@ -32,14 +37,15 @@ BodyHandler* SwingBridgeHandler::clone()
 bool SwingBridgeHandler::initialize(Body* body, std::ostream& os)
 {
 #if TWO_LINK_CONSTRAINT
-    const std::vector<std::string> names = {"Link3", "MovablePlate"};
+    const std::vector<std::string> names = {"Link1", "Link3", "MovablePlate"};
 #else
-    const std::vector<std::string> names = {"Link2",
+    const std::vector<std::string> names = {"Link1",
+                                            "Link2",
                                             "Link3",
                                             "Link4",
                                             "MovablePlate"};
 #endif
-    for (int i = 0; i < 3; ++i) {
+    for (int i = 0; i < NUM_JOINTS; ++i) {
         joints[i] = body->link(names[i]);
         if (!joints[i]) {
             os << names[i] << "is not found." << endl;
