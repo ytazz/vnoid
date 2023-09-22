@@ -1,0 +1,70 @@
+format: ChoreonoidBody
+formatVersion: 1.0
+name: Floor
+links:
+  -
+    name: Base
+    translation: [ 0, 0, 0 ]
+    jointType: fixed
+    material: Ground
+    elements:
+#      -
+#        type: Shape
+#        geometry: { type: Box, size: [ 10.0, 10.0, 1.0 ] }
+#        translation: [0, 0, -1.0]
+      -
+        type: Visual
+        resource:
+          uri: "Stage2.obj"
+      -
+        type: Collision
+        resource:
+          uri: "Stage2.stl"
+      -
+        type: SpotLight
+        name: Light1
+        id: 0
+        direction: [ -1, -1, -1 ]
+        intensity: 0.4
+        beam_width: 36
+        cut_off_angle: 40
+        cut_off_exponent: 6
+        attenuation: [ 1, 0, 0.01 ]
+        on: true
+        translation: [8.0, 8.0, 8.0]
+      -
+        type: SpotLight
+        name: Light2
+        id: 1
+        direction: [ -1, 1, -1 ]
+        intensity: 0.4
+        beam_width: 36
+        cut_off_angle: 40
+        cut_off_exponent: 6
+        attenuation: [ 1, 0, 0.01 ]
+        on: true
+        translation: [8.0, -8.0, 8.0]
+      -
+        type: SpotLight
+        name: Light3
+        id: 2
+        direction: [ 1, 1, -1 ]
+        intensity: 0.4
+        beam_width: 36
+        cut_off_angle: 40
+        cut_off_exponent: 6
+        attenuation: [ 1, 0, 0.01 ]
+        on: true
+        translation: [-8.0, -8.0, 8.0]
+      -
+        type: SpotLight
+        name: Light4
+        id: 3
+        direction: [ 1, -1, -1 ]
+        intensity: 0.4
+        beam_width: 36
+        cut_off_angle: 40
+        cut_off_exponent: 6
+        attenuation: [ 1, 0, 0.01 ]
+        on: true
+        translation: [-8.0, 8.0, 8.0]
