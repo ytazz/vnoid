@@ -35,6 +35,7 @@ Compared to several simulation-based humanoid robot competitions held in the pas
 
 - Website opening: August
 - Application deadline: September 15, 2023 (application beyond deadline is welcome)
+- Online Tutorial (https://connpass.com/event/294393/  NOTE: Held in Japanese, Japan time zone)
 - Preliminary Competition Event: November 11, 2023
 - Main Competition Event: March 16, 2024
 - Challenge period: Until March 16, 2024
@@ -98,7 +99,10 @@ How to evaluate the quality of free-tyle performance is T.B.D.
 
 Please see the following document for detailed regulations.
 Regulations are tentative and subject to change.
-- [English version] Being prepared.
+- [Common Regulations](https://docs.google.com/document/d/1hL-ns9MkidtIpFoKp9cHbZRFIo1nW6Ego-rR1P4yRMM/edit?usp=sharing)
+- [Athletics Regulations](https://docs.google.com/document/d/1WNHcZ7FfaSInEFvoUKmaJLhk5DHf0tpzMpSAXry-yVk/edit?usp=sharing)
+- [Dance Regulations](https://docs.google.com/document/d/1HiyRylE11WXyljx85HUTuemjwWejz7O3PF82FPFGrFs/edit?usp=sharing)
+- [Shorttrack Regulations](https://docs.google.com/document/d/1Vv8XXraaJvP1Y915PREzVQYeKrLEQcASY0MD5nD3D0c/edit?usp=sharing)
 - [共通レギュレーション](https://docs.google.com/document/d/1dcAGtvMtwe-3d4sP9VaLWPo771_S5pBR--lq0CypRls/edit?usp=sharing)
 - [アスレチック](https://docs.google.com/document/d/1ib7GlNOn1qRKZZ-hGxog0hHFQIQzdH84j6EV4cKOJnc/edit?usp=sharing)
 - [ダンス](https://docs.google.com/document/d/1AZ8EWB1Y8ITu5elp3QQBQHv5C-FL7t1HwnD2UbKIIa0/edit?usp=sharing)
