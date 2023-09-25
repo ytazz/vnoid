@@ -169,6 +169,8 @@ Each team designs a robot model and a controller that can be loaded and run on C
 ## Asking Questions
 - Post your question at [https://github.com/ytazz/vnoid/discussions](https://github.com/ytazz/vnoid/discussions)
 
-## Old pages
+## Related Pages
 - [Challenge 2021 page](https://ytazz.github.io/vnoid/index2021.html)
 - [Challenge 2022 page](https://ytazz.github.io/vnoid/index2022.html)
+- [Humanoids 2022 Tutorial](https://ytazz.github.io/vnoid/humanoids2022tutorial.html)
+- [HVAC2023 Technical Tutorial (in Japanese)](https://ytazz.github.io/vnoid/hvac2023tutorial.html)
