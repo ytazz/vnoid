@@ -1,6 +1,6 @@
 ## Instruction for using choreography function of Choreonoid
 
-The following instruction is based on a video lecture by Shin-ichiro Nakaoka.
+The following instruction is based on a lecture provided by Shin-ichiro Nakaoka in [HVAC2023 Technical Tutorial](https://ytazz.github.io/vnoid/hvac2023tutorial.html).
 
 ### Preparation
 
