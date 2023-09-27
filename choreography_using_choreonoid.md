@@ -77,7 +77,16 @@ The project and pose sequence will be saved to separate files (.cnoid file and .
 
 <img src="fig/dance/screen6.png" width="500"/>
 
-- Adjust robot height
+- Adjust window layout for pose editing
+
+You can grab the tab of each view and drag it to change the layout of views according to your needs.
+In pose editing, Pose Roll view and Joint Displacement view are often used.
+Shown below is an example layout.
+
+<img src="fig/dance/screen6.png" width="500"/>
+
+
+- Create initial pose
 
 To start simulation in a stable manner, the feet of the robot should be just touching the floor.
 
@@ -90,5 +99,6 @@ To do so, check the check box of World item.
 Moreover, push the button shown below in the tool bar.
 
 <img src="fig/dance/screen7.png" width="200"/>
+
 
 
