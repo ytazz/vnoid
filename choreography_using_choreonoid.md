@@ -198,13 +198,11 @@ An example pose before and after mirroring with respect to left foot.
 You might have noticed that by dragging the seek bar left and right, the key poses are smoothly interpolated and shown in the Scene view.
 You can also use "Start playback" button to play animation.
 
-<img src="fig/dance/screen19.png" height="200"/>
+<img src="fig/dance/screen19.png" width="200"/>
 
 To see if the edited motion is physically valid, you can show a marker indicating the position of the projected center-of-mass.
 Right-click any link in the Scene view, select Markers->Center of Mass Projection.
 If this marker is always inside the support region, the motion is stable provided that the robot moves slow enough.
-
-- Play motion in physics simulation
 
 - Generate dynamically feasible motion
 
@@ -212,9 +210,27 @@ In the item view, expand the PoseSeq item and show the BodyMotionItem.
 In the menu bar, select View->Show Toolbar->BodyMotionGenerationBar.
 Turn on the "Enable the balancer" button.
 
-<img src="fig/dance/screen20.png" height="200"/>
+<img src="fig/dance/screen20.png" width="200"/>
 
+By pushing the config button on the right, you can show the config dialog shown below.
+Here you can set various configuration parameters of the balancer.
 
+<img src="fig/dance/screen21.png" width="300"/>
+
+Select either the PoseSeq item or the BodyMotion item in the item view and push "Generation body motions" button.
+This will automatically generate dynamically feasible motion by filtering the pose sequence through the balancer.
+
+<img src="fig/dance/screen22.png" width="200"/>
+
+- Play motion in physics simulation
+
+Select World in the item view, and in the menu bar, select File->New->AIST Simulator.
+
+Next, select HRP-4C in the item view, and in the menu bar, select File->New->BodyMotionController.
+Furthermore, drag the PoseSeq item and drop it to the BodyMotionController.
+Now the item view should look something like this:
+
+<img src="fig/dance/screen23.png" width="300"/>
 
 
 
