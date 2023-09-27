@@ -193,6 +193,28 @@ An example pose before and after mirroring with respect to left foot.
 <img src="fig/dance/screen17.png" height="200"/>
 <img src="fig/dance/screen18.png" height="200"/>
 
+- Play motion as animation
+
+You might have noticed that by dragging the seek bar left and right, the key poses are smoothly interpolated and shown in the Scene view.
+You can also use "Start playback" button to play animation.
+
+<img src="fig/dance/screen19.png" height="200"/>
+
+To see if the edited motion is physically valid, you can show a marker indicating the position of the projected center-of-mass.
+Right-click any link in the Scene view, select Markers->Center of Mass Projection.
+If this marker is always inside the support region, the motion is stable provided that the robot moves slow enough.
+
+- Play motion in physics simulation
+
+- Generate dynamically feasible motion
+
+In the item view, expand the PoseSeq item and show the BodyMotionItem.
+In the menu bar, select View->Show Toolbar->BodyMotionGenerationBar.
+Turn on the "Enable the balancer" button.
+
+<img src="fig/dance/screen20.png" height="200"/>
+
+
 
 
 
