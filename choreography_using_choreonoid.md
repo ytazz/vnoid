@@ -80,10 +80,13 @@ The project and pose sequence will be saved to separate files (.cnoid file and .
 - Adjust window layout for pose editing
 
 You can grab the tab of each view and drag it to change the layout of views according to your needs.
-In pose editing, Pose Roll view and Joint Displacement view are often used.
+In pose editing, Pose Roll view and Joint Displacement view are often used, so these views
+ would better be shown bigger.
+Moreover in the Joint Displacement view, you can show joint names in addition to joint IDs by
+ right-clicking its tab and checking "Joint name".
 Shown below is an example layout.
 
-<img src="fig/dance/screen6.png" width="500"/>
+<img src="fig/dance/screen8.png" width="500"/>
 
 
 - Create initial pose
@@ -100,5 +103,15 @@ Moreover, push the button shown below in the tool bar.
 
 <img src="fig/dance/screen7.png" width="200"/>
 
+Now, reset the pose of the robot.
+There are some buttons for reseting the pose of the robot.
+
+<img src="fig/dance/screen9.png" width="200"/>
+
+<img src="fig/dance/screen10.png" width="200"/>
+
+The initial pose is the pose where all joint angles are zero,
+ while the standard pose is a practically more useful starting configuration with knees and elbows bent slightly.
+Here, reset to the standard pose.
 
 
