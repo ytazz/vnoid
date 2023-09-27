@@ -89,7 +89,7 @@ Shown below is an example layout.
 <img src="fig/dance/screen8.png" width="500"/>
 
 
-- Create initial pose
+- Edit initial pose
 
 To start simulation in a stable manner, the feet of the robot should be just touching the floor.
 
@@ -114,15 +114,15 @@ The initial pose is the pose where all joint angles are zero,
  while the standard pose is a more useful starting configuration with knees bent slightly.
 Here, reset to the standard pose.
 
-Now, we would like to adjust the height of the robot so that it feet are just touching the floor.
-For this purpose, we need to turn of the IK.
+Now, we would like to adjust the height of the robot so that its feet are just touching the floor.
+For this purpose, we need use FK instead of IK.
 To do this, turn on the "Enable forward kinematics" button and 
  turn off "Use preset kinematics" and "Enable inverse kinematics" buttons, as shown below.
 
 <img src="fig/dance/screen11.png" width="200"/>
 
 Then you should be able to drag the WAIST link (highlighted yellow in the figure below)
- move around the robot without chaninging its posture.
+ to move the robot without chaninging its posture.
 
 *If this doesn't work, try switching to view mode and back to edit mode.
 
@@ -130,13 +130,27 @@ Then you should be able to drag the WAIST link (highlighted yellow in the figure
  
 As you move the robot gradually down, eventually the feet will start to penetrate into the floor,
  and green lines indicating collision will appear, and grow longer as the penetration gets deeper.
-Stop at where these green lines have just started to show up.
+Stop lowering the robot when these green lines have just started to show up.
 
 Alternatively, you can change the position of the selected in in the Link Position view.
 This way is more useful for precise positioning.
 
 In the case of HRP-4C, the ideal z coordinate of the base link in the standard posture is 0.719m.
 
+- Insert initial pose to pose sequence
 
+Make sure that the robot is in a proper initial pose as described above.
+Now, left-drag in the Pose Roll view and bring the seek bar (black vertical line) to the left most (time 0.0) and click "Insert".
+Then the currently edited pose will be inserted as the first key pose of the pose sequence.
+
+<img src="fig/dance/screen13.png" width="300"/>
+
+- Insert other key poses
+
+You can create new key poses in the same manner;
+ edit a new pose in the Scene view, and then in the Pose Roll view, position the seek bar, and push Insert.
+After inserting some key poses, it will look like this:
+
+<img src="fig/dance/screen14.png" width="500"/>
 
 
