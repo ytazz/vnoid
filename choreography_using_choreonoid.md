@@ -179,5 +179,20 @@ Uncheck the "Sync" check box in the Pose Roll view.
 This disables synchronization between the Pose Roll view and the Scene view.
 Position the seek bar to the time you want to copy the pose to, then push "Insert".
 
+- Creating a mirror-copy of a pose
+
+Sometimes you would like to create a mirror-copy of an existing pose.
+To do so, first, right-click some link and select "Set Base" (the default is WAIST).
+This link will be the fixed link of mirroring.
+Next, push the "Mirror copy" button in the tool bar.
+
+<img src="fig/dance/screen16.png" width="200"/>
+
+An example pose before and after mirroring with respect to left foot.
+
+<img src="fig/dance/screen17.png" height="200"/>
+<img src="fig/dance/screen18.png" height="200"/>
+
+
 
 
