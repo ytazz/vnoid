@@ -35,12 +35,12 @@ Add a world item (File -> New -> World).
 
 - Load robot model
 
-Select World in the item pane, and select File -> Load -> Body.
+Select World in the item view, and select File -> Load -> Body.
 In the load dialog, navigate to the source directory of choreonoid and select choreonoid/share/model/HRP4C/HRP4C.body.
 
 <img src="fig/dance/screen3.png" width="500"/>
 
-In the item pane, make sure that HRP-4C is listed below World as its child item.
+In the item view, make sure that HRP-4C is listed below World as its child item.
 
 You can switch between the "edit mode" and the "view mode" by right-clicking on the scene view.
 In the "edit mode", you can select a link of the robot, and change its pose by dragging the 3D cursor.
@@ -49,7 +49,7 @@ In the "edit mode", you can select a link of the robot, and change its pose by d
 
 - Load floor
 
-Select World in the item pane, and select File -> Load -> Body.
+Select World in the item view, and select File -> Load -> Body.
 In the load dialog, navigate to the source directory of choreonoid and select choreonoid/share/model/misc/floor.body.
 
 <img src="fig/dance/screen5.png" width="500"/>
@@ -59,13 +59,36 @@ To do so, switch to the edit mode, right-click the floor and select "Lock locati
 
 Floor is necessary for computing physical interaction between the robot and the floor.
 However, while editing the motion of the robot, it is often convenient if the floor is not shown.
-To hide the floor, uncheck the checkbox of Floor in the item pane.
+To hide the floor, uncheck the checkbox of Floor in the item view.
 
 - Add PoseSeq item
 
-Select HRP-4C in the item pane, and select File->New->PoseSeq.
-Make sure that the created PoseSeq item is shown below HRP-4C in the item pane.
+Select HRP-4C in the item view, and select File->New->PoseSeq.
+Make sure that the created PoseSeq item is shown below HRP-4C in the item view.
 
 Select View->Show View->Pose Roll and show the Pose Roll view.
 This view is used for choreography.
+Select PoseSeq in the item view.
+Now, the name of the PoseSeq item ("PoseSeq" in this case) will be shown in the bottom left of the pose roll view.
+
+Up to this point is basic preparation for pose editing.
+Save the project by selecting File->Save Project As.
+The project and pose sequence will be saved to separate files (.cnoid file and .pseq file respectively).
+
+<img src="fig/dance/screen6.png" width="500"/>
+
+- Adjust robot height
+
+To start simulation in a stable manner, the feet of the robot should be just touching the floor.
+
+First, enable collision cheking.
+To do so, select World item, and in the property view just below the item view,
+ switch "Collision detection" property to True.
+
+Next, enable visualization of collision.
+To do so, check the check box of World item.
+Moreover, push the button shown below in the tool bar.
+
+<img src="fig/dance/screen7.png" width="200"/>
+
 
