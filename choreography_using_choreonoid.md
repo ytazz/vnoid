@@ -153,4 +153,31 @@ After inserting some key poses, it will look like this:
 
 <img src="fig/dance/screen14.png" width="500"/>
 
+You can left-drag the vertical line indicating each key pose to adjust its timing.
+You can also enter the timing directly to the box labeled "T".
+
+The saw-tooth-like lines indicate how motion is interpolated between key poses.
+You can left-drag the left end of each saw-tooth (make sure the cursor changes to double-headed arrow)
+ to adjust the transition time (TT) of interpolation.
+You can also directly enter numerical values to the box labeled "TT".
+Entering 0 to "TT" means maximum transition time.
+
+<img src="fig/dance/screen15.png" width="300"/>
+
+- Updating an existing key pose
+
+Check the PoseSeq item in the item view.
+Click the key pose you want to edit in the Pose Roll view.
+When selected, it will turn red, and the pose will be shown in the Scene view.
+Edit the pose in the Scene view (use edit mode).
+When finished, push "Update" button in the Pose Roll view.
+
+- Replicating an existing key pose
+
+Click the key pose you want to replicate.
+Uncheck the "Sync" check box in the Pose Roll view.
+This disables synchronization between the Pose Roll view and the Scene view.
+Position the seek bar to the time you want to copy the pose to, then push "Insert".
+
+
 
