@@ -233,14 +233,15 @@ Now the item view should look something like this:
 
 <img src="fig/dance/screen23.png" width="300"/>
 
-The BodyMotionController item is a build-in controller that controls the robot based the BodyMotion item.
+The BodyMotionController item is a built-in controller that controls the robot based the BodyMotion item.
 
 Now you can run simulation by pushing the "Start simulation from the beginning" button shown below.
 
 <img src="fig/dance/screen24.png" width="300"/>
 
 To see the effect of the balancer, turn off the balancer (turn off the "Enable the balancer" button) and run simulation. 
-In this case, interpolated pose sequence will be directly input the robot, and its motion could be unstable,
+In this case, interpolated pose sequence will be directly input to the robot.
+If the original pose sequence includes fast movement, the resulting motion might be unstable (e.g., a foot might lift off the ground),
  or in the worst case the robot might fall down.
 
 Next, turn on the balancer and run simulation again.
