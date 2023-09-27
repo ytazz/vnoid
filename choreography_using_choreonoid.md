@@ -111,7 +111,32 @@ There are some buttons for reseting the pose of the robot.
 <img src="fig/dance/screen10.png" width="200"/>
 
 The initial pose is the pose where all joint angles are zero,
- while the standard pose is a practically more useful starting configuration with knees and elbows bent slightly.
+ while the standard pose is a more useful starting configuration with knees bent slightly.
 Here, reset to the standard pose.
+
+Now, we would like to adjust the height of the robot so that it feet are just touching the floor.
+For this purpose, we need to turn of the IK.
+To do this, turn on the "Enable forward kinematics" button and 
+ turn off "Use preset kinematics" and "Enable inverse kinematics" buttons, as shown below.
+
+<img src="fig/dance/screen11.png" width="200"/>
+
+Then you should be able to drag the WAIST link (highlighted yellow in the figure below)
+ move around the robot without chaninging its posture.
+
+*If this doesn't work, try switching to view mode and back to edit mode.
+
+<img src="fig/dance/screen12.png" width="500"/>
+ 
+As you move the robot gradually down, eventually the feet will start to penetrate into the floor,
+ and green lines indicating collision will appear, and grow longer as the penetration gets deeper.
+Stop at where these green lines have just started to show up.
+
+Alternatively, you can change the position of the selected in in the Link Position view.
+This way is more useful for precise positioning.
+
+In the case of HRP-4C, the ideal z coordinate of the base link in the standard posture is 0.719m.
+
+
 
 
