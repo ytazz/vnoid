@@ -1,5 +1,7 @@
 ## Instruction for using choreography function of Choreonoid
 
+The following instruction is based on a video lecture by Shin-ichiro Nakaoka.
+
 ### Preparation
 
 Build Chorenoid from source.
@@ -13,4 +15,7 @@ In CMake, turn on the following options:
 ### Step by step instruction of choreography
 
 - Start up Choreonoid.
+![field](fig/dance/screen1.png)
+
+- Next
 
