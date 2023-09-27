@@ -33,8 +33,16 @@ Add a world item (File -> New -> World).
 <img src="fig/dance/screen2.png" width="500"/>
 
 - Load robot model
+
 Select World in the item pane, and select File -> Load -> Body.
-In the load dialog, navigate to the source directory of choreonoid and select choreonoid/share/sample/HRP4C/HRP4C.body.
+In the load dialog, navigate to the source directory of choreonoid and select choreonoid/share/model/HRP4C/HRP4C.body.
 
+<img src="fig/dance/screen3.png" width="500"/>
 
+In the item pane, make sure that HRP-4C is listed below World as its child item.
+
+You can switch between the "edit mode" and the "view mode" by right-clicking on the scene view.
+In the "edit mode", you can select a link of the robot, and change its pose by dragging the 3D cursor.
+
+<img src="fig/dance/screen4.png" width="500"/>
 
