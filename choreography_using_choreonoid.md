@@ -28,6 +28,7 @@ The BUILD_HRP4C_HANDLER option is needed if you want to use custom IK for the HR
 Check the message view to see if required plug-ins are properly loaded.
 
 - Create a world
+
 Add a world item (File -> New -> World).
 
 <img src="fig/dance/screen2.png" width="500"/>
@@ -45,4 +46,19 @@ You can switch between the "edit mode" and the "view mode" by right-clicking on 
 In the "edit mode", you can select a link of the robot, and change its pose by dragging the 3D cursor.
 
 <img src="fig/dance/screen4.png" width="500"/>
+
+- Load floor
+
+Select World in the item pane, and select File -> Load -> Body.
+In the load dialog, navigate to the source directory of choreonoid and select choreonoid/share/model/misc/floor.body.
+
+<img src="fig/dance/screen5.png" width="500"/>
+
+To avoid selecting and moving the floor accidentally, it is recommended to fix the floor.
+To do so, switch to the edit mode, right-click the floor and select "Lock location".
+
+Floor is necessary for computing physical interaction between the robot and the floor.
+However, while editing the motion of the robot, it is often convenient if the floor is not shown.
+To hide the floor, uncheck the checkbox of Floor in the item pane.
+
 
