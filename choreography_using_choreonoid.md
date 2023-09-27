@@ -225,6 +225,7 @@ This will automatically generate dynamically feasible motion by filtering the po
 - Play motion in physics simulation
 
 Select World in the item view, and in the menu bar, select File->New->AIST Simulator.
+The simulator item is responsible of performing main computation of physics simulation.
 
 Next, select HRP-4C in the item view, and in the menu bar, select File->New->BodyMotionController.
 Furthermore, drag the PoseSeq item and drop it to the BodyMotionController.
@@ -232,5 +233,16 @@ Now the item view should look something like this:
 
 <img src="fig/dance/screen23.png" width="300"/>
 
+The BodyMotionController item is a build-in controller that controls the robot based the BodyMotion item.
 
+Now you can run simulation by pushing the "Start simulation from the beginning" button shown below.
+
+<img src="fig/dance/screen24.png" width="300"/>
+
+To see the effect of the balancer, turn off the balancer (turn off the "Enable the balancer" button) and run simulation. 
+In this case, interpolated pose sequence will be directly input the robot, and its motion could be unstable,
+ or in the worst case the robot might fall down.
+
+Next, turn on the balancer and run simulation again.
+This time, the motion of the robot will look more stable.
 
