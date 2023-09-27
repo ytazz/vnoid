@@ -14,9 +14,9 @@ In CMake, turn on the following options:
 - BUILD_MEDIA_PLUGIN=ON
 
 The command-line should look like:
-`
+```
 cmake . -DBUILD_POSE_SEQ_PLUGIN=ON -DBUILD_BALANCER_PLUGIN=ON -DBUILD_MOCAP_PLUGIN=ON -DBUILD_HRP4C_HANDLER=ON -DBUILD_MEDIA_PLUGIN=ON 
-`
+```
 
 The BUILD_HRP4C_HANDLER option is needed if you want to use custom IK for the HRP-4C model.
 
@@ -25,5 +25,16 @@ The BUILD_HRP4C_HANDLER option is needed if you want to use custom IK for the HR
 - Start up Choreonoid.
 <img src="fig/dance/screen1.png" width="500"/>
 
-- Next
+Check the message view to see if required plug-ins are properly loaded.
+
+- Create a world
+Add a world item (File -> New -> World).
+
+<img src="fig/dance/screen2.png" width="500"/>
+
+- Load robot model
+Select World in the item pane, and select File -> Load -> Body.
+In the load dialog, navigate to the source directory of choreonoid and select choreonoid/share/sample/HRP4C/HRP4C.body.
+
+
 
