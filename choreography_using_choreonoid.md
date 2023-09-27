@@ -61,4 +61,11 @@ Floor is necessary for computing physical interaction between the robot and the 
 However, while editing the motion of the robot, it is often convenient if the floor is not shown.
 To hide the floor, uncheck the checkbox of Floor in the item pane.
 
+- Add PoseSeq item
+
+Select HRP-4C in the item pane, and select File->New->PoseSeq.
+Make sure that the created PoseSeq item is shown below HRP-4C in the item pane.
+
+Select View->Show View->Pose Roll and show the Pose Roll view.
+This view is used for choreography.
 
