@@ -10,6 +10,7 @@ set(VNOID_HEADERS
 	"stabilizer.h"
     "stepping_controller.h"
     "visualizer.h"
+    "debug.h"
 	)
 set(VNOID_SOURCES
     "fksolver.cpp"
@@ -23,6 +24,7 @@ set(VNOID_SOURCES
 	"stabilizer.cpp"
     "stepping_controller.cpp"
     "visualizer.cpp"
+    "debug.cpp"
 	)
 
 choreonoid_add_library(vnoid_lib STATIC ${VNOID_HEADERS} ${VNOID_SOURCES})

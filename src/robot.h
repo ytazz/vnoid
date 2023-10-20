@@ -1,5 +1,6 @@
 ﻿#pragma once
 
+#include "debug.h"
 #include <cnoid/Body>
 #include <cnoid/BasicSensors>
 #include <cnoid/SimpleController>
