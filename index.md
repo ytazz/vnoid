@@ -60,16 +60,22 @@ Now being prepared.
 The robot traverses the athletic field from the starting position to the goal.
 Performance is evaluated by reached landmark and elapsed simulation time.
 
-![field](fig/field_athletics2023.png "Athletics Field")
-
 - [Results](https://ytazz.github.io/vnoid/results_athletics2023.html)
+
+<img src="fig/field_athletics2023.png" alt="Athletics Field" width="50%"/>
+<!--
+![field](fig/field_athletics2023.png "Athletics Field")
+-->
 
 ### Dance
 
 The robot performs dancing that requires whole-body motion.
 Dance performance is evaluated in terms of both artistic quality and technical quality.
 
+<img src="fig/dance2023.png" alt="Robot models used for dance performance" width="50%"/>
+<!--
 ![robots](fig/dance2023.png "Robot models used for dance performance")
+-->
 
 - [Results](https://ytazz.github.io/vnoid/results_dance2023.html)
 
@@ -78,7 +84,10 @@ Dance performance is evaluated in terms of both artistic quality and technical q
 The robot walks/runs the 20[m] short track.
 Performance is evaluated by elapsed simluation time while the robot passes the start line and the goal line.
 
+<img src="fig/field_shorttrack2022.png" alt="Short-track Field" width="50%"/>
+<!--
 ![field](fig/field_shorttrack2022.png "Short-track Field")
+-->
 
 <!--
 - [Results](https://ytazz.github.io/vnoid/results_shorttrack2022.html)
