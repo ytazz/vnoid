@@ -72,12 +72,12 @@ Performance is evaluated by reached landmark and elapsed simulation time.
 The robot performs dancing that requires whole-body motion.
 Dance performance is evaluated in terms of both artistic quality and technical quality.
 
+- [Results](https://ytazz.github.io/vnoid/results_dance2023.html)
+
 <img src="fig/dance2023.png" alt="Robot models used for dance performance" width="50%"/>
 <!--
 ![robots](fig/dance2023.png "Robot models used for dance performance")
 -->
-
-- [Results](https://ytazz.github.io/vnoid/results_dance2023.html)
 
 ### Short track
 
