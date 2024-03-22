@@ -61,6 +61,8 @@ Performance is evaluated by reached landmark and elapsed simulation time.
 
 ![field](fig/field_athletics2023.png "Athletics Field")
 
+- [Results](https://ytazz.github.io/vnoid/results_athletics2023.html)
+
 ### Dance
 
 The robot performs dancing that requires whole-body motion.
@@ -68,9 +70,7 @@ Dance performance is evaluated in terms of both artistic quality and technical q
 
 ![robots](fig/dance2023.png "Robot models used for dance performance")
 
-<!--
-- [Results](https://ytazz.github.io/vnoid/results_athletics2022.html)
--->
+- [Results](https://ytazz.github.io/vnoid/results_dance2023.html)
 
 ### Short track
 
