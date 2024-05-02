@@ -108,14 +108,14 @@ How to evaluate the quality of free-tyle performance is T.B.D.
 
 Please see the following document for detailed regulations.
 Regulations are tentative and subject to change.
-- [Common Regulations](https://docs.google.com/document/d/1hL-ns9MkidtIpFoKp9cHbZRFIo1nW6Ego-rR1P4yRMM/edit?usp=sharing)
-- [Athletics Regulations](https://docs.google.com/document/d/1WNHcZ7FfaSInEFvoUKmaJLhk5DHf0tpzMpSAXry-yVk/edit?usp=sharing)
-- [Dance Regulations](https://docs.google.com/document/d/1HiyRylE11WXyljx85HUTuemjwWejz7O3PF82FPFGrFs/edit?usp=sharing)
-- [Shorttrack Regulations](https://docs.google.com/document/d/1Vv8XXraaJvP1Y915PREzVQYeKrLEQcASY0MD5nD3D0c/edit?usp=sharing)
-- [共通レギュレーション](https://docs.google.com/document/d/1dcAGtvMtwe-3d4sP9VaLWPo771_S5pBR--lq0CypRls/edit?usp=sharing)
-- [アスレチック](https://docs.google.com/document/d/1ib7GlNOn1qRKZZ-hGxog0hHFQIQzdH84j6EV4cKOJnc/edit?usp=sharing)
-- [ダンス](https://docs.google.com/document/d/1AZ8EWB1Y8ITu5elp3QQBQHv5C-FL7t1HwnD2UbKIIa0/edit?usp=sharing)
-- [短距離](https://docs.google.com/document/d/1hnAQm6T4lx1NdhgrTaBNoMrfIc3fg87qDnvxAWstkNM/edit?usp=sharing)
+- [Common Regulations](https://docs.google.com/document/d/1Xqvg9mw-qWO4B6-Nf5njMnja3TeX4mbtRvG8rXbKD7Q/edit?usp=sharing)
+- [Athletics Regulations](https://docs.google.com/document/d/13xU2aNSGV_zHeG_8_phP1-pmSb8oNnku236ZFpSNo40/edit?usp=sharing)
+- [Dance Regulations](https://docs.google.com/document/d/1KzJiW33Z2oPyPcUg0i9THzQ5ezEL-SE6bjU1WmUFDwA/edit?usp=sharing)
+- [Shorttrack Regulations](https://docs.google.com/document/d/1B_7889Ch606CMB-SJc-M-wawc5uJj3CcBh8MR56_N9w/edit?usp=sharing)
+- [共通レギュレーション](https://docs.google.com/document/d/1GrJPCMVQbbhj3R3eq74ijt-7Xipr93_MUIRyJuh9s4o/edit?usp=sharing)
+- [アスレチック](https://docs.google.com/document/d/1h6Sdik0tLKCLmgpga3r2Oc6QVB_UOEj6Pw2C6jBvD5w/edit?usp=sharing)
+- [ダンス](https://docs.google.com/document/d/1iU2JShvLwAFSYZX_f746LV9v9QnOfQRn6XcEExXJOeg/edit?usp=sharing)
+- [短距離](https://docs.google.com/document/d/1zGG5w6R57s3XoG2EndvH4RqNvrPiSVQKELGGPQSYLPc/edit?usp=sharing)
 
 ## Quick Start
 - See [here](https://ytazz.github.io/vnoid/build_sample_2022.html) for how to build and run the sample.
