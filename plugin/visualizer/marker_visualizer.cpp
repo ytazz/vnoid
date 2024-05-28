@@ -241,9 +241,9 @@ bool MarkerVisualizerPlugin::Open(size_t sz){
 	file = OpenFileMappingA(FILE_MAP_WRITE, FALSE, name);
 	data = (Visualizer::Data*)MapViewOfFile(file, FILE_MAP_WRITE, 0, (DWORD)0, (DWORD)sz);
 #else
-	// append '/' in front of shared memory name
+	// append '/tmp' in front of shared memory name to make it in the tmp directory
 	char n[256];
-	sprintf(n, "/%s", name);
+	sprintf(n, "/tmp/%s", name);
 	file = shm_open(n, O_RDWR, 0644);
 	data = (Visualizer::Data*) mmap(NULL, sz, PROT_READ|PROT_WRITE, MAP_SHARED, file, 0); 
 #endif
