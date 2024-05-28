@@ -113,8 +113,7 @@ void MyRobot::Init(SimpleControllerIO* io){
     
     // init hardware (simulator interface)
     Robot::Init(io, timer, joint);
-    io->enableOutput(io_body->link(0), cnoid::Link::LinkExtWrench);  //< to apply external disturbance
-
+    
     // set initial state
     centroid.com_pos_ref = Vector3(0.0, 0.0, param.com_height);
     centroid.dcm_ref     = Vector3(0.0, 0.0, param.com_height);
@@ -146,8 +145,82 @@ void MyRobot::Init(SimpleControllerIO* io){
     stabilizer.base_tilt_damping_p     = 100.0;
     stabilizer.base_tilt_damping_d     = 50.0;
 
-    InitMarkers(io);
+    // init visualizer
+    viz.header.numMaxFrames       = 1000;
+    viz.header.numMaxLines        = 10;
+    viz.header.numMaxSpheres      = 1000;
+    viz.header.numMaxBoxes        = 1000;
+    viz.header.numMaxCylinders    = 8000;
+    viz.header.numMaxLineVertices = 4000;
+    viz.Open();
 
+}
+
+void MyRobot::Visualize(){
+    // relative pose of desired and actual poses of base link
+    Vector3    p_sim = io_body->link(0)->p();
+    Quaternion q_sim(io_body->link(0)->R());
+
+    Vector3    p_fk = base.pos;
+    Quaternion q_fk = base.ori;
+
+    Vector3    p_ik = base.pos_ref;
+    Quaternion q_ik = base.ori_ref;
+
+    Quaternion q_fk_rel = q_sim*q_fk.conjugate();
+    Vector3    p_fk_rel = p_sim - q_fk_rel*p_fk;
+
+    Quaternion q_ik_rel = q_sim*q_ik.conjugate();
+    Vector3    p_ik_rel = p_sim - q_ik_rel*p_ik;
+
+    // indices to frames and geometries
+    int iframe    = timer.time/0.025;
+    int ilines    = 0;
+    int isphere   = 0;
+    int ibox      = 0;
+    int icylinder = 0;
+
+    // create new frame
+    Visualizer::Frame* fr = viz.data->GetFrame(iframe);
+
+    // set time to frame
+    fr->time = timer.time;
+
+    // visualize joint torque using lines
+    /*
+    Visualizer::Lines* lines = viz.data->GetLines(iframe, ilines);
+    lines->color = Vector3f(0.0f, 1.0f, 0.0f);
+    lines->alpha = 0.5f;
+    lines->width = 1.0f;
+
+    int iv = 0;
+    int ii = 0;
+    viz->data->GetLineVertices(info.iframe, info.ilines)[iv+0] = Vector3f((float)v0.x, (float)v0.y, (float)v0.z);
+    viz->data->GetLineVertices(info.iframe, info.ilines)[iv+1] = Vector3f((float)v1.x, (float)v1.y, (float)v1.z);
+    viz->data->GetLineIndices (info.iframe, info.ilines)[ii+0] = iv+0;
+    viz->data->GetLineIndices (info.iframe, info.ilines)[ii+1] = iv+1;
+    iv += 2;
+    ii += 2;
+
+    lines->numVertices = iv;
+    lines->numIndices  = ii;
+    ilines++;
+    */
+    // visualise CoM using a sphere
+    // CoM calculated by FK
+    Visualizer::Sphere* sphere;
+    sphere = viz.data->GetSphere(iframe, isphere++);
+    sphere->pos    = q_fk_rel*centroid.com_pos     + p_fk_rel;
+    sphere->radius = 0.02f;
+    sphere->color  = Vector3f(0.0f, 1.0f, 0.0f);
+    sphere->alpha  = 0.5f;
+
+    // desired CoM
+    sphere = viz.data->GetSphere(iframe, isphere++);
+    sphere->pos    = q_ik_rel*centroid.com_pos_ref + p_ik_rel;
+    sphere->radius = 0.02f;
+    sphere->color  = Vector3f(1.0f, 0.0f, 0.0f);
+    sphere->alpha  = 0.5f;
 }
 
 void MyRobot::Control(){
@@ -159,33 +232,6 @@ void MyRobot::Control(){
     while(footstep.steps.size() > 2)
 		footstep.steps.pop_back();
 
-    Link* target = io_body->link(0);
-    target->f_ext  () = Vector3(0.0, 0.0, 0.0);
-	target->tau_ext() = Vector3(0.0, 0.0, 0.0);
-    Vector3 offset(0.0, 0.0, 0.0);
-
-    if(4.0 <= timer.time && timer.time <= 4.0 + 0.01){
-        Vector3 f(3000.0, 0.0, 0.0);
-        target->f_ext  () = f;
-	    target->tau_ext() = (target->p() + offset).cross(f);
-    }
-    /*
-    if(5.5 <= timer.time && timer.time <= 5.5 + 0.01){
-        Vector3 f(3000.0, 0.0, 0.0);
-        target->f_ext  () = f;
-	    target->tau_ext() = (target->p() + offset).cross(f);
-    }
-    if(7.0 <= timer.time && timer.time <= 7.0 + 0.01){
-        Vector3 f(3000.0, 0.0, 0.0);
-        target->f_ext  () = f;
-	    target->tau_ext() = (target->p() + offset).cross(f);
-    }
-    if(8.0 <= timer.time && timer.time <= 8.0 + 0.01){
-        Vector3 f(0.0, 2500.0, 0.0);
-        Vector3 offset(0.1, 0.0, -0.1);
-        target->f_ext  () = f;
-	    target->tau_ext() = (target->p() + offset).cross(f);
-    }*/
 	Step step;
 	step.stride   = 0.1;
 	step.turn     = 0.0;
@@ -200,17 +246,10 @@ void MyRobot::Control(){
 	footstep_planner.Plan(param, footstep);
     footstep_planner.GenerateDCM(param, footstep);
 
-    // stepping controller generates swing foot trajectory 
-    // it also performs landing position adaptation
     stepping_controller.Update(timer, param, footstep, footstep_buffer, centroid, base, foot);
 
     // stabilizer performs balance feedback
     stabilizer.Update(timer, param, footstep_buffer, centroid, base, foot);
-
-    // timing adaptation
-    //Centroid centroid_pred = centroid;
-    //stabilizer.Predict(timer, param, footstep_buffer, base, centroid_pred);
-    //stepping_controller.AdjustTiming(timer, param, centroid_pred, footstep, footstep_buffer);
 
     hand[0].pos_ref = centroid.com_pos_ref + base.ori_ref*Vector3(0.0, -0.25, -0.1);
     hand[0].ori_ref = base.ori_ref;
@@ -222,8 +261,8 @@ void MyRobot::Control(){
 
     Robot::Actuate(timer, base, joint);
 
-    UpdateMarkers(base, centroid, hand, foot);
-    UpdateMarkers(base, footstep_buffer);
+    // visualization update
+    Visualize();
     
 	timer.Countup();
 }

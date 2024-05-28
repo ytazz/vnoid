@@ -140,7 +140,7 @@ void MyRobot::Init(SimpleControllerIO* io){
     stabilizer.orientation_ctrl_gain_p = 100.0;
     stabilizer.orientation_ctrl_gain_d = 10.0;
     stabilizer.dcm_ctrl_gain           = 2.0;
-    stabilizer.base_tilt_rate          = 5.0;
+    stabilizer.base_tilt_rate          = 2.0;
     stabilizer.base_tilt_damping_p     = 100.0;
     stabilizer.base_tilt_damping_d     = 50.0;
 

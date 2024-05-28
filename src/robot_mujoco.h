@@ -1,14 +1,8 @@
 ﻿#pragma once
 
-#include <cnoid/Body>
-#include <cnoid/BasicSensors>
-#include <cnoid/SimpleController>
-#include <cnoid/Joystick>
-
 #include "robot_base.h"
 
-#include <string>
-using namespace std;
+#include <mujoco/mujoco.h>
 
 namespace cnoid{
 namespace vnoid{
@@ -16,32 +10,25 @@ namespace vnoid{
 /**
  * Robot
  **/
-class Robot : public RobotBase{
+class RobotMujoco : public RobotBase{
 public:
-	string   base_acc_sensor_name;    ///< name of acceleration sensor. specify the name you set in the .body file of the robot
-	string   base_gyro_sensor_name;   ///< name of rate gyro sensor.  specify the name you set in the .body file of the robot
-    string   right_force_sensor_name; ///< name of force sensor attached to the right foot. specify the name you set in the .body file of the robot
-    string   left_force_sensor_name;  ///< name of force sensor attached to the left foot. specify the name you set in the .body file of the robot
-
-    // internal objects
-    Body*     io_body;   ///< handle to IO Body of Choreonoid
-
-	AccelerationSensor* accel_sensor;          ///< handle to acceleration sensor of Choreonoid
-	RateGyroSensor*     gyro_sensor;           ///< handle to rate gyro sensor of Choreonoid
-	ForceSensor*        foot_force_sensor[2];  ///< handle to force sensro of Choreonoid attached to each foot
-
+	// internal objects
+    mjModel*  m;
+    mjData*   d;
+	
 public:
 	/**
 	 * @brief performs initialization
 	 *
 	 * This function performs initialization of the base link, the joints, and the sensors.
-	 * It assumes that joint.size() is equal to the number of joints than can be accessed through the I/O object.
+	 * It assumes that joint.size() is equal to the number of joints of the robot model.
 	 * 
-	 * @param io     simple controller I/O object passed from Choreonoid
+	 * @param _m     Mujoco Model
+	 * @param _d     Mujoco Data struct
 	 * @param timer  timer object to reset
 	 * @param joint  array of joint to be configured
 	 **/
-	void  Init   (SimpleControllerIO* io, Timer& timer, vector<Joint>& joint);
+	void  Init   (mjModel* _m, mjData* _d, const Param& param, Timer& timer, vector<Joint>& joint);
 
 	/**
 	 * @brief performs sensing
@@ -75,7 +62,7 @@ public:
 	 **/
 	void  Actuate(Timer& timer, Base& base, vector<Joint>& joint);
 
-	Robot();
+	RobotMujoco();
 };
 
 }

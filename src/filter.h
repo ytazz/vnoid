@@ -4,9 +4,21 @@ namespace cnoid{
 namespace vnoid{
 
 /**
- 3rd order butterworth filter
+  filter
  **/
 struct Filter{
+    struct Type{
+        enum{
+            None,
+            FirstOrderLPF,
+            FirstOrderLPF2,
+            Butterworth3,   ///< 3rd order butterworth 
+        };
+    };
+
+    /// type of filter
+    int  type;
+
     /// filter coefficients
     double w, w2, w3;
 
@@ -15,6 +27,13 @@ struct Filter{
 
     /// internal storage of output signal value, up to its second derivative
     double ydd, yd, y;
+
+    /// limit of time derivative. yd is clamped to [-yd_max, yd_max]. no limit if yd_max == 0 (default)
+    double yd_max;
+
+    /// internal flag to mark first call
+    bool   first;
+    
 
     /**
      @brief set cutoff frequency
