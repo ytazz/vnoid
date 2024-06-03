@@ -1,6 +1,7 @@
 #include "filter.h"
 
 #include <algorithm>
+#include <math.h>
 
 namespace cnoid{
 namespace vnoid{
