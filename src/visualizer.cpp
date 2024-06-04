@@ -77,6 +77,7 @@ Visualizer::Sphere* Visualizer::Data::GetSphere(int iframe, int i){
 		fr->numSpheres = i + 1;
 
 	Sphere* sphere = (Sphere*)(((uint8_t*)fr) + sizeof(FrameHeader) + szLines*numMaxLines + szSphere*i);
+	printf("sphere address %d\n", sizeof(FrameHeader) + szLines*numMaxLines + szSphere*i);
 	//new(sphere) Sphere();
 	return sphere;
 }
@@ -153,9 +154,21 @@ bool Visualizer::Open(){
 	// append '/' in front of shared memory name
 	char n[256];
 	sprintf(n, "/%s", name);
-	file = shm_open(n, O_RDWR | O_CREAT, 0644); 
+	file = shm_open(n, O_RDWR | O_CREAT, (S_IRUSR|S_IWUSR|S_IRGRP|S_IWGRP|S_IROTH)); 
+	if(file == -1){
+	    printf("vnoid visualizer: failed to open shared memory file\n");
+	    file = 0;
+	    return false;
+	}
+	printf("vnoid visualizer: mapping to memory. size: %d\n", (int)sz);
 	ftruncate(file, sz); 
-    data = (Data*) mmap(NULL, sz, PROT_READ|PROT_WRITE, MAP_SHARED, file, 0); 
+	data = (Data*) mmap(NULL, sz, PROT_READ|PROT_WRITE, MAP_SHARED, file, 0); 
+	if(data == (void*)-1){
+	    printf("vnoid visualizer: failed to map shared memory\n");
+	    file = 0;
+	    data = 0;
+	    return false;	
+	}
 #endif
 
     memset(data, 0, header.szTotal);
@@ -172,7 +185,11 @@ void Visualizer::Close(){
 	if(file)
 		CloseHandle(file);
 #else
-	close(file);
+    if(data)
+        munmap(data, header.szTotal);
+       
+    if(file)
+    	close(file);
 #endif
 
 	file = 0;

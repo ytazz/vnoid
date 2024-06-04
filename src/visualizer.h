@@ -27,12 +27,12 @@ public:
     struct Frame : FrameHeader{
     };
     struct Shape{
-        Vector3f    color;
+        Eigen::Matrix<float,3,1,Eigen::DontAlign>  color;
         float       alpha;
     };
     struct ShapeWithPose : Shape{
-        Vector3     pos;
-        Quaternion  ori;
+        Eigen::Matrix<double,3,1,Eigen::DontAlign>  pos;
+        Eigen::Quaternion<double,Eigen::DontAlign>  ori;
     };
     struct LinesHeader : Shape{
         int        numVertices;
@@ -45,7 +45,7 @@ public:
         float     radius;
     };
     struct Box : ShapeWithPose{
-        Vector3   size;
+        Eigen::Matrix<double,3,1,Eigen::DontAlign>  size;
     };
     struct Cylinder : ShapeWithPose{
         float     radius;

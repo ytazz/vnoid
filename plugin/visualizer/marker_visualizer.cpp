@@ -34,8 +34,8 @@ MarkerVisualizerItem::ShapeWithPoseInfo::ShapeWithPoseInfo(){
 };
 
 void MarkerVisualizerItem::ShapeWithPoseInfo::SetPose(Visualizer::ShapeWithPose* shape){
-    trans->setTranslation(shape->pos);
-    trans->setRotation   (shape->ori);
+    trans->setTranslation(Vector3(shape->pos));
+    trans->setRotation   (Quaternion(shape->ori));
 }
 
 void MarkerVisualizerItem::ShapeWithPoseInfo::SetOutOfView(){
@@ -243,9 +243,20 @@ bool MarkerVisualizerPlugin::Open(size_t sz){
 #else
 	// append '/tmp' in front of shared memory name to make it in the tmp directory
 	char n[256];
-	sprintf(n, "/tmp/%s", name);
-	file = shm_open(n, O_RDWR, 0644);
-	data = (Visualizer::Data*) mmap(NULL, sz, PROT_READ|PROT_WRITE, MAP_SHARED, file, 0); 
+	sprintf(n, "/%s", name);
+	printf("try to open %s\n", n);
+	file = shm_open(n, O_RDONLY, (S_IRUSR|S_IRGRP|S_IROTH));
+	if(file == -1){
+	    printf("failed to open file \n");
+	    file = 0;
+	    return false;
+	}
+	data = (Visualizer::Data*) mmap(NULL, sz, PROT_READ, MAP_SHARED, file, 0); 
+	if(data == (void*)-1){
+	    printf("failed to open data\n");
+	    file = 0;
+	    data = 0;
+	}
 #endif
 
 	if(!file || !data)
@@ -275,10 +286,12 @@ bool MarkerVisualizerPlugin::onTimeChanged(double time){
             return true;
 
         size_t sz = data->szTotal;
+        printf("marker visualizer: shared memory size: %d\n", (int)sz);
         Close();
 
         if(!Open(sz))
             return true;
+        printf("marker visualizer: opened ok\n");
     }
 
     int iframe = -1;

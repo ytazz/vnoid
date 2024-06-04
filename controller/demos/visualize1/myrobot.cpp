@@ -146,17 +146,21 @@ void MyRobot::Init(SimpleControllerIO* io){
     stabilizer.base_tilt_damping_d     = 50.0;
 
     // init visualizer
-    viz.header.numMaxFrames       = 1000;
-    viz.header.numMaxLines        = 10;
-    viz.header.numMaxSpheres      = 1000;
-    viz.header.numMaxBoxes        = 1000;
-    viz.header.numMaxCylinders    = 8000;
-    viz.header.numMaxLineVertices = 4000;
+    viz.header.numMaxFrames       = 1000;  //< max number of simulation frames to be visualized. set big value for long simulation
+    viz.header.numMaxLines        = 0;    //< max number of line sets per frame
+    viz.header.numMaxSpheres      = 10;   //< max number of spheres per frame
+    viz.header.numMaxBoxes        = 0;   //< max number of boxes per frame
+    viz.header.numMaxCylinders    = 0;   //< max number of cylinders per frame
+    viz.header.numMaxLineVertices = 0;   //< max number of vertices per line set
     viz.Open();
 
 }
 
 void MyRobot::Visualize(){
+    // return if shared memory is not open
+    if(!viz.data)
+        return;
+        
     // relative pose of desired and actual poses of base link
     Vector3    p_sim = io_body->link(0)->p();
     Quaternion q_sim(io_body->link(0)->R());
@@ -185,6 +189,7 @@ void MyRobot::Visualize(){
 
     // set time to frame
     fr->time = timer.time;
+
 
     // visualize joint torque using lines
     /*
