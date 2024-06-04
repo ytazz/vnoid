@@ -77,7 +77,6 @@ Visualizer::Sphere* Visualizer::Data::GetSphere(int iframe, int i){
 		fr->numSpheres = i + 1;
 
 	Sphere* sphere = (Sphere*)(((uint8_t*)fr) + sizeof(FrameHeader) + szLines*numMaxLines + szSphere*i);
-	printf("sphere address %d\n", sizeof(FrameHeader) + szLines*numMaxLines + szSphere*i);
 	//new(sphere) Sphere();
 	return sphere;
 }
