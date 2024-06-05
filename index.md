@@ -1,15 +1,12 @@
 <!--
 ![top image](fig/robot.png "Top Image")
--->
 ![top image](fig/hvac2021.png "Top Image")
-
-<iframe width="560" height="315" src="https://www.youtube.com/embed/2xOmlHx2b4U" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
-# Challenge 2023
-
-<!--
-Under construction. Information is tentative.
 -->
+
+<iframe width="355" height="200" src="https://www.youtube.com/embed/2xOmlHx2b4U" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="355" height="200" src="https://www.youtube.com/embed/BR4rxW9pEog" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+# Challenge 2024
 
 ## Aim of this challenge
 
@@ -31,14 +28,19 @@ Compared to several simulation-based humanoid robot competitions held in the pas
   Submitted data will be checked by the steering committee if it conforms with the regulation,
    and if qualified, will appear in the list of qualified submissions shown in this webpage.
 
-## Important Dates of 2023
+## Important Dates of 2024
 
+<!--
 - Website opening: August
-- Application deadline: September 15, 2023 (application beyond deadline is welcome)
-- Online Tutorial (https://connpass.com/event/294393/  NOTE: Held in Japanese, Japan time zone)
-- Preliminary Competition Event: November 11, 2023
-- Main Competition Event: March 16, 2024
+- Application deadline: T.B.D.
+-->
+
+- Main Challenge: September 3rd, 2024, to be held as part of RSJ2024 open forum
+- Extra Challenge: March, 2025 (tentative)
+
+<!--
 - Challenge period: Until March 16, 2024
+-->
 
 ## Application form
 
@@ -46,10 +48,13 @@ Compared to several simulation-based humanoid robot competitions held in the pas
 Now being prepared.
 -->
 
--[Here](https://docs.google.com/forms/d/e/1FAIpQLScJD0zL3r_wv2M09Hj_TMIfLwAr0-pc8-OSdCSNlDXvBhAdZg/viewform?usp=sf_link)
+-[Here](https://docs.google.com/forms/d/e/1FAIpQLSeSxN4F3w2ti-YF4cTTZDEJ5RKPWCEj6dz1IP9A7a-SFMxnDw/viewform?usp=sf_link)
 
-<!--
-2022
+<!-- 2023
+-[Here](https://docs.google.com/forms/d/e/1FAIpQLScJD0zL3r_wv2M09Hj_TMIfLwAr0-pc8-OSdCSNlDXvBhAdZg/viewform?usp=sf_link)
+-->
+
+<!-- 2022
 [Here](https://docs.google.com/forms/d/e/1FAIpQLSdFkUbLTEVpoHGqvfrTeW59-84Kaf-RCNaI9FLpQUu1h0EpCQ/viewform?usp=sf_link)
 -->
 
@@ -60,11 +65,10 @@ Now being prepared.
 The robot traverses the athletic field from the starting position to the goal.
 Performance is evaluated by reached landmark and elapsed simulation time.
 
-- [Results](https://ytazz.github.io/vnoid/results_athletics2023.html)
-
-<img src="fig/field_athletics2023.png" alt="Athletics Field" width="50%"/>
-<!--
 ![field](fig/field_athletics2023.png "Athletics Field")
+
+<!-- 2023
+- [Results](https://ytazz.github.io/vnoid/results_athletics2023.html)
 -->
 
 ### Dance
@@ -72,11 +76,10 @@ Performance is evaluated by reached landmark and elapsed simulation time.
 The robot performs dancing that requires whole-body motion.
 Dance performance is evaluated in terms of both artistic quality and technical quality.
 
-- [Results](https://ytazz.github.io/vnoid/results_dance2023.html)
-
-<img src="fig/dance2023.png" alt="Robot models used for dance performance" width="50%"/>
-<!--
 ![robots](fig/dance2023.png "Robot models used for dance performance")
+
+<!-- 2023
+- [Results](https://ytazz.github.io/vnoid/results_dance2023.html)
 -->
 
 ### Short track
@@ -84,10 +87,7 @@ Dance performance is evaluated in terms of both artistic quality and technical q
 The robot walks/runs the 20[m] short track.
 Performance is evaluated by elapsed simluation time while the robot passes the start line and the goal line.
 
-<img src="fig/field_shorttrack2022.png" alt="Short-track Field" width="50%"/>
-<!--
 ![field](fig/field_shorttrack2022.png "Short-track Field")
--->
 
 <!--
 - [Results](https://ytazz.github.io/vnoid/results_shorttrack2022.html)
@@ -108,69 +108,22 @@ How to evaluate the quality of free-tyle performance is T.B.D.
 
 Please see the following document for detailed regulations.
 Regulations are tentative and subject to change.
-- [Common Regulations](https://docs.google.com/document/d/1hL-ns9MkidtIpFoKp9cHbZRFIo1nW6Ego-rR1P4yRMM/edit?usp=sharing)
-- [Athletics Regulations](https://docs.google.com/document/d/1WNHcZ7FfaSInEFvoUKmaJLhk5DHf0tpzMpSAXry-yVk/edit?usp=sharing)
-- [Dance Regulations](https://docs.google.com/document/d/1HiyRylE11WXyljx85HUTuemjwWejz7O3PF82FPFGrFs/edit?usp=sharing)
-- [Shorttrack Regulations](https://docs.google.com/document/d/1Vv8XXraaJvP1Y915PREzVQYeKrLEQcASY0MD5nD3D0c/edit?usp=sharing)
-- [共通レギュレーション](https://docs.google.com/document/d/1dcAGtvMtwe-3d4sP9VaLWPo771_S5pBR--lq0CypRls/edit?usp=sharing)
-- [アスレチック](https://docs.google.com/document/d/1ib7GlNOn1qRKZZ-hGxog0hHFQIQzdH84j6EV4cKOJnc/edit?usp=sharing)
-- [ダンス](https://docs.google.com/document/d/1AZ8EWB1Y8ITu5elp3QQBQHv5C-FL7t1HwnD2UbKIIa0/edit?usp=sharing)
-- [短距離](https://docs.google.com/document/d/1hnAQm6T4lx1NdhgrTaBNoMrfIc3fg87qDnvxAWstkNM/edit?usp=sharing)
-
-### Regulations overview
-
-[Choreonoid](https://www.choreonoid.org/) is used for the simulation environment of this challenge.
-Each team designs a robot model and a controller that can be loaded and run on Choreonoid.
-
-#### Creating a robot model
-
-- The model is recommended to be written in the .body format.
-- The number of joints must not exceed 50.
-- The type of joints may be revolute or prismatic.
-- The total mass of the robot must be 40[kg] at the minimum.
-- The robot in its initial posture must be inside the box of X x Y x Z = 70cm x 70cm x 200cm.
-
-#### Implementing a controller
-
-- The controller should basically be implemented as a SimpleController of Choreonoid.
-- The main controller could be implemented using some other framework such as ROS,
-  and exchange information between Choreonoid over a communication bridge.
-
-#### Actuation
-- The actuation mode of each joint may be either Velocity or Torque.
-  Torque mode is recommended for stable simulation.
-- Only joints can be directly actuated.
-  Directly actuating the links (the rigid bodes) is not permitted (use it for test purpose only).
-  
-#### Sensing
-- Various sensor nodes supported by Choreonoid such as ForceSensor, RateGyroSensor, AccelerationSensor, and RangeSensor, may be used.
-  The number of sensors is not limited.
-- The position and velocity of joints can be retrieved through the SimpleControllerIO interface.
-- Retrieving the absolute position and orientation of links (rigid bodies) is also permitted
-  (there is no need for position/posture estimation).
-
-#### Simulator setting
-- The AISTsimulator physics engine for simulation.
-  Switching to other physics engines. or changing the parameters of the AISTsimulator is not permitted.
-- A sample .cnoid project file is provided for each challenge theme.
-  Use the simulator setting described in this file for simulation.
-
-#### Operating the robot
-- The robot can be operated with an input device, typically a joystick.
-- The operator can operate the robot while monitoring the robot on the 3D view of Choreonoid.
-
+- [Common Regulations](https://docs.google.com/document/d/1Xqvg9mw-qWO4B6-Nf5njMnja3TeX4mbtRvG8rXbKD7Q/edit?usp=sharing)
+- [Athletics Regulations](https://docs.google.com/document/d/13xU2aNSGV_zHeG_8_phP1-pmSb8oNnku236ZFpSNo40/edit?usp=sharing)
+- [Dance Regulations](https://docs.google.com/document/d/1KzJiW33Z2oPyPcUg0i9THzQ5ezEL-SE6bjU1WmUFDwA/edit?usp=sharing)
+- [Shorttrack Regulations](https://docs.google.com/document/d/1B_7889Ch606CMB-SJc-M-wawc5uJj3CcBh8MR56_N9w/edit?usp=sharing)
+- [共通レギュレーション](https://docs.google.com/document/d/1GrJPCMVQbbhj3R3eq74ijt-7Xipr93_MUIRyJuh9s4o/edit?usp=sharing)
+- [アスレチック](https://docs.google.com/document/d/1h6Sdik0tLKCLmgpga3r2Oc6QVB_UOEj6Pw2C6jBvD5w/edit?usp=sharing)
+- [ダンス](https://docs.google.com/document/d/1iU2JShvLwAFSYZX_f746LV9v9QnOfQRn6XcEExXJOeg/edit?usp=sharing)
+- [短距離](https://docs.google.com/document/d/1zGG5w6R57s3XoG2EndvH4RqNvrPiSVQKELGGPQSYLPc/edit?usp=sharing)
 
 ## Quick Start
-<!--
 - See [here](https://ytazz.github.io/vnoid/build_sample_2022.html) for how to build and run the sample.
--->
-- See README of [vnoid](https://github.com/ytazz/vnoid) for quick instructions.
-- See [here](https://ytazz.github.io/vnoid/choreography_using_choreonoid.html) for quick tutorial of dance motion editing using Choreonoid.
 
 ## Committee
 
-- HVAC2023 is hosted by the Special Interest Group on Humanoid Robotics of the Robotics Society of Japan (RSJ-SIG-HR).
-- HVAC2023 is run by volunteers consisting of members and non-members of RSJ-SIG-HR.
+- HVAC2024 is hosted by the Special Interest Group on Humanoid Robotics of the Robotics Society of Japan (RSJ-SIG-HR).
+- HVAC2024 is run by volunteers consisting of members and non-members of RSJ-SIG-HR.
   - Commitee members
     - Yuichi Tazaki
     - Takumi Kamioka
@@ -180,14 +133,12 @@ Each team designs a robot model and a controller that can be loaded and run on C
     - Ikuo Mizuuchi
     - Yohei Kakiuchi
     - Shin'ichiro Nakaoka
-    - Soh Yukizaki
 
 
 ## Asking Questions
 - Post your question at [https://github.com/ytazz/vnoid/discussions](https://github.com/ytazz/vnoid/discussions)
 
-## Related Pages
-- [Challenge 2021 page](https://ytazz.github.io/vnoid/index2021.html)
+## Old pages
+- [Challenge 2023 page](https://ytazz.github.io/vnoid/index2023.html)
 - [Challenge 2022 page](https://ytazz.github.io/vnoid/index2022.html)
-- [Humanoids 2022 Tutorial](https://ytazz.github.io/vnoid/humanoids2022tutorial.html)
-- [HVAC2023 Technical Tutorial (in Japanese)](https://ytazz.github.io/vnoid/hvac2023tutorial.html)
+- [Challenge 2021 page](https://ytazz.github.io/vnoid/index2021.html)
