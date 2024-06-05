@@ -161,7 +161,10 @@ Each team designs a robot model and a controller that can be loaded and run on C
 
 
 ## Quick Start
+<!--
 - See [here](https://ytazz.github.io/vnoid/build_sample_2022.html) for how to build and run the sample.
+-->
+- See README of [vnoid](https://github.com/ytazz/vnoid) for quick instructions.
 - See [here](https://ytazz.github.io/vnoid/choreography_using_choreonoid.html) for quick tutorial of dance motion editing using Choreonoid.
 
 ## Committee
