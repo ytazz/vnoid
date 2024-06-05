@@ -118,7 +118,10 @@ Regulations are tentative and subject to change.
 - [短距離](https://docs.google.com/document/d/1zGG5w6R57s3XoG2EndvH4RqNvrPiSVQKELGGPQSYLPc/edit?usp=sharing)
 
 ## Quick Start
+<!--
 - See [here](https://ytazz.github.io/vnoid/build_sample_2022.html) for how to build and run the sample.
+-->
+- See README of [vnoid](https://github.com/ytazz/vnoid) for quick instructions.
 
 ## Committee
 
