@@ -1,26 +1,22 @@
 # vnoid
-Humanoid Virtual Athletics Challenge
-
-## Instruction for building the sample code of vnoid
-
-You need basic knowledge of git and CMake.
-
-In order to implement your own controller for Choreonoid, 
- you need to be able to build Chorenoid from source.
-See Chorenoid Manual ([jp](https://choreonoid.org/ja/documents/latest/index.html), [en](https://choreonoid.org/en/documents/latest/index.html))
- for detailed instruction.
-
-### About vnoid
-
-vnoid is a simple library that provides basic functionality of humanoid robot.
-It includes:
+vnoid is a simple library used in samples codes of Humanoid Virtual Athletics Challenge.
+It provides basic functionality of humanoid robot including:
 - SimpleController interface with Choreonoid
 - Foot step planning
 - Inverse kinematics
 - Stepping control
 - Stabilization control
 
+The vnoid library is intended to be as simple as possible in order to serve as a good entry point of learning for beginners.
 Each function is implemented by about 100 lines of code.
+
+vnoid is primarily designed to implement a simple robot controller that runs on Choreonoid.
+However, one can also build a stand-along mujoco simulation program using vnoid.
+
+## How to use vnoid with Choreonoid
+
+In order to implement your own controller for Choreonoid, you need to be able to build Chorenoid from source.
+See Chorenoid Manual ([jp](https://choreonoid.org/ja/documents/latest/index.html), [en](https://choreonoid.org/en/documents/latest/index.html)) for detailed instruction.
 
 ### Building and running vnoid
 
@@ -67,3 +63,16 @@ When all the above procedure is finished, build and install Choreonoid.
 You will find your project file in [Install directory of Choreonoid]/share/project/.
 Open it on Choreonoid, and run simulation.
 
+## How to use vnoid with mujoco
+
+Install [mujoco](https://github.com/google-deepmind/mujoco).
+
+### Building and running vnoid
+
+- Using your git client, clone vnoid from [here](https://github.com/ytazz/vnoid).
+- Run Cmake. 
+  Check VNOID_BUILD_MUJOCO. Uncheck VNOID_BUILD_CNOID, which is checked by default.
+  Specify installation path in CMAKE_INSTALL_PREFIX.
+  Adding ".../vnoid" to the installation path is recommended to avoid having installed files mixed with other stuff.
+  Configure, generate, build, and install.
+- Run the executable in the bin directory of the install path.
