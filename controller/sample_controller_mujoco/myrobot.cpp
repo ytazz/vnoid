@@ -157,41 +157,13 @@ void MyRobot::Control(){
         fk_solver.Comp(param, joint, base, centroid, hand, foot);
 
 	    if(timer.count % 10 == 0){
-		    // read joystick
-		    joystick.readCurrentState();
-
-		    /* Xbox controller mapping:
-			    L_STICK_H_AXIS -> L stick right
-			    L_STICK_V_AXIS -> L stick down
-			    R_STICK_H_AXIS -> L trigger - R trigger
-			    R_STICK_V_AXIS -> R stick down
-			    A_BUTTON -> A
-			    B_BUTTON -> B
-			    X_BUTTON -> X
-			    Y_BUTTON -> Y
-			    L_BUTTON -> L
-			    R_BUTTON -> R
-		        */
-		    /*
-		    DSTR << joystick.getPosition(Joystick::L_STICK_H_AXIS) << " " 
-			        << joystick.getPosition(Joystick::L_STICK_V_AXIS) << " " 
-			        << joystick.getPosition(Joystick::R_STICK_H_AXIS) << " " 
-			        << joystick.getPosition(Joystick::R_STICK_V_AXIS) << " " 
-			        << joystick.getButtonState(Joystick::A_BUTTON) << " "
-			        << joystick.getButtonState(Joystick::B_BUTTON) << " "
-			        << joystick.getButtonState(Joystick::X_BUTTON) << " "
-			        << joystick.getButtonState(Joystick::Y_BUTTON) << " "
-			        << joystick.getButtonState(Joystick::L_BUTTON) << " "
-			        << joystick.getButtonState(Joystick::R_BUTTON) << endl;
-		    */
-	
 		    // erase current footsteps
 		    while(footstep.steps.size() > 2)
 			    footstep.steps.pop_back();
 
 		    Step step;
-		    step.stride   = 0.1; //-max_stride*joystick.getPosition(Joystick::L_STICK_V_AXIS);
-		    step.turn     = 0.0; //-max_turn  *joystick.getPosition(Joystick::L_STICK_H_AXIS);
+		    step.stride   = 0.1;
+		    step.turn     = 0.0;
 		    step.spacing  = 0.20;
 		    step.climb    = 0.0;
 		    step.duration = 0.5;

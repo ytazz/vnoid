@@ -1,6 +1,6 @@
 ﻿#include "stepping_controller.h"
 
-#include "robot.h"
+#include "robot_base.h"
 #include "footstep.h"
 #include "rollpitchyaw.h"
 

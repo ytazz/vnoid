@@ -1,0 +1,336 @@
+<mujoco model="sample_robot">
+  <option timestep="0.0001"/>
+
+  <visual>
+    <map force="0.1" zfar="30"/>
+    <rgba haze="0.15 0.25 0.35 1"/>
+    <global offwidth="2560" offheight="1440" elevation="-20" azimuth="120"/>
+  </visual>
+
+  <statistic center="0 0 0.7"/>
+
+  <asset>
+    <texture type="skybox" builtin="gradient" rgb1=".3 .5 .7" rgb2="0 0 0" width="32" height="512"/>
+    <texture name="body" type="cube" builtin="flat" mark="cross" width="128" height="128" rgb1="0.8 0.6 0.4" rgb2="0.8 0.6 0.4" markrgb="1 1 1" random="0.01"/>
+    <material name="body" texture="body" texuniform="true" rgba="0.8 0.6 .4 1"/>
+    <texture name="grid" type="2d" builtin="checker" width="512" height="512" rgb1=".1 .2 .3" rgb2=".2 .3 .4"/>
+    <material name="grid" texture="grid" texrepeat="1 1" texuniform="true" reflectance=".2"/>
+
+    <mesh name="HIPS"        file="Hips.stl"/>
+    <mesh name="CHEST_Y"     file="ChestY.stl"/>
+    <mesh name="CHEST_P"     file="ChestP.stl"/>
+    <mesh name="HEAD_Y"      file="HeadY.stl"/>
+    <mesh name="HEAD_P"      file="HeadP.stl"/>
+    <mesh name="UPPERARM_P"  file="UpperArmP.stl"/>
+    <mesh name="UPPERARM_R"  file="UpperArmR.stl"/>
+    <mesh name="UPPERARM_Y"  file="UpperArmY.stl"/>
+    <mesh name="LOWERARM_P"  file="LowerArmP.stl"/>
+    <mesh name="LOWERARM_Y"  file="LowerArmY.stl"/>
+    <mesh name="HAND_P"      file="HandP.stl"/>
+    <mesh name="HAND_R"      file="HandR.stl"/>
+    <mesh name="UPPERLEG_Y"  file="UpperLegY.stl"/>
+    <mesh name="UPPERLEG_R"  file="UpperLegR.stl"/>
+    <mesh name="UPPERLEG_P"  file="UpperLegP.stl"/>
+    <mesh name="LOWERLEG_P"  file="LowerLegP.stl"/>
+    <mesh name="FOOT_P"      file="FootP.stl"/>
+    <mesh name="FOOT_R"      file="FootR_flat.stl"/>
+  </asset>
+
+  <default>
+    <motor ctrlrange="-100 100" ctrllimited="true"/>
+    <geom condim="3" friction="1" solimp=".9 .99 .003" solref=".001 100" material="body" group="1"/>
+    <joint type="hinge" damping=".0" stiffness="0" armature=".01" limited="true" solimplimit="0 .99 .01"/>
+  </default>
+
+  <worldbody>
+    <geom name="floor" size="0 0 .05" type="plane" material="grid" condim="3" conaffinity="1"/>
+    <light name="spotlight" mode="targetbodycom" target="HIPS" diffuse=".8 .8 .8" specular="0.3 0.3 0.3" pos="0 -6 4" cutoff="30"/>
+    <body name="HIPS" pos="0 0 0.9">
+      <freejoint name="root"/>
+      <geom type="mesh" mesh="HIPS" conaffinity="0"/>
+      <inertial pos="0 0 0" mass="10" diaginertia="0.04 0.04 0.04"/>
+      <body name="CHEST_Y" pos="0 0 0.2">
+        <geom type="mesh" mesh="CHEST_Y" conaffinity="0"/>
+        <joint name="CHEST_Y" type="hinge" axis="0 0 1" range="-30 30"/>
+        <inertial pos="0 0 0" mass="5" diaginertia="0.02 0.02 0.02"/>
+        <site name="gsensor"/>
+        <site name="gyrometer"/>
+        <body name="CHEST_P" pos="0 0 0">
+          <geom type="mesh" mesh="CHEST_P" conaffinity="0"/>
+          <joint name="CHEST_P" type="hinge" axis="0 1 0" range="-30 70"/>
+          <inertial pos="0 0 0" mass="5" diaginertia="0.02 0.02 0.02"/>
+          <body name="HEAD_Y" pos="0 0 0.3">
+            <geom type="mesh" mesh="HEAD_Y" conaffinity="0"/>
+            <joint name="HEAD_Y" type="hinge" axis="0 0 1" range="-90 90"/>
+            <inertial pos="0 0 0" mass="2" diaginertia="0.01 0.01 0.01"/>
+            <body name="HEAD_P" pos="0 0 0">
+              <geom type="mesh" mesh="HEAD_P" conaffinity="0"/>
+              <joint name="HEAD_P" type="hinge" axis="0 1 0" range="-30 60"/>
+              <inertial pos="0 0 0" mass="2" diaginertia="0.01 0.01 0.01"/>
+            </body>
+          </body>
+          <body name="R_UPPERARM_P" pos="0 -0.1 0.1">
+            <geom type="mesh" mesh="UPPERARM_P" conaffinity="0"/>
+            <joint name="R_UPPERARM_P" type="hinge" axis="0 1 0" range="-180 180"/>
+            <inertial pos="0 0 0" mass="0.5" diaginertia="0.0004 0.0004 0.0004"/>
+            <body name="R_UPPERARM_R" pos="0 0 0">
+              <geom type="mesh" mesh="UPPERARM_R" conaffinity="0"/>
+              <joint name="R_UPPERARM_R" type="hinge" axis="1 0 0" range="-90 90"/>
+              <inertial pos="0 0 0" mass="0.5" diaginertia="0.0004 0.0004 0.0004"/>
+              <body name="R_UPPERARM_Y" pos="0 0 0">
+                <geom type="mesh" mesh="UPPERARM_Y" conaffinity="0"/>
+                <joint name="R_UPPERARM_Y" type="hinge" axis="0 0 1" range="-180 180"/>
+                <inertial pos="0 0 -0.1" mass="1" diaginertia="0.002 0.002 0.0004"/>
+                <body name="R_LOWERARM_P" pos="0 0 -0.2">
+                  <geom type="mesh" mesh="LOWERARM_P" conaffinity="0"/>
+                  <joint name="R_LOWERARM_P" type="hinge" axis="0 1 0" range="-150 0"/>
+                  <inertial pos="0 0 0" mass="0.5" diaginertia="0.0004 0.0004 0.0004"/>
+                  <body name="R_LOWERARM_Y" pos="0 0 0">
+                    <geom type="mesh" mesh="LOWERARM_Y" conaffinity="0"/>
+                    <joint name="R_LOWERARM_Y" type="hinge" axis="0 0 1" range="-90 90"/>
+                    <inertial pos="0 0 -0.1" mass="1" diaginertia="0.002 0.002 0.0004"/>
+                    <body name="R_HAND_P" pos="0 0 -0.2">
+                      <geom type="mesh" mesh="HAND_P" conaffinity="0"/>
+                      <joint name="R_HAND_P" type="hinge" axis="0 1 0" range="-90 90"/>
+                      <inertial pos="0 0 0" mass="0.5" diaginertia="0.0003 0.0003 0.0003"/>
+                      <body name="R_HAND_R" pos="0 0 0">
+                        <geom type="mesh" mesh="HAND_R" conaffinity="0"/>
+                        <joint name="R_HAND_R" type="hinge" axis="1 0 0" range="-90 90"/>
+                        <inertial pos="0 0 0" mass="0.5" diaginertia="0.0003 0.0003 0.0003"/>
+                      </body>
+                    </body>
+                  </body>
+                </body>
+              </body>
+            </body>
+          </body>
+          <body name="L_UPPERARM_P" pos="0 0.1 0.1">
+            <geom type="mesh" mesh="UPPERARM_P" conaffinity="0"/>
+            <joint name="L_UPPERARM_P" type="hinge" axis="0 1 0" range="-180 180"/>
+            <inertial pos="0 0 0" mass="0.5" diaginertia="0.0004 0.0004 0.0004"/>
+            <body name="L_UPPERARM_R" pos="0 0 0">
+              <geom type="mesh" mesh="UPPERARM_R" conaffinity="0"/>
+              <joint name="L_UPPERARM_R" type="hinge" axis="1 0 0" range="-90 90"/>
+              <inertial pos="0 0 0" mass="0.5" diaginertia="0.0004 0.0004 0.0004"/>
+              <body name="L_UPPERARM_Y" pos="0 0 0">
+                <geom type="mesh" mesh="UPPERARM_Y" conaffinity="0"/>
+                <joint name="L_UPPERARM_Y" type="hinge" axis="0 0 1" range="-180 180"/>
+                <inertial pos="0 0 -0.1" mass="1" diaginertia="0.002 0.002 0.0004"/>
+                <body name="L_LOWERARM_P" pos="0 0 -0.2">
+                  <geom type="mesh" mesh="LOWERARM_P" conaffinity="0"/>
+                  <joint name="L_LOWERARM_P" type="hinge" axis="0 1 0" range="-150 0"/>
+                  <inertial pos="0 0 0" mass="0.5" diaginertia="0.0004 0.0004 0.0004"/>
+                  <body name="L_LOWERARM_Y" pos="0 0 0">
+                    <geom type="mesh" mesh="LOWERARM_Y" conaffinity="0"/>
+                    <joint name="L_LOWERARM_Y" type="hinge" axis="0 0 1" range="-90 90"/>
+                    <inertial pos="0 0 -0.1" mass="1" diaginertia="0.002 0.002 0.0004"/>
+                    <body name="L_HAND_P" pos="0 0 -0.2">
+                      <geom type="mesh" mesh="HAND_P" conaffinity="0"/>
+                      <joint name="L_HAND_P" type="hinge" axis="0 1 0" range="-90 90"/>
+                      <inertial pos="0 0 0" mass="0.5" diaginertia="0.0003 0.0003 0.0003"/>
+                      <body name="L_HAND_R" pos="0 0 0">
+                        <geom type="mesh" mesh="HAND_R" conaffinity="0"/>
+                        <joint name="L_HAND_R" type="hinge" axis="1 0 0" range="-90 90"/>
+                        <inertial pos="0 0 0" mass="0.5" diaginertia="0.0003 0.0003 0.0003"/>
+                      </body>
+                    </body>
+                  </body>
+                </body>
+              </body>
+            </body>
+          </body>
+        </body>
+      </body>
+      <body name="R_UPPERLEG_Y" pos="0 -0.1 -0.1">
+        <geom type="mesh" mesh="UPPERLEG_Y" conaffinity="0"/>
+        <joint name="R_UPPERLEG_Y" type="hinge" axis="0 0 1" range="-180 180"/>
+        <inertial pos="0 0 0" mass="0.5" diaginertia="0.0003 0.0003 0.0003"/>
+        <body name="R_UPPERLEG_R" pos="0 0 0">
+          <geom type="mesh" mesh="UPPERLEG_R" conaffinity="0"/>
+          <joint name="R_UPPERLEG_R" type="hinge" axis="1 0 0" range="-30 30"/>
+          <inertial pos="0 0 0" mass="0.5" diaginertia="0.0003 0.0003 0.0003"/>
+          <body name="R_UPPERLEG_P" pos="0 0 0">
+            <geom type="mesh" mesh="UPPERLEG_P" conaffinity="0"/>
+            <joint name="R_UPPERLEG_P" type="hinge" axis="0 1 0" range="-110 30"/>
+            <inertial pos="0 0 -0.15" mass="1.5" diaginertia="0.01 0.01 0.001"/>
+            <body name="R_LOWERLEG_P" pos="0 0 -0.3">
+              <geom type="mesh" mesh="LOWERLEG_P" conaffinity="0"/>
+              <joint name="R_LOWERLEG_P" type="hinge" axis="0 1 0" range="0 140"/>
+              <inertial pos="0 0 -0.2" mass="1.5" diaginertia="0.02 0.02 0.002"/>
+              <body name="R_FOOT_P" pos="0 0 -0.4">
+                <geom type="mesh" mesh="FOOT_P" conaffinity="0"/>
+                <joint name="R_FOOT_P" type="hinge" axis="0 1 0" range="-60 60"/>
+                <inertial pos="0 0 0" mass="0.5" diaginertia="0.0003 0.0003 0.0003"/>
+                <body name="R_FOOT_R" pos="0 0 0">
+                  <!--
+                  <geom name="R_FOOT_R" type="mesh" mesh="FOOT_R" conaffinity="0"/>
+                  -->
+                  <geom name="R_FOOT_R" type="box" size="0.1 0.05 0.05" conaffinity="0"/>
+                  <joint name="R_FOOT_R" type="hinge" axis="1 0 0" range="-60 60"/>
+                  <inertial pos="0 0 0" mass="0.5" diaginertia="0.0003 0.001 0.001"/>
+                  <site name="rfsensor"/>
+                </body>
+              </body>
+            </body>
+          </body>
+        </body>
+      </body>
+      <body name="L_UPPERLEG_Y" pos="0 0.1 -0.1">
+        <geom type="mesh" mesh="UPPERLEG_Y" conaffinity="0"/>
+        <joint name="L_UPPERLEG_Y" type="hinge" axis="0 0 1" range="-180 180"/>
+        <inertial pos="0 0 0" mass="0.5" diaginertia="0.0003 0.0003 0.0003"/>
+        <body name="L_UPPERLEG_R" pos="0 0 0">
+          <geom type="mesh" mesh="UPPERLEG_R" conaffinity="0"/>
+          <joint name="L_UPPERLEG_R" type="hinge" axis="1 0 0" range="-30 30"/>
+          <inertial pos="0 0 0" mass="0.5" diaginertia="0.0003 0.0003 0.0003"/>
+          <body name="L_UPPERLEG_P" pos="0 0 0">
+            <geom type="mesh" mesh="UPPERLEG_P" conaffinity="0"/>
+            <joint name="L_UPPERLEG_P" type="hinge" axis="0 1 0" range="-110 30"/>
+            <inertial pos="0 0 -0.15" mass="1.5" diaginertia="0.01 0.01 0.001"/>
+            <body name="L_LOWERLEG_P" pos="0 0 -0.3">
+              <geom type="mesh" mesh="LOWERLEG_P" conaffinity="0"/>
+              <joint name="L_LOWERLEG_P" type="hinge" axis="0 1 0" range="0 140"/>
+              <inertial pos="0 0 -0.2" mass="1.5" diaginertia="0.02 0.02 0.002"/>
+              <body name="L_FOOT_P" pos="0 0 -0.4">
+                <geom type="mesh" mesh="FOOT_P" conaffinity="0"/>
+                <joint name="L_FOOT_P" type="hinge" axis="0 1 0" range="-60 60"/>
+                <inertial pos="0 0 0" mass="0.5" diaginertia="0.0003 0.0003 0.0003"/>
+                <body name="L_FOOT_R" pos="0 0 0">
+                  <!--
+                  <geom type="mesh" mesh="FOOT_R" conaffinity="0"/>
+                  -->
+                  <geom type="box" size="0.1 0.05 0.05" conaffinity="0"/>
+                  <joint name="L_FOOT_R" type="hinge" axis="1 0 0" range="-60 60"/>
+                  <inertial pos="0 0 0" mass="0.5" diaginertia="0.0003 0.001 0.001"/>
+                  <site name="lfsensor"/>
+                </body>
+              </body>
+            </body>
+          </body>
+        </body>
+      </body>
+    </body>
+  </worldbody>
+
+  <sensor>
+    <framepos  objtype="xbody" objname="HIPS"/>
+    <framequat objtype="xbody" objname="HIPS"/>
+    <accelerometer site="gsensor"/>
+    <gyro   site="gyrometer"/>
+    <force  site="rfsensor"/>
+    <torque site="rfsensor"/>
+    <force  site="lfsensor"/>
+    <torque site="lfsensor"/>
+  </sensor>
+
+  <actuator>
+    <motor name="CHEST_Y"       joint="CHEST_Y"/>
+    <motor name="CHEST_P"       joint="CHEST_P"/>
+    <motor name="HEAD_Y"        joint="HEAD_Y"/>
+    <motor name="HEAD_P"        joint="HEAD_P"/>
+    <motor name="R_UPPERARM_P"  joint="R_UPPERARM_P"/>
+    <motor name="R_UPPERARM_R"  joint="R_UPPERARM_R"/>
+    <motor name="R_UPPERARM_Y"  joint="R_UPPERARM_Y"/>
+    <motor name="R_LOWERARM_P"  joint="R_LOWERARM_P"/>
+    <motor name="R_LOWERARM_Y"  joint="R_LOWERARM_Y"/>
+    <motor name="R_HAND_P"      joint="R_HAND_P"/>
+    <motor name="R_HAND_R"      joint="R_HAND_R"/>
+    <motor name="L_UPPERARM_P"  joint="L_UPPERARM_P"/>
+    <motor name="L_UPPERARM_R"  joint="L_UPPERARM_R"/>
+    <motor name="L_UPPERARM_Y"  joint="L_UPPERARM_Y"/>
+    <motor name="L_LOWERARM_P"  joint="L_LOWERARM_P"/>
+    <motor name="L_LOWERARM_Y"  joint="L_LOWERARM_Y"/>
+    <motor name="L_HAND_P"      joint="L_HAND_P"/>
+    <motor name="L_HAND_R"      joint="L_HAND_R"/>
+    <motor name="R_UPPERLEG_Y"  joint="R_UPPERLEG_Y"/>
+    <motor name="R_UPPERLEG_R"  joint="R_UPPERLEG_R"/>
+    <motor name="R_UPPERLEG_P"  joint="R_UPPERLEG_P"/>
+    <motor name="R_LOWERLEG_P"  joint="R_LOWERLEG_P"/>
+    <motor name="R_FOOT_P"      joint="R_FOOT_P"/>
+    <motor name="R_FOOT_R"      joint="R_FOOT_R"/>
+    <motor name="L_UPPERLEG_Y"  joint="L_UPPERLEG_Y"/>
+    <motor name="L_UPPERLEG_R"  joint="L_UPPERLEG_R"/>
+    <motor name="L_UPPERLEG_P"  joint="L_UPPERLEG_P"/>
+    <motor name="L_LOWERLEG_P"  joint="L_LOWERLEG_P"/>
+    <motor name="L_FOOT_P"      joint="L_FOOT_P"/>
+    <motor name="L_FOOT_R"      joint="L_FOOT_R"/>
+  </actuator>
+
+  <contact>
+  </contact>
+  
+  <!--
+  <contact>
+    <exclude body1="waist_lower" body2="thigh_right"/>
+    <exclude body1="waist_lower" body2="thigh_left"/>
+  </contact>
+
+  <tendon>
+    <fixed name="hamstring_right" limited="true" range="-0.3 2">
+      <joint joint="hip_y_right" coef=".5"/>
+      <joint joint="knee_right" coef="-.5"/>
+    </fixed>
+    <fixed name="hamstring_left" limited="true" range="-0.3 2">
+      <joint joint="hip_y_left" coef=".5"/>
+      <joint joint="knee_left" coef="-.5"/>
+    </fixed>
+  </tendon>
+
+  <actuator>
+    <motor name="abdomen_z"       gear="40"  joint="abdomen_z"/>
+    <motor name="abdomen_y"       gear="40"  joint="abdomen_y"/>
+    <motor name="abdomen_x"       gear="40"  joint="abdomen_x"/>
+    <motor name="hip_x_right"     gear="40"  joint="hip_x_right"/>
+    <motor name="hip_z_right"     gear="40"  joint="hip_z_right"/>
+    <motor name="hip_y_right"     gear="120" joint="hip_y_right"/>
+    <motor name="knee_right"      gear="80"  joint="knee_right"/>
+    <motor name="ankle_y_right"   gear="20"  joint="ankle_y_right"/>
+    <motor name="ankle_x_right"   gear="20"  joint="ankle_x_right"/>
+    <motor name="hip_x_left"      gear="40"  joint="hip_x_left"/>
+    <motor name="hip_z_left"      gear="40"  joint="hip_z_left"/>
+    <motor name="hip_y_left"      gear="120" joint="hip_y_left"/>
+    <motor name="knee_left"       gear="80"  joint="knee_left"/>
+    <motor name="ankle_y_left"    gear="20"  joint="ankle_y_left"/>
+    <motor name="ankle_x_left"    gear="20"  joint="ankle_x_left"/>
+    <motor name="shoulder1_right" gear="20"  joint="shoulder1_right"/>
+    <motor name="shoulder2_right" gear="20"  joint="shoulder2_right"/>
+    <motor name="elbow_right"     gear="40"  joint="elbow_right"/>
+    <motor name="shoulder1_left"  gear="20"  joint="shoulder1_left"/>
+    <motor name="shoulder2_left"  gear="20"  joint="shoulder2_left"/>
+    <motor name="elbow_left"      gear="40"  joint="elbow_left"/>
+  </actuator>
+
+  <keyframe>
+    <key name="squat"
+         qpos="0 0 0.596
+               0.988015 0 0.154359 0
+               0 0.4 0
+               -0.25 -0.5 -2.5 -2.65 -0.8 0.56
+               -0.25 -0.5 -2.5 -2.65 -0.8 0.56
+               0 0 0 0 0 0"/>
+    <key name="stand_on_left_leg"
+         qpos="0 0 1.21948
+               0.971588 -0.179973 0.135318 -0.0729076
+               -0.0516 -0.202 0.23
+               -0.24 -0.007 -0.34 -1.76 -0.466 -0.0415
+               -0.08 -0.01 -0.37 -0.685 -0.35 -0.09
+               0.109 -0.067 -0.7 -0.05 0.12 0.16"/>
+    <key name="prone"
+         qpos="0.4 0 0.0757706
+               0.7325 0 0.680767 0
+               0 0.0729 0
+               0.0077 0.0019 -0.026 -0.351 -0.27 0
+               0.0077 0.0019 -0.026 -0.351 -0.27 0
+               0.56 -0.62 -1.752
+               0.56 -0.62 -1.752"/>
+    <key name="supine"
+         qpos="-0.4 0 0.08122
+               0.722788 0 -0.69107 0
+               0 -0.25 0
+               0.0182 0.0142 0.3 0.042 -0.44 -0.02
+               0.0182 0.0142 0.3 0.042 -0.44 -0.02
+               0.186 -0.73 -1.73
+               0.186 -0.73 -1.73"/>
+  </keyframe>
+  -->
+</mujoco>

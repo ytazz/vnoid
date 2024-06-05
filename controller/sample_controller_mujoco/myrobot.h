@@ -20,8 +20,7 @@ public:
     bool      use_joystick;
     double    max_stride;
     double    max_turn;
-    Joystick  joystick;
-
+    
 	Timer            timer;
     Param            param;
     Centroid         centroid;

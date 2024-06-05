@@ -1,7 +1,5 @@
-set(VNOID_BUILD_CNOID  true  CACHE BOOL "build vnoid to be used as Choreonoid simple controller")
-set(VNOID_BUILD_MUJOCO false CACHE BOOL "build vnoid as mujoco simulation program")
-
 set(VNOID_HEADERS
+	"types.h"
 	"fksolver.h"
     "iksolver.h"
     "filter.h"
@@ -12,7 +10,6 @@ set(VNOID_HEADERS
 	"rollpitchyaw.h"
 	"stabilizer.h"
     "stepping_controller.h"
-    "visualizer.h"
 	)
 set(VNOID_SOURCES
     "fksolver.cpp"
@@ -25,30 +22,43 @@ set(VNOID_SOURCES
 	"rollpitchyaw.cpp"
 	"stabilizer.cpp"
     "stepping_controller.cpp"
-    "visualizer.cpp"
 	)
 	
 if(VNOID_BUILD_CNOID)
     add_compile_definitions(VNOID_BUILD_CNOID)
-	set(VNOID_HEADERS ${VNOID_HEADERS} "robot.h")
-	set(VNOID_SOURCES ${VNOID_SOURCES} "robot.cpp")
+	set(VNOID_HEADERS ${VNOID_HEADERS} "robot.h" "visualizer.h")
+	set(VNOID_SOURCES ${VNOID_SOURCES} "robot.cpp" "visualizer.cpp")
 endif()
 
 if(VNOID_BUILD_MUJOCO)
     add_compile_definitions(VNOID_BUILD_MUJOCO)
+    find_package(Eigen3)
     find_package(mujoco)
 
 	set(VNOID_HEADERS ${VNOID_HEADERS} "robot_mujoco.h")
 	set(VNOID_SOURCES ${VNOID_SOURCES} "robot_mujoco.cpp")
 endif()
 
-choreonoid_add_library(vnoid_lib STATIC ${VNOID_HEADERS} ${VNOID_SOURCES})
+if(VNOID_BUILD_CNOID)
+	choreonoid_add_library(vnoid_lib STATIC ${VNOID_HEADERS} ${VNOID_SOURCES})
+	target_link_libraries(vnoid_lib CnoidBody)
+	choreonoid_add_body_handler(SwingBridgeHandler SwingBridgeHandler.cpp)
+else()
+	add_library(vnoid_lib STATIC ${VNOID_HEADERS} ${VNOID_SOURCES})
+	install(TARGETS vnoid_lib
+		EXPORT        vnoidExport
+		LIBRARY       DESTINATION lib
+		INCLUDES      DESTINATION include
+		PUBLIC_HEADER DESTINATION include
+	)
 
-target_link_libraries(vnoid_lib CnoidBody)
-
-if(VNOID_BUILD_MUJOCO)
-    target_link_libraries(vnoid_lib mujoco::mujoco)
+	install(EXPORT vnoidExport
+		FILE         vnoidConfig.cmake
+		DESTINATION  cmake
+	)
 endif()
 
-choreonoid_add_body_handler(SwingBridgeHandler SwingBridgeHandler.cpp)
+if(VNOID_BUILD_MUJOCO)
+    target_link_libraries(vnoid_lib mujoco::mujoco Eigen3::Eigen)
+endif()
 

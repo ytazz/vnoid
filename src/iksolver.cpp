@@ -1,7 +1,7 @@
 ﻿#include "iksolver.h"
 #include "fksolver.h"
 #include "rollpitchyaw.h"
-#include "robot.h"
+#include "robot_base.h"
 
 namespace cnoid{
 namespace vnoid{

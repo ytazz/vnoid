@@ -1,6 +1,6 @@
 ﻿#include "ground_estimator.h"
 
-#include "robot.h"
+#include "robot_base.h"
 #include "rollpitchyaw.h"
 
 namespace cnoid{

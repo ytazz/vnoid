@@ -1,6 +1,6 @@
 ﻿#pragma once
 
-#include <cnoid/EigenTypes>
+#include "types.h"
 
 #include "footstep.h"
 

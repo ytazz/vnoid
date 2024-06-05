@@ -1,11 +1,11 @@
 ﻿#pragma once
 
-#include <cnoid/EigenTypes>
+#include "types.h"
 
 #include <vector>
 using namespace std;
 
-#include "robot.h"
+#include "robot_base.h"
 
 namespace cnoid{
 namespace vnoid{
