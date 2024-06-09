@@ -22,7 +22,9 @@ void Robot::Init(SimpleControllerIO* io, Timer& timer, vector<Joint>& joint){
         io_body->link(0)->setActuationMode(cnoid::Link::LinkPosition);
         io->enableIO(io_body->link(0));
     }
-	io->enableInput (io_body->link(0), cnoid::Link::LinkPosition | cnoid::Link::LinkTwist | cnoid::Link::LinkAcceleration);
+    for(int i = 0; i < io_body->numLinks(); i++){
+	    io->enableInput (io_body->link(i), cnoid::Link::LinkPosition | cnoid::Link::LinkTwist | cnoid::Link::LinkAcceleration);
+    }
 
     joint_pos_filter.resize(joint.size());
 	for (int i = 0; i < joint.size(); ++i) {

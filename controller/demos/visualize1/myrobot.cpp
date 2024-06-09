@@ -146,12 +146,13 @@ void MyRobot::Init(SimpleControllerIO* io){
     stabilizer.base_tilt_damping_d     = 50.0;
 
     // init visualizer
+    // you need to specify maximum number of visualization frames and items per frame to determine the size of shared memory
     viz.header.numMaxFrames       = 1000;  //< max number of simulation frames to be visualized. set big value for long simulation
-    viz.header.numMaxLines        = 0;    //< max number of line sets per frame
-    viz.header.numMaxSpheres      = 10;   //< max number of spheres per frame
-    viz.header.numMaxBoxes        = 0;   //< max number of boxes per frame
-    viz.header.numMaxCylinders    = 0;   //< max number of cylinders per frame
-    viz.header.numMaxLineVertices = 0;   //< max number of vertices per line set
+    viz.header.numMaxLines        = 10;    //< max number of line sets per frame
+    viz.header.numMaxSpheres      = 10;    //< max number of spheres per frame
+    viz.header.numMaxBoxes        = 0;     //< max number of boxes per frame
+    viz.header.numMaxCylinders    = 0;     //< max number of cylinders per frame
+    viz.header.numMaxLineVertices = 100;   //< max number of vertices per line set
     viz.Open();
 
 }
@@ -190,27 +191,40 @@ void MyRobot::Visualize(){
     // set time to frame
     fr->time = timer.time;
 
-
     // visualize joint torque using lines
-    /*
     Visualizer::Lines* lines = viz.data->GetLines(iframe, ilines);
-    lines->color = Vector3f(0.0f, 1.0f, 0.0f);
+    lines->color = Vector3f(1.0f, 0.0f, 1.0f);
     lines->alpha = 0.5f;
-    lines->width = 1.0f;
-
+    lines->width = 5.0f;
+    
     int iv = 0;
     int ii = 0;
-    viz->data->GetLineVertices(info.iframe, info.ilines)[iv+0] = Vector3f((float)v0.x, (float)v0.y, (float)v0.z);
-    viz->data->GetLineVertices(info.iframe, info.ilines)[iv+1] = Vector3f((float)v1.x, (float)v1.y, (float)v1.z);
-    viz->data->GetLineIndices (info.iframe, info.ilines)[ii+0] = iv+0;
-    viz->data->GetLineIndices (info.iframe, info.ilines)[ii+1] = iv+1;
-    iv += 2;
-    ii += 2;
+    for(int i = 1; i < io_body->numLinks(); i++){
+        // link position
+        Vector3    pos    = io_body->link(i)->p();
+        Quaternion ori(io_body->link(i)->R());
+        Vector3    axis   = io_body->link(i)->jointAxis();
+        double     torque = io_body->link(i)->u();
 
+        // scaling factor of torque visualization
+        const double scale = 0.005;
+        Vector3  p0 = pos;
+        Vector3  p1 = pos + (ori*axis)*(scale*torque);
+
+        //
+        viz.data->GetLineVertices(iframe, ilines)[iv+0] = Vector3f((float)p0.x(), (float)p0.y(), (float)p0.z());
+        viz.data->GetLineVertices(iframe, ilines)[iv+1] = Vector3f((float)p1.x(), (float)p1.y(), (float)p1.z());
+        viz.data->GetLineIndices (iframe, ilines)[ii+0] = iv+0;
+        viz.data->GetLineIndices (iframe, ilines)[ii+1] = iv+1;
+        iv += 2;
+        ii += 2;
+
+    }
+    // set number of vertices and indices in this lineset
     lines->numVertices = iv;
     lines->numIndices  = ii;
     ilines++;
-    */
+
     // visualise CoM using a sphere
     // CoM calculated by FK
     Visualizer::Sphere* sphere;
