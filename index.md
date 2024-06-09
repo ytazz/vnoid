@@ -35,6 +35,8 @@ Compared to several simulation-based humanoid robot competitions held in the pas
 - Application deadline: T.B.D.
 -->
 
+- [第1回 技術講習会](https://connpass.com/event/321220/)
+- [第2回 技術講習会](https://connpass.com/event/321221/)
 - Main Challenge: September 3rd, 2024, to be held as part of RSJ2024 open forum
 - Extra Challenge: March, 2025 (tentative)
 
