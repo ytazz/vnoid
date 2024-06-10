@@ -143,7 +143,9 @@ Regulations are tentative and subject to change.
 ## Asking Questions
 - Post your question at [https://github.com/ytazz/vnoid/discussions](https://github.com/ytazz/vnoid/discussions)
 
-## Old pages
+## See Also
+- [HVAC introduction blog](https://koomiy.github.io/)
+
 - [Challenge 2023 page](https://ytazz.github.io/vnoid/index2023.html)
 - [Challenge 2022 page](https://ytazz.github.io/vnoid/index2022.html)
 - [Challenge 2021 page](https://ytazz.github.io/vnoid/index2021.html)
