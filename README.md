@@ -26,6 +26,7 @@ See Chorenoid Manual ([jp](https://choreonoid.org/ja/documents/latest/index.html
   If you have cloned vnoid below a directory other than choreonoid/ext/, then
   add the path to the vnoid directory to ADDITIONAL_EXT_DIRECTORIES. 
   If you have cloned it to chorenoid/ext/, no need to do this.
+  On Windows environment, enabling USE_SUBSYSTEM_CONSOLE option is convenient for printf-based debugging.
   Configure, generate, build, and install.
   As a result, Choreonoid will be installed to the location specified by CMAKE_INSTALL_PREFIX.
 - Run Choreonoid, load [install directory of Choreonoid]/share/project/vnoid_sample_project.cnoid
