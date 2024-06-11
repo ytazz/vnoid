@@ -143,8 +143,14 @@ Regulations are tentative and subject to change.
 ## Asking Questions
 - Post your question at [https://github.com/ytazz/vnoid/discussions](https://github.com/ytazz/vnoid/discussions)
 
+## Mailing List
+- Search "Humanoid Virtual Athletics Challenge Participants" in Google Groups and ask join.
+
 ## See Also
 - [HVAC introduction blog](https://koomiy.github.io/)
+
+- [Tutorial in Humanoids2022](https://ytazz.github.io/vnoid/humanoids2022tutorial.html)
+- [Tutorial 2023](https://ytazz.github.io/vnoid/hvac2023tutorial.html)
 
 - [Challenge 2023 page](https://ytazz.github.io/vnoid/index2023.html)
 - [Challenge 2022 page](https://ytazz.github.io/vnoid/index2022.html)
