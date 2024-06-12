@@ -3,7 +3,6 @@
 #include <cnoid/Body>
 #include <cnoid/BasicSensors>
 #include <cnoid/SimpleController>
-#include <cnoid/Joystick>
 
 #include "robot_base.h"
 

@@ -1,5 +1,6 @@
 ﻿#include "myrobot.h"
 
+#include <iostream>
 using namespace std;
 
 namespace cnoid{
@@ -7,6 +8,12 @@ namespace vnoid{
 
 MyRobot::MyRobot(){
     base_actuation = false;
+
+    // set use_joystick as true if you want to command robot with joystick
+    use_joystick = false;
+    max_stride = 0.2;
+    max_turn   = 0.1;
+    max_sway   = 0.1;
 }
 
 void MyRobot::Init(SimpleControllerIO* io){
@@ -153,41 +160,54 @@ void MyRobot::Control(){
     fk_solver.Comp(param, joint, base, centroid, hand, foot);
 
 	if(timer.count % 10 == 0){
-		// read joystick
-		joystick.readCurrentState();
+        if(use_joystick){
+		    // read joystick
+		    joystick.readCurrentState();
 
-		/* Xbox controller mapping:
-			L_STICK_H_AXIS -> L stick right
-			L_STICK_V_AXIS -> L stick down
-			R_STICK_H_AXIS -> L trigger - R trigger
-			R_STICK_V_AXIS -> R stick down
-			A_BUTTON -> A
-			B_BUTTON -> B
-			X_BUTTON -> X
-			Y_BUTTON -> Y
-			L_BUTTON -> L
-			R_BUTTON -> R
-		    */
-		/*
-		DSTR << joystick.getPosition(Joystick::L_STICK_H_AXIS) << " " 
-			    << joystick.getPosition(Joystick::L_STICK_V_AXIS) << " " 
-			    << joystick.getPosition(Joystick::R_STICK_H_AXIS) << " " 
-			    << joystick.getPosition(Joystick::R_STICK_V_AXIS) << " " 
-			    << joystick.getButtonState(Joystick::A_BUTTON) << " "
-			    << joystick.getButtonState(Joystick::B_BUTTON) << " "
-			    << joystick.getButtonState(Joystick::X_BUTTON) << " "
-			    << joystick.getButtonState(Joystick::Y_BUTTON) << " "
-			    << joystick.getButtonState(Joystick::L_BUTTON) << " "
-			    << joystick.getButtonState(Joystick::R_BUTTON) << endl;
-		*/
-	
+		    /* Xbox controller mapping:
+			    L_STICK_H_AXIS -> L stick right
+			    L_STICK_V_AXIS -> L stick down
+			    R_STICK_H_AXIS -> L trigger - R trigger
+			    R_STICK_V_AXIS -> R stick down
+			    A_BUTTON -> A
+			    B_BUTTON -> B
+			    X_BUTTON -> X
+			    Y_BUTTON -> Y
+			    L_BUTTON -> L
+			    R_BUTTON -> R
+		        */
+		    /*
+            cout <<  joystick.getPosition(Joystick::L_STICK_H_AXIS) << " " 
+			     << joystick.getPosition(Joystick::L_STICK_V_AXIS) << " " 
+			     << joystick.getPosition(Joystick::R_STICK_H_AXIS) << " " 
+			     << joystick.getPosition(Joystick::R_STICK_V_AXIS) << " " 
+			     << joystick.getButtonState(Joystick::A_BUTTON) << " "
+			     << joystick.getButtonState(Joystick::B_BUTTON) << " "
+			     << joystick.getButtonState(Joystick::X_BUTTON) << " "
+			     << joystick.getButtonState(Joystick::Y_BUTTON) << " "
+			     << joystick.getButtonState(Joystick::L_BUTTON) << " "
+			     << joystick.getButtonState(Joystick::R_BUTTON) << endl;
+             */
+        }
+		
 		// erase current footsteps
 		while(footstep.steps.size() > 2)
 			footstep.steps.pop_back();
 
+        // generate footsteps
 		Step step;
-		step.stride   = 0.1; //-max_stride*joystick.getPosition(Joystick::L_STICK_V_AXIS);
-		step.turn     = 0.0; //-max_turn  *joystick.getPosition(Joystick::L_STICK_H_AXIS);
+        if(use_joystick){
+            // set stride and turn based on joystick input
+		    step.stride   = -max_stride*joystick.getPosition(Joystick::L_STICK_V_AXIS);
+		    step.turn     = -max_turn  *joystick.getPosition(Joystick::L_STICK_H_AXIS);
+            step.sway     =  max_sway  *joystick.getPosition(Joystick::R_STICK_H_AXIS);
+        }
+        else{
+            // just walk forward
+            step.stride = 0.1;
+            step.turn   = 0.0;
+            step.sway   = 0.0;
+        }
 		step.spacing  = 0.20;
 		step.climb    = 0.0;
 		step.duration = 0.5;
