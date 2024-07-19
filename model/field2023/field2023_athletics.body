@@ -85,7 +85,7 @@ links:
       0.000000, 0.000000, 0.0026667 ]
     elements:
       - type: Visual
-        translation: [ 0.0, 0.0, -0.495 ]
+        translation: [ 0.0, 0.0, -0.0 ]
         resource:
           uri: "link1.STL"
       -
@@ -128,7 +128,7 @@ links:
       0.000000, 0.000000, 0.0026667 ]
     elements:
       - type: Visual
-        translation: [ 0.0, 0.0, -0.495 ]
+        translation: [ 0.0, 0.0, -0.0 ]
         resource:
           uri: "link1.STL"
       -
@@ -164,7 +164,7 @@ links:
       0.000000, 0.000000, 0.0026667 ]
     elements:
       - type: Visual
-        translation: [ 0.0, 0.0, -0.495 ]
+        translation: [ 0.0, 0.0, -0.0 ]
         resource:
           uri: "link1.STL"
       -
@@ -200,7 +200,7 @@ links:
       0.000000, 0.000000, 0.0026667 ]
     elements:
       - type: Visual
-        translation: [ 0.0, 0.0, -0.495 ]
+        translation: [ 0.0, 0.0, -0.0 ]
         resource:
           uri: "link1.STL"
       -
@@ -234,7 +234,7 @@ links:
         translation: [1.0, 0.35, 0]
         elements:
           Shape:
-            geometry: { type: Box, size: [0.04, 0.04, 1.03] }
+            geometry: { type: Box, size: [3.0, 0.7, 0.1] }
             appearance: { material: {diffuse: [ 0.9, 0.9, 0 ]}}
 extraJoints:
   # -
