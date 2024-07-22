@@ -85,7 +85,7 @@ links:
       0.000000, 0.000000, 0.0026667 ]
     elements:
       - type: Visual
-        translation: [ 0.0, 0.0, -0.0 ]
+        translation: [ 0.0, 0.0, -0.495 ]
         resource:
           uri: "link1.STL"
       -
@@ -128,7 +128,7 @@ links:
       0.000000, 0.000000, 0.0026667 ]
     elements:
       - type: Visual
-        translation: [ 0.0, 0.0, -0.0 ]
+        translation: [ 0.0, 0.0, -0.495 ]
         resource:
           uri: "link1.STL"
       -
@@ -164,7 +164,7 @@ links:
       0.000000, 0.000000, 0.0026667 ]
     elements:
       - type: Visual
-        translation: [ 0.0, 0.0, -0.0 ]
+        translation: [ 0.0, 0.0, -0.495 ]
         resource:
           uri: "link1.STL"
       -
@@ -200,7 +200,7 @@ links:
       0.000000, 0.000000, 0.0026667 ]
     elements:
       - type: Visual
-        translation: [ 0.0, 0.0, -0.0 ]
+        translation: [ 0.0, 0.0, -0.495 ]
         resource:
           uri: "link1.STL"
       -
