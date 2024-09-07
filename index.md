@@ -69,9 +69,7 @@ Performance is evaluated by reached landmark and elapsed simulation time.
 
 ![field](fig/field_athletics2023.png "Athletics Field")
 
-<!-- 2023
-- [Results](https://ytazz.github.io/vnoid/results_athletics2023.html)
--->
+- [Results](https://ytazz.github.io/vnoid/results_athletics2024.html)
 
 ### Dance
 
@@ -80,9 +78,7 @@ Dance performance is evaluated in terms of both artistic quality and technical q
 
 ![robots](fig/dance2023.png "Robot models used for dance performance")
 
-<!-- 2023
-- [Results](https://ytazz.github.io/vnoid/results_dance2023.html)
--->
+[Results](https://ytazz.github.io/vnoid/results_dance2024.html)
 
 ### Short track
 
@@ -91,9 +87,7 @@ Performance is evaluated by elapsed simluation time while the robot passes the s
 
 ![field](fig/field_shorttrack2022.png "Short-track Field")
 
-<!--
-- [Results](https://ytazz.github.io/vnoid/results_shorttrack2022.html)
--->
+[Results](https://ytazz.github.io/vnoid/results_shorttrack2024.html)
 
 <!--
 ### Free-style performance
