@@ -4,7 +4,7 @@ set(VNOID_BUILD_MUJOCO false CACHE BOOL "build vnoid as mujoco simulation progra
 if(VNOID_BUILD_CNOID)
 	install(DIRECTORY model   DESTINATION ${CNOID_SHARE_SUBDIR})
 	install(DIRECTORY project DESTINATION ${CNOID_SHARE_SUBDIR})
-	install(DIRECTORY motion  DESTINATION ${CNOID_SHARE_SUBDIR})
+	install(DIRECTORY motion  DESTINATION ${CNOID_SHARE_SUBDIR} OPTIONAL)
 else()
 	project(vnoid)
 	install(DIRECTORY model   DESTINATION share)
