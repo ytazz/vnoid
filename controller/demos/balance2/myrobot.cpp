@@ -13,7 +13,7 @@ void MyRobot::Init(SimpleControllerIO* io){
     // init params
     //  dynamical parameters
 	param.total_mass = 50.0;
-	param.com_height =  0.70;
+	param.com_height =  0.55;
 	param.gravity    =  9.8;
 
     // kinematic parameters
@@ -114,21 +114,9 @@ void MyRobot::Init(SimpleControllerIO* io){
     stabilizer.orientation_ctrl_gain_p = 100.0;
     stabilizer.orientation_ctrl_gain_d = 10.0;
     stabilizer.dcm_ctrl_gain           = 2.0;
-    stabilizer.base_tilt_rate          = 1.0;
+    stabilizer.base_tilt_rate          = 2.0;
     stabilizer.base_tilt_damping_p     = 10.0;
     stabilizer.base_tilt_damping_d     = 5.0;
-    
-    // init ground estimator
-    ground_estimator.correction_constant = 0.1;
-    ground_estimator.correction_limit    = 1.0;
-
-    footstep_buffer.steps.resize(2);
-    footstep_buffer.steps[0].stepping = false;
-    footstep_buffer.steps[0].zmp = Vector3(0.0, 0.0, 0.0);
-    footstep_buffer.steps[0].foot_pos[0] = Vector3(0.02, -0.15, 0.0);
-    footstep_buffer.steps[0].foot_pos[1] = Vector3(0.02,  0.15, 0.0);
-    footstep_buffer.steps[0].dcm = Vector3(0.0, 0.0, param.com_height);
-    footstep_buffer.steps[1].dcm = Vector3(0.0, 0.0, param.com_height);
 
     base.ori_ref   = Quaternion(1.0, 0.0, 0.0, 0.0);
     base.angle_ref = Vector3(0.0, 0.0, 0.0);
@@ -136,12 +124,14 @@ void MyRobot::Init(SimpleControllerIO* io){
     centroid.com_vel_ref = Vector3(0.0, 0.0, 0.0);
     centroid.com_acc_ref = Vector3(0.0, 0.0, 0.0);
     centroid.zmp_ref     = Vector3(0.0, 0.0, 0.0);
+    centroid.zmp_target  = Vector3(0.0, 0.0, 0.0);
     centroid.dcm_ref     = Vector3(0.0, 0.0, param.com_height);
+    centroid.dcm_target  = Vector3(0.0, 0.0, param.com_height);
     foot[0].pos_ref = Vector3(0.02, -0.15, 0.0);
     foot[1].pos_ref = Vector3(0.02,  0.15, 0.0);
     foot[0].contact_ref = true;
     foot[1].contact_ref = true;
-    
+
     InitMarkers(io);
 
 }
@@ -152,19 +142,7 @@ void MyRobot::Control(){
     // comp FK
     fk_solver.Comp(param, joint, base, centroid, hand, foot);
 
-    // ground tilt estimation
-    ground_estimator.Update(timer, base, foot, ground);
-
-    // align footprint to ground
-    footstep_planner.AlignToGround(ground, footstep_buffer);
-
-    // directly copy desired foot poses from footstep
-    for(int i = 0; i < 2; i++){
-        foot[i].pos_ref = footstep_buffer.steps[0].foot_pos[i];
-        foot[i].ori_ref = footstep_buffer.steps[0].foot_ori[i];
-    }
-
-    stabilizer.Update(timer, param, footstep_buffer, centroid, base, foot);
+    stabilizer.Update(timer, param, centroid, base, foot);
 
     hand[0].pos_ref = centroid.com_pos_ref + base.ori_ref*Vector3(0.0, -0.25, -0.1);
     hand[0].ori_ref = base.ori_ref;

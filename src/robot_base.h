@@ -78,7 +78,12 @@ public:
 	Vector3    angle_ref;  ///< reference orientation in roll-pitch-yaw
 	Vector3    angvel_ref; ///< reference angular velocity
 	Vector3    angacc_ref; ///< reference angular acceleration
-	double     arm_twist;  ///< desired angle of shoulder-yaw joint. used by iksolver
+	
+	/// IK options
+	bool     fix_arm_twist;
+    bool     fix_elbow_dir;
+    double   arm_twist;     ///< desired angle of shoulder-yaw joint. used by iksolver
+    Vector3  elbow_dir;
 
     Hand();
 };
@@ -118,8 +123,10 @@ public:
 	Vector3  moment_ref;   ///< reference moment
 	Vector3  zmp;          ///< current ZMP
 	Vector3  zmp_ref;      ///< reference ZMP
-	Vector3  dcm;
-	Vector3  dcm_ref;      ///< reference DCM (divergent component of motion)
+	Vector3  zmp_target;   ///< target ZMP
+	Vector3  dcm;          ///< DCM (divergent component of motion)
+	Vector3  dcm_ref;      ///< reference DCM
+	Vector3  dcm_target;   ///< target DCM
 
 	Vector3  com_pos;
 	Vector3  com_pos_ref;  ///< reference position of CoM

@@ -1,5 +1,6 @@
 set(VNOID_HEADERS
-	"types.h"
+	"base.h"
+	"bvh.h"
 	"fksolver.h"
     "iksolver.h"
     "filter.h"
@@ -12,6 +13,7 @@ set(VNOID_HEADERS
     "stepping_controller.h"
 	)
 set(VNOID_SOURCES
+	"bvh.cpp"
     "fksolver.cpp"
     "iksolver.cpp"
     "filter.cpp"

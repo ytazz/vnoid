@@ -27,17 +27,11 @@ void MyRobot::Control(){
 
     Robot::Sense(timer, base, joint);
 
-    // parameters
-    const double turn_speed   = 1.0;
-    const double tilt_angle   = 0.1;
-    const double tilt_speed   = 0.1;
-    const double standby_time = 2.0;
-
     // tilting angle
-    double tilt = std::min(tilt_angle, tilt_speed*std::max(timer.time - standby_time, 0.0));
+    double tilt = 0.05;
 
     // tilting direction
-    double theta = turn_speed*std::max(timer.time - standby_time, 0.0);
+    double theta = 2.0*std::max(timer.time - 2.0, 0.0);
 
     Quaternion q(Eigen::AngleAxisd(tilt, Vector3(cos(theta), sin(theta), 0.0)));
 

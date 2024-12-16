@@ -51,10 +51,13 @@ public:
      *  It assumes a P-R-Y-P-Y-P-R serial link model
      *  where the first 3 axes (P,R,Y) cross at the shoulder origin
      *  and the last 3 axes (Y,P,R) cross at the wrist origin.
-     *  To resolve redundancy, it simply requires the user to specify the yaw angle of the upper arm.
-     *  6 other joint angles are computed by the function.
+     *  To resolve redundancy, CompArmIk requires the user to specify the yaw angle of the upper arm.
+     *  CompArmIk2 requires the desired joint axis direction of the elbow joint.
      **/
+    void CompElbowAngle(const Vector3& pos, double l1, double l2, double* q);
+    void CompWristAngles(const Quaternion& ori, double* q);
     void CompArmIk(const Vector3& pos, const Quaternion& ori, double l1, double l2, double q2_ref, double* q);
+    void CompArmIk2(const Vector3& pos, const Quaternion& ori, double l1, double l2, const Vector3& elbow_y, double* q);
 
     /** @brief Whole-body IK
      *

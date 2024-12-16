@@ -12,6 +12,7 @@ Step::Step(double _stride, double _sway, double _spacing, double _turn, double _
 	duration = _duration;
     side     = _side    ;
 	stepping = true;
+	tbegin   = 0.0;
     
     for(int i = 0; i < 2; i++){
 		foot_pos   [i] = Vector3(0.0, 0.0, 0.0);

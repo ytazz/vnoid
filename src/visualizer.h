@@ -15,6 +15,15 @@ namespace vnoid{
 /// Unique name of shared memory. No need to edit.
 extern const char* VisualizerSharedMemoryName;
 
+/// struct to keep track of indices of drawn items
+struct VizInfo{
+	int iframe;
+	int ibox;
+	int isphere;
+	int icylinder;
+	int ilines;
+};
+
 class Visualizer{
 public:	
     struct FrameHeader{

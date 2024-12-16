@@ -22,7 +22,6 @@ public:
     bool      use_joystick;
     double    max_stride;
     double    max_turn;
-    double    max_sway;
     Joystick  joystick;
 
 	Timer            timer;

@@ -268,7 +268,7 @@ void MyRobot::Control(){
     stepping_controller.Update(timer, param, footstep, footstep_buffer, centroid, base, foot);
 
     // stabilizer performs balance feedback
-    stabilizer.Update(timer, param, footstep_buffer, centroid, base, foot);
+    stabilizer.Update(timer, param, centroid, base, foot);
 
     hand[0].pos_ref = centroid.com_pos_ref + base.ori_ref*Vector3(0.0, -0.25, -0.1);
     hand[0].ori_ref = base.ori_ref;

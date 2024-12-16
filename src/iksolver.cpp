@@ -132,9 +132,10 @@ void IkSolver::CompLegIkOld(const Vector3& pos, const Quaternion& ori, double l1
     
 }
 
-void IkSolver::CompArmIk(const Vector3& pos, const Quaternion& ori, double l1, double l2, double q2_ref, double* q){
+void IkSolver::CompElbowAngle(const Vector3& pos, double l1, double l2, double* q){
     // elbow pitch from trigonometrics
     double tmp = (l1*l1 + l2*l2 - pos.squaredNorm())/(2*l1*l2);
+    
     //  singularity: too close
     if(tmp > 1.0){
         q[3] = pi;
@@ -147,6 +148,27 @@ void IkSolver::CompArmIk(const Vector3& pos, const Quaternion& ori, double l1, d
     else{
         q[3] = -(pi - acos(tmp));
     }
+}
+
+void IkSolver::CompWristAngles(const Quaternion& ori, double* q){
+    // desired hand orientation
+    Quaternion qhand = ( AngleAxis(q[0], Vector3::UnitY())
+                        *AngleAxis(q[1], Vector3::UnitX())
+                        *AngleAxis(q[2], Vector3::UnitZ())
+                        *AngleAxis(q[3], Vector3::UnitY()) ).conjugate()*ori;
+
+    // convert it to roll-pitch-yaw
+    Vector3 angle_hand = ToRollPitchYaw(qhand);
+
+    // then wrist angles are determined
+    q[4] = angle_hand.z();
+    q[5] = angle_hand.y();
+    q[6] = angle_hand.x();
+}
+
+void IkSolver::CompArmIk(const Vector3& pos, const Quaternion& ori, double l1, double l2, double q2_ref, double* q){
+    // comp elbow angle
+    CompElbowAngle(pos, l1, l2, q);
 
     // shoulder yaw is given
     q[2] = q2_ref;
@@ -155,7 +177,7 @@ void IkSolver::CompArmIk(const Vector3& pos, const Quaternion& ori, double l1, d
     Vector3 pos_local = AngleAxis(q[2], Vector3::UnitZ())*Vector3(-l2*sin(q[3]), 0.0, -l1 - l2*cos(q[3]));
 
     // shoulder roll
-    tmp = pos.y()/sqrt(pos_local.y()*pos_local.y() + pos_local.z()*pos_local.z());
+    double tmp = pos.y()/sqrt(pos_local.y()*pos_local.y() + pos_local.z()*pos_local.z());
     double delta;
     if(tmp > 1.0){
         delta = 0.0;
@@ -175,24 +197,45 @@ void IkSolver::CompArmIk(const Vector3& pos, const Quaternion& ori, double l1, d
 
     // shoulder pitch
     q[0] = atan2(pos.x(), pos.z())
-         - atan2(pos_local2.x(), pos_local2.z());
+            - atan2(pos_local2.x(), pos_local2.z());
     if(q[0] >  pi) q[0] -= 2.0*pi;
     if(q[0] < -pi) q[0] += 2.0*pi;
 
-    // desired hand orientation
-    Quaternion qhand = ( AngleAxis(q[0], Vector3::UnitY())
-                        *AngleAxis(q[1], Vector3::UnitX())
-                        *AngleAxis(q[2], Vector3::UnitZ())
-                        *AngleAxis(q[3], Vector3::UnitY()) ).conjugate()*ori;
+    // comp wrist angles
+    CompWristAngles(ori, q);
+}
 
+void IkSolver::CompArmIk2(const Vector3& pos, const Quaternion& ori, double l1, double l2, const Vector3& elbow_y, double* q){
+    // comp elbow angle
+    CompElbowAngle(pos, l1, l2, q);
+
+    // wrist pos expressed in shoulder pitch-roll-yaw local
+    Vector3 pos_local = Vector3(-l2*sin(q[3]), 0.0, -l1 - l2*cos(q[3]));
+
+    // calc rotation that brings pos_local to pos
+    Quaternion q1;
+    q1.setFromTwoVectors(pos_local, pos);
+
+    // calc extra rotation around the line penetrating the shoulder and the wrist
+    // to bring the elbow axis to the desired direction
+    Vector3 axis = pos_local/pos_local.norm();
+    Vector3 dir  = q1.conjugate()*elbow_y;
+
+    double theta = atan2(-dir.x()/axis.z(), dir.y());
+    AngleAxis q2(theta, axis);
+
+    // determine shoulder 3-axis rotations
     // convert it to roll-pitch-yaw
-    Vector3 angle_hand = ToRollPitchYaw(qhand);
+    Quaternion qzquad(AngleAxis(pi/2.0, Vector3::UnitZ()));
+    Vector3 angle_shoulder = ToRollPitchYaw(qzquad*(q1*q2).conjugate()*qzquad.conjugate());
 
     // then wrist angles are determined
-    q[4] = angle_hand.z();
-    q[5] = angle_hand.y();
-    q[6] = angle_hand.x();
+    q[0] =  angle_shoulder.x();
+    q[1] = -angle_shoulder.y();
+    q[2] = -angle_shoulder.z();
 
+    // comp wrist angles
+    CompWristAngles(ori, q);
 }
 
 void IkSolver::Comp(const Param& param, const Base& base, const vector<Hand>& hand, const vector<Foot>& foot, vector<Joint>& joint){

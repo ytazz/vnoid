@@ -15,44 +15,54 @@ SteppingController::SteppingController(){
     dsp_duration        = 0.1;
     descend_duration    = 0.0;
     descend_depth       = 0.0;
-    landing_adjust_rate = 0.0;
+    timing_adaptation_weight = 0.0;
 
-    buffer_ready = false;
-}
-
-bool SteppingController::CheckLanding(const Timer& timer, Step& step, vector<Foot>& foot){
-	// step duration elapsed
-    double t = timer.time;
-    if(t >= step.tbegin + step.duration){
-        return true;
-    }
-    
-    // force on landing foot exceeded threshold
-    //if( t >= step.tbegin + step.duration - 0.1 && foot[!step.side].contact ){
-    //    return true;
-    //}
-    
-    return false;
+    buffer_ready    = false;
+    time_to_landing = 0.0;
 }
 
 void SteppingController::Update(const Timer& timer, const Param& param, Footstep& footstep, Footstep& footstep_buffer, Centroid& centroid, Base& base, vector<Foot>& foot){
-    if(CheckLanding(timer, footstep_buffer.steps[0], foot)){
-        if(footstep.steps.size() > 1){
-            // pop step just completed from the footsteps
-            footstep.steps.pop_front();
-            if(footstep.steps.size() == 1){
-		        printf("end of footstep reached\n");
-                return;
-	        }
+    double T  = param.T;
+    Vector3 offset(0.0, 0.0, param.com_height);
+    
+    if(buffer_ready){
+        Step& st0  = footstep.steps[0];
+        Step& st1  = footstep.steps[1];
+        Step& stb0 = footstep_buffer.steps[0];
+        Step& stb1 = footstep_buffer.steps[1];
+    
+        // elapsed time based on timer
+        double t_elapsed = timer.time - stb0.tbegin;
+
+        // its exponential
+        double alpha_ref = exp(t_elapsed/T);
+        
+        // time to landing
+	    time_to_landing = stb0.duration - t_elapsed;
+    
+        if(time_to_landing <= 0.0){
+            if(footstep.steps.size() > 1){
+                // pop step just completed from the footsteps
+                footstep.steps.pop_front();
+                if(footstep.steps.size() == 1){
+		            printf("end of footstep reached\n");
+                    return;
+	            }
+            }
+
+            footstep_buffer.steps[1].dcm = footstep_buffer.steps[0].dcm;
+            footstep_buffer.steps.pop_front();
+            footstep_buffer.steps.push_back(Step());
+
+            buffer_ready = false;
         }
-
-        footstep_buffer.steps[1].dcm = footstep_buffer.steps[0].dcm;
-        footstep_buffer.steps.pop_front();
-        footstep_buffer.steps.push_back(Step());
-        footstep_buffer.steps[0].tbegin = timer.time;
-
-        buffer_ready = false;
+        else{
+            centroid.dcm_target = (stb0.zmp + offset) + alpha_ref*(stb0.dcm - (stb0.zmp + offset));
+        }
     }
+    if(footstep.steps.size() < 2){
+		return;
+	}
 
     Step& st0  = footstep.steps[0];
     Step& st1  = footstep.steps[1];
@@ -61,9 +71,6 @@ void SteppingController::Update(const Timer& timer, const Param& param, Footstep
     int sup =  st0.side;
     int swg = !st0.side;
 	
-    double T  = param.T;
-    Vector3 offset(0.0, 0.0, param.com_height);
-    
     if(!buffer_ready){
         // update support, lift-off, and landing positions
         stb0.side = st0.side;
@@ -95,26 +102,26 @@ void SteppingController::Update(const Timer& timer, const Param& param, Footstep
         stb1.dcm = stb0.foot_pos[sup] + stb0.foot_ori[sup]*dcm_rel;
 
         // calc zmp
-        double alpha = exp(-stb0.duration/T);
-        stb0.zmp = (1.0/(1.0 - alpha))*(stb0.dcm - alpha*stb1.dcm) - offset;
+        double alpha = exp(stb0.duration/T);
+        stb0.zmp = (1/(alpha - 1))*(alpha*stb0.dcm - stb1.dcm) - offset;
+        centroid.zmp_target = stb0.zmp;
+
+        // store current time
+        stb0.tbegin = timer.time;
+
+        // default time-to-landing
+        time_to_landing = stb0.duration;
 
         buffer_ready = true;
     }
 
-    if(footstep.steps.size() < 2){
-		return;
-	}
-
-    // time to landing
-    double ttl = stb0.tbegin + stb0.duration - timer.time;
-	double alpha = exp(-ttl/T);
-    
-	stb0.dcm = (1.0-alpha)*(stb0.zmp + offset) + alpha*stb1.dcm;
+    // landing adjustment based on dcm
+    // predict dcm at landing
+    Vector3 land_dcm = (stb0.zmp + offset) + exp(time_to_landing/T)*(centroid.dcm_ref - (stb0.zmp + offset));
     
     // landing adjustment based on dcm
-    Vector3 land_rel = (st1.foot_pos[swg] - st0.foot_pos[sup]) - (stb0.dcm - stb0.foot_pos[sup]) + 0.0*(stb0.zmp - stb0.foot_pos[sup]);
-	stb1.foot_pos[swg].x() = centroid.dcm_ref.x() + land_rel.x();
-	stb1.foot_pos[swg].y() = centroid.dcm_ref.y() + land_rel.y();
+    stb1.foot_pos[swg].x() = land_dcm.x() - (st1.dcm.x() - st1.foot_pos[swg].x());
+	stb1.foot_pos[swg].y() = land_dcm.y() - (st1.dcm.y() - st1.foot_pos[swg].y());
 
     // reference base orientation is set as the middle of feet orientation
     double angle_diff = foot[1].angle_ref.z() - foot[0].angle_ref.z();
@@ -131,15 +138,14 @@ void SteppingController::Update(const Timer& timer, const Param& param, Footstep
     foot[sup].contact_ref = true;
 
     // set swing foot position
-    if(!stb0.stepping || (timer.time - stb0.tbegin) < dsp_duration)
-    {
+    if(!stb0.stepping || time_to_landing > (stb0.duration - dsp_duration)){
         foot[swg].pos_ref     = stb0.foot_pos  [swg];
         foot[swg].angle_ref   = stb0.foot_angle[swg];
         foot[swg].ori_ref     = stb0.foot_ori  [swg];
         foot[swg].contact_ref = true;
     }
     else{
-        double ts   = timer.time - (stb0.tbegin + dsp_duration);            //< time elapsed in ssp
+        double ts   = (stb0.duration - dsp_duration) - time_to_landing;
         double tauv = stb0.duration - dsp_duration; //< duration of vertical movement
         double tauh = tauv - descend_duration;     //< duration of horizontal movement
 
@@ -175,59 +181,7 @@ void SteppingController::Update(const Timer& timer, const Param& param, Footstep
         foot[swg].pos_ref   = qrel*(foot[swg].pos_ref - pivot) + pivot;
         foot[swg].ori_ref   = qrel* foot[swg].ori_ref;
         foot[swg].angle_ref = ToRollPitchYaw(foot[swg].ori_ref);
-
-        /*
-        // base link orientation error
-        Quaternion base_rot = 
-            FromRollPitchYaw(Vector3(base.angle_ref.x(), base.angle_ref.y(), base.angle_ref.z()))*
-            FromRollPitchYaw(Vector3(base.angle    .x(), base.angle    .y(), base.angle_ref.z())).conjugate();
-
-        // modify swing foot pose so that
-        // relative position from support foot is rotated as much as base link orientation error
-        foot[swg].pos_ref   = base_rot*(foot[swg].pos_ref - foot[sup].pos_ref) + foot[sup].pos_ref;
-        foot[swg].ori_ref   = base_rot* foot[swg].ori_ref;
-        foot[swg].angle_ref = ToRollPitchYaw(foot[swg].ori_ref);
-        */
-    }	
-}
-
-void SteppingController::AdjustTiming(const Timer& timer, const Param& param, const Centroid& centroid_pred, const Footstep& footstep, Footstep& footstep_buffer){
-    const Step& st0  = footstep.steps[0];
-    const Step& st1  = footstep.steps[1];
-    Step& stb0 = footstep_buffer.steps[0];
-    Step& stb1 = footstep_buffer.steps[1];
-    int sup =  st0.side;
-    int swg = !st0.side;
-
-    // no adjustment during dsp or foot is not lifted
-    if(!stb0.stepping || timer.time <= stb0.tbegin + dsp_duration){
-        return;
     }
-    // no adjustment right before landing
-    if(timer.time > stb0.tbegin + stb0.duration - 0.1){
-        return;
-    }
-	
-    Vector3 land_min(-0.3, (swg == 0 ? -0.5 : 0.1), 0.0);
-    Vector3 land_max( 0.3, (swg == 0 ? -0.1 : 0.5), 0.0);
-    Vector3 dcm_offset = st0.foot_ori[sup].conjugate()*(st1.dcm - st1.foot_pos[swg]);
-    Vector3 dcm_min = land_min + dcm_offset;
-    Vector3 dcm_max = land_max + dcm_offset;
-
-    // check if predicted DCM at landing is inside feasible region
-    Vector3 dcm_local = st0.foot_ori[sup].conjugate()*(centroid_pred.dcm_ref - st0.foot_pos[sup]);
-    bool inside = true;
-    for(int j = 0; j < 2; j++){
-        inside &= (dcm_min[j] <= dcm_local[j] && dcm_local[j] <= dcm_max[j]);
-    }
-    
-    if(inside){
-        stb0.duration = 0.5*(stb0.duration + st0.duration);
-    }
-    else{
-        stb0.duration = std::max(stb0.duration*0.99, 0.3);
-    }
-    stb0.duration = std::max(stb0.duration, timer.time - stb0.tbegin);
 }
 
 }

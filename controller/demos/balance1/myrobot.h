@@ -4,7 +4,6 @@
 #include "fksolver.h"
 #include "iksolver.h"
 #include "stabilizer.h"
-#include "footstep.h"
 
 /*
  * Balance control demo 1
@@ -25,8 +24,7 @@ public:
     vector<Hand>   hand;
     vector<Foot>   foot;
     vector<Joint>  joint;
-    Footstep       footstep_buffer;
-
+    
     Stabilizer     stabilizer;
     FkSolver       fk_solver;
     IkSolver       ik_solver;

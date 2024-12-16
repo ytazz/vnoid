@@ -13,8 +13,7 @@ void MyRobot::Init(SimpleControllerIO* io){
     // init params
     //  dynamical parameters
 	param.total_mass = 50.0;
-    param.nominal_inertia = Vector3(20.0, 20.0, 20.0);
-	param.com_height =  0.6;
+    param.com_height =  0.7;
 	param.gravity    =  9.8;
 
     // kinematic parameters
@@ -66,8 +65,8 @@ void MyRobot::Init(SimpleControllerIO* io){
     param.leg_com[4] = Vector3(0.0, 0.0,  0.0);
     param.leg_com[5] = Vector3(0.0, 0.0,  0.0);
 
-    param.zmp_min = 0.5*Vector3(-0.1, -0.05, -0.1);
-    param.zmp_max = 0.5*Vector3( 0.1,  0.05,  0.1);
+    param.zmp_min = Vector3(-0.1, -0.05, -0.1);
+    param.zmp_max = Vector3( 0.1,  0.05,  0.1);
 
     param.Init();
 
@@ -95,18 +94,18 @@ void MyRobot::Init(SimpleControllerIO* io){
     joint[15].Set(1000.0, 200.0, 100.0);
     joint[16].Set(1000.0, 200.0, 100.0);
     joint[17].Set(1000.0, 200.0, 100.0);
-    joint[18].Set(2000.0, 400.0, 1000.0);
-    joint[19].Set(2000.0, 400.0, 1000.0);
-    joint[20].Set(2000.0, 400.0, 1000.0);
-    joint[21].Set(2000.0, 400.0, 1000.0);
-    joint[22].Set(100.0, 20.0, 1000.0);
-    joint[23].Set(100.0, 20.0, 1000.0);
-    joint[24].Set(2000.0, 400.0, 1000.0);
-    joint[25].Set(2000.0, 400.0, 1000.0);
-    joint[26].Set(2000.0, 400.0, 1000.0);
-    joint[27].Set(2000.0, 400.0, 1000.0);
-    joint[28].Set(100.0, 20.0, 1000.0);
-    joint[29].Set(100.0, 20.0, 1000.0);
+    joint[18].Set(1000.0, 200.0, 100.0);
+    joint[19].Set(1000.0, 200.0, 100.0);
+    joint[20].Set(1000.0, 200.0, 100.0);
+    joint[21].Set(1000.0, 200.0, 100.0);
+    joint[22].Set(100.0, 20.0, 100.0);
+    joint[23].Set(100.0, 20.0, 100.0);
+    joint[24].Set(1000.0, 200.0, 100.0);
+    joint[25].Set(1000.0, 200.0, 100.0);
+    joint[26].Set(1000.0, 200.0, 100.0);
+    joint[27].Set(1000.0, 200.0, 100.0);
+    joint[28].Set(100.0, 20.0, 100.0);
+    joint[29].Set(100.0, 20.0, 100.0);
     
     // needs fast joint movement for step adjustment
     joint_pos_filter_cutoff = 100.0;
@@ -142,10 +141,7 @@ void MyRobot::Init(SimpleControllerIO* io){
     stabilizer.orientation_ctrl_gain_p = 100.0;
     stabilizer.orientation_ctrl_gain_d = 10.0;
     stabilizer.dcm_ctrl_gain           = 2.0;
-    stabilizer.base_tilt_rate          = 2.0;
-    stabilizer.base_tilt_damping_p     = 100.0;
-    stabilizer.base_tilt_damping_d     = 50.0;
-
+        
     InitMarkers(io);
 
 }
@@ -205,12 +201,7 @@ void MyRobot::Control(){
     stepping_controller.Update(timer, param, footstep, footstep_buffer, centroid, base, foot);
 
     // stabilizer performs balance feedback
-    stabilizer.Update(timer, param, footstep_buffer, centroid, base, foot);
-
-    // timing adaptation
-    //Centroid centroid_pred = centroid;
-    //stabilizer.Predict(timer, param, footstep_buffer, base, centroid_pred);
-    //stepping_controller.AdjustTiming(timer, param, centroid_pred, footstep, footstep_buffer);
+    stabilizer.Update(timer, param, centroid, base, foot);
 
     hand[0].pos_ref = centroid.com_pos_ref + base.ori_ref*Vector3(0.0, -0.25, -0.1);
     hand[0].ori_ref = base.ori_ref;

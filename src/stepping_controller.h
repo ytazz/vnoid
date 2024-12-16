@@ -24,14 +24,13 @@ public:
     double    dsp_duration;
     double    descend_duration;
     double    descend_depth;
-    double    landing_adjust_rate;
+    double    timing_adaptation_weight;
 
     bool      buffer_ready;
+    double    time_to_landing;
 
 public:
-	bool CheckLanding(const Timer& timer, Step& step, vector<Foot>& foot);
 	void Update      (const Timer& timer, const Param& param, Footstep& footstep, Footstep& footstep_buffer, Centroid& centroid, Base& base, vector<Foot>& foot);
-    void AdjustTiming(const Timer& timer, const Param& param, const Centroid& centroid_pred, const Footstep& footstep, Footstep& footstep_buffer);
     
 	SteppingController();
 };

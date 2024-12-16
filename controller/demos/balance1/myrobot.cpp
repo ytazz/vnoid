@@ -120,18 +120,15 @@ void MyRobot::Init(SimpleControllerIO* io){
     stabilizer.base_tilt_damping_p     = 10.0;
     stabilizer.base_tilt_damping_d     = 5.0;
 
-    footstep_buffer.steps.resize(2);
-    footstep_buffer.steps[0].zmp = Vector3(0.0, 0.0, 0.0);
-    footstep_buffer.steps[0].dcm = Vector3(0.0, 0.0, param.com_height);
-    footstep_buffer.steps[1].dcm = Vector3(0.0, 0.0, param.com_height);
-
     base.ori_ref   = Quaternion(1.0, 0.0, 0.0, 0.0);
     base.angle_ref = Vector3(0.0, 0.0, 0.0);
     centroid.com_pos_ref = Vector3(0.0, 0.0, param.com_height);
     centroid.com_vel_ref = Vector3(0.0, 0.0, 0.0);
     centroid.com_acc_ref = Vector3(0.0, 0.0, 0.0);
     centroid.zmp_ref     = Vector3(0.0, 0.0, 0.0);
+    centroid.zmp_target  = Vector3(0.0, 0.0, 0.0);
     centroid.dcm_ref     = Vector3(0.0, 0.0, param.com_height);
+    centroid.dcm_target  = Vector3(0.0, 0.0, param.com_height);
     foot[0].pos_ref = Vector3(0.02, -0.15, 0.0);
     foot[1].pos_ref = Vector3(0.02,  0.15, 0.0);
     foot[0].contact_ref = true;
@@ -146,7 +143,7 @@ void MyRobot::Control(){
     // comp FK
     fk_solver.Comp(param, joint, base, centroid, hand, foot);
 
-    stabilizer.Update(timer, param, footstep_buffer, centroid, base, foot);
+    stabilizer.Update(timer, param, centroid, base, foot);
 
     hand[0].pos_ref = centroid.com_pos_ref + base.ori_ref*Vector3(0.0, -0.25, -0.1);
     hand[0].ori_ref = base.ori_ref;

@@ -44,48 +44,6 @@ public:
 	double  base_tilt_damping_p;
 	double  base_tilt_damping_d;
 
-	/* @brief feedback gain matrix
-	 *
-	 * State feedback gain matrix.
-	 * State variable is the following 12D vector:
-	 *  base link rotation angle x (roll)
-	 *  base link rotation angle y (pitch)
-	 *  base link angular velocity x (roll)
-	 *  base link angular velocity y (pitch)
-	 *  upper body rotation angle x (roll)
-	 *  upper body rotation angle y (pitch)
-	 *  upper body angular velocity x (roll)
-	 *  upper body angular velocity y (pitch)
-	 *  CoM position x
-	 *  CoM position y
-	 *  CoM velocity x
-	 *  CoM velocity y
-	 * Control input is the following 6D vector:
-	 *  upper body angular acceleration (roll)
-	 *  upper body angular acceleration (pitch)
-	 *  CoM acceleration x
-	 *  CoM acceleration y
-	 *  ZMP x
-	 *  ZMP y
-	 *
-	 * All variables are offset from reference value.
-	 *
-	 */ 
-	//Eigen::Matrix<double,  6, 12>    gain;
-
-	//Eigen::Matrix<double, 12,  1>    state;
-	//Eigen::Matrix<double,  6,  1>    input;
-	
-	/// upper body rotation
-	//Vector3     phi_mod;
-	//Vector3     phid_mod;
-	
-	/// CoM modification
-	//Vector3     com_pos_mod;
-	//Vector3     com_vel_mod;
-	//Vector3     dcm_mod;
-	//Vector3     zmp_mod;
-	
 	Vector3     dpos[2];   ///< foot position modification
 	Vector3     drot[2];   ///< foot orientation modification
 
@@ -97,7 +55,7 @@ public:
 	 * 
 	 *  This is an internal function called from Update and Predict.
 	 **/
-	void CalcDcmDynamics(const Timer& timer, const Param& param, const Footstep& footstep_buffer, const Base& base, Vector3 theta, Vector3 omega, Centroid& centroid);
+	void CalcDcmDynamics(const Timer& timer, const Param& param, const Base& base, const vector<Foot>& foot, Vector3 theta, Vector3 omega, Centroid& centroid);
 
 	/** @brief calculates ZMP from ground reaction force acting on the feet
 	 *
@@ -143,11 +101,8 @@ public:
 	 *
 	 *  
 	 **/
-    void Update(const Timer& timer, const Param& param, const Footstep& footstep_buffer, Centroid& centroid, Base& base, vector<Foot>& foot);
+    void Update(const Timer& timer, const Param& param, Centroid& centroid, Base& base, vector<Foot>& foot);
     
-	// do prediction
-	void Predict(const Timer& timer, const Param& param, const Footstep& footstep_buffer, const Base& base, Centroid& centroid);
-	
 	Stabilizer();
 };
 

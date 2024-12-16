@@ -40,8 +40,10 @@ Centroid::Centroid(){
 	moment_ref  = Vector3(0.0, 0.0, 0.0);
 	zmp         = Vector3(0.0, 0.0, 0.0);
 	zmp_ref     = Vector3(0.0, 0.0, 0.0);
+	zmp_target  = Vector3(0.0, 0.0, 0.0);
 	dcm         = Vector3(0.0, 0.0, 0.0);
 	dcm_ref     = Vector3(0.0, 0.0, 0.0);
+	dcm_target  = Vector3(0.0, 0.0, 0.0);
 	com_pos     = Vector3(0.0, 0.0, 0.0);
 	com_pos_ref = Vector3(0.0, 0.0, 0.0);
 	com_vel_ref = Vector3(0.0, 0.0, 0.0);
@@ -62,8 +64,8 @@ Base::Base(){
 	angvel_ref = Vector3(0.0, 0.0, 0.0);
 	acc        = Vector3(0.0, 0.0, 0.0);
 	acc_ref    = Vector3(0.0, 0.0, 0.0);
-	angacc     = Vector3(0.0, 0.0, 0.0);	
-	angacc_ref = Vector3(0.0, 0.0, 0.0);	
+	angacc     = Vector3(0.0, 0.0, 0.0);
+	angacc_ref = Vector3(0.0, 0.0, 0.0);
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -80,6 +82,11 @@ Hand::Hand(){
 	angvel_ref = Vector3(0.0, 0.0, 0.0);
 	angacc_ref = Vector3(0.0, 0.0, 0.0);
 	arm_twist  = 0.0;
+
+	fix_arm_twist  = true;
+    fix_elbow_dir  = false;
+    arm_twist      = 0.0;
+	elbow_dir      = Vector3::Zero();
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
