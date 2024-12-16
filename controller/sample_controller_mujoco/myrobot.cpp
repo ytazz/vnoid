@@ -81,45 +81,54 @@ void MyRobot::Init(mjModel* _m, mjData* _d){
 
     // 30 joints
     joint.resize(30);
-    joint[ 0].Set(1000.0, 200.0, 1000.0);
-    joint[ 1].Set(1000.0, 200.0, 1000.0);
-    joint[ 2].Set(1000.0, 200.0, 1000.0);
-    joint[ 3].Set(1000.0, 200.0, 1000.0);
-    joint[ 4].Set(1000.0, 200.0, 1000.0);
-    joint[ 5].Set(1000.0, 200.0, 1000.0);
-    joint[ 6].Set(1000.0, 200.0, 1000.0);
-    joint[ 7].Set(1000.0, 200.0, 1000.0);
-    joint[ 8].Set(1000.0, 200.0, 1000.0);
-    joint[ 9].Set(1000.0, 200.0, 1000.0);
-    joint[10].Set(1000.0, 200.0, 1000.0);
-    joint[11].Set(1000.0, 200.0, 1000.0);
-    joint[12].Set(1000.0, 200.0, 1000.0);
-    joint[13].Set(1000.0, 200.0, 1000.0);
-    joint[14].Set(1000.0, 200.0, 1000.0);
-    joint[15].Set(1000.0, 200.0, 1000.0);
-    joint[16].Set(1000.0, 200.0, 1000.0);
-    joint[17].Set(1000.0, 200.0, 1000.0);
-    joint[18].Set(1000.0, 200.0, 1000.0);
-    joint[19].Set(1000.0, 200.0, 1000.0);
-    joint[20].Set(1000.0, 200.0, 1000.0);
-    joint[21].Set(1000.0, 200.0, 1000.0);
-    joint[22].Set( 100.0,  20.0, 1000.0);
-    joint[23].Set( 100.0,  20.0, 1000.0);
-    joint[24].Set(1000.0, 200.0, 1000.0);
-    joint[25].Set(1000.0, 200.0, 1000.0);
-    joint[26].Set(1000.0, 200.0, 1000.0);
-    joint[27].Set(1000.0, 200.0, 1000.0);
-    joint[28].Set( 100.0,  20.0, 1000.0);
-    joint[29].Set( 100.0,  20.0, 1000.0);
+    joint[ 0].Set(1000.0, 200.0, 100.0);
+    joint[ 1].Set(1000.0, 200.0, 100.0);
+    joint[ 2].Set(1000.0, 200.0, 100.0);
+    joint[ 3].Set(1000.0, 200.0, 100.0);
+    joint[ 4].Set(1000.0, 200.0, 100.0);
+    joint[ 5].Set(1000.0, 200.0, 100.0);
+    joint[ 6].Set(1000.0, 200.0, 100.0);
+    joint[ 7].Set(1000.0, 200.0, 100.0);
+    joint[ 8].Set(1000.0, 200.0, 100.0);
+    joint[ 9].Set(1000.0, 200.0, 100.0);
+    joint[10].Set(1000.0, 200.0, 100.0);
+    joint[11].Set(1000.0, 200.0, 100.0);
+    joint[12].Set(1000.0, 200.0, 100.0);
+    joint[13].Set(1000.0, 200.0, 100.0);
+    joint[14].Set(1000.0, 200.0, 100.0);
+    joint[15].Set(1000.0, 200.0, 100.0);
+    joint[16].Set(1000.0, 200.0, 100.0);
+    joint[17].Set(1000.0, 200.0, 100.0);
+    joint[18].Set(1000.0, 200.0, 100.0);
+    joint[19].Set(1000.0, 200.0, 100.0);
+    joint[20].Set(1000.0, 200.0, 100.0);
+    joint[21].Set(1000.0, 200.0, 100.0);
+    joint[22].Set( 100.0,  20.0, 100.0);
+    joint[23].Set( 100.0,  20.0, 100.0);
+    joint[24].Set(1000.0, 200.0, 100.0);
+    joint[25].Set(1000.0, 200.0, 100.0);
+    joint[26].Set(1000.0, 200.0, 100.0);
+    joint[27].Set(1000.0, 200.0, 100.0);
+    joint[28].Set( 100.0,  20.0, 100.0);
+    joint[29].Set( 100.0,  20.0, 100.0);
     
     // init hardware (simulator interface)
 	RobotMujoco::Init(_m, _d, param, timer, joint);
 
     // set initial state
+    base.ori_ref   = Quaternion(1.0, 0.0, 0.0, 0.0);
+    base.angle_ref = Vector3(0.0, 0.0, 0.0);
     centroid.com_pos_ref = Vector3(0.0, 0.0, param.com_height);
+    centroid.com_vel_ref = Vector3(0.0, 0.0, 0.0);
+    centroid.com_acc_ref = Vector3(0.0, 0.0, 0.0);
+    centroid.zmp_ref     = Vector3(0.0, 0.0, 0.0);
+    centroid.zmp_target  = Vector3(0.0, 0.0, 0.0);
     centroid.dcm_ref     = Vector3(0.0, 0.0, param.com_height);
-    foot[0].pos_ref = Vector3(0.0, -0.2/2.0, 0.0);
-    foot[1].pos_ref = Vector3(0.0,  0.2/2.0, 0.0);
+    centroid.dcm_target  = Vector3(0.0, 0.0, param.com_height);
+    foot[0].pos_ref = Vector3(0.02, -0.10, 0.0);
+    foot[1].pos_ref = Vector3(0.02,  0.10, 0.0);
+    foot[0].contact_ref = true;
+    foot[1].contact_ref = true;
 
     // init footsteps
     footstep.steps.push_back(Step(0.0, 0.0, 0.2, 0.0, 0.0, 0.5, 0));
@@ -143,10 +152,7 @@ void MyRobot::Init(mjModel* _m, mjData* _d){
     stabilizer.orientation_ctrl_gain_p = 100.0;
     stabilizer.orientation_ctrl_gain_d = 10.0;
     stabilizer.dcm_ctrl_gain           = 2.0;
-    stabilizer.base_tilt_rate          = 5.0;
-    stabilizer.base_tilt_damping_p     = 100.0;
-    stabilizer.base_tilt_damping_d     = 50.0;
-
+    
 }
 
 void MyRobot::Control(){
@@ -162,18 +168,16 @@ void MyRobot::Control(){
 			    footstep.steps.pop_back();
 
 		    Step step;
-		    step.stride   = 0.1;
-		    step.turn     = 0.0;
-		    step.spacing  = 0.20;
-		    step.climb    = 0.0;
-		    step.duration = 0.5;
-		    footstep.steps.push_back(step);
-		    footstep.steps.push_back(step);
-		    footstep.steps.push_back(step);
-		    step.stride = 0.0;
-		    step.turn   = 0.0;
-		    footstep.steps.push_back(step);
-		
+	        step.stride   = 0.1;
+	        step.turn     = 0.0;
+	        step.spacing  = 0.2;
+	        step.climb    = 0.0;
+	        step.duration = 0.4;
+	        footstep.steps.push_back(step);
+	        footstep.steps.push_back(step);
+	        footstep.steps.push_back(step);
+	        footstep.steps.push_back(step);
+	
 		    footstep_planner.Plan(param, footstep);
             footstep_planner.GenerateDCM(param, footstep);
 	    }
@@ -183,13 +187,8 @@ void MyRobot::Control(){
         stepping_controller.Update(timer, param, footstep, footstep_buffer, centroid, base, foot);
     
         // stabilizer performs balance feedback
-        stabilizer         .Update(timer, param, footstep_buffer, centroid, base, foot);
+        stabilizer         .Update(timer, param, centroid, base, foot);
     
-        // step timing adaptation
-        //Centroid centroid_pred = centroid;
-        //stabilizer.Predict(timer, param, footstep_buffer, base, centroid_pred);
-        //stepping_controller.AdjustTiming(timer, param, centroid_pred, footstep, footstep_buffer);
-
         hand[0].pos_ref = centroid.com_pos_ref + base.ori_ref*Vector3(0.0, -0.25, -0.1);
         hand[0].ori_ref = base.ori_ref;
         hand[1].pos_ref = centroid.com_pos_ref + base.ori_ref*Vector3(0.0,  0.25, -0.1);
@@ -198,9 +197,7 @@ void MyRobot::Control(){
         // calc CoM IK
         ik_solver.Comp(&fk_solver, param, centroid, base, hand, foot, joint);
 
-        //printf("%f %f\n", base.angle.y(), base.angvel.y());
-
-	    RobotMujoco::Actuate(timer, base, joint);
+        RobotMujoco::Actuate(timer, base, joint);
 
         timer.control_count++;
     }
