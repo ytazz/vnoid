@@ -1,5 +1,4 @@
 set(VNOID_HEADERS
-	"base.h"
 	"bvh.h"
 	"fksolver.h"
     "iksolver.h"
@@ -11,6 +10,7 @@ set(VNOID_HEADERS
 	"rollpitchyaw.h"
 	"stabilizer.h"
     "stepping_controller.h"
+    "types.h"
 	)
 set(VNOID_SOURCES
 	"bvh.cpp"
