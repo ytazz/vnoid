@@ -12,6 +12,11 @@
  * 
  * Robot plays motion data in BVH format
  * 
+ * Upper body tracks motion data by simple retargeting.
+ * Lower body is controlled by the stabilizer (no motion tracking).
+ * Current implementation of retargeting is more or less specialized to CMU Mocap Dataset.
+ * The data do not come with vnoid, so please download and copy them to the motion directory by your self.
+ * 
  */
 
 namespace cnoid{
