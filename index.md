@@ -37,6 +37,7 @@ Compared to several simulation-based humanoid robot competitions held in the pas
 <!--
 Now being prepared.
 -->
+[Here](https://docs.google.com/forms/d/e/1FAIpQLSfz-wzvdUys3-AzFTey0XGcP8soD5MrYrmWW7PucJQvofh52g/viewform?usp=header)
 
 <!-- 2024
 -[Here](https://docs.google.com/forms/d/e/1FAIpQLSeSxN4F3w2ti-YF4cTTZDEJ5RKPWCEj6dz1IP9A7a-SFMxnDw/viewform?usp=sf_link)
@@ -141,9 +142,12 @@ Regulations are tentative and subject to change.
 - [HVAC introduction blog](https://koomiy.github.io/)
 
 - [Tutorial in Humanoids2022](https://ytazz.github.io/vnoid/humanoids2022tutorial.html)
+
 - [Tutorial 2023](https://ytazz.github.io/vnoid/hvac2023tutorial.html)
 
-- [Challenge 2023 page](https://ytazz.github.io/vnoid/index2024.html)
+- [Recording of past tutorials (mostly in Japanese)](https://www.youtube.com/channel/UCG-P4LJu1PmewkuBrn4saRw)
+
+- [Challenge 2024 page](https://ytazz.github.io/vnoid/index2024.html)
 - [Challenge 2023 page](https://ytazz.github.io/vnoid/index2023.html)
 - [Challenge 2022 page](https://ytazz.github.io/vnoid/index2022.html)
 - [Challenge 2021 page](https://ytazz.github.io/vnoid/index2021.html)
