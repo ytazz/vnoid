@@ -6,7 +6,7 @@
 <iframe width="355" height="200" src="https://www.youtube.com/embed/2xOmlHx2b4U" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 <iframe width="355" height="200" src="https://www.youtube.com/embed/BR4rxW9pEog" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-# Challenge 2024
+# Challenge 2025
 
 ## Aim of this challenge
 
@@ -28,21 +28,9 @@ Compared to several simulation-based humanoid robot competitions held in the pas
   Submitted data will be checked by the steering committee if it conforms with the regulation,
    and if qualified, will appear in the list of qualified submissions shown in this webpage.
 
-## Important Dates of 2024
+## Important Dates of 2025
 
-<!--
-- Website opening: August
-- Application deadline: T.B.D.
--->
-
-- [第1回 技術講習会](https://connpass.com/event/321220/)
-- [第2回 技術講習会](https://connpass.com/event/321221/)
-- Main Challenge: September 3rd, 2024, to be held as part of RSJ2024 open forum
-- Extra Challenge: March, 2025 (tentative)
-
-<!--
-- Challenge period: Until March 16, 2024
--->
+- Main Challenge: September 2nd, 2025, to be held as part of RSJ2025 open forum
 
 ## Application form
 
@@ -50,7 +38,9 @@ Compared to several simulation-based humanoid robot competitions held in the pas
 Now being prepared.
 -->
 
+<!-- 2024
 -[Here](https://docs.google.com/forms/d/e/1FAIpQLSeSxN4F3w2ti-YF4cTTZDEJ5RKPWCEj6dz1IP9A7a-SFMxnDw/viewform?usp=sf_link)
+-->
 
 <!-- 2023
 -[Here](https://docs.google.com/forms/d/e/1FAIpQLScJD0zL3r_wv2M09Hj_TMIfLwAr0-pc8-OSdCSNlDXvBhAdZg/viewform?usp=sf_link)
@@ -69,7 +59,9 @@ Performance is evaluated by reached landmark and elapsed simulation time.
 
 ![field](fig/field_athletics2023.png "Athletics Field")
 
+<!--
 - [Results](https://ytazz.github.io/vnoid/results_athletics2024.html)
+-->
 
 ### Dance
 
@@ -78,7 +70,9 @@ Dance performance is evaluated in terms of both artistic quality and technical q
 
 ![robots](fig/dance2023.png "Robot models used for dance performance")
 
+<!--
 [Results](https://ytazz.github.io/vnoid/results_dance2024.html)
+-->
 
 ### Short track
 
@@ -87,7 +81,9 @@ Performance is evaluated by elapsed simluation time while the robot passes the s
 
 ![field](fig/field_shorttrack2022.png "Short-track Field")
 
+<!--
 [Results](https://ytazz.github.io/vnoid/results_shorttrack2024.html)
+-->
 
 <!--
 ### Free-style performance
@@ -121,18 +117,19 @@ Regulations are tentative and subject to change.
 
 ## Committee
 
-- HVAC2024 is hosted by the Special Interest Group on Humanoid Robotics of the Robotics Society of Japan (RSJ-SIG-HR).
-- HVAC2024 is run by volunteers consisting of members and non-members of RSJ-SIG-HR.
+- HVAC2025 is hosted by the Special Interest Group on Humanoid Robotics of the Robotics Society of Japan (RSJ-SIG-HR).
+- HVAC2025 is run by volunteers consisting of members and non-members of RSJ-SIG-HR.
   - Commitee members
-    - Yuichi Tazaki
-    - Takumi Kamioka
-    - Tomomichi Sugihara
-    - Masaki Murooka
-    - Kenji Hashimoto
-    - Ikuo Mizuuchi
-    - Yohei Kakiuchi
-    - Shin'ichiro Nakaoka
-
+    - Yuichi Tazaki	(Kobe Univ.)
+	- Takumi Kamioka (OMRON Corp.)
+	- Tomomichi Sugihara (OMRON Corp.)
+	- Masaki Murooka (AIST)
+	- Kenji Hashimoto (Waseda Univ.)
+	- Ikuo Mizuuchi (TUAT)
+	- Yohei Kakiuchi (TUT)
+	- Shin’ichiro Nakaoka (Choreonoid)
+	- Soh Yukizaki (KHI)
+	- Kunio Kojima (Univ. of Tokyo)
 
 ## Asking Questions
 - Post your question at [https://github.com/ytazz/vnoid/discussions](https://github.com/ytazz/vnoid/discussions)
@@ -146,6 +143,7 @@ Regulations are tentative and subject to change.
 - [Tutorial in Humanoids2022](https://ytazz.github.io/vnoid/humanoids2022tutorial.html)
 - [Tutorial 2023](https://ytazz.github.io/vnoid/hvac2023tutorial.html)
 
+- [Challenge 2023 page](https://ytazz.github.io/vnoid/index2024.html)
 - [Challenge 2023 page](https://ytazz.github.io/vnoid/index2023.html)
 - [Challenge 2022 page](https://ytazz.github.io/vnoid/index2022.html)
 - [Challenge 2021 page](https://ytazz.github.io/vnoid/index2021.html)

@@ -35,6 +35,8 @@ Compared to several simulation-based humanoid robot competitions held in the pas
 - Application deadline: T.B.D.
 -->
 
+- [第1回 技術講習会](https://connpass.com/event/321220/)
+- [第2回 技術講習会](https://connpass.com/event/321221/)
 - Main Challenge: September 3rd, 2024, to be held as part of RSJ2024 open forum
 - Extra Challenge: March, 2025 (tentative)
 
@@ -67,9 +69,7 @@ Performance is evaluated by reached landmark and elapsed simulation time.
 
 ![field](fig/field_athletics2023.png "Athletics Field")
 
-<!-- 2023
-- [Results](https://ytazz.github.io/vnoid/results_athletics2023.html)
--->
+- [Results](https://ytazz.github.io/vnoid/results_athletics2024.html)
 
 ### Dance
 
@@ -78,9 +78,7 @@ Dance performance is evaluated in terms of both artistic quality and technical q
 
 ![robots](fig/dance2023.png "Robot models used for dance performance")
 
-<!-- 2023
-- [Results](https://ytazz.github.io/vnoid/results_dance2023.html)
--->
+[Results](https://ytazz.github.io/vnoid/results_dance2024.html)
 
 ### Short track
 
@@ -89,9 +87,7 @@ Performance is evaluated by elapsed simluation time while the robot passes the s
 
 ![field](fig/field_shorttrack2022.png "Short-track Field")
 
-<!--
-- [Results](https://ytazz.github.io/vnoid/results_shorttrack2022.html)
--->
+[Results](https://ytazz.github.io/vnoid/results_shorttrack2024.html)
 
 <!--
 ### Free-style performance
@@ -118,7 +114,10 @@ Regulations are tentative and subject to change.
 - [短距離](https://docs.google.com/document/d/1zGG5w6R57s3XoG2EndvH4RqNvrPiSVQKELGGPQSYLPc/edit?usp=sharing)
 
 ## Quick Start
+<!--
 - See [here](https://ytazz.github.io/vnoid/build_sample_2022.html) for how to build and run the sample.
+-->
+- See README of [vnoid](https://github.com/ytazz/vnoid) for quick instructions.
 
 ## Committee
 
@@ -138,7 +137,15 @@ Regulations are tentative and subject to change.
 ## Asking Questions
 - Post your question at [https://github.com/ytazz/vnoid/discussions](https://github.com/ytazz/vnoid/discussions)
 
-## Old pages
+## Mailing List
+- Search "Humanoid Virtual Athletics Challenge Participants" in Google Groups and ask join.
+
+## See Also
+- [HVAC introduction blog](https://koomiy.github.io/)
+
+- [Tutorial in Humanoids2022](https://ytazz.github.io/vnoid/humanoids2022tutorial.html)
+- [Tutorial 2023](https://ytazz.github.io/vnoid/hvac2023tutorial.html)
+
 - [Challenge 2023 page](https://ytazz.github.io/vnoid/index2023.html)
 - [Challenge 2022 page](https://ytazz.github.io/vnoid/index2022.html)
 - [Challenge 2021 page](https://ytazz.github.io/vnoid/index2021.html)
