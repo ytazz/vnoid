@@ -101,14 +101,14 @@ How to evaluate the quality of free-tyle performance is T.B.D.
 
 Please see the following document for detailed regulations.
 Regulations are tentative and subject to change.
-- [Common Regulations](https://docs.google.com/document/d/1Xqvg9mw-qWO4B6-Nf5njMnja3TeX4mbtRvG8rXbKD7Q/edit?usp=sharing)
-- [Athletics Regulations](https://docs.google.com/document/d/13xU2aNSGV_zHeG_8_phP1-pmSb8oNnku236ZFpSNo40/edit?usp=sharing)
-- [Dance Regulations](https://docs.google.com/document/d/1KzJiW33Z2oPyPcUg0i9THzQ5ezEL-SE6bjU1WmUFDwA/edit?usp=sharing)
-- [Shorttrack Regulations](https://docs.google.com/document/d/1B_7889Ch606CMB-SJc-M-wawc5uJj3CcBh8MR56_N9w/edit?usp=sharing)
-- [共通レギュレーション](https://docs.google.com/document/d/1GrJPCMVQbbhj3R3eq74ijt-7Xipr93_MUIRyJuh9s4o/edit?usp=sharing)
-- [アスレチック](https://docs.google.com/document/d/1h6Sdik0tLKCLmgpga3r2Oc6QVB_UOEj6Pw2C6jBvD5w/edit?usp=sharing)
-- [ダンス](https://docs.google.com/document/d/1iU2JShvLwAFSYZX_f746LV9v9QnOfQRn6XcEExXJOeg/edit?usp=sharing)
-- [短距離](https://docs.google.com/document/d/1zGG5w6R57s3XoG2EndvH4RqNvrPiSVQKELGGPQSYLPc/edit?usp=sharing)
+- [Common Regulations](https://docs.google.com/document/d/1kAm1k5oPyKb33LVS0LAicwtTlaYHC0enVlFOXf_ZWyQ/edit?usp=sharing)
+- [Athletics Regulations](https://docs.google.com/document/d/1LARnyLCjxck-cRduF6dJLifQg5M_5zpTwdWyLSAJarE/edit?usp=sharing)
+- [Dance Regulations](https://docs.google.com/document/d/143gkNKohEuArgTGu0W-GL4cQ79Kp_T-_xPucLci7m3Q/edit?usp=sharing)
+- [Shorttrack Regulations](https://docs.google.com/document/d/1MkYWEnjo5WNI6O-yg-mjSHCDkwj9Vm66ApA6FYd6Smg/edit?usp=sharing)
+- [共通レギュレーション](https://docs.google.com/document/d/127nbNGyn7i5wAJN6fSdnusZHysUt-EOQWXtJ98mQNUg/edit?usp=sharing)
+- [アスレチック](https://docs.google.com/document/d/1dUoI85JZOCa4HwlCR69B3BPOtK7mePxPpXyoyQ3NTJE/edit?usp=sharing)
+- [ダンス](https://docs.google.com/document/d/1r-5InTuQfFtnyoDuQXTPSiz_znt4Sfqtb134VcWe_UE/edit?usp=sharing)
+- [短距離](https://docs.google.com/document/d/1KWvlnkfcPWF-rG0sGCemXgtJ0elBgrXffiB8zoZwZZw/edit?usp=sharing)
 
 ## Quick Start
 <!--
