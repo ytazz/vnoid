@@ -128,16 +128,15 @@ public:
 		}
 
 		// display time
-		// digit [4]:[3][2]:[1][0]
+		// digit [0]:[1][2]:[3][4]
 		//       mininutes : seconds : 1/100 seconds
 		int digit[numDigits];
-		double t = time;
-		digit[4] = (int)(t /  0.01)%10; t -= 0.01*digit[4];
-		digit[3] = (int)(t /  0.1 )%10; t -= 0.1 *digit[3];
-		digit[2] = (int)(t /  1.0 )%10; t -= 1.0 *digit[2];
-		digit[1] = (int)(t / 10.0 )%10;
-		digit[0] = (digit[1] / 6) % 10;
-		digit[1] = digit[1] % 6;
+		int t = (int)(100*time);
+		digit[4] = t%10; t -= digit[4]; t /= 10;
+		digit[3] = t%10; t -= digit[3]; t /= 10;
+		digit[2] = t%10; t -= digit[2]; t /= 10;
+		digit[1] = t%6;  t -= digit[1]; t /= 6;
+		digit[0] = std::min(t, 9);
 		
 		int idx = 0;
 		const double K = 100.0;
