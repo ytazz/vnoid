@@ -64,8 +64,6 @@ Performance is evaluated by reached landmark and elapsed simulation time.
 <img src="fig/field_athletics2023.png" width="50%" alt="Athletics Field">
 
 
-- [Results](https://ytazz.github.io/vnoid/results_athletics.html)
-
 ### Dance
 
 The robot performs dancing that requires whole-body motion.
@@ -76,7 +74,6 @@ Dance performance is evaluated in terms of both artistic quality and technical q
 -->
 <img src="fig/dance2023.png" width="50%" alt="Robot models used for dance performance">
 
-[Results](https://ytazz.github.io/vnoid/results_dance.html)
 
 ### Short track
 
@@ -88,8 +85,6 @@ Performance is evaluated by elapsed simluation time while the robot passes the s
 -->
 <img src="fig/field_shorttrack2022.png" width="50%" alt="Short-track Field">
 
-[Results](https://ytazz.github.io/vnoid/results_shorttrack.html)
-
 <!--
 ### Free-style performance
 
@@ -98,6 +93,12 @@ How to evaluate the quality of free-tyle performance is T.B.D.
 
 ![field](fig/field_performance2022.png "Free-style Performance Field")
 -->
+
+## Results
+- [Athletics](https://ytazz.github.io/vnoid/results_athletics.html)
+- [Dance](https://ytazz.github.io/vnoid/results_dance.html)
+- [Short Track](https://ytazz.github.io/vnoid/results_shorttrack.html)
+
 
 ## Regulation
 
