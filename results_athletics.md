@@ -2,6 +2,11 @@
 
 ### 2025
 
+|  Team name       | Robot name     | Date of submission | Date of qualification | Sections Cleared     | Bonus | Score | Simulation time   | Realtime-factor| Comment                   | Materials |
+| ----             | ----           | ----               | ----                  | ----                 | ----  | ----  | ----              | ----           | ----                      | ----      |
+|  Wa1kers         | Unity-chan     | 2025/9/2           | 2025/9/10             | 1st(Right)           |       |       |                   |                |                           | [log](https://drive.google.com/drive/folders/1MNZxCbqjhLzoxpEdvNZRhK8aCl9tZIua?usp=sharing)  [video](https://drive.google.com/file/d/1ZTMLR7DL3Zkc4cTu6aDne2kHssBscZfA/view?usp=sharing) [slides]() |
+|  ytazz           | Friends        | 2025/9/2           | 2025/9/10             | 2nd(Left) 2nd(Right) | Auto  |       |                   |                |                           | [log]()  [video1](https://drive.google.com/file/d/12O7sl2_AgKd0VWGaHxV1a51-CRuGvRsb/view?usp=sharing) [video2](https://drive.google.com/file/d/1rLaV4KzT88tNxZfQsErFwirl4mxs80qA/view?usp=sharing) [slides]() |
+
 ### 2024
 
 |  Team name       | Robot name     | Date of submission | Date of qualification | 1st section | 2nd section | 3rd section | Simulation time   | Realtime-factor| Comment                   | Materials |
