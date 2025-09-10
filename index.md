@@ -58,33 +58,37 @@ Now being prepared.
 The robot traverses the athletic field from the starting position to the goal.
 Performance is evaluated by reached landmark and elapsed simulation time.
 
-![field](fig/field_athletics2023.png "Athletics Field")
-
 <!--
-- [Results](https://ytazz.github.io/vnoid/results_athletics2024.html)
+![field](fig/field_athletics2023.png "Athletics Field")
 -->
+<img src="fig/field_athletics2023.png" width="50%" alt="Athletics Field">
+
+
+- [Results](https://ytazz.github.io/vnoid/results_athletics.html)
 
 ### Dance
 
 The robot performs dancing that requires whole-body motion.
 Dance performance is evaluated in terms of both artistic quality and technical quality.
 
-![robots](fig/dance2023.png "Robot models used for dance performance")
-
 <!--
-[Results](https://ytazz.github.io/vnoid/results_dance2024.html)
+![robots](fig/dance2023.png "Robot models used for dance performance")
 -->
+<img src="fig/dance2023.png" width="50%" alt="Robot models used for dance performance">
+
+[Results](https://ytazz.github.io/vnoid/results_dance.html)
 
 ### Short track
 
 The robot walks/runs the 20[m] short track.
 Performance is evaluated by elapsed simluation time while the robot passes the start line and the goal line.
 
-![field](fig/field_shorttrack2022.png "Short-track Field")
-
 <!--
-[Results](https://ytazz.github.io/vnoid/results_shorttrack2024.html)
+![field](fig/field_shorttrack2022.png "Short-track Field")
 -->
+<img src="fig/field_shorttrack2022.png" width="50%" alt="Short-track Field">
+
+[Results](https://ytazz.github.io/vnoid/results_shorttrack.html)
 
 <!--
 ### Free-style performance
