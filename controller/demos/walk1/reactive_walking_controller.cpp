@@ -219,8 +219,10 @@ void ReactiveWalkingController::Update(const Timer& timer, const Param& param, C
             printf("switch\n");
 
             // log footstep
-            SaveFootstep(param, foot, swg, true );
-            SaveFootstep(param, foot, swg, false);
+            if(enable_logging){
+                SaveFootstep(param, foot, swg, true );
+                SaveFootstep(param, foot, swg, false);
+            }
 
             // determine next support foot
             sup = !sup;
