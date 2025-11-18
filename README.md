@@ -13,6 +13,8 @@ Each function is implemented by about 100 lines of code.
 vnoid is primarily designed to implement a simple robot controller that runs on Choreonoid.
 However, one can also build a stand-along mujoco simulation program using vnoid.
 
+A [tutorial](doc/tutorial.html) is under construction.
+
 ## How to use vnoid with Choreonoid
 
 In order to implement your own controller for Choreonoid, you need to be able to build Chorenoid from source.
@@ -77,3 +79,4 @@ Install [mujoco](https://github.com/google-deepmind/mujoco).
   Adding ".../vnoid" to the installation path is recommended to avoid having installed files mixed with other stuff.
   Configure, generate, build, and install.
 - Run the executable in the bin directory of the install path.
+
