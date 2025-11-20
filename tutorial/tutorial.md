@@ -4,16 +4,14 @@ Parts of the contents are borrowed from the [HVAC Blog](https://koomiy.github.io
 
 # Table of Contents
 
-## [Setup on Windows](tutorial_setup_windows.html)
+### [Setting up](tutorial_setup.html)
 
-## [Setup on Linux](tutorial_setup_linux.html)
+### [Kinematics](tutorial_kinematics.html)
 
-## [Kinematics](tutorial_kinematics.html)
+### [Balance Control](tutorial_balance.html)
 
-## [Balance Control](tutorial_balance.html)
+### [Footstep Planning](tutorial_footstep.html)
 
-## [Footstep Planning](tutorial_footstep.html)
-
-## [Advanced Topics](tutorial_advanced.html)
+### [Advanced Topics](tutorial_advanced.html)
 
 
