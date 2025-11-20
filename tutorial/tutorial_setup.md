@@ -23,18 +23,33 @@ git clone https://github.com/ytazz/vnoid
 
 - Configure Chorenoid on Cmake. 
   Follow general instructions provided in Choreonoid web page [here](https://choreonoid.org/en/manuals/latest/install/install.html).
+  See platform-specific and vnoid-specific notes on configuration below.
 
-  On Windows environment, enabling USE_SUBSYSTEM_CONSOLE option is convenient for printf-based debugging.
+- Build the generated project on your build platform.
   As a result, Choreonoid will be installed to the location specified by CMAKE_INSTALL_PREFIX.
   
--- vnoid configuration options
-
-
 - Run Choreonoid, load [install directory of Choreonoid]/share/project/vnoid_sample_project.cnoid
+
 - Run simulation.
 
-## Setup on Linux
+### Configuration on Windows
+  On Windows environment, enabling USE_SUBSYSTEM_CONSOLE option is convenient for printf-based debugging.
+  Be careful of setting CMAKE_INSTALL_PREFIX properly (see [here](https://choreonoid.org/en/manuals/latest/install/build-windows.html)).
 
-## Building vnoid library only
+### vnoid configuration options
 
+  VNOID_BUILD_CNOID option is used to build sample controllers that can be loaded from Choreonoid projects.
+  VNOID_BUILD_MUJOCO option is used to build mujoco samples.
 
+  If BUILD_VNOID_VISUALIZER_PLUGIN option is set, the visualization function of vnoid is built as a Choreonoid plugin.
+  
+### Setup on Linux
+
+### Building vnoid with mujoco
+  You need mujoco and glfw3 properly installed in your environment.
+  On cmake, enable VNOID_BUILD_MUJOCO option and configure.
+  You may need to set CMAKE_PREFIX_PATH properly to let cmake locate the related packages.
+  
+  After build and install, the executables of mujoco samples (currently there is only one) will be
+  copied to the location specified by CMAKE_INSTALL_PREFIX.
+  On Windows, if you built mujoco as a dll, you also need to manually copy mujoco.dll to the same location.
