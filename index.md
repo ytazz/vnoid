@@ -6,6 +6,10 @@
 <iframe width="355" height="200" src="https://www.youtube.com/embed/2xOmlHx2b4U" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 <iframe width="355" height="200" src="https://www.youtube.com/embed/BR4rxW9pEog" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
+# 速報
+[Humanoid Virtual Athletics Challenge 2026 春ミーティング](https://docs.google.com/forms/d/e/1FAIpQLSfz-wzvdUys3-AzFTey0XGcP8soD5MrYrmWW7PucJQvofh52g/viewform?usp=header)
+を開催します．ふるってご参加ください！
+
 # Challenge 2025
 
 ## Aim of this challenge
