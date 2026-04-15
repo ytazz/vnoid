@@ -1,11 +1,11 @@
 ﻿#pragma once
 
-#include "types.h"
+#include <cnoid/EigenTypes>
 
 #include <vector>
 using namespace std;
 
-#include "robot_base.h"
+#include "robot.h"
 
 namespace cnoid{
 namespace vnoid{
@@ -66,6 +66,8 @@ public:
      *  @param  hand      Reference to Hand objects. Hand::pos_ref and Hand::ori_ref are used as inputs.
      *  @param  foot      Reference to Foot objects. Foot::pos_ref and Foot::ori_ref are used as inputs.
      *  @param  joint     Array of joints to store the result
+     *  @param  arm_ik    compute arm IK or not
+     *  @param  leg_ik    compute leg IK or not
      * 
      *  Simple whole-body IK.
      *  It takes reference pose (position and orientation) of the base link, hand, and feet
@@ -73,7 +75,7 @@ public:
      *  Offsets (base link to shoulders and hips, wrist to hand, ankle to foot) set in param are taken into consideration.
      *
      **/
-    void Comp(const Param& param, const Base& base, const vector<Hand>& hand, const vector<Foot>& foot, vector<Joint>& joint);
+    void Comp(const Param& param, const Base& base, const vector<Hand>& hand, const vector<Foot>& foot, vector<Joint>& joint, bool arm_ik = true, bool leg_ik = true);
 
     /** @brief Whole-body CoM IK
      *
@@ -84,6 +86,8 @@ public:
      *  @param  hand      Reference to Hand objects. Hand::pos_ref and Hand::ori_ref are used as inputs.
      *  @param  foot      Reference to Foot objects. Foot::pos_ref and Foot::ori_ref are used as inputs.
      *  @param  joint     Array of joints to store the result
+     *  @param  arm_ik    compute arm IK or not
+     *  @param  leg_ik    compute leg IK or not
      * 
      *  CoM IK.
      *  It takes reference CoM position, reference base link orientation, and reference pose of the hand and feet
@@ -94,7 +98,9 @@ public:
      *  CoM position computed by FK matches the reference value.
      *
      **/
-    void Comp(FkSolver* fk_solver, const Param& param, Centroid& centroid, Base& base, vector<Hand>& hand, vector<Foot>& foot, vector<Joint>& joint);
+    void Comp(FkSolver* fk_solver, const Param& param, Centroid& centroid, Base& base, vector<Hand>& hand, vector<Foot>& foot, vector<Joint>& joint, bool arm_ik = true, bool leg_ik = true);
+
+    IkSolver();
 
 protected:
     // variables for internal use
@@ -103,7 +109,6 @@ protected:
     vector<Joint>  joint_tmp;
     vector<Hand>   hand_tmp;
     vector<Foot>   foot_tmp;
-
 };
 
 }

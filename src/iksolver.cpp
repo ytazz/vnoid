@@ -1,12 +1,15 @@
 ﻿#include "iksolver.h"
 #include "fksolver.h"
 #include "rollpitchyaw.h"
-#include "robot_base.h"
+#include "robot.h"
 
 namespace cnoid{
 namespace vnoid{
 
 const double pi = 3.14159265358979;
+
+IkSolver::IkSolver(){
+}
 
 void IkSolver::CompLegIk(const Vector3& pos, const Quaternion& ori, double l1, double l2, double* q){
     // hip pitch and knee pitch from trigonometrics
@@ -238,37 +241,44 @@ void IkSolver::CompArmIk2(const Vector3& pos, const Quaternion& ori, double l1, 
     CompWristAngles(ori, q);
 }
 
-void IkSolver::Comp(const Param& param, const Base& base, const vector<Hand>& hand, const vector<Foot>& foot, vector<Joint>& joint){
+void IkSolver::Comp(const Param& param, const Base& base, const vector<Hand>& hand, const vector<Foot>& foot, vector<Joint>& joint, bool arm_ik, bool leg_ik){
     Vector3    pos_local;
     Quaternion ori_local;
     double     q[7];
 
     // comp arm ik
-    for(int i = 0; i < 2; i++){
-        pos_local = base.ori_ref.conjugate()*(hand[i].pos_ref - hand[i].ori_ref*param.wrist_to_hand[i] - base.pos_ref) - param.base_to_shoulder[i];
-        ori_local = base.ori_ref.conjugate()* hand[i].ori_ref;
+    if(arm_ik){
+        for(int i = 0; i < 2; i++){
+            pos_local = base.ori_ref.conjugate()*(hand[i].pos_ref - hand[i].ori_ref*param.wrist_to_hand[i] - base.pos_ref) - param.base_to_shoulder[i];
+            ori_local = base.ori_ref.conjugate()* hand[i].ori_ref;
 
-        CompArmIk(pos_local, ori_local, param.upper_arm_length, param.lower_arm_length, hand[i].arm_twist, q);
+            if(hand[i].fix_arm_twist)
+                CompArmIk(pos_local, ori_local, param.upper_arm_length, param.lower_arm_length, hand[i].arm_twist, q);
+            if(hand[i].fix_elbow_dir)
+                CompArmIk2(pos_local, ori_local, param.upper_arm_length, param.lower_arm_length, hand[i].elbow_dir, q);
         
-        for(int j = 0; j < 7; j++){
-            joint[param.arm_joint_index[i] + j].q_ref = q[j];
+            for(int j = 0; j < 7; j++){
+                joint[param.arm_joint_index[i] + j].q_ref = q[j];
+            }
         }
     }
     
     // comp leg ik
-    for(int i = 0; i < 2; i++){
-        pos_local = base.ori_ref.conjugate()*(foot[i].pos_ref - foot[i].ori_ref*param.ankle_to_foot[i] - base.pos_ref) - param.base_to_hip[i];
-        ori_local = base.ori_ref.conjugate()* foot[i].ori_ref;
+    if(leg_ik){
+        for(int i = 0; i < 2; i++){
+            pos_local = base.ori_ref.conjugate()*(foot[i].pos_ref - foot[i].ori_ref*param.ankle_to_foot[i] - base.pos_ref) - param.base_to_hip[i];
+            ori_local = base.ori_ref.conjugate()* foot[i].ori_ref;
 
-        CompLegIk(pos_local, ori_local, param.upper_leg_length, param.lower_leg_length, q);
+            CompLegIk(pos_local, ori_local, param.upper_leg_length, param.lower_leg_length, q);
 
-        for(int j = 0; j < 6; j++){
-            joint[param.leg_joint_index[i] + j].q_ref = q[j];
+            for(int j = 0; j < 6; j++){
+                joint[param.leg_joint_index[i] + j].q_ref = q[j];
+            }
         }
     }
 }
 
-void IkSolver::Comp(FkSolver* fk_solver, const Param& param, Centroid& centroid, Base& base, vector<Hand>& hand, vector<Foot>& foot, vector<Joint>& joint){
+void IkSolver::Comp(FkSolver* fk_solver, const Param& param, Centroid& centroid, Base& base, vector<Hand>& hand, vector<Foot>& foot, vector<Joint>& joint, bool arm_ik, bool leg_ik){
     // objects to store temprary FK results
     joint_tmp.resize(joint.size());
     hand_tmp.resize(hand.size());
@@ -283,7 +293,7 @@ void IkSolver::Comp(FkSolver* fk_solver, const Param& param, Centroid& centroid,
     int cnt = 0;
     while(cnt++ < 10){
         // comp ik
-        Comp(param, base, hand, foot, joint);
+        Comp(param, base, hand, foot, joint, arm_ik, leg_ik);
 
         // copy q_ref to q
         for(int i = 0; i < joint.size(); i++)
