@@ -243,7 +243,7 @@ bool MarkerVisualizerPlugin::Open(size_t sz){
 #else
 	// append '/tmp' in front of shared memory name to make it in the tmp directory
 	char n[256];
-	sprintf(n, "/%s", name);
+	sprintf(n, "/tmp/%s", name);
 	printf("try to open %s\n", n);
 	file = shm_open(n, O_RDONLY, (S_IRUSR|S_IRGRP|S_IROTH));
 	if(file == -1){
