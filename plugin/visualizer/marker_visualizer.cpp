@@ -244,16 +244,16 @@ bool MarkerVisualizerPlugin::Open(size_t sz){
 	// append '/tmp' in front of shared memory name to make it in the tmp directory
 	char n[256];
 	sprintf(n, "/tmp/%s", name);
-	printf("try to open %s\n", n);
+	//printf("try to open %s\n", n);
 	file = shm_open(n, O_RDONLY, (S_IRUSR|S_IRGRP|S_IROTH));
 	if(file == -1){
-	    printf("failed to open file \n");
+	    //printf("failed to open file \n");
 	    file = 0;
 	    return false;
 	}
 	data = (Visualizer::Data*) mmap(NULL, sz, PROT_READ, MAP_SHARED, file, 0); 
 	if(data == (void*)-1){
-	    printf("failed to open data\n");
+	    //printf("failed to open data\n");
 	    file = 0;
 	    data = 0;
 	}

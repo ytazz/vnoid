@@ -150,9 +150,9 @@ bool Visualizer::Open(){
 	file = CreateFileMappingA(INVALID_HANDLE_VALUE, NULL, PAGE_READWRITE, 0, (DWORD)sz, name);
     data = (Data*)MapViewOfFile(file, FILE_MAP_WRITE, 0, (DWORD)0, (DWORD)sz);
 #else
-	// append '/' in front of shared memory name
+	// append '/tmp' in front of shared memory name
 	char n[256];
-	sprintf(n, "/%s", name);
+	sprintf(n, "/tmp/%s", name);
 	file = shm_open(n, O_RDWR | O_CREAT, (S_IRUSR|S_IWUSR|S_IRGRP|S_IWGRP|S_IROTH)); 
 	if(file == -1){
 	    printf("vnoid visualizer: failed to open shared memory file\n");
