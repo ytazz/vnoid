@@ -2,18 +2,30 @@
 
 #include "../src/robot.h"
 
-// 運動学 ステップ2
-// fksolverとiksolverのヘッダファイルをインクルード
+/*
+ * 運動学 ステップ2
+ * fksolverとiksolverのヘッダファイルをインクルード
+ */
 #include "fksolver.h"
 #include "iksolver.h"
 
-// 重心動力学 ステップ1
-// stabilizerのヘッダファイルをインクルード
+/*
+ * 重心動力学 ステップ1
+ * stabilizerのヘッダファイルをインクルード
+ */
 #include "stabilizer.h"
 
-// 重心動力学 ステップ2
-// visualizerのヘッダファイルをインクルード
+/*
+ * 重心動力学 ステップ2
+ * visualizerのヘッダファイルをインクルード
+ */
 #include "visualizer.h"
+
+/*
+ * 歩行パターン生成 ステップ1
+ * footstep_plannerとstepping_controllerのヘッダファイルをインクルード
+ */
+
 
 #include <cnoid/Joystick>
 
@@ -38,20 +50,31 @@ public:
     vector<Foot>   foot;
     vector<Joint>  joint;
 
-    // 運動学 ステップ2
-    // fksolverとiksolverをメンバ変数に追加
+    /*
+     * 運動学 ステップ2
+     * fksolverとiksolverをメンバ変数に追加
+     */
     FkSolver fk_solver;
     IkSolver ik_solver;
 
-    // 重心動力学 ステップ1
-    // stabilizerをメンバ変数に追加
+    /*
+     * 重心動力学 ステップ1
+     * stabilizerをメンバ変数に追加
+     */
     Stabilizer stabilizer;
 
-    // 重心動力学 ステップ2
-    // visualizerをメンバ変数に追加
-    // Visualize()をメンバ関数に追加
+    /*
+     * 重心動力学 ステップ2
+     * visualizerをメンバ変数に追加
+     * Visualize()をメンバ関数に追加
+     */
     Visualizer  visualizer;
     void Visualize();
+
+    /*
+     * 歩行パターン生成 ステップ1
+     * footstep_plannerとstepping_controllerをメンバ変数に追加
+     */
 
     Joystick       joystick;
 

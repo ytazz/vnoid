@@ -107,14 +107,16 @@ void MyRobot::Init(SimpleControllerIO* io){
     joint[28].Set(1000.0, 200.0, 100.0);
     joint[29].Set(1000.0, 200.0, 100.0);
 
-    // 重心動力学 ステップ1
-    // 足首関節のPDゲインを下げる
-     joint[22].Set(100.0, 20.0, 100.0);
-     joint[23].Set(100.0, 20.0, 100.0);
-     joint[28].Set(100.0, 20.0, 100.0);
-     joint[29].Set(100.0, 20.0, 100.0);
+    /*
+     * 重心動力学 ステップ1
+     * 足首関節のPDゲインを下げる
+     * stabilizerのパラメータを設定
+    */
+    joint[22].Set(100.0, 20.0, 100.0);
+    joint[23].Set(100.0, 20.0, 100.0);
+    joint[28].Set(100.0, 20.0, 100.0);
+    joint[29].Set(100.0, 20.0, 100.0);
 
-    // stabilizerのパラメータを設定
     stabilizer.orientation_ctrl_gain_p = 100.0;
     stabilizer.orientation_ctrl_gain_d = 10.0;
     stabilizer.dcm_ctrl_gain           = 2.0;
@@ -127,8 +129,10 @@ void MyRobot::Init(SimpleControllerIO* io){
     foot[0].contact_ref = true;
     foot[1].contact_ref = true;
     
-    // 重心動力学 ステップ2
-    // visualizerの設定
+    /*
+     * 重心動力学 ステップ2
+     * visualizerの設定
+     */
     visualizer.header.numMaxFrames       = 10000;
     visualizer.header.numMaxLines        = 0;
     visualizer.header.numMaxSpheres      = 10;
@@ -137,9 +141,20 @@ void MyRobot::Init(SimpleControllerIO* io){
     visualizer.header.numMaxLineVertices = 0;
     visualizer.Open();
     
-    // 運動学 ステップ1
-    // ベースリンクの位置を直接指定するオプションを有効化
-    //base_actuation = true;
+    /*
+     * 歩行パターン生成 ステップ1
+     * stepping_controllerを設定
+     * footstepを生成
+     */
+
+    /*
+     * 運動学 ステップ1
+     * ベースリンクの位置を直接指定するオプションを有効化
+     */
+    /*
+     * 運動学 ステップ3
+     * ベースリンク固定オプションを解除
+     */
     base_actuation = false;
 
     // 運動学 ステップ3
@@ -151,25 +166,41 @@ void MyRobot::Init(SimpleControllerIO* io){
 void MyRobot::Control(){
     Robot::Sense(timer, base, foot, joint);
 
-    // 運動学 ステップ1
-    // ベースリンクの座標を設定
+    /*
+     * 運動学 ステップ1
+     * ベースリンクの座標を設定
+     */
     base.pos_ref = Vector3(0.0, 0.0, 1.0);
 
-    // ロボットの関節角度指令値を設定してみよう
+    /*
+     * ロボットの関節角度指令値を設定してみよう
+     */
     // 腕を少し外側に広げる
     joint[ 5].q_ref = -0.2;
     joint[12].q_ref =  0.2;
 
-    // 運動学 ステップ2
-    // 足の位置指令値を設定してIK計算を行う
+    /*
+     * 運動学 ステップ2
+     * 足の位置指令値を設定してIK計算を行う
+     */
 
-    // 重心の位置指令値を設定して重心IK計算を行う
+    /*
+     * 重心の位置指令値を設定して重心IK計算を行う
+     */
 
-    // 運動学 ステップ3
-    // ジョイスティック入力を重心位置指令値に反映させる
+    /*
+     * 運動学 ステップ3
+     * ジョイスティック入力を重心位置指令値に反映させる
+     */
 
-    // 重心動力学 ステップ1
-    // stabilizerの計算を実行
+    /*
+     * 歩行パターン生成 ステップ1
+     */
+
+    /*
+     * 重心動力学 ステップ1
+     * stabilizerの計算を実行
+     */
     fk_solver.Comp(param, joint, base, centroid, hand, foot);
 
     joystick.readCurrentState();
@@ -180,15 +211,19 @@ void MyRobot::Control(){
 
     Robot::Actuate(timer, base, joint);
 
-    // 重心動力学 ステップ2
-    // Visualizeを呼び出す
+    /*
+     * 重心動力学 ステップ2
+     * Visualizeを呼び出す
+     */
     Visualize();
 
     timer.Countup();
 }
 
-// 重心動力学 ステップ2
-// Visualizeメンバ関数の定義
+/*
+ * 重心動力学 ステップ2
+ * Visualizeメンバ関数の定義
+ */
 void MyRobot::Visualize(){
     int iframe = (int)(timer.time/0.025);
     Visualizer::Frame* frame = visualizer.data->GetFrame(iframe);
