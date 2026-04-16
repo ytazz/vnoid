@@ -2,6 +2,15 @@
 
 #include "../src/robot.h"
 
+// 運動学 ステップ2
+// fksolverとiksolverのヘッダファイルをインクルード
+
+// 重心動力学 ステップ1
+// stabilizerのヘッダファイルをインクルード
+
+// 重心動力学 ステップ2
+// visualizerのヘッダファイルをインクルード
+
 #include <cnoid/Joystick>
 
 /*
@@ -25,15 +34,23 @@ public:
     vector<Foot>   foot;
     vector<Joint>  joint;
 
+    // 運動学 ステップ2
+    // fksolverとiksolverをメンバ変数に追加
+
+    // 重心動力学 ステップ1
+    // stabilizerをメンバ変数に追加
+
+    // 重心動力学 ステップ2
+    // visualizerをメンバ変数に追加
+    // Visualize()をメンバ関数に追加
+
     Joystick       joystick;
 
 public:
 	virtual void  Init   (SimpleControllerIO* io);
 	virtual void  Control();
 
-    void Visualize();
-	
-	MyRobot();
+    MyRobot();
 
 };
 

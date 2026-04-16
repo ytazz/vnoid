@@ -1,11 +1,18 @@
 ﻿#pragma once
 
 #include "../src/robot.h"
+
+// 運動学 ステップ2
+// fksolverとiksolverのヘッダファイルをインクルード
 #include "fksolver.h"
 #include "iksolver.h"
+
+// 重心動力学 ステップ1
+// stabilizerのヘッダファイルをインクルード
 #include "stabilizer.h"
-#include "footstep_planner.h"
-#include "stepping_controller.h"
+
+// 重心動力学 ステップ2
+// visualizerのヘッダファイルをインクルード
 #include "visualizer.h"
 
 #include <cnoid/Joystick>
@@ -13,7 +20,8 @@
 /*
  * Tutorial 1
  * 
- * Use this code when you go through this tutorial.
+ * Use this code template when you go through this tutorial.
+ * see myrobot_complete.[h|cpp] for complete code.
  * 
  */
 
@@ -30,27 +38,28 @@ public:
     vector<Foot>   foot;
     vector<Joint>  joint;
 
+    // 運動学 ステップ2
+    // fksolverとiksolverをメンバ変数に追加
+    FkSolver fk_solver;
+    IkSolver ik_solver;
+
+    // 重心動力学 ステップ1
+    // stabilizerをメンバ変数に追加
+    Stabilizer stabilizer;
+
+    // 重心動力学 ステップ2
+    // visualizerをメンバ変数に追加
+    // Visualize()をメンバ関数に追加
+    Visualizer  visualizer;
+    void Visualize();
+
     Joystick       joystick;
-
-    FkSolver       fk_solver;
-    IkSolver       ik_solver;
-
-    Stabilizer     stabilizer;
-
-    Visualizer     visualizer;
-
-    Footstep            footstep;    
-    Footstep            footstep_buffer;
-    FootstepPlanner     footstep_planner;
-    SteppingController  stepping_controller;
 
 public:
 	virtual void  Init   (SimpleControllerIO* io);
 	virtual void  Control();
 
-    void Visualize();
-	
-	MyRobot();
+    MyRobot();
 
 };
 

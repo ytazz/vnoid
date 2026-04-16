@@ -7,3 +7,6 @@ choreonoid_add_plugin(CnoidVnoidMarkerVisualizerPlugin
 
 target_link_libraries(CnoidVnoidMarkerVisualizerPlugin PRIVATE CnoidBodyPlugin)
 target_link_libraries(CnoidVnoidMarkerVisualizerPlugin PRIVATE vnoid_lib)
+if(UNIX)
+    target_link_libraries(CnoidVnoidMarkerVisualizerPlugin PRIVATE rt)
+endif()

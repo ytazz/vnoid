@@ -106,13 +106,22 @@ void MyRobot::Init(SimpleControllerIO* io){
     joint[27].Set(1000.0, 200.0, 100.0);
     joint[28].Set(1000.0, 200.0, 100.0);
     joint[29].Set(1000.0, 200.0, 100.0);
+
+    // 重心動力学 ステップ1
+    // 足首関節のPDゲインを下げる
+
+    // stabilizerのパラメータを設定
     
-    /*
-     * チュートリアル ステップ1
-     * ロボットを空中に固定する
-     */
+    
+    // 重心動力学 ステップ2
+    // visualizerの設定
+    
+    // 運動学 ステップ1
     // ベースリンクの位置を直接指定するオプションを有効化
     base_actuation = true;
+    
+    // 運動学 ステップ3
+    // ベースリンク固定オプションを解除
 
     Robot::Init(io, timer, joint);
 }
@@ -120,13 +129,33 @@ void MyRobot::Init(SimpleControllerIO* io){
 void MyRobot::Control(){
     Robot::Sense(timer, base, foot, joint);
 
+    // 運動学 ステップ1
     // ベースリンクの座標を設定
-    base.pos_ref = Vector3(0.0, 0.0, 1.0);
+
+    // ロボットの関節角度指令値を設定してみよう
+
+    // 運動学 ステップ2
+    // 足の位置指令値を設定してIK計算を行う
+
+    // 重心の位置指令値を設定して重心IK計算を行う
+
+    // 運動学 ステップ3
+    // ジョイスティック入力を重心位置指令値に反映させる
+
+    // 重心動力学 ステップ1
+    // stabilizerの計算を実行
 
     Robot::Actuate(timer, base, joint);
 
+    // 重心動力学 ステップ2
+    // Visualizeを呼び出す
+
     timer.Countup();
 }
+
+// 重心動力学 ステップ2
+// Visualizeメンバ関数の定義
+
 
 }
 }
