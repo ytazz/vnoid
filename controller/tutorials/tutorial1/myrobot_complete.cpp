@@ -124,8 +124,8 @@ void MyRobot::Init(SimpleControllerIO* io){
     centroid.com_pos_ref = Vector3(0.0, 0.0, param.com_height);
     centroid.dcm_ref     = Vector3(0.0, 0.0, param.com_height);
     centroid.dcm_target  = Vector3(0.0, 0.0, param.com_height);
-    foot[0].pos_ref = Vector3(0.02, -0.15, 0.0);
-    foot[1].pos_ref = Vector3(0.02,  0.15, 0.0);
+    foot[0].pos_ref = Vector3(0.02, -0.10, 0.0);
+    foot[1].pos_ref = Vector3(0.02,  0.10, 0.0);
     foot[0].contact_ref = true;
     foot[1].contact_ref = true;
     
@@ -146,6 +146,34 @@ void MyRobot::Init(SimpleControllerIO* io){
      * stepping_controllerを設定
      * footstepを生成
      */
+    stepping_controller.swing_height = 0.05;
+    stepping_controller.dsp_duration = 0.05;
+
+    Step step;
+    step.duration = 0.5;
+    step.spacing  = 0.2;
+    step.stride   = 0.0;
+    footstep.steps.push_back(step);
+    step.stride   = 0.1;
+    footstep.steps.push_back(step);
+    footstep.steps.push_back(step);
+    footstep.steps.push_back(step);
+    footstep.steps.push_back(step);
+    footstep.steps.push_back(step);
+    step.stride = 0.0;
+    footstep.steps.push_back(step);
+    footstep.steps.push_back(step);
+	footstep.steps.push_back(step);
+	
+    footstep.steps[0].foot_pos[0] = foot[0].pos_ref;
+    footstep.steps[0].foot_pos[1] = foot[1].pos_ref;
+    footstep.steps[0].dcm = centroid.dcm_ref;
+
+    footstep_planner.Plan(param, footstep);
+    footstep_planner.GenerateDCM(param, footstep);
+
+    footstep_buffer.steps.push_back(footstep.steps[0]);
+    footstep_buffer.steps.push_back(footstep.steps[1]);
 
     /*
      * 運動学 ステップ1
@@ -203,8 +231,11 @@ void MyRobot::Control(){
      */
     fk_solver.Comp(param, joint, base, centroid, hand, foot);
 
-    joystick.readCurrentState();
-    centroid.dcm_target.z() = param.com_height + 0.1*joystick.getPosition(Joystick::L_STICK_V_AXIS);
+    if(timer.time >= 1.0)
+        stepping_controller.Update(timer, param, footstep, footstep_buffer, centroid, base, foot);
+
+    //joystick.readCurrentState();
+    //centroid.dcm_target.z() = param.com_height + 0.1*joystick.getPosition(Joystick::L_STICK_V_AXIS);
     stabilizer.Update(timer, param, centroid, base, foot);
 
     ik_solver.Comp(&fk_solver, param, centroid, base, hand, foot, joint, false, true);

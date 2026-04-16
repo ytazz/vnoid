@@ -25,6 +25,8 @@
  * 歩行パターン生成 ステップ1
  * footstep_plannerとstepping_controllerのヘッダファイルをインクルード
  */
+#include "footstep_planner.h"
+#include "stepping_controller.h"
 
 
 #include <cnoid/Joystick>
@@ -75,6 +77,10 @@ public:
      * 歩行パターン生成 ステップ1
      * footstep_plannerとstepping_controllerをメンバ変数に追加
      */
+    Footstep            footstep;    
+    Footstep            footstep_buffer;
+    FootstepPlanner     footstep_planner;
+    SteppingController  stepping_controller;
 
     Joystick       joystick;
 
