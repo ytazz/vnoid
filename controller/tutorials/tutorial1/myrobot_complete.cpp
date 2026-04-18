@@ -146,6 +146,7 @@ void MyRobot::Init(SimpleControllerIO* io){
      * stepping_controllerを設定
      * footstepを生成
      */
+    // 直進させる場合 //
     stepping_controller.swing_height = 0.05;
     stepping_controller.dsp_duration = 0.05;
 
@@ -175,6 +176,40 @@ void MyRobot::Init(SimpleControllerIO* io){
     footstep_buffer.steps.push_back(footstep.steps[0]);
     footstep_buffer.steps.push_back(footstep.steps[1]);
 
+    // 階段のぼり //
+    /*
+    stepping_controller.swing_height = 0.15;
+	stepping_controller.dsp_duration = 0.10;
+
+	Step step;
+	step.duration = 0.7;
+	step.spacing  = 0.2;
+	step.stride   = 0.0;
+	footstep.steps.push_back(step);
+	step.stride   = 0.3;
+	step.climb    = 0.1;
+	footstep.steps.push_back(step);
+	footstep.steps.push_back(step);
+	footstep.steps.push_back(step);
+	footstep.steps.push_back(step);
+	footstep.steps.push_back(step);
+	step.stride = 0.0;
+	step.climb  = 0.0;
+	footstep.steps.push_back(step);
+	footstep.steps.push_back(step);
+	footstep.steps.push_back(step);
+
+	footstep.steps[0].foot_pos[0] = foot[0].pos_ref;
+	footstep.steps[0].foot_pos[1] = foot[1].pos_ref;
+	footstep.steps[0].dcm = centroid.dcm_ref;
+
+	footstep_planner.Plan(param, footstep);
+	footstep_planner.GenerateDCM(param, footstep);
+
+	footstep_buffer.steps.push_back(footstep.steps[0]);
+	footstep_buffer.steps.push_back(footstep.steps[1]);
+	*/
+	
     /*
      * 運動学 ステップ1
      * ベースリンクの位置を直接指定するオプションを有効化
