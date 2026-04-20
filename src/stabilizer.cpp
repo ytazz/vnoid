@@ -153,9 +153,7 @@ void Stabilizer::CalcDcmDynamics(const Timer& timer, const Param& param, const B
 	double T = param.T;
 	double m = param.total_mass;
 	double h = param.com_height;
-	double T_mh  = T/(m*h);
-	double T2_mh = T*T_mh;
-
+	
 	Vector3 offset(0.0, 0.0, param.com_height);
 
 	// desired angular acceleration for regulating orientation (in local coordinate)
@@ -179,11 +177,10 @@ void Stabilizer::CalcDcmDynamics(const Timer& timer, const Param& param, const B
 	Vector3 Ld = base.ori_ref * Ld_local;
 
 	// virtual disturbance applied to DCM dynamics to generate desired recovery moment
-	Vector3 delta = Vector3(-T_mh*Ld.y(), T_mh*Ld.x(), 0.0);
+	Vector3 delta = Vector3(-(1/(m*h))*Ld.y(), (1/(m*h))*Ld.x(), 0.0);
 
 	// calc zmp for regulating dcm
-	const double rate = 0.0;
-	centroid.zmp_ref = centroid.zmp_target + dcm_ctrl_gain*(centroid.dcm_ref - centroid.dcm_target) + rate*T*delta;
+	centroid.zmp_ref = centroid.zmp_target + dcm_ctrl_gain*(centroid.dcm_ref - centroid.dcm_target);
 
 	// project zmp inside support region
 	if( ( foot[0].contact_ref && !foot[1].contact_ref) ||
@@ -197,7 +194,7 @@ void Stabilizer::CalcDcmDynamics(const Timer& timer, const Param& param, const B
 	}
 
 	// calc DCM derivative
-	Vector3 dcm_d = (1/T)*(centroid.dcm_ref - (centroid.zmp_ref + Vector3(0.0, 0.0, h))) + delta;
+	Vector3 dcm_d = (1/T)*(centroid.dcm_ref - (centroid.zmp_ref + Vector3(0.0, 0.0, h))) + T*delta;
 
 	// calc CoM acceleration
 	centroid.com_acc_ref = (1/T)*(dcm_d - centroid.com_vel_ref);
