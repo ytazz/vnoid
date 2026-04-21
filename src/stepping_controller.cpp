@@ -15,7 +15,7 @@ SteppingController::SteppingController(){
     dsp_duration        = 0.1;
     descend_duration    = 0.0;
     descend_depth       = 0.0;
-    timing_adaptation_weight = 0.0;
+    timing_adaptation_weight = 1.0;
 
     buffer_ready    = false;
     time_to_landing = 0.0;
@@ -26,19 +26,35 @@ void SteppingController::Update(const Timer& timer, const Param& param, Footstep
     Vector3 offset(0.0, 0.0, param.com_height);
     
     if(buffer_ready){
+        double alpha, alpha_ref, t_dcm, t_ref;
+
         Step& st0  = footstep.steps[0];
         Step& st1  = footstep.steps[1];
         Step& stb0 = footstep_buffer.steps[0];
         Step& stb1 = footstep_buffer.steps[1];
     
         // elapsed time based on timer
-        double t_elapsed = timer.time - stb0.tbegin;
+        t_ref = timer.time - stb0.tbegin;
 
         // its exponential
-        double alpha_ref = exp(t_elapsed/T);
-        
+        alpha_ref = exp(t_ref/T);
+
+        // nominal DCM offset at the beginning of this step
+        Vector2 xi0(stb0.dcm.x() - stb0.zmp.x(), stb0.dcm.y() - stb0.zmp.y());
+
+        // offset of current DCM from ZMP
+        Vector2 xi (centroid.dcm_ref.x() - stb0.zmp.x(), centroid.dcm_ref.y() - stb0.zmp.y());
+
+        // calc DCM-induced time
+        /* if w is sufficiently large, then alpha = alpha_ref, t_dcm = t_ref, which means no timing adaptation takes place.
+         * if w is zero, then alpha = ||xi||/||xi0||, t_dcm = T log ||xi|| - T log ||xi0||, which means timing is purely determined based on DCM and elapsed time is ignored
+         */
+        double w = timing_adaptation_weight;
+        alpha = (w*w*alpha_ref + xi0.norm()*xi.norm())/(w*w + xi0.squaredNorm());
+        t_dcm = T*log(alpha);
+
         // time to landing
-	    time_to_landing = stb0.duration - t_elapsed;
+	    time_to_landing = stb0.duration - t_dcm;
     
         if(time_to_landing <= 0.0){
             if(footstep.steps.size() > 1){
