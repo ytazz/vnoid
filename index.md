@@ -6,21 +6,14 @@
 <iframe width="355" height="200" src="https://www.youtube.com/embed/2xOmlHx2b4U" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 <iframe width="355" height="200" src="https://www.youtube.com/embed/BR4rxW9pEog" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-# 速報
-[Humanoid Virtual Athletics Challenge 2026 春ミーティング](https://ytazz.github.io/vnoid/hvac2026tutorial.html)
-を開催します．ふるってご参加ください！
-
-# Challenge 2025
+# Challenge 2026
 
 ## Aim of this challenge
 
-The aim of this challenge is to provide students and researchers in the humanoid robotics research community
- with a common development platform and an opportunity for competition and
- thereby facilitate cutting-edge research in this field
- through the sharing of knowledge, ideas, and technical resources.
+Humanoid Virtual Athletics Challenge is a simulation-based robotics challenge aiming at co-learning of motion planning and control techniques for humanoid and legged robots. 
+Since HVAC2021, many teams from beginners to experts participated and showed various exciting performances. 
+HVAC2026 calls for participation of enthusiasts in three challenge categories athletics, dance, and short track.
 
-Compared to several simulation-based humanoid robot competitions held in the past (e.g., JVRC, DRC, WRS, Robocup),
- the major uniqueness of this challenge is that it focuses of the potential ability of humanoid robots to perform acrobatic movements.
 
 ## How to participate
 
@@ -32,16 +25,17 @@ Compared to several simulation-based humanoid robot competitions held in the pas
   Submitted data will be checked by the steering committee if it conforms with the regulation,
    and if qualified, will appear in the list of qualified submissions shown in this webpage.
 
-## Important Dates of 2025
+## Important Dates of 2026
 
-- Main Challenge: September 2nd, 2025, to be held as part of RSJ2025 open forum
+- Main Challenge: September 1st, 2026, to be held as part of RSJ2026 open forum
 
 ## Application form
 
-<!--
-Now being prepared.
--->
+[Here](https://docs.google.com/forms/d/e/1FAIpQLSexp5P2fkdzr79vbRy68NRbuOOPujLzT2T_S4oYt3AKC1nNaw/viewform?usp=dialog)
+
+<!-- 2025
 [Here](https://docs.google.com/forms/d/e/1FAIpQLSfz-wzvdUys3-AzFTey0XGcP8soD5MrYrmWW7PucJQvofh52g/viewform?usp=header)
+-->
 
 <!-- 2024
 -[Here](https://docs.google.com/forms/d/e/1FAIpQLSeSxN4F3w2ti-YF4cTTZDEJ5RKPWCEj6dz1IP9A7a-SFMxnDw/viewform?usp=sf_link)

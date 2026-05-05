@@ -14,13 +14,14 @@
 
 ## チャレンジの主旨
 
-The aim of this challenge is to provide students and researchers in the humanoid robotics research community
- with a common development platform and an opportunity for competition and
- thereby facilitate cutting-edge research in this field
- through the sharing of knowledge, ideas, and technical resources.
+Humanoid Virtual Athletics Challengeは，シミュレータ上で人型ロボットの様々な運動性能を競うイベントです．
+運動制御技術を学び深めること，競技者同士の知識・経験の共有を促進することを狙いとしています．
+HVAC2026ではアスレチック・ダンス・短距離走の3種目で広く参加を募ります．
+また，マイルストーンを達成したチームへの賞を用意しています．
 
-Compared to several simulation-based humanoid robot competitions held in the past (e.g., JVRC, DRC, WRS, Robocup),
- the major uniqueness of this challenge is that it focuses of the potential ability of humanoid robots to perform acrobatic movements.
+## スケジュール
+
+- メインチャレンジ（発表会）を日本ロボット学会学術講演会オープンフォーラム内で開催予定です．
 
 ## 参加方法
 
@@ -32,18 +33,13 @@ Compared to several simulation-based humanoid robot competitions held in the pas
   Submitted data will be checked by the steering committee if it conforms with the regulation,
    and if qualified, will appear in the list of qualified submissions shown in this webpage.
 
-## スケジュール
-
-- メインチャレンジ（発表会）を日本ロボット学会学術講演会オープンフォーラム内で開催予定です．
-
 ## 参加登録
 
-[こちらのフォームよりお申込みください](https://docs.google.com/forms/d/e/1FAIpQLSfz-wzvdUys3-AzFTey0XGcP8soD5MrYrmWW7PucJQvofh52g/viewform?usp=header)
+[こちらのフォームよりお申込みください](https://docs.google.com/forms/d/e/1FAIpQLSexp5P2fkdzr79vbRy68NRbuOOPujLzT2T_S4oYt3AKC1nNaw/viewform?usp=dialog)
 
-<!--
-Now being prepared.
--->
+<!-- 2025
 [Here](https://docs.google.com/forms/d/e/1FAIpQLSfz-wzvdUys3-AzFTey0XGcP8soD5MrYrmWW7PucJQvofh52g/viewform?usp=header)
+-->
 
 <!-- 2024
 -[Here](https://docs.google.com/forms/d/e/1FAIpQLSeSxN4F3w2ti-YF4cTTZDEJ5RKPWCEj6dz1IP9A7a-SFMxnDw/viewform?usp=sf_link)
