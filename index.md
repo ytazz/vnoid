@@ -104,14 +104,10 @@ How to evaluate the quality of free-tyle performance is T.B.D.
 
 Please see the following document for detailed regulations.
 Regulations are tentative and subject to change.
-- [Common Regulations](https://docs.google.com/document/d/1kAm1k5oPyKb33LVS0LAicwtTlaYHC0enVlFOXf_ZWyQ/edit?usp=sharing)
-- [Athletics Regulations](https://docs.google.com/document/d/1LARnyLCjxck-cRduF6dJLifQg5M_5zpTwdWyLSAJarE/edit?usp=sharing)
-- [Dance Regulations](https://docs.google.com/document/d/143gkNKohEuArgTGu0W-GL4cQ79Kp_T-_xPucLci7m3Q/edit?usp=sharing)
-- [Shorttrack Regulations](https://docs.google.com/document/d/1MkYWEnjo5WNI6O-yg-mjSHCDkwj9Vm66ApA6FYd6Smg/edit?usp=sharing)
-- [共通レギュレーション](https://docs.google.com/document/d/127nbNGyn7i5wAJN6fSdnusZHysUt-EOQWXtJ98mQNUg/edit?usp=sharing)
-- [アスレチック](https://docs.google.com/document/d/1dUoI85JZOCa4HwlCR69B3BPOtK7mePxPpXyoyQ3NTJE/edit?usp=sharing)
-- [ダンス](https://docs.google.com/document/d/1r-5InTuQfFtnyoDuQXTPSiz_znt4Sfqtb134VcWe_UE/edit?usp=sharing)
-- [短距離](https://docs.google.com/document/d/1KWvlnkfcPWF-rG0sGCemXgtJ0elBgrXffiB8zoZwZZw/edit?usp=sharing)
+- [Common Regulations](https://docs.google.com/document/d/1_1X_NXhyCLUExpHV5RaN4FVBNdaPuBcbFOcasmPgdhg/edit?usp=sharing)
+- [Athletics Regulations](https://docs.google.com/document/d/14AeiRrsNczmPR60EPaZWai6mEDsUNRImsA6lLC7Rnt0/edit?usp=sharing)
+- [Dance Regulations](https://docs.google.com/document/d/1rI9C3RcbTkA8kYjmFIE9yY_tONo9c7W9VFIJ1X6Hpzs/edit?usp=sharing)
+- [Shorttrack Regulations](https://docs.google.com/document/d/1YD1ZHDWpqkpTdd8RsmMg9bGyiivnDPG7oeaQg1Wqwmo/edit?usp=sharing)
 
 ## Quick Start
 <!--
