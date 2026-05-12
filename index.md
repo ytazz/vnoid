@@ -84,19 +84,11 @@ Performance is evaluated by elapsed simluation time while the robot passes the s
 <img src="fig/field_shorttrack2022.png" width="50%" alt="Short-track Field">
 
 <!--
-### Free-style performance
-
-The robot performs something extraordinary.
-How to evaluate the quality of free-tyle performance is T.B.D.
-
-![field](fig/field_performance2022.png "Free-style Performance Field")
--->
-
 ## Results
 - [Athletics](https://ytazz.github.io/vnoid/results_athletics.html)
 - [Dance](https://ytazz.github.io/vnoid/results_dance.html)
 - [Short Track](https://ytazz.github.io/vnoid/results_shorttrack.html)
-
+-->
 
 ## Regulation
 
