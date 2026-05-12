@@ -14,24 +14,21 @@ Humanoid Virtual Athletics Challenge is a simulation-based robotics challenge ai
 Since HVAC2021, many teams from beginners to experts participated and showed various exciting performances. 
 HVAC2026 calls for participation of enthusiasts in three challenge categories athletics, dance, and short track.
 
+## Important Dates of 2026
+
+- Team registration period: until approximately 1 week prior to the main challenge
+- Simulation result submission period: same as above
+- Main Challenge: September 1st, 2026, to be held as part of RSJ2026 open forum
 
 ## How to participate
 
-- This challenge takes place based on participants' submissions of simulation log data.
-- If you would like to participate in the challenge, please submit application information
-  from the link shown below not later than the application deadline.
-- After application, you will receive a link for uploading simulation log data.
-- After that, you can submit simulation log data at any time during the period of challenge.
-  Submitted data will be checked by the steering committee if it conforms with the regulation,
-   and if qualified, will appear in the list of qualified submissions shown in this webpage.
+- Register your team information through this [appllication form](https://docs.google.com/forms/d/e/1FAIpQLSexp5P2fkdzr79vbRy68NRbuOOPujLzT2T_S4oYt3AKC1nNaw/viewform?usp=dialog).
+ Upon acceptance of registration, you will receive a link for uploading simulation log data.
+- There are two ways to participate in the challenge: [1] submit simulation log data during the submission period, and
+ [2] perform simulation during the main challenge event.
+- Qualified simulation results will be listed in the challenge web page.
+ A team which achieved a milestone will be awarded during the main challenge event.
 
-## Important Dates of 2026
-
-- Main Challenge: September 1st, 2026, to be held as part of RSJ2026 open forum
-
-## Application form
-
-[Here](https://docs.google.com/forms/d/e/1FAIpQLSexp5P2fkdzr79vbRy68NRbuOOPujLzT2T_S4oYt3AKC1nNaw/viewform?usp=dialog)
 
 <!-- 2025
 [Here](https://docs.google.com/forms/d/e/1FAIpQLSfz-wzvdUys3-AzFTey0XGcP8soD5MrYrmWW7PucJQvofh52g/viewform?usp=header)
