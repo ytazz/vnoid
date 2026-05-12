@@ -121,25 +121,28 @@ Regulations are tentative and subject to change.
 
 ## Committee
 
-- HVAC2025 is hosted by the Special Interest Group on Humanoid Robotics of the Robotics Society of Japan (RSJ-SIG-HR).
-- HVAC2025 is run by volunteers consisting of members and non-members of RSJ-SIG-HR.
+- HVAC2026 is hosted by the Special Interest Group on Humanoid Robotics of the Robotics Society of Japan (RSJ-SIG-HR).
+- HVAC2026 is run by volunteers consisting of members and non-members of RSJ-SIG-HR.
   - Commitee members
     - Yuichi Tazaki	(Kobe Univ.)
-	- Takumi Kamioka (OMRON Corp.)
+	- Takumi Kamioka (Stealth Startup)
 	- Tomomichi Sugihara (OMRON Corp.)
 	- Masaki Murooka (AIST)
 	- Kenji Hashimoto (Waseda Univ.)
-	- Ikuo Mizuuchi (TUAT)
-	- Yohei Kakiuchi (TUT)
+	- Ikuo Mizuuchi (Tokyo Univ. of Agriculture and Technology)
+	- Yohei Kakiuchi (Toyohashi Univ. of Technology)
 	- Shin’ichiro Nakaoka (Choreonoid)
-	- Soh Yukizaki (KHI)
+	- Soh Yukizaki (Kawasaki Heavy Industries)
 	- Kunio Kojima (Univ. of Tokyo)
+	- Taiki Ishigaki (Tokyo Univ. of Science)
 
 ## Asking Questions
 - Post your question at [https://github.com/ytazz/vnoid/discussions](https://github.com/ytazz/vnoid/discussions)
 
+<!--
 ## Mailing List
 - Search "Humanoid Virtual Athletics Challenge Participants" in Google Groups and ask join.
+-->
 
 ## See Also
 - [HVAC introduction blog](https://koomiy.github.io/)
