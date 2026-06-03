@@ -17,6 +17,10 @@ Humanoid Virtual Athletics Challengeは，シミュレータ上で人型ロボ�
 HVAC2026ではアスレチック・ダンス・短距離走の3種目で広く参加を募ります．
 また，マイルストーンを達成したチームへの賞を用意しています．
 
+[フライヤー](https://ytazz.github.io/vnoid/doc/hvac2026_flyer_jp.pdf)
+
+[チャレンジ説明スライド](https://ytazz.github.io/vnoid/doc/HVAC_intro2026.pdf)
+
 ## スケジュール
 
 - 参加チーム募集期間　メインチャレンジの1週間程度前まで

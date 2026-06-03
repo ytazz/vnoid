@@ -70,7 +70,7 @@ Dance performance is evaluated in terms of both artistic quality and technical q
 <img src="fig/dance2023.png" width="50%" alt="Robot models used for dance performance">
 
 
-### Short track
+### Sprint
 
 The robot walks/runs the 20[m] short track.
 Performance is evaluated by elapsed simluation time while the robot passes the start line and the goal line.
@@ -84,7 +84,7 @@ Performance is evaluated by elapsed simluation time while the robot passes the s
 ## Results
 - [Athletics](https://ytazz.github.io/vnoid/results_athletics.html)
 - [Dance](https://ytazz.github.io/vnoid/results_dance.html)
-- [Short Track](https://ytazz.github.io/vnoid/results_shorttrack.html)
+- [Sprint](https://ytazz.github.io/vnoid/results_shorttrack.html)
 -->
 
 ## Regulation
@@ -96,7 +96,7 @@ Regulations are tentative and subject to change.
 - [Common Regulations](https://docs.google.com/document/d/1_1X_NXhyCLUExpHV5RaN4FVBNdaPuBcbFOcasmPgdhg/edit?usp=sharing)
 - [Athletics Regulations](https://docs.google.com/document/d/14AeiRrsNczmPR60EPaZWai6mEDsUNRImsA6lLC7Rnt0/edit?usp=sharing)
 - [Dance Regulations](https://docs.google.com/document/d/1rI9C3RcbTkA8kYjmFIE9yY_tONo9c7W9VFIJ1X6Hpzs/edit?usp=sharing)
-- [Shorttrack Regulations](https://docs.google.com/document/d/1YD1ZHDWpqkpTdd8RsmMg9bGyiivnDPG7oeaQg1Wqwmo/edit?usp=sharing)
+- [Sprint Regulations](https://docs.google.com/document/d/1YD1ZHDWpqkpTdd8RsmMg9bGyiivnDPG7oeaQg1Wqwmo/edit?usp=sharing)
 
 ## Quick Start
 <!--
