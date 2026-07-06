@@ -93,7 +93,7 @@ At the beginning of the simulation, the plugin checks whether the total mass of 
 
 The plugin monitors |joint velocity x joint torque| of each joint. To avoid spikes of the instantaneous values, the moving average over a time window (the "Power average window [s]" property, 0.01 seconds by default) is taken, and the maximum value over all the joints is used as the POWER. When the maximum POWER exceeds the limit (the "Power limit [W]" property), a notification with the name of the exceeding joint is shown in the message view, and the POWER display of the HUD turns red.
 
-**The joint torques must be output from the simulation for the POWER to be calculated correctly.** With AISTSimulatorItem, PhysXSimulatorItem, and MuJoCoSimulatorItem, set the "Drive effort output" property of the simulator item to true. Note that the plugin has not been tested with other simulator items.
+**The joint torques and the joint velocities must be output from the simulation for the POWER to be calculated correctly.** With AISTSimulatorItem, PhysXSimulatorItem, and MuJoCoSimulatorItem, set the "Drive effort output" property of the simulator item to true. With PhysXSimulatorItem and MuJoCoSimulatorItem, the "Velocity output" property must also be set to true (AISTSimulatorItem does not have this property because the joint velocities are always output). Note that the plugin has not been tested with other simulator items.
 
 ### Bounding box (BB)
 

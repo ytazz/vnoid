@@ -93,7 +93,7 @@ hvac_field_sections:
 
 各関節の |関節速度 × 関節トルク| を監視します。瞬時値のスパイクを避けるため、時間窓（「POWER平均時間窓」プロパティ、既定値 0.01 秒）での移動平均を取り、全関節の最大値を POWER とします。POWER の最大値が上限（「POWER上限」プロパティ）を超えると、超過した関節名とともにメッセージビューに通知され、HUD の POWER 表示が赤になります。
 
-**POWER の計算を正しく行うためには、シミュレーションから関節トルクが出力されている必要があります**。AISTSimulatorItem・PhysXSimulatorItem・MuJoCoSimulatorItem では、シミュレータアイテムのプロパティ「駆動トルク／力出力」を true にしておいてください。なお、これら以外のシミュレータアイテムでの動作はテストしていません。
+**POWER の計算を正しく行うためには、シミュレーションから関節トルクと関節速度が出力されている必要があります**。AISTSimulatorItem・PhysXSimulatorItem・MuJoCoSimulatorItem では、シミュレータアイテムのプロパティ「駆動トルク／力出力」を true にしておいてください。さらに PhysXSimulatorItem と MuJoCoSimulatorItem では、「速度出力」プロパティも true にしておく必要があります（AISTSimulatorItem では関節速度は常に出力されるため、このプロパティはありません）。なお、これら以外のシミュレータアイテムでの動作はテストしていません。
 
 ### バウンディングボックス（BB）
 
