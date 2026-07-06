@@ -1,0 +1,112 @@
+# Japanese translations for VnoidJudgePlugin.
+# This file is distributed under the same license as the vnoid package.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: VnoidJudgePlugin\n"
+"Report-Msgid-Bugs-To: \n"
+"Language: ja\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "VnoidJudgeItem"
+msgstr "Vnoid判定アイテム"
+
+msgid "VnoidJudgeTargetItem"
+msgstr "Vnoid判定対象アイテム"
+
+msgid "Power limit [W]"
+msgstr "POWER上限 [W]"
+
+msgid "Mass lower limit"
+msgstr "質量の下限値"
+
+msgid "BBox upper limit X"
+msgstr "バウンディングボックスX上限"
+
+msgid "BBox upper limit Y"
+msgstr "バウンディングボックスY上限"
+
+msgid "BBox upper limit Z"
+msgstr "バウンディングボックスZ上限"
+
+msgid "Power average window [s]"
+msgstr "POWER平均時間窓 [s]"
+
+msgid "Font size"
+msgstr "フォントサイズ"
+
+msgid "Text color"
+msgstr "テキスト色"
+
+msgid "Panel transparency"
+msgstr "パネル透明度"
+
+msgid "Show section bounding boxes"
+msgstr "セクションバウンディングボックスの表示"
+
+msgid "OK"
+msgstr "OK"
+
+msgid "BELOW LIMIT"
+msgstr "下限未達"
+
+msgid "VnoidJudgeItem: No VnoidJudgeTargetDevice was found in the simulation bodies."
+msgstr "VnoidJudgeItem: シミュレーション対象のBodyの中にVnoidJudgeTargetDeviceが見つかりませんでした。"
+
+msgid "VnoidJudge: total mass = {0:.3f} kg ({1})"
+msgstr "VnoidJudge: 合計質量 = {0:.3f} kg ({1})"
+
+msgid "VnoidJudge: loaded {0} section bounding boxes."
+msgstr "VnoidJudge: {0} 個のセクションバウンディングボックスを読み込みました。"
+
+msgid "VnoidJudge: the field defines {0} sections, but only the first {1} sections are judged."
+msgstr "VnoidJudge: フィールドに {0} 個のセクションが定義されていますが、最初の {1} 個のみが判定対象となります。"
+
+msgid "VnoidJudge: Section \"{0}\" has been cleared at {1:.2f} [s]."
+msgstr "VnoidJudge: セクション \"{0}\" を時刻 {1:.2f} [s] でクリアしました。"
+
+msgid ""
+"VnoidJudge: bounding-box limit exceeded:\n"
+"Max size = ({0:.3f}, {1:.3f}, {2:.3f}) [m], "
+"Limit = ({3:.3f}, {4:.3f}, {5:.3f}) [m]"
+msgstr ""
+"VnoidJudge: バウンディングボックスの上限を超過しました:\n"
+"最大サイズ = ({0:.3f}, {1:.3f}, {2:.3f}) [m], "
+"上限 = ({3:.3f}, {4:.3f}, {5:.3f}) [m]"
+
+msgid ""
+"VnoidJudge: POWER limit exceeded in {0} (ID {1}):\n"
+"Max power = {2:.1f} [W], Limit = {3:.1f} [W]"
+msgstr ""
+"VnoidJudge: {0} (ID {1}) でPOWERの上限を超過しました:\n"
+"最大POWER = {2:.1f} [W], 上限 = {3:.1f} [W]"
+
+msgid "Save the judgement result to a file"
+msgstr "判定結果をファイルに保存"
+
+msgid "Save the judgement result"
+msgstr "判定結果の保存"
+
+msgid "Save"
+msgstr "保存"
+
+msgid "Cancel"
+msgstr "キャンセル"
+
+msgid "Text files (*.txt)"
+msgstr "テキストファイル (*.txt)"
+
+msgid "Any files (*)"
+msgstr "全てのファイル (*)"
+
+msgid "VnoidJudge: The judgement result cannot be saved because the judgement target is not found."
+msgstr "VnoidJudge: 判定対象が見つからないため、判定結果を保存できません。"
+
+msgid "VnoidJudge: The judgement result has been saved to \"{0}\"."
+msgstr "VnoidJudge: 判定結果を \"{0}\" に保存しました。"
+
+msgid "VnoidJudge: The result file \"{0}\" cannot be opened."
+msgstr "VnoidJudge: 結果ファイル \"{0}\" を開けませんでした。"
