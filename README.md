@@ -66,6 +66,13 @@ When all the above procedure is finished, build and install Choreonoid.
 You will find your project file in [Install directory of Choreonoid]/share/project/.
 Open it on Choreonoid, and run simulation.
 
+## Auto-Judge Plug-in
+
+vnoid comes with a plug-in for Choreonoid that automatically judges the performance of your controller for
+ the athletics class of Humanoid Virtual Athletics Challenge.
+See here ([EN](https://github.com/ytazz/vnoid/tree/main/plugin/judge) [JP](https://github.com/ytazz/vnoid/blob/main/plugin/judge/README-ja.md)) for how to use it.
+
+
 ## How to use vnoid with mujoco
 
 Install [mujoco](https://github.com/google-deepmind/mujoco).
