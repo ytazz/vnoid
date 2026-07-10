@@ -7,8 +7,8 @@
 <iframe width="355" height="200" src="https://www.youtube.com/embed/BR4rxW9pEog" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## ニュース
-[Humanoid Virtual Athletics Challenge 2026 春ミーティング](https://ytazz.github.io/vnoid/hvac2026tutorial.html)
-を開催しました．多数のご参加ありがとうございました．
+
+- [Humanoid Virtual Athletics Challenge 2026 春ミーティング](https://ytazz.github.io/vnoid/hvac2026tutorial.html) を開催しました．多数のご参加ありがとうございました．
 
 ## チャレンジ2026の主旨
 
@@ -25,9 +25,9 @@ HVAC2026ではアスレチック・ダンス・短距離走の3種目で広く�
 
 - 参加チーム募集期間　メインチャレンジの1週間程度前まで
 - シミュレーションログ投稿受付期間　メインチャレンジの1週間程度前まで
-- メインチャレンジ（発表会）　2026年9月1日　日本ロボット学会学術講演会オープンフォーラム内で開催予定
+- メインチャレンジ（発表会）　2026年9月1日　日本ロボット学会学術講演会オープンフォーラム内で開催予定．聴講登録は[講演会のウェブサイト](https://ac.rsj-web.org/2026/openforum/)より行ってください．
 
-## 参加方法
+## チャレンジ参加登録方法
 
 - まず[こちらのフォーム](https://docs.google.com/forms/d/e/1FAIpQLSexp5P2fkdzr79vbRy68NRbuOOPujLzT2T_S4oYt3AKC1nNaw/viewform?usp=dialog)
 より参加チームの登録を行ってください．登録受付後，運営よりシミュレーション結果のアップロード用リンクを通知します．
