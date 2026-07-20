@@ -1,0 +1,33 @@
+format: ChoreonoidBody
+formatVersion: 1.0
+name: Floor
+links:
+  -
+    name: Base
+    translation: [ 0, 0, 0 ]
+    jointType: fixed
+    material: Ground
+    elements:
+      -
+        type: Visual
+        resource:
+          uri: "GroundShorttrack.obj"
+#        type: Shape
+#        geometry: { type: Box, size: [ 25.0, 5.0, 1.0 ] }
+#        appearance: { material: { diffuseColor: [ 1.0, 1.0, 1.0 ] }, texture: { url: "shorttrack.png", repeatS: false, repeatT: false}, textureTransform: { scale: [1, 1] } }
+#        translation: [11.5, 0, -0.5]
+      -
+        type: Collision
+        resource:
+          uri: "GroundShorttrack.stl"
+hvac_field_sections:
+  - name: "Section"
+    pre_stage_bb:
+      - [ -1.0, -2.0, -0.2 ]
+      - [ 0.5, 2.0, 4.0 ]
+    section_bb:
+      - [ 0.5, -2.0, -0.2 ]
+      - [ 20.5, 2.0, 4.0 ]
+    post_stage_bb:
+      - [ 20.5, -2.0, -0.2 ]
+      - [ 22.0, 2.0, 4.0 ]

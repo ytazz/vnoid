@@ -1,0 +1,549 @@
+items:
+  id: 0
+  name: "RootItem"
+  plugin: Base
+  class: RootItem
+  is_builtin_item: true
+  children:
+    -
+      id: 1
+      name: "World"
+      plugin: Body
+      class: WorldItem
+      data:
+        collision_detection: false
+        collision_detector: AISTCollisionDetector
+        default_material_table_file: "${SHARE}/default/materials.yaml"
+      children:
+        -
+          id: 2
+          name: "Floor"
+          plugin: Body
+          class: BodyItem
+          is_checked: true
+          data:
+            file: "${SHARE}/model/field2022/field2022_shorttrack_ver2.body"
+            format: CHOREONOID-BODY
+            root_translation: [ 0, 0, 0 ]
+            root_rotation: [ 1, 0, 0, 0 ]
+            initial_root_translation: [ 0, 0, 0 ]
+            initial_root_rotation: [ 1, 0, 0, 0 ]
+            fix_root: true
+            collision_detection: true
+            lock_location: true
+            scene_sensitive: true
+        -
+          id: 3
+          name: "AISTSimulator"
+          plugin: Body
+          class: AISTSimulatorItem
+          data:
+            time_step: 0.001
+            realtime_sync_mode: compensatory
+            recording: full
+            time_range_mode: unlimited
+            time_length: 180
+            is_active_control_time_range_mode: false
+            output_all_link_positions: true
+            output_device_states: true
+            use_controller_threads: true
+            record_collision_data: false
+            controller_options: ""
+            block_scene_view_edit_mode: false
+            dynamics_mode: "Forward dynamics"
+            integration_mode: runge-kutta
+            gravity: [ 0, 0, -9.80665 ]
+            min_friction_coefficient: 0
+            max_friction_coefficient: 100
+            contact_culling_distance: 0.005
+            contact_culling_depth: 0.05
+            error_criterion: 0.001
+            max_num_iterations: 1000
+            num_collision_detection_threads: 0
+            max_num_contact_points: 4
+            contact_correction_depth: 0.0001
+            contact_correction_velocity_ratio: 1
+          children:
+            -
+              id: 4
+              name: "WorldLogFile"
+              plugin: Body
+              class: WorldLogFileItem
+              data:
+                file: "vnoid_sample_project_log"
+                format: CNOID-WORLD-LOG
+                time_stamp_suffix: false
+                recording_frame_rate: 0
+                live_playback_read_interval_ms: 10
+                live_playback_read_timeout: 0
+            -
+              id: 5
+              name: "GLVisionSimulator"
+              plugin: GLVisionSimulator
+              class: GLVisionSimulatorItem
+              is_checked: true
+              data:
+                enabled: true
+                max_frame_rate: 1000
+                max_latency: 1
+                record_vision_data: false
+                thread_mode: Sensor
+                best_effort: true
+                all_scene_objects: true
+                range_sensor_precision_ratio: 2
+                depth_error: 0
+                background_color: [ 0, 0, 0 ]
+                enable_head_light: true
+                enable_world_light: true
+                enable_additional_lights: true
+                antialiasing: false
+                infinite_far_clip: true
+            -
+              id: 6
+              name: "VnoidJudge"
+              plugin: VnoidJudge
+              class: VnoidJudgeItem
+              is_checked: true
+              data:
+                enabled: true
+                power_average_window: 0.01
+                show_section_bounding_boxes: true
+                hud_font_size: 18
+                hud_text_color: [ 1, 1, 1 ]
+                hud_panel_transparency: 0.4
+        -
+          id: 7
+          name: "Unitychan"
+          plugin: Body
+          class: BodyItem
+          is_selected: true
+          is_checked: true
+          data:
+            file: "${SHARE}/model/sample_robot/sample_robot_ver2.body"
+            format: CHOREONOID-BODY
+            current_base_link: "HIPS"
+            root_translation: [ 0, 0, 0.85 ]
+            root_rotation: [ 1, 0, 0, 0 ]
+            joint_displacements: [
+              0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+              0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+              0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]
+            initial_root_translation: [ 0, 0, 0.85 ]
+            initial_root_rotation: [ 1, 0, 0, 0 ]
+            fix_root: false
+            collision_detection: true
+            lock_location: false
+            scene_sensitive: true
+          children:
+            -
+              id: 8
+              name: "SimpleController"
+              plugin: Body
+              class: SimpleControllerItem
+              data:
+                controller: "vnoid_sample_controller"
+                base_directory: "Controller directory"
+                reloading: false
+                export_symbols: false
+            -
+              id: 9
+              name: "SensorVisualizer"
+              plugin: Body
+              class: SensorVisualizerItem
+              data:
+                sub_items:
+                  -
+                    class: ForceSensorVisualizerItem
+                    name: ForceSensor
+                    is_checked: true
+                    ratio: 0.002
+                    threshold: 0.1
+                    offset: [ 0, 0, 0 ]
+                  -
+                    class: AccelerationSensorVisualizerItem
+                    name: AccelerationSensor
+                    ratio: 0.1
+                    threshold: 0.05
+                    offset: [ 0, 0, -9.8 ]
+                  -
+                    class: RateGyroSensorVisualizerItem
+                    name: RateGyro
+                    ratio: 0.4
+                    threshold: 0.01
+                    offset: [ 0, 0, 0 ]
+            -
+              id: 10
+              name: "BodyTrackingCamera"
+              plugin: Body
+              class: BodySyncCameraItem
+              is_checked: true
+              data:
+                camera_type: Perspective
+                translation: [ -0.0114238, 0.000409167, -0.049927 ]
+                rotation: [ 0.0359549, 0.998975, 0.0275066, 0.728024 ]
+                field_of_view: 0.785398
+                near_clip_distance: 0.04
+                far_clip_distance: 200
+                interactive_viewpoint_change: true
+                target_link: ""
+                parallel_tracking: true
+                local_translation: [ -0.0114238, 0.000409167, -0.899927 ]
+                local_rotation: [ 0.0359549, 0.998975, 0.0275066, 0.728024 ]
+            -
+              id: 11
+              name: "JudgeTarget"
+              plugin: VnoidJudge
+              class: VnoidJudgeTargetItem
+              data:
+                power_limit_w: 1000
+                mass_lower_limit: 30
+                bbox_upper_limit: [ 2, 2, 2 ]
+views:
+  -
+    id: 0
+    name: "Image"
+    plugin: Base
+    class: ImageView
+  -
+    id: 1
+    plugin: Base
+    class: ItemPropertyView
+    mounted: true
+  -
+    id: 2
+    plugin: Base
+    class: ItemTreeView
+    mounted: true
+    state:
+      expanded: [ 1, 3, 7, 8, 9 ]
+  -
+    id: 3
+    plugin: Base
+    class: LocationView
+    state:
+      show_rpy: true
+      unique_rpy: false
+      show_quaternion: false
+      show_rotation_matrix: false
+      coordinate: parent
+  -
+    id: 4
+    plugin: Base
+    class: MessageView
+    mounted: true
+  -
+    id: 5
+    plugin: Base
+    class: MultiSE3SeqGraphView
+    state:
+      mode: view
+      edit_mode: free_line
+      original: true
+      velocity: false
+      acceleration: false
+      limits: true
+      grid: true
+      grid_width: 0.2
+      grid_height: 0.2
+      line_width: 1
+      rulers: false
+      sync: true
+      control_point_step: 1
+      control_point_offset: 0
+      control_point_highlight: false
+      scroll_mode: continuous
+      lower: -10
+      upper: 10
+      visible_elements: [ 0, 1, 2 ]
+  -
+    id: 6
+    plugin: Base
+    class: MultiValueSeqGraphView
+    state:
+      mode: view
+      edit_mode: free_line
+      original: true
+      velocity: false
+      acceleration: false
+      limits: true
+      grid: true
+      grid_width: 0.2
+      grid_height: 0.2
+      line_width: 1
+      rulers: false
+      sync: true
+      control_point_step: 1
+      control_point_offset: 0
+      control_point_highlight: false
+      scroll_mode: continuous
+      lower: -10
+      upper: 10
+  -
+    id: 7
+    plugin: Base
+    class: SceneView
+    mounted: true
+    state:
+      operation_mode: view
+      viewpoint_operation_mode: third_person
+      focus_position: [ 5.00855, 1.935, 6.03097e-07 ]
+      visible_polygon_elements: [ face ]
+      highlighting: false
+      collision_highlighting: false
+      collision_lines: false
+      cameras:
+        -
+          camera: Perspective
+          eye: [ 6.12358, -8.23538, 4.22474 ]
+          direction: [ 0.288481, 0.894643, -0.341164 ]
+          up: [ 0.104701, 0.324701, 0.940004 ]
+        -
+          camera: Orthographic
+          is_current: true
+          ortho_height: 7.78438
+      lighting_mode: normal
+      culling_mode: enabled
+      shading_mode: smooth
+      world_light: true
+      world_light_intensity: 0.5
+      ambient_light: true
+      ambient_light_intensity: 0.3
+      head_light: true
+      head_light_intensity: 0.75
+      world_light_shadow: true
+      shadow_lights:
+        - { index: 0, enabled: false }
+        - { index: 1, enabled: false }
+      background_color: [ 0.5, 0.666667, 0.5 ]
+      line_width: 1
+      point_size: 1
+      field_of_view: 40
+      clip_distances: [ 0.04, 200 ]
+      infinite_far_clip: true
+      floor_grid: false
+      floor_grid_span: 10
+      floor_grid_interval: 0.5
+      xz_grid: false
+      xz_grid_span: 10
+      xz_grid_interval: 0.5
+      yz_grid: false
+      yz_grid_span: 10
+      yz_grid_interval: 0.5
+      xy_grid_color: [ 0.9, 0.9, 0.9 ]
+      xz_grid_color: [ 0.9, 0.9, 0.9 ]
+      yz_grid_color: [ 0.9, 0.9, 0.9 ]
+  -
+    id: 8
+    plugin: Base
+    class: TaskView
+    state:
+      layout_mode: horizontal
+      auto_mode: false
+  -
+    id: 9
+    plugin: Base
+    class: TextEditView
+  -
+    id: 10
+    plugin: Body
+    class: BodyLinkView
+    mounted: true
+    state:
+      showRotationMatrix: false
+  -
+    id: 11
+    plugin: Body
+    class: BodyStateView
+    mounted: true
+  -
+    id: 12
+    plugin: Body
+    class: JointDisplacementView
+    mounted: true
+    state:
+      show_joint_ids: true
+      show_joint_names: false
+      overlap_joint_names: false
+      show_sliders: true
+      show_dials: false
+      show_phases: true
+      limit_ranges: false
+      show_selected_joints: false
+  -
+    id: 13
+    plugin: Body
+    class: JointStateView
+    mounted: true
+  -
+    id: 14
+    plugin: Body
+    class: LinkDeviceListView
+    mounted: true
+    state:
+      element_type: link
+      listing_mode: list
+  -
+    id: 15
+    plugin: Body
+    class: LinkGraphView
+    state:
+      mode: view
+      edit_mode: free_line
+      original: true
+      velocity: false
+      acceleration: false
+      limits: true
+      grid: true
+      grid_width: 0.2
+      grid_height: 0.2
+      line_width: 1
+      rulers: false
+      sync: true
+      control_point_step: 1
+      control_point_offset: 0
+      control_point_highlight: false
+      scroll_mode: continuous
+      lower: -10
+      upper: 10
+      visible_elements: [ 0, 1, 2 ]
+  -
+    id: 16
+    plugin: Body
+    class: LinkPositionView
+    state:
+      coordinate_mode: world
+      preferred_coordinate_mode: base
+      show_rpy: true
+      unique_rpy: false
+      show_quaternion: false
+      show_rotation_matrix: false
+      target_link_type: ik_link
+  -
+    id: 17
+    plugin: Body
+    class: LinkPropertyView
+toolbars:
+  "TimeBar":
+    current_time: 0.538
+    min_time: 0
+    max_time: 30
+    frame_rate: 1000
+    playback_frame_rate: 60
+    idle_loop_driven_mode: false
+    playback_speed_ratio: 1
+    sync_to_ongoing_updates: true
+    auto_expansion: true
+  "LeggedBodyBar":
+    stanceWidth: 0.15
+  "KinematicsBar":
+    forward_kinematics: true
+    inverse_kinematics: true
+    preset_kinematics: true
+    enablePositionDragger: true
+    penetrationBlock: false
+    snapDistance: 0.025
+    penetrationBlockDepth: 0.0005
+    lazyCollisionDetectionMode: true
+  "BodyMotionGenerationBar":
+    auto_generation: false
+    auto_generation_for_new_body: true
+    balancer: false
+    timeScaleRatio: 1
+    preInitialDuration: 1
+    postFinalDuration: 1
+    onlyTimeBarRange: false
+    output_new_body_motion_item: true
+    step_trajectory_adjustment_mode: stealthy
+    stealthyHeightRatioThresh: 2
+    flatLiftingHeight: 0.005
+    flatLandingHeight: 0.005
+    impactReductionHeight: 0.005
+    impactReductionTime: 0.04
+    toe_contact_time: 0.1
+    toe_contact_angle: 10
+    autoZmp: true
+    minZmpTransitionTime: 0.1
+    zmpCenteringTimeThresh: 0.03
+    zmpTimeMarginBeforeLiftingSpin: 0
+    zmpMaxDistanceFromCenter: 0.02
+    allLinkPositions: false
+    lipSyncMix: false
+Body:
+  "BodySelectionManager":
+    current_body_item: 7
+    current_link: "HIPS"
+  "KinematicFaultChecker":
+    checkJointPositions: true
+    angleMargin: 0
+    translationMargin: 0
+    checkJointVelocities: true
+    velocityLimitRatio: 100
+    targetJoints: all
+    checkSelfCollisions: true
+    onlyTimeBarRange: false
+  "OperableSceneBody":
+    scene_bodies:
+      -
+        body_item: 2
+        show_cm: false
+        show_cm_projection: false
+        show_zmp: false
+      -
+        body_item: 7
+        show_cm: false
+        show_cm_projection: false
+        show_zmp: false
+  "SplineFilterDialog":
+    isInputFrameRateSpecified: false
+    inputFrameRate: 200
+    isOutputFrameRateSpecified: false
+    outputFrameRate: 200
+PoseSeq:
+  "FootFixFilterDialog":
+    waist_height_offset: 0
+view_areas:
+  -
+    type: embedded
+    tabs: true
+    contents:
+      type: splitter
+      orientation: horizontal
+      sizes: [ 447, 2107 ]
+      children:
+        -
+          type: splitter
+          orientation: vertical
+          sizes: [ 613, 612 ]
+          children:
+            -
+              type: pane
+              views: [ 2 ]
+            -
+              type: pane
+              views: [ 1, 14 ]
+              current: 1
+        -
+          type: splitter
+          orientation: vertical
+          sizes: [ 874, 351 ]
+          children:
+            -
+              type: pane
+              views: [ 10, 13, 7 ]
+              current: 7
+            -
+              type: pane
+              views: [ 4, 11, 12 ]
+              current: 12
+toolbar_layout:
+  rows:
+    -
+      - { name: "FileBar", x: 0, priority: 0 }
+      - { name: "ScriptBar", x: 48, priority: 0 }
+      - { name: "TimeBar", x: 96, priority: 0 }
+      - { name: "SceneBar", x: 1020, priority: 0 }
+    -
+      - { name: "GraphBar", x: 0, priority: 0 }
+      - { name: "SimulationBar", x: 110, priority: 0 }
+      - { name: "BodyBar", x: 313, priority: 0 }
+      - { name: "KinematicsBar", x: 581, priority: 0 }
