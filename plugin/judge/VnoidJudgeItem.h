@@ -62,6 +62,8 @@ public:
     virtual bool initializeSimulation(SimulatorItem* simulatorItem) override;
     virtual void finalizeSimulation() override;
 
+    virtual bool isApplicableToLogPlayback() const override;
+
     virtual SgNode* getScene() override;
 
     void setPowerAverageWindow(double t);
