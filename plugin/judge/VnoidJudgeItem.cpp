@@ -295,6 +295,15 @@ void VnoidJudgeItem::finalizeSimulation()
 }
 
 
+bool VnoidJudgeItem::isApplicableToLogPlayback() const
+{
+    // The judgement works during log playback as well by observing the
+    // VnoidJudgeTargetDevice states restored from the log, so this item is
+    // retained in the projects saved as log playback archives.
+    return true;
+}
+
+
 void VnoidJudgeItem::collectSectionBBs(SimulatorItem* simulatorItem)
 {
     for(auto* simBody : simulatorItem->simulationBodies()){
