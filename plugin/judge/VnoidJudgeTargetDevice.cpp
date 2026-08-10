@@ -62,7 +62,12 @@ void VnoidJudgeTargetDevice::copyStateFrom(const DeviceState& other)
 }
 
 
+#if CNOID_INTERNAL_VERSION >= 8
+DeviceState* VnoidJudgeTargetDevice::cloneState
+(DeviceState* /* existingClone */, std::vector<std::function<void()>>* /* completionFunctions */) const
+#else
 DeviceState* VnoidJudgeTargetDevice::cloneState(DeviceState* /* existingClone */) const
+#endif
 {
     return new VnoidJudgeTargetDevice(*this, true);
 }

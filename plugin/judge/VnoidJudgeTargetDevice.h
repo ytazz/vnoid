@@ -2,6 +2,7 @@
 #define CNOID_VNOID_JUDGE_TARGET_DEVICE_H
 
 #include <cnoid/Device>
+#include <cnoid/Config>
 #include <cstdint>
 
 namespace cnoid {
@@ -60,7 +61,16 @@ public:
     virtual bool copyFrom(const Device* other) override;
     void copyStateFrom(const VnoidJudgeTargetDevice& other);
     virtual void copyStateFrom(const DeviceState& other) override;
+    // The completionFunctions argument was added to cloneState in the
+    // internal version 8 of Choreonoid. This device shares no data between
+    // its clones, so it just ignores the argument.
+#if CNOID_INTERNAL_VERSION >= 8
+    virtual DeviceState* cloneState(
+        DeviceState* existingClone,
+        std::vector<std::function<void()>>* completionFunctions) const override;
+#else
     virtual DeviceState* cloneState(DeviceState* existingClone = nullptr) const override;
+#endif
     virtual void forEachActualType(std::function<bool(const std::type_info& type)> func) override;
     virtual int stateSize() const override;
     virtual const double* readState(const double* buf, int size) override;
