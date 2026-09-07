@@ -1,5 +1,12 @@
 ## Athletics Results
 
+### 2026
+
+|  Team name              | Robot name     | Date of submission | Qualification | Sections Cleared     | Bonus | Score | Simulation time   | Realtime-factor| Comment                   | Materials |
+| ----                    | ----           | ----               | ----          | ----                 | ----  | ----  | ----              | ----           | ----                      | ----      |
+| Wa1kers                 | unitychan      | 2026/08/31         |               | 1st(Right)           |       |       |                   |                |                           | [log](https://drive.google.com/file/d/1183eVsX7CiCtZRMQRFblMznmenncILUq/view?usp=sharing)          |
+| Universitas Gadjah Mada | ESR V2         | 2026/09/05         |               | 1st(Left) 2nd(Left)  |       |       |                   |                |                           | [log](https://drive.google.com/file/d/1XNeT7jNQ7WcHQ4xJOHyc8Vm3CrHnVplM/view?usp=sharing) [video1](https://drive.google.com/file/d/1g8tzLbP_Q5TWXb15DnYlulZ8_-VMHvxz/view?usp=sharing) [video2](https://drive.google.com/file/d/17kDpPPGcZ0xZwMif4I1bBLkKq3USoeyn/view?usp=sharing) [slides](https://drive.google.com/file/d/17kDpPPGcZ0xZwMif4I1bBLkKq3USoeyn/view?usp=sharing) |
+
 ### 2025
 
 |  Team name       | Robot name     | Date of submission | Date of qualification | Sections Cleared     | Bonus | Score | Simulation time   | Realtime-factor| Comment                   | Materials |
