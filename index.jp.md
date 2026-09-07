@@ -85,11 +85,11 @@ HVAC2026ではアスレチック・ダンス・短距離走の3種目で広く�
 -->
 <img src="fig/field_shorttrack2022.png" width="50%" alt="Short-track Field">
 
-<!--
 ## 競技結果
 - [アスレチック](https://ytazz.github.io/vnoid/results_athletics.html)
 - [ダンス](https://ytazz.github.io/vnoid/results_dance.html)
 - [短距離走](https://ytazz.github.io/vnoid/results_shorttrack.html)
+<!--
 -->
 
 ## ルールブック
