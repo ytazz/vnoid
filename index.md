@@ -83,7 +83,7 @@ Performance is evaluated by elapsed simluation time while the robot passes the s
 ## Results
 - [Athletics](https://ytazz.github.io/vnoid/results_athletics.html)
 - [Dance](https://ytazz.github.io/vnoid/results_dance.html)
-- [Sprint](https://ytazz.github.io/vnoid/results_shorttrack.html)
+- [Sprint](https://ytazz.github.io/vnoid/results_sprint.html)
 <!--
 -->
 
