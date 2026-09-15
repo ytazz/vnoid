@@ -9,6 +9,8 @@
 ## ニュース
 
 - [Humanoid Virtual Athletics Challenge 2026 春ミーティング](https://ytazz.github.io/vnoid/hvac2026tutorial.html) を開催しました．多数のご参加ありがとうございました．
+- [Humanoid Virtual Athletics Challenge 2026 メインチャレンジ](https://ac.rsj-web.org/2026/openforum/#of13)を開催しました．
+パフォーマンスを見せてくれた参加チームの皆様，ありがとうございました！　中岡委員からのショートプレゼンスライドは[こちら](https://drive.google.com/file/d/1aJSm6zJKwmnsCeN_SkthWeyIvIQrYfdX/view?usp=sharing)．
 
 ## チャレンジ2026の主旨
 
